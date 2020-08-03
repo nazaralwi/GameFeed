@@ -10,7 +10,7 @@ import UIKit
 
 class GameTableViewCell: UITableViewCell {
 
-    @IBOutlet weak var imageGame: UIImageView!
+    @IBOutlet weak var photoGame: UIImageView!
     @IBOutlet weak var titleGame: UILabel!
     @IBOutlet weak var rateGame: UILabel!
     @IBOutlet weak var descriptionGame: UILabel!

@@ -14,8 +14,32 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+        
+        gameTableView.dataSource = self
+        
+        gameTableView.register(UINib(nibName: "GameTableViewCell", bundle: nil), forCellReuseIdentifier: "GameCell")
     }
-
-
 }
 
+extension ViewController: UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return games.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        if let cell = tableView.dequeueReusableCell(withIdentifier: "GameCell", for: indexPath) as? GameTableViewCell {
+            
+            let game = games[indexPath.row]
+            cell.titleGame.text = game.title
+            cell.descriptionGame.text = game.description
+            cell.rateGame.text = game.rate
+            cell.photoGame.image = game.photo
+            
+            cell.photoGame.layer.cornerRadius = cell.photoGame.frame.height / 2
+            cell.photoGame.clipsToBounds = true
+            return cell
+        } else {
+            return UITableViewCell()
+        }
+    }
+}

@@ -60,7 +60,7 @@
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
                 <outlet property="descriptionGame" destination="qek-HP-bVc" id="Flo-gg-P7L"/>
-                <outlet property="imageGame" destination="oSG-Wf-Lqb" id="utO-ev-qHl"/>
+                <outlet property="photoGame" destination="oSG-Wf-Lqb" id="utO-ev-qHl"/>
                 <outlet property="rateGame" destination="eIf-a1-iPo" id="0RD-vW-QzQ"/>
                 <outlet property="titleGame" destination="Fn6-tj-eJA" id="V24-t9-nTS"/>
             </connections>
