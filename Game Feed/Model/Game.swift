@@ -6,16 +6,18 @@
 //  Copyright © 2020 Dicoding Indonesia. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 class Game {
     let title: String
     let rate: String
     let description: String
+    let photo: UIImage
     
-    init(title: String, rate: String, description: String) {
+    init(title: String, rate: String, description: String, photo: UIImage) {
         self.title = title
         self.rate = rate
         self.description = description
+        self.photo = photo
     }
 }
