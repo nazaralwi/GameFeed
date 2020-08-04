@@ -16,7 +16,7 @@ class ViewController: UIViewController {
         // Do any additional setup after loading the view.
         
         gameTableView.dataSource = self
-        
+        gameTableView.delegate = self
         gameTableView.register(UINib(nibName: "GameTableViewCell", bundle: nil), forCellReuseIdentifier: "GameCell")
     }
 }
@@ -41,5 +41,17 @@ extension ViewController: UITableViewDataSource {
         } else {
             return UITableViewCell()
         }
+    }
+}
+
+extension ViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    
+//        let detail = DetailViewController(nibName: "DetailViewController", bundle: nil)
+        let detail = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "DetailGameViewControllerScene") as! DetailGameViewController
+        
+        detail.game = games[indexPath.row]
+        
+        self.navigationController?.pushViewController(detail, animated: true)
     }
 }
