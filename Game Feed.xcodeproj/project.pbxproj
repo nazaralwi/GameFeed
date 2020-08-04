@@ -10,6 +10,11 @@
 		3D19822724D7927700E3AD85 /* DummyGames.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D19822624D7927700E3AD85 /* DummyGames.swift */; };
 		3D19822924D792CE00E3AD85 /* Game.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D19822824D792CE00E3AD85 /* Game.swift */; };
 		3D19823524D7F6B000E3AD85 /* DetailGameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D19823424D7F6B000E3AD85 /* DetailGameViewController.swift */; };
+		3D66CE2E24D8F40200E90636 /* MyProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D66CE2D24D8F40200E90636 /* MyProfileViewController.swift */; };
+		3D66CE3024D8F42300E90636 /* TopGameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D66CE2F24D8F42300E90636 /* TopGameViewController.swift */; };
+		3D66CE3224D8F43700E90636 /* NewGameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D66CE3124D8F43700E90636 /* NewGameViewController.swift */; };
+		3D66CE3424D9221900E90636 /* TopGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D66CE3324D9221900E90636 /* TopGame.swift */; };
+		3D66CE3624D9223700E90636 /* NewGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D66CE3524D9223700E90636 /* NewGame.swift */; };
 		3DDCDC1224D57B790020AB8E /* GameTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DDCDC1024D57B790020AB8E /* GameTableViewCell.swift */; };
 		3DDCDC1324D57B790020AB8E /* GameTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3DDCDC1124D57B790020AB8E /* GameTableViewCell.xib */; };
 		3DF8FD5524D5661C00E64116 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DF8FD5424D5661C00E64116 /* AppDelegate.swift */; };
@@ -43,6 +48,11 @@
 		3D19822624D7927700E3AD85 /* DummyGames.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DummyGames.swift; sourceTree = "<group>"; };
 		3D19822824D792CE00E3AD85 /* Game.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Game.swift; sourceTree = "<group>"; };
 		3D19823424D7F6B000E3AD85 /* DetailGameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailGameViewController.swift; sourceTree = "<group>"; };
+		3D66CE2D24D8F40200E90636 /* MyProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyProfileViewController.swift; sourceTree = "<group>"; };
+		3D66CE2F24D8F42300E90636 /* TopGameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopGameViewController.swift; sourceTree = "<group>"; };
+		3D66CE3124D8F43700E90636 /* NewGameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewGameViewController.swift; sourceTree = "<group>"; };
+		3D66CE3324D9221900E90636 /* TopGame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopGame.swift; sourceTree = "<group>"; };
+		3D66CE3524D9223700E90636 /* NewGame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewGame.swift; sourceTree = "<group>"; };
 		3DDCDC1024D57B790020AB8E /* GameTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameTableViewCell.swift; sourceTree = "<group>"; };
 		3DDCDC1124D57B790020AB8E /* GameTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GameTableViewCell.xib; sourceTree = "<group>"; };
 		3DF8FD5124D5661C00E64116 /* Game Feed.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Game Feed.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -152,6 +162,8 @@
 			children = (
 				3D19822624D7927700E3AD85 /* DummyGames.swift */,
 				3D19822824D792CE00E3AD85 /* Game.swift */,
+				3D66CE3324D9221900E90636 /* TopGame.swift */,
+				3D66CE3524D9223700E90636 /* NewGame.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -162,6 +174,9 @@
 				3DDCDC1024D57B790020AB8E /* GameTableViewCell.swift */,
 				3DF8FD5824D5661C00E64116 /* ViewController.swift */,
 				3D19823424D7F6B000E3AD85 /* DetailGameViewController.swift */,
+				3D66CE2D24D8F40200E90636 /* MyProfileViewController.swift */,
+				3D66CE2F24D8F42300E90636 /* TopGameViewController.swift */,
+				3D66CE3124D8F43700E90636 /* NewGameViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -307,13 +322,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3D66CE3624D9223700E90636 /* NewGame.swift in Sources */,
 				3DF8FD5924D5661C00E64116 /* ViewController.swift in Sources */,
 				3D19822924D792CE00E3AD85 /* Game.swift in Sources */,
 				3DF8FD5524D5661C00E64116 /* AppDelegate.swift in Sources */,
 				3DF8FD5724D5661C00E64116 /* SceneDelegate.swift in Sources */,
 				3D19822724D7927700E3AD85 /* DummyGames.swift in Sources */,
 				3D19823524D7F6B000E3AD85 /* DetailGameViewController.swift in Sources */,
+				3D66CE2E24D8F40200E90636 /* MyProfileViewController.swift in Sources */,
+				3D66CE3224D8F43700E90636 /* NewGameViewController.swift in Sources */,
 				3DDCDC1224D57B790020AB8E /* GameTableViewCell.swift in Sources */,
+				3D66CE3024D8F42300E90636 /* TopGameViewController.swift in Sources */,
+				3D66CE3424D9221900E90636 /* TopGame.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

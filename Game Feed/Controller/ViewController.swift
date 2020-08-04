@@ -10,6 +10,12 @@ import UIKit
 
 class ViewController: UIViewController {
     @IBOutlet weak var gameTableView: UITableView!
+    @IBOutlet weak var gameSearchBar: UISearchBar!
+    @IBOutlet var searchBarButtonItem: UIBarButtonItem!
+    
+    
+//    var searchGame = [String]()
+//    var searching = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -55,3 +61,9 @@ extension ViewController: UITableViewDelegate {
         self.navigationController?.pushViewController(detail, animated: true)
     }
 }
+
+//extension ViewController: UISearchBarDelegate {
+//    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+//        searchGame = games.filter({$0.prefix(searchText.count) == searchText})
+//    }
+//}
