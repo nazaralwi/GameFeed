@@ -29,6 +29,7 @@ class RAWGClient {
         let task = URLSession.shared.dataTask(with: Endpoints.getGameList.url) { (data, response, error) in
             guard let data = data else {
                 completion([], error)
+                print(error)
                 return
             }
             
@@ -39,6 +40,7 @@ class RAWGClient {
                 print(responseObject)
             } catch {
                 completion([], error)
+                print(error)
             }
         }
         task.resume()
