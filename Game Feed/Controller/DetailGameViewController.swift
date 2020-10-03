@@ -20,12 +20,12 @@ class DetailGameViewController: UIViewController {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        if let result = game {
-            photoGameDetail.image = game?.photo
-            titleGameDetail.text = game?.title
-            rateGameDetail.text = game?.rate
-            descriptionGameDetail.text = game?.description
-        }
+//        if let result = game {
+//            photoGameDetail.image = game?.photo
+//            titleGameDetail.text = game?.title
+//            rateGameDetail.text = game?.rate
+//            descriptionGameDetail.text = game?.description
+//        }
     }
     
 

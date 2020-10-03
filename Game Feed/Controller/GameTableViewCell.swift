@@ -12,8 +12,6 @@ class GameTableViewCell: UITableViewCell {
 
     @IBOutlet weak var photoGame: UIImageView!
     @IBOutlet weak var titleGame: UILabel!
-    @IBOutlet weak var rateGame: UILabel!
-    @IBOutlet weak var descriptionGame: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()
