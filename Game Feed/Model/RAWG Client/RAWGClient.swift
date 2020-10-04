@@ -13,6 +13,7 @@ class RAWGClient {
         static let base = "https://api.rawg.io/api"
         
         case getGameList
+        case backgroundImageURL(String)
         
         var url: URL {
             return URL(string: stringValue)!
@@ -21,6 +22,7 @@ class RAWGClient {
         var stringValue: String {
             switch self {
             case .getGameList: return Endpoints.base + "/games"
+            case .backgroundImageURL(let backgroundPath): return backgroundPath
             }
         }
     }
@@ -29,7 +31,6 @@ class RAWGClient {
         let task = URLSession.shared.dataTask(with: Endpoints.getGameList.url) { (data, response, error) in
             guard let data = data else {
                 completion([], error)
-                print(error)
                 return
             }
             
@@ -41,6 +42,15 @@ class RAWGClient {
             } catch {
                 completion([], error)
                 print(error)
+            }
+        }
+        task.resume()
+    }
+    
+    class func downloadBackground(backgroundPath: String, completion: @escaping (Data?, Error?) -> Void) {
+        let task = URLSession.shared.dataTask(with: Endpoints.backgroundImageURL(backgroundPath).url) { (data, response, error) in
+            DispatchQueue.main.async {
+                completion(data, error)
             }
         }
         task.resume()

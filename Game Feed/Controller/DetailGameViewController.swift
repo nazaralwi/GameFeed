@@ -15,17 +15,22 @@ class DetailGameViewController: UIViewController {
     @IBOutlet weak var rateGameDetail: UILabel!
     @IBOutlet weak var descriptionGameDetail: UILabel!
     
-    var game: Game?
+    var game: Game!
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-//        if let result = game {
-//            photoGameDetail.image = game?.photo
-//            titleGameDetail.text = game?.title
-//            rateGameDetail.text = game?.rate
-//            descriptionGameDetail.text = game?.description
-//        }
+        if let backgroundPath = game.backgroundImage {
+            RAWGClient.downloadBackground(backgroundPath: backgroundPath) { (data, error) in
+                guard let data = data else {
+                    return
+                }
+                
+                let image = UIImage(data: data)
+                self.photoGameDetail.image = image
+            }
+        }
+        titleGameDetail.text = game.name
     }
     
 
