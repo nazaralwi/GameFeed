@@ -14,6 +14,7 @@ class ViewController: UIViewController {
     @IBOutlet var searchBarButtonItem: UIBarButtonItem!
     
     var selectedIndex = 0
+    var games = [Game]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -42,6 +43,28 @@ class ViewController: UIViewController {
     }
 }
 
+extension ViewController: UISearchBarDelegate {
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        RAWGClient.search(query: searchText) { (games, error) in
+            self.games = games
+            self.gameTableView.reloadData()
+            print("Search: \(self.games)")
+        }
+    }
+    
+    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+        searchBar.showsCancelButton = true
+    }
+    
+    func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
+        searchBar.showsCancelButton = false
+    }
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.endEditing(true)
+    }
+}
+
 extension ViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return GameModel.gameList.count
@@ -64,8 +87,6 @@ extension ViewController: UITableViewDataSource {
                     cell.setNeedsLayout()
                 }
             }
-//            cell.photoGame.layer.cornerRadius = cell.photoGame.frame.height / 2
-//            cell.photoGame.clipsToBounds = true
             return cell
         } else {
             return UITableViewCell()
@@ -78,8 +99,5 @@ extension ViewController: UITableViewDelegate {
         selectedIndex = indexPath.row
         performSegue(withIdentifier: "showDetail", sender: nil)
         tableView.deselectRow(at: indexPath, animated: true)
-//        let detail = DetailGameViewController(nibName: "DetailGameViewController", bundle: nil)
-//        detail.game = GameModel.gameList[indexPath.row]
-//        self.navigationController?.pushViewController(detail, animated: true)
     }
 }

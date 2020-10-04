@@ -14,6 +14,7 @@ class RAWGClient {
         
         case getGameList
         case backgroundImageURL(String)
+        case search(String)
         
         var url: URL {
             return URL(string: stringValue)!
@@ -23,6 +24,7 @@ class RAWGClient {
             switch self {
             case .getGameList: return Endpoints.base + "/games"
             case .backgroundImageURL(let backgroundPath): return backgroundPath
+            case .search(let query): return Endpoints.base + "/games?search=\(query.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? "")"
             }
         }
     }
@@ -44,6 +46,25 @@ class RAWGClient {
                 print(error)
             }
         }
+        task.resume()
+    }
+    
+    class func search(query: String, completion: @escaping ([Game], Error?) -> Void) {
+        let task = URLSession.shared.dataTask(with: Endpoints.search(query).url) { (data, response, error) in
+            guard let data = data else {
+                completion([], error)
+                return
+            }
+            
+            let decoder = JSONDecoder()
+            do {
+                let responseObject = try decoder.decode(GameResult.self, from: data)
+                completion(responseObject.results, nil)
+            } catch {
+                completion([], error)
+            }
+        }
+        
         task.resume()
     }
     
