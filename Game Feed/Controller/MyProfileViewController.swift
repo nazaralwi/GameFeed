@@ -7,24 +7,33 @@
 //
 
 import UIKit
+import MessageUI
 
-class MyProfileViewController: UIViewController {
-
+class MyProfileViewController: UIViewController, MFMailComposeViewControllerDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    @IBAction func sendEmail(_ sender: Any) {
+        let mailComposeViewController = configureMailComposer()
+        if MFMailComposeViewController.canSendMail() {
+           self.present(mailComposeViewController, animated: true, completion: nil)
+        } else {
+           print("Can't send email")
+        }
     }
-    */
+    
+    func configureMailComposer() -> MFMailComposeViewController {
+        let mailComposeVC = MFMailComposeViewController()
+        mailComposeVC.mailComposeDelegate = self
+        mailComposeVC.setToRecipients(["alwinazar75@gmail.com"])
+        mailComposeVC.setSubject("Review Your Code")
+        mailComposeVC.setMessageBody("Hi, Nazar", isHTML: false)
+        return mailComposeVC
+    }
 
+    func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
+        controller.dismiss(animated: true, completion: nil)
+    }
 }

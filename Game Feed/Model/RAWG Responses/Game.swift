@@ -10,18 +10,22 @@ import Foundation
 
 struct Game: Codable {
     let id: Int
-    let slug: String
     let name: String
     let released: String
-    let tba: Bool
+    let rating: Double
     let backgroundImage: String?
+    let genres: [Genre]
+    let platforms: [Platforms]
+    let metacritic: Int
     
     enum CodingKeys: String, CodingKey {
         case id
-        case slug
         case name
         case released
-        case tba
+        case rating
         case backgroundImage = "background_image"
+        case genres
+        case platforms
+        case metacritic
     }
 }

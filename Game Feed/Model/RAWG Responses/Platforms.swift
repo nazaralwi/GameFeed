@@ -11,11 +11,9 @@ import Foundation
 struct Platforms: Codable {
     let platform: Platform
     let releasedAt: String
-    let requirements: Requirement
     
     enum CodingKeys: String, CodingKey {
         case platform
         case releasedAt = "released_at"
-        case requirements
     }
 }

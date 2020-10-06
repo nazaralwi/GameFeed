@@ -12,8 +12,13 @@ class DetailGameViewController: UIViewController {
 
     @IBOutlet weak var photoGameDetail: UIImageView!
     @IBOutlet weak var titleGameDetail: UILabel!
-    @IBOutlet weak var rateGameDetail: UILabel!
-    @IBOutlet weak var descriptionGameDetail: UILabel!
+    @IBOutlet weak var ratingGameDetail: UILabel!
+    @IBOutlet var overviewGameDetail: UILabel!
+    @IBOutlet var platformGameDetail: UILabel!
+    @IBOutlet var releaseGameDetail: UILabel!
+    @IBOutlet var genreGameDetail: UILabel!
+    @IBOutlet var developerGameDetail: UILabel!
+    @IBOutlet var metacriticGameDetail: UILabel!
     
     var game: Game!
     override func viewDidLoad() {
@@ -31,6 +36,17 @@ class DetailGameViewController: UIViewController {
             }
         }
         titleGameDetail.text = game.name
+        ratingGameDetail.text = String(format: "%.2f", game.rating)
+        
+        var genres = [String]()
+        for genre in game.genres {
+            let genreName = genre.name
+            genres.append(genreName)
+        }
+        
+        genreGameDetail.text = genres.joined(separator: ", ")
+        releaseGameDetail.text = game.released
+        metacriticGameDetail.text = String(game.metacritic)
     }
     
 
