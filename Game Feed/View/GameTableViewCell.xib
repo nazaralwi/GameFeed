@@ -37,7 +37,7 @@
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="GTA" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bRi-JW-Zvh">
-                                <rect key="frame" x="8" y="237" width="42" height="28"/>
+                                <rect key="frame" x="8" y="237" width="370" height="28"/>
                                 <fontDescription key="fontDescription" name="Poppins-Bold" family="Poppins" pointSize="20"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
@@ -97,6 +97,7 @@
                             <constraint firstItem="udW-OP-Nbg" firstAttribute="baseline" secondItem="4Ad-B3-1jr" secondAttribute="firstBaseline" constant="10" id="TIH-eo-IE5"/>
                             <constraint firstAttribute="width" constant="394" id="dKF-hc-mjW"/>
                             <constraint firstItem="bRi-JW-Zvh" firstAttribute="top" secondItem="udW-OP-Nbg" secondAttribute="bottom" constant="12" id="dNN-Xu-zRP"/>
+                            <constraint firstAttribute="trailing" secondItem="bRi-JW-Zvh" secondAttribute="trailing" constant="16" id="ghK-ry-HPp"/>
                             <constraint firstItem="udW-OP-Nbg" firstAttribute="top" secondItem="aDb-xb-tP6" secondAttribute="top" id="i9Q-dA-Spa"/>
                             <constraint firstItem="90r-kF-KxK" firstAttribute="top" secondItem="R2e-vX-ZZV" secondAttribute="bottom" constant="8" id="nwz-eI-s10"/>
                             <constraint firstAttribute="trailing" secondItem="B24-NX-aVU" secondAttribute="trailing" constant="8" id="riM-Du-i4s"/>

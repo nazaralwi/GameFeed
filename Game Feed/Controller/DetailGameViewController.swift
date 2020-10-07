@@ -21,10 +21,14 @@ class DetailGameViewController: UIViewController {
     @IBOutlet var metacriticGameDetail: UILabel!
     
     var game: Game!
+//    var gameDetail: GameDetail?
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
+//        RAWGClient.getGameDetail(id: game.id) { (gameDetail, error) in
+//            gameDetail = gameDetail
+//        }
+        
         if let backgroundPath = game.backgroundImage {
             RAWGClient.downloadBackground(backgroundPath: backgroundPath) { (data, error) in
                 guard let data = data else {
@@ -44,20 +48,10 @@ class DetailGameViewController: UIViewController {
             genres.append(genreName)
         }
         
+        let metacritic = game.metacritic ?? 0
+        
         genreGameDetail.text = genres.joined(separator: ", ")
         releaseGameDetail.text = game.released
-        metacriticGameDetail.text = String(game.metacritic)
+        metacriticGameDetail.text = String(metacritic)
     }
-    
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }

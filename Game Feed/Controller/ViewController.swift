@@ -98,10 +98,21 @@ extension ViewController: UITableViewDataSource {
                 genres.append(genreName)
             }
             
+            let dateFormatterGet = DateFormatter()
+            dateFormatterGet.dateFormat = "yyyy-MM-dd"
+
+            let dateFormatterPrint = DateFormatter()
+            dateFormatterPrint.dateFormat = "MMM dd, yyyy"
+
+            if let date = dateFormatterGet.date(from: game.released) {
+                cell.releaseGame.text = dateFormatterPrint.string(from: date)
+            } else {
+               print("There was an error decoding the string")
+            }
+            
             cell.genreGame.text = genres.joined(separator: ", ")
             
             cell.titleGame.text = game.name
-            cell.releaseGame.text = game.released
             
             cell.ratingGame.text = String(format: "%.2f", game.rating)
             

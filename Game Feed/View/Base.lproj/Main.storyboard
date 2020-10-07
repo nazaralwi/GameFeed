@@ -273,7 +273,10 @@
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="240"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Cyberpunk" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xvC-jW-Eh7">
-                                        <rect key="frame" x="16" y="196" width="115.5" height="28"/>
+                                        <rect key="frame" x="16" y="196" width="245" height="28"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="245" id="taB-ev-qby"/>
+                                        </constraints>
                                         <fontDescription key="fontDescription" name="Poppins-Bold" family="Poppins" pointSize="20"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
@@ -295,14 +298,17 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                         </subviews>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="61" id="4UN-u4-8hH"/>
+                                        </constraints>
                                     </stackView>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.40000000000000002" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="240" id="Gwj-UK-KFh"/>
                                     <constraint firstAttribute="bottom" secondItem="xvC-jW-Eh7" secondAttribute="bottom" constant="16" id="Kdg-eB-Lne"/>
+                                    <constraint firstItem="cHc-pd-scf" firstAttribute="centerY" secondItem="xvC-jW-Eh7" secondAttribute="centerY" id="RSb-D9-L5F"/>
                                     <constraint firstItem="xvC-jW-Eh7" firstAttribute="leading" secondItem="9rb-ZI-QSh" secondAttribute="leading" constant="16" id="XqE-sS-FFy"/>
-                                    <constraint firstItem="cHc-pd-scf" firstAttribute="centerY" secondItem="xvC-jW-Eh7" secondAttribute="centerY" id="kop-Sw-EZF"/>
                                     <constraint firstAttribute="trailing" secondItem="cHc-pd-scf" secondAttribute="trailing" constant="16" id="tnc-ic-Sb3"/>
                                 </constraints>
                             </view>

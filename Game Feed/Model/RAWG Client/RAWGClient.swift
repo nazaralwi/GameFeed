@@ -9,63 +9,61 @@
 import Foundation
 
 class RAWGClient {
-    enum Endpoints {
-        static let base = "https://api.rawg.io/api"
-        
-        case getGameList
-        case backgroundImageURL(String)
-        case search(String)
-        
-        var url: URL {
-            return URL(string: stringValue)!
-        }
-        
-        var stringValue: String {
-            switch self {
-            case .getGameList: return Endpoints.base + "/games"
-            case .backgroundImageURL(let backgroundPath): return backgroundPath
-            case .search(let query): return Endpoints.base + "/games?search=\(query.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? "")"
+    @discardableResult class func taskForGETRequest<ResponseType: Decodable>(url: URL, response: ResponseType.Type, completion: @escaping (ResponseType?, Error?) -> Void) -> URLSessionTask {
+        let task = URLSession.shared.dataTask(with: url) { (data, response, error) in
+            guard let data = data else {
+                DispatchQueue.main.async {
+                    completion(nil, error)
+                }
+                return
+            }
+            
+            let decoder = JSONDecoder()
+            do {
+                let responseObject = try decoder.decode(ResponseType.self, from: data)
+                DispatchQueue.main.async {
+                    completion(responseObject, nil)
+                }
+            } catch {
+                DispatchQueue.main.async {
+                    completion(nil, error)
+                }
             }
         }
+        
+        task.resume()
+        
+        return task
     }
     
     class func getGameList(completion: @escaping ([Game], Error?) -> Void) {
-        let task = URLSession.shared.dataTask(with: Endpoints.getGameList.url) { (data, response, error) in
-            guard let data = data else {
+        taskForGETRequest(url: Endpoints.getGameList.url, response: GameResult.self) { (response, error) in
+            if let response = response {
+                completion(response.results, nil)
+            } else {
                 completion([], error)
-                return
-            }
-            
-            let decoder = JSONDecoder()
-            do {
-                let responseObject = try decoder.decode(GameResult.self, from: data)
-                completion(responseObject.results, nil)
-                print(responseObject)
-            } catch {
-                completion([], error)
-                print(error)
             }
         }
-        task.resume()
     }
     
     class func search(query: String, completion: @escaping ([Game], Error?) -> Void) {
-        let task = URLSession.shared.dataTask(with: Endpoints.search(query).url) { (data, response, error) in
-            guard let data = data else {
-                completion([], error)
-                return
-            }
-            
-            let decoder = JSONDecoder()
-            do {
-                let responseObject = try decoder.decode(GameResult.self, from: data)
-                completion(responseObject.results, nil)
-            } catch {
+        taskForGETRequest(url: Endpoints.search(query).url, response: GameResult.self) { (response, error) in
+            if let response = response {
+                completion(response.results, error)
+            } else {
                 completion([], error)
             }
         }
-        
-        task.resume()
+    }
+    
+    class func getGameDetail(id: Int, completion: @escaping (GameDetail?, Error?) -> Void) {
+        taskForGETRequest(url: Endpoints.getGameDetail(id).url, response: GameDetail.self) { (response, error) in
+            if let response = response {
+                completion(response, nil)
+            } else {
+                completion(nil, error)
+            }
+        }
     }
     
     class func downloadBackground(backgroundPath: String, completion: @escaping (Data?, Error?) -> Void) {
