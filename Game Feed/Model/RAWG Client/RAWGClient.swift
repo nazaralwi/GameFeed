@@ -1,11 +1,3 @@
-//
-//  RAWG Client.swift
-//  Game Feed
-//
-//  Created by M Nazar Alwi on 15/09/20.
-//  Copyright © 2020 Dicoding Indonesia. All rights reserved.
-//
-
 import Foundation
 
 class RAWGClient {

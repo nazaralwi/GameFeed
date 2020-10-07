@@ -1,11 +1,3 @@
-//
-//  ViewController.swift
-//  Game Feed
-//
-//  Created by M Nazar Alwi on 01/08/20.
-//  Copyright © 2020 Dicoding Indonesia. All rights reserved.
-//
-
 import UIKit
 
 class ViewController: UIViewController {

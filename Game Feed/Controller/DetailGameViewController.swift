@@ -1,11 +1,3 @@
-//
-//  DetailGameViewController.swift
-//  Game Feed
-//
-//  Created by M Nazar Alwi on 03/08/20.
-//  Copyright © 2020 Dicoding Indonesia. All rights reserved.
-//
-
 import UIKit
 
 class DetailGameViewController: UIViewController {
@@ -21,13 +13,8 @@ class DetailGameViewController: UIViewController {
     @IBOutlet var metacriticGameDetail: UILabel!
     
     var game: Game!
-//    var gameDetail: GameDetail?
     override func viewDidLoad() {
         super.viewDidLoad()
-
-//        RAWGClient.getGameDetail(id: game.id) { (gameDetail, error) in
-//            gameDetail = gameDetail
-//        }
         
         if let backgroundPath = game.backgroundImage {
             RAWGClient.downloadBackground(backgroundPath: backgroundPath) { (data, error) in
