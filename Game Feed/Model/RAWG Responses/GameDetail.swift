@@ -16,12 +16,25 @@ struct GameDetail: Codable {
         case id
         case name
         case released
-        case description
+        case description = "description_raw"
         case rating
         case backgroundImage = "background_image"
         case genres
         case platforms
         case publishers
         case metacritic
+    }
+    
+    init() {
+        id = 0
+        name = ""
+        released = ""
+        description = ""
+        rating = 0
+        backgroundImage = nil
+        genres = []
+        platforms = []
+        publishers = []
+        metacritic = 0
     }
 }

@@ -38,14 +38,16 @@ class RAWGClient {
         }
     }
     
-    class func search(query: String, completion: @escaping ([Game], Error?) -> Void) {
-        taskForGETRequest(url: Endpoints.search(query).url, response: GameResult.self) { (response, error) in
+    class func search(query: String, completion: @escaping ([Game], Error?) -> Void) -> URLSessionTask {
+        let task = taskForGETRequest(url: Endpoints.search(query).url, response: GameResult.self) { (response, error) in
             if let response = response {
                 completion(response.results, error)
             } else {
                 completion([], error)
             }
         }
+        
+        return task
     }
     
     class func getGameDetail(id: Int, completion: @escaping (GameDetail?, Error?) -> Void) {

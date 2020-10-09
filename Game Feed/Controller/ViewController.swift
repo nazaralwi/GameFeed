@@ -2,8 +2,6 @@ import UIKit
 
 class ViewController: UIViewController {
     @IBOutlet weak var gameTableView: UITableView!
-    @IBOutlet weak var gameSearchBar: UISearchBar!
-    
     var selectedIndex = 0
     
     override func viewDidLoad() {
@@ -11,11 +9,9 @@ class ViewController: UIViewController {
         
         self.gameTableView.contentInset.bottom = 10
         
-        gameSearchBar.isHidden = true
-        
         gameTableView.dataSource = self
         gameTableView.delegate = self
-        gameSearchBar.delegate = self
+        
         RAWGClient.getGameList(completion: { (games, error) in
             GameModel.gameList = games
             DispatchQueue.main.async {
@@ -42,35 +38,8 @@ class ViewController: UIViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "showDetail" {
             let detail = segue.destination as! DetailGameViewController
-            detail.game = GameModel.gameList[selectedIndex]
+            detail.gameId = GameModel.gameList[selectedIndex].id
         }
-    }
-    
-    @IBAction func search(_ sender: Any) {
-        gameSearchBar.isHidden = false
-    }
-}
-
-extension ViewController: UISearchBarDelegate {
-    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        RAWGClient.search(query: searchText) { (games, error) in
-            GameModel.searchGameList = games
-            self.gameTableView.reloadData()
-            print("Search: \(GameModel.searchGameList)")
-        }
-    }
-    
-    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
-        searchBar.showsCancelButton = true
-    }
-    
-    func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
-        searchBar.showsCancelButton = false
-    }
-    
-    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
-        searchBar.endEditing(true)
-        gameSearchBar.isHidden = true
     }
 }
 
@@ -84,28 +53,9 @@ extension ViewController: UITableViewDataSource {
 
             let game = GameModel.gameList[indexPath.row]
             
-            var genres = [String]()
-            for genre in game.genres {
-                let genreName = genre.name
-                genres.append(genreName)
-            }
-            
-            let dateFormatterGet = DateFormatter()
-            dateFormatterGet.dateFormat = "yyyy-MM-dd"
-
-            let dateFormatterPrint = DateFormatter()
-            dateFormatterPrint.dateFormat = "MMM dd, yyyy"
-
-            if let date = dateFormatterGet.date(from: game.released) {
-                cell.releaseGame.text = dateFormatterPrint.string(from: date)
-            } else {
-               print("There was an error decoding the string")
-            }
-            
-            cell.genreGame.text = genres.joined(separator: ", ")
-            
+            cell.releaseGame.text = Formatter.formatDate(from: game.released)
+            cell.genreGame.text = Formatter.formatGenre(from: game.genres)
             cell.titleGame.text = game.name
-            
             cell.ratingGame.text = String(format: "%.2f", game.rating)
             
             if let backgroundPath = game.backgroundImage {

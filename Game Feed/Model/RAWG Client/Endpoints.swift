@@ -21,7 +21,7 @@ enum Endpoints {
         case .search(let query):
             return Endpoints.base + "/games?search=\(query.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? "")"
         case .getGameDetail(let id):
-            return Endpoints.base + String(id)
+            return Endpoints.base + "/\(String(id))"
         }
     }
 }

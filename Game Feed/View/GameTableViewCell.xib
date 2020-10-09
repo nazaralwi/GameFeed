@@ -67,7 +67,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="4Ad-B3-1jr">
-                                <rect key="frame" x="334" y="203.5" width="54" height="15"/>
+                                <rect key="frame" x="330" y="203.5" width="54" height="15"/>
                                 <subviews>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="star.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="OC6-BK-qrP">
                                         <rect key="frame" x="0.0" y="0.0" width="15" height="15"/>
@@ -95,6 +95,7 @@
                             <constraint firstItem="R2e-vX-ZZV" firstAttribute="top" secondItem="bRi-JW-Zvh" secondAttribute="bottom" constant="10" id="QYP-w0-wqu"/>
                             <constraint firstItem="R2e-vX-ZZV" firstAttribute="leading" secondItem="aDb-xb-tP6" secondAttribute="leading" constant="8" id="RdE-zL-VCA"/>
                             <constraint firstItem="udW-OP-Nbg" firstAttribute="baseline" secondItem="4Ad-B3-1jr" secondAttribute="firstBaseline" constant="10" id="TIH-eo-IE5"/>
+                            <constraint firstItem="4Ad-B3-1jr" firstAttribute="trailing" secondItem="udW-OP-Nbg" secondAttribute="trailing" constant="-10" id="Y6x-ye-Ntf"/>
                             <constraint firstAttribute="width" constant="394" id="dKF-hc-mjW"/>
                             <constraint firstItem="bRi-JW-Zvh" firstAttribute="top" secondItem="udW-OP-Nbg" secondAttribute="bottom" constant="12" id="dNN-Xu-zRP"/>
                             <constraint firstAttribute="trailing" secondItem="bRi-JW-Zvh" secondAttribute="trailing" constant="16" id="ghK-ry-HPp"/>
@@ -115,7 +116,8 @@
                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 <constraints>
                     <constraint firstAttribute="baseline" secondItem="aDb-xb-tP6" secondAttribute="bottom" id="Nih-gr-yfT"/>
-                    <constraint firstAttribute="trailing" secondItem="4Ad-B3-1jr" secondAttribute="trailing" constant="16" id="RO7-7k-kxW"/>
+                    <constraint firstAttribute="trailing" secondItem="aDb-xb-tP6" secondAttribute="trailing" constant="10" id="QUC-vy-QhM"/>
+                    <constraint firstItem="aDb-xb-tP6" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="TZD-zY-s3f"/>
                     <constraint firstAttribute="top" secondItem="aDb-xb-tP6" secondAttribute="top" constant="-10" id="a3n-7w-Nii"/>
                     <constraint firstItem="aDb-xb-tP6" firstAttribute="centerX" secondItem="H2p-sc-9uM" secondAttribute="centerX" id="yWS-ae-eyx"/>
                 </constraints>

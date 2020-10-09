@@ -12,33 +12,32 @@ class DetailGameViewController: UIViewController {
     @IBOutlet var developerGameDetail: UILabel!
     @IBOutlet var metacriticGameDetail: UILabel!
     
-    var game: Game!
+    // Get gameId from ViewController
+    var gameId: Int?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        if let backgroundPath = game.backgroundImage {
-            RAWGClient.downloadBackground(backgroundPath: backgroundPath) { (data, error) in
-                guard let data = data else {
-                    return
+        RAWGClient.getGameDetail(id: gameId ?? 0) { (game, error) in
+            if let gameDetail = game {
+                let metacritic = gameDetail.metacritic
+                if let backgroundPath = gameDetail.backgroundImage {
+                   RAWGClient.downloadBackground(backgroundPath: backgroundPath) { (data, error) in
+                       guard let data = data else {
+                           return
+                       }
+                       
+                       let image = UIImage(data: data)
+                       self.photoGameDetail.image = image
+                   }
                 }
-                
-                let image = UIImage(data: data)
-                self.photoGameDetail.image = image
+                self.overviewGameDetail.text = gameDetail.description
+                self.titleGameDetail.text = gameDetail.name
+                self.ratingGameDetail.text = String(format: "%.2f", gameDetail.rating)
+                self.genreGameDetail.text = Formatter.formatGenre(from: gameDetail.genres)
+                self.releaseGameDetail.text = Formatter.formatDate(from: gameDetail.released)
+                self.metacriticGameDetail.text = String(metacritic)
             }
         }
-        titleGameDetail.text = game.name
-        ratingGameDetail.text = String(format: "%.2f", game.rating)
-        
-        var genres = [String]()
-        for genre in game.genres {
-            let genreName = genre.name
-            genres.append(genreName)
-        }
-        
-        let metacritic = game.metacritic ?? 0
-        
-        genreGameDetail.text = genres.joined(separator: ", ")
-        releaseGameDetail.text = game.released
-        metacriticGameDetail.text = String(metacritic)
     }
 }
