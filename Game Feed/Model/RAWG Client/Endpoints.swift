@@ -19,7 +19,7 @@ enum Endpoints {
         case .backgroundImageURL(let backgroundPath):
             return backgroundPath
         case .search(let query):
-            return Endpoints.base + "/games?search=\(query.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? "")"
+            return Endpoints.base + "?search=\(query.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? "")"
         case .getGameDetail(let id):
             return Endpoints.base + "/\(String(id))"
         }

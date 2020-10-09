@@ -44,6 +44,7 @@ class RAWGClient {
                 completion(response.results, error)
             } else {
                 completion([], error)
+                print(error)
             }
         }
         

@@ -10,13 +10,17 @@ import Foundation
 
 class Formatter {
     class func formatGenre(from genresFromAPI: [Genre]) -> String {
-        var genres = [String]()
-        for genre in genresFromAPI {
-            let genreName = genre.name
-            genres.append(genreName)
+        if !genresFromAPI.isEmpty {
+            var genres = [String]()
+            for genre in genresFromAPI {
+                let genreName = genre.name
+                genres.append(genreName)
+            }
+            
+            return genres.joined(separator: ", ")
+        } else {
+            return "Genre Not Found"
         }
-        
-        return genres.joined(separator: ", ")
     }
     
     class func formatDate(from dateFromAPI: String) -> String? {
@@ -29,7 +33,7 @@ class Formatter {
         if let date = dateFormatterGet.date(from: dateFromAPI) {
             return dateFormatterPrint.string(from: date)
         } else {
-            return "There was an error decoding the string"
+            return "Release Not Found"
         }
     }
 }

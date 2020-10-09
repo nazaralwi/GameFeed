@@ -44,6 +44,10 @@ class ViewController: UIViewController {
 }
 
 extension ViewController: UITableViewDataSource {
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return GameModel.gameList.count
     }
@@ -53,8 +57,8 @@ extension ViewController: UITableViewDataSource {
 
             let game = GameModel.gameList[indexPath.row]
             
-            cell.releaseGame.text = Formatter.formatDate(from: game.released)
-            cell.genreGame.text = Formatter.formatGenre(from: game.genres)
+            cell.releaseGame.text = Formatter.formatDate(from: game.released ?? "")
+            cell.genreGame.text = Formatter.formatGenre(from: game.genres ?? [])
             cell.titleGame.text = game.name
             cell.ratingGame.text = String(format: "%.2f", game.rating)
             

@@ -34,8 +34,8 @@ class DetailGameViewController: UIViewController {
                 self.overviewGameDetail.text = gameDetail.description
                 self.titleGameDetail.text = gameDetail.name
                 self.ratingGameDetail.text = String(format: "%.2f", gameDetail.rating)
-                self.genreGameDetail.text = Formatter.formatGenre(from: gameDetail.genres)
-                self.releaseGameDetail.text = Formatter.formatDate(from: gameDetail.released)
+                self.genreGameDetail.text = Formatter.formatGenre(from: gameDetail.genres ?? [])
+                self.releaseGameDetail.text = Formatter.formatDate(from: gameDetail.released ?? "")
                 self.metacriticGameDetail.text = String(metacritic)
             }
         }

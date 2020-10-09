@@ -3,11 +3,11 @@ import Foundation
 struct GameDetail: Codable {
     let id: Int
     let name: String
-    let released: String
+    let released: String?
     let description: String
     let rating: Double
     let backgroundImage: String?
-    let genres: [Genre]
+    let genres: [Genre]?
     let platforms: [Platforms]
     let publishers: [Publisher]
     let metacritic: Int
