@@ -43,9 +43,7 @@ class RAWGClient {
             if let response = response {
                 completion(response.results, error)
             } else {
-                completion([], error)
-                print(error)
-            }
+                completion([], error)            }
         }
         
         return task
@@ -57,6 +55,16 @@ class RAWGClient {
                 completion(response, nil)
             } else {
                 completion(nil, error)
+            }
+        }
+    }
+    
+    class func getEntireGame(completion: @escaping ([Game], Error?) -> Void) {
+        taskForGETRequest(url: Endpoints.getEntireGame.url, response: GameResult.self) { (response, error) in
+            if let response = response {
+                completion(response.results, nil)
+            } else {
+                completion([], error)
             }
         }
     }
