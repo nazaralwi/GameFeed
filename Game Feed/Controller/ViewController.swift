@@ -2,6 +2,7 @@ import UIKit
 
 class ViewController: UIViewController {
     @IBOutlet weak var gameTableView: UITableView!
+    @IBOutlet var activityIndicator: UIActivityIndicatorView!
     var selectedIndex = 0
     
     override func viewDidLoad() {
@@ -12,10 +13,13 @@ class ViewController: UIViewController {
         gameTableView.dataSource = self
         gameTableView.delegate = self
         
+        activityIndicator.startAnimating()
+        
         RAWGClient.getGameList(completion: { (games, error) in
             GameModel.gameList = games
             DispatchQueue.main.async {
                 self.gameTableView.reloadData()
+                self.activityIndicator.stopAnimating()
             }
         })
         gameTableView.register(UINib(nibName: "GameTableViewCell", bundle: nil), forCellReuseIdentifier: "GameCell")

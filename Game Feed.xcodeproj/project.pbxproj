@@ -10,11 +10,11 @@
 		3D19822724D7927700E3AD85 /* DummyGames.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D19822624D7927700E3AD85 /* DummyGames.swift */; };
 		3D19822924D792CE00E3AD85 /* Game.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D19822824D792CE00E3AD85 /* Game.swift */; };
 		3D19823524D7F6B000E3AD85 /* DetailGameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D19823424D7F6B000E3AD85 /* DetailGameViewController.swift */; };
+		3D3BF4F12531992500114069 /* ShimmerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D3BF4F02531992500114069 /* ShimmerView.swift */; };
 		3D4633B72514544700AF1A70 /* Genre.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D4633B62514544700AF1A70 /* Genre.swift */; };
 		3D66CE2E24D8F40200E90636 /* MyProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D66CE2D24D8F40200E90636 /* MyProfileViewController.swift */; };
 		3D66CE3024D8F42300E90636 /* SearchGameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D66CE2F24D8F42300E90636 /* SearchGameViewController.swift */; };
 		3D66CE3224D8F43700E90636 /* NewGameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D66CE3124D8F43700E90636 /* NewGameViewController.swift */; };
-		3D66CE3624D9223700E90636 /* NewGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D66CE3524D9223700E90636 /* NewGame.swift */; };
 		3D75A49A2510AE3C0075C816 /* RAWGClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D75A4992510AE3C0075C816 /* RAWGClient.swift */; };
 		3D7D2ABA252972AC00313795 /* Poppins-MediumItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3D7D2AA82529729D00313795 /* Poppins-MediumItalic.ttf */; };
 		3D7D2ABB252972AC00313795 /* Poppins-LightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3D7D2AA92529729E00313795 /* Poppins-LightItalic.ttf */; };
@@ -79,11 +79,11 @@
 		3D19822624D7927700E3AD85 /* DummyGames.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DummyGames.swift; sourceTree = "<group>"; };
 		3D19822824D792CE00E3AD85 /* Game.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Game.swift; sourceTree = "<group>"; };
 		3D19823424D7F6B000E3AD85 /* DetailGameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailGameViewController.swift; sourceTree = "<group>"; };
+		3D3BF4F02531992500114069 /* ShimmerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShimmerView.swift; sourceTree = "<group>"; };
 		3D4633B62514544700AF1A70 /* Genre.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Genre.swift; sourceTree = "<group>"; };
 		3D66CE2D24D8F40200E90636 /* MyProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyProfileViewController.swift; sourceTree = "<group>"; };
 		3D66CE2F24D8F42300E90636 /* SearchGameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchGameViewController.swift; sourceTree = "<group>"; };
 		3D66CE3124D8F43700E90636 /* NewGameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewGameViewController.swift; sourceTree = "<group>"; };
-		3D66CE3524D9223700E90636 /* NewGame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewGame.swift; sourceTree = "<group>"; };
 		3D75A4992510AE3C0075C816 /* RAWGClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RAWGClient.swift; sourceTree = "<group>"; };
 		3D7D2AA82529729D00313795 /* Poppins-MediumItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-MediumItalic.ttf"; sourceTree = "<group>"; };
 		3D7D2AA92529729E00313795 /* Poppins-LightItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-LightItalic.ttf"; sourceTree = "<group>"; };
@@ -277,6 +277,7 @@
 				3DF8FD5A24D5661C00E64116 /* Main.storyboard */,
 				3DDCDC1124D57B790020AB8E /* GameTableViewCell.xib */,
 				3DEB3551252B46ED0023A31C /* GradientView.swift */,
+				3D3BF4F02531992500114069 /* ShimmerView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -288,7 +289,6 @@
 				3D75A4962510AC750075C816 /* RAWG Client */,
 				3D75A4972510AC810075C816 /* RAWG Responses */,
 				3D19822624D7927700E3AD85 /* DummyGames.swift */,
-				3D66CE3524D9223700E90636 /* NewGame.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -469,7 +469,6 @@
 				3D96B1732511CB46006A3F1D /* Platform.swift in Sources */,
 				3D75A49A2510AE3C0075C816 /* RAWGClient.swift in Sources */,
 				3DEB3552252B46ED0023A31C /* GradientView.swift in Sources */,
-				3D66CE3624D9223700E90636 /* NewGame.swift in Sources */,
 				3DAEDB7F252C8C7B00DFAF14 /* GameDetail.swift in Sources */,
 				3DF8FD5924D5661C00E64116 /* ViewController.swift in Sources */,
 				3D19822924D792CE00E3AD85 /* Game.swift in Sources */,
@@ -478,6 +477,7 @@
 				3D4633B72514544700AF1A70 /* Genre.swift in Sources */,
 				3D96B1792511D8E1006A3F1D /* Requirement.swift in Sources */,
 				3DF8FD5524D5661C00E64116 /* AppDelegate.swift in Sources */,
+				3D3BF4F12531992500114069 /* ShimmerView.swift in Sources */,
 				3DF8FD5724D5661C00E64116 /* SceneDelegate.swift in Sources */,
 				3DD8BA3E252DFFB9001754C0 /* Formatter.swift in Sources */,
 				3D19822724D7927700E3AD85 /* DummyGames.swift in Sources */,

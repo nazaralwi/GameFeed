@@ -3,6 +3,7 @@ import UIKit
 class SearchGameViewController: UIViewController {
     @IBOutlet var searchTableView: UITableView!
     @IBOutlet var searchBar: UISearchBar!
+    @IBOutlet var activityIndicator: UIActivityIndicatorView!
     
     var games = [Game]()
     
@@ -44,6 +45,7 @@ extension SearchGameViewController: UISearchBarDelegate {
             print("games : \(games)")
             self.games = games
             self.searchTableView.reloadData()
+            self.activityIndicator.stopAnimating()
         }
     }
     

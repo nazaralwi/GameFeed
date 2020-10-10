@@ -2,13 +2,15 @@ import UIKit
 
 class NewGameViewController: UIViewController {
     @IBOutlet var newGameTableView: UITableView!
+    @IBOutlet var activityIndicator: UIActivityIndicatorView!
     var selectedIndex = 0
     var newGame = [Game]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        RAWGClient.getEntireGame { (games, error) in
+        activityIndicator.startAnimating()
+        RAWGClient.get { (games, error) in
             for game in games {
                 let dateFormatterGet = DateFormatter()
                 dateFormatterGet.dateFormat = "yyyy-MM-dd"
@@ -54,6 +56,7 @@ class NewGameViewController: UIViewController {
             print("Game:\(self.newGame)")
             DispatchQueue.main.async {
                 self.newGameTableView.reloadData()
+                self.activityIndicator.stopAnimating()
             }
         }
         
