@@ -3,59 +3,27 @@ import UIKit
 class NewGameViewController: UIViewController {
     @IBOutlet var newGameTableView: UITableView!
     @IBOutlet var activityIndicator: UIActivityIndicatorView!
+    @IBOutlet var errorLabel: UILabel!
     var selectedIndex = 0
     var newGame = [Game]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        errorLabel.isHidden = true
         activityIndicator.startAnimating()
-        RAWGClient.get { (games, error) in
-            for game in games {
-                let dateFormatterGet = DateFormatter()
-                dateFormatterGet.dateFormat = "yyyy-MM-dd"
-                
-                let now = Date()
-                let releasedDate = dateFormatterGet.date(from: game.released ?? "")
-                
-                let oneMonthBefore = Calendar.current.date(byAdding: .year, value: -2, to: now)
-                
-                if (releasedDate! <= now) && (releasedDate! >= oneMonthBefore!) {
-                    self.newGame.append(game)
-                }
-                
-                print("now: \(now)")
-                print("oneMonthBefore: \(oneMonthBefore)")
-                print("released: \(releasedDate)")
-                
-//                let dateFormatterGet = DateFormatter()
-//                dateFormatterGet.dateFormat = "yyyy-MM-dd"
-//
-//                let dateFormatterPrint = DateFormatter()
-//                dateFormatterPrint.dateFormat = "MM-yyyy"
-//
-//                if let date = dateFormatterGet.date(from: game.released ?? "") {
-//                    gameReleased = date
-//                } else {
-//                    print("Something error")
-//                }
-//
-//                let dateFormatterGet1 = DateFormatter()
-//                dateFormatterGet.dateFormat = "yyyy-MM-dd"
-//
-//                let dateFormatterPrint1 = DateFormatter()
-//                dateFormatterPrint.dateFormat = "MM-yyyy"
-//
-//                if (gameReleased == ) {
-//                    self.newGame.append(game)
-//                }
-//                var dayComp = DateComponents(year: 2020, month: -3)
-//                let date = Calendar.current.date(byAdding: dayComp, to: Date())
-//                Calendar.current.component(.month, from: date!)
-            }
-            print("Game:\(self.newGame)")
-            DispatchQueue.main.async {
+        
+        let now = Date()
+        
+        let oneMonthBefore = Calendar.current.date(byAdding: .month, value: -1, to: now)
+        
+        RAWGClient.getNewGameLastMonts(lastMonth: Formatter.formatDateToString(from: oneMonthBefore ?? Date()), now: Formatter.formatDateToString(from: now)) { (games, error) in
+            if !games.isEmpty {
+                self.newGame = games
                 self.newGameTableView.reloadData()
+                self.activityIndicator.stopAnimating()
+            } else {
+                self.errorLabel.isHidden = false
                 self.activityIndicator.stopAnimating()
             }
         }

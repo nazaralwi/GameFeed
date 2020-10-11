@@ -3,6 +3,7 @@ import UIKit
 class ViewController: UIViewController {
     @IBOutlet weak var gameTableView: UITableView!
     @IBOutlet var activityIndicator: UIActivityIndicatorView!
+    @IBOutlet var errorLabel: UILabel!
     var selectedIndex = 0
     
     override func viewDidLoad() {
@@ -10,15 +11,23 @@ class ViewController: UIViewController {
         
         self.gameTableView.contentInset.bottom = 10
         
+        errorLabel.isHidden = true
+        
         gameTableView.dataSource = self
         gameTableView.delegate = self
         
         activityIndicator.startAnimating()
         
         RAWGClient.getGameList(completion: { (games, error) in
-            GameModel.gameList = games
-            DispatchQueue.main.async {
-                self.gameTableView.reloadData()
+            if !games.isEmpty {
+                GameModel.gameList = games
+                DispatchQueue.main.async {
+                    self.gameTableView.reloadData()
+                    self.activityIndicator.stopAnimating()
+                }
+                print("GameModel: \(GameModel.gameList)")
+            } else {
+                self.errorLabel.isHidden = false
                 self.activityIndicator.stopAnimating()
             }
         })

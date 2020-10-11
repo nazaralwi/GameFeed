@@ -11,6 +11,10 @@ class DetailGameViewController: UIViewController {
     @IBOutlet var genreGameDetail: UILabel!
     @IBOutlet var developerGameDetail: UILabel!
     @IBOutlet var metacriticGameDetail: UILabel!
+    @IBOutlet var activityIndicator: UIActivityIndicatorView!
+    @IBOutlet var scrollView: UIScrollView!
+    @IBOutlet var myView: UIView!
+    @IBOutlet var myViewHeight: NSLayoutConstraint!
     
     // Get gameId from ViewController
     var gameId: Int?
@@ -18,7 +22,13 @@ class DetailGameViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        myViewHeight.constant = 2000
+        scrollView.contentSize = myView.frame.size
+        
+        activityIndicator.startAnimating()
         RAWGClient.getGameDetail(id: gameId ?? 0) { (game, error) in
+            self.activityIndicator.stopAnimating()
+            print("Game Detail : \(game)")
             if let gameDetail = game {
                 let metacritic = gameDetail.metacritic
                 if let backgroundPath = gameDetail.backgroundImage {

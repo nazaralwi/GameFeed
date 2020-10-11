@@ -4,6 +4,7 @@ class SearchGameViewController: UIViewController {
     @IBOutlet var searchTableView: UITableView!
     @IBOutlet var searchBar: UISearchBar!
     @IBOutlet var activityIndicator: UIActivityIndicatorView!
+    @IBOutlet var errorLabel: UILabel!
     
     var games = [Game]()
     
@@ -18,6 +19,8 @@ class SearchGameViewController: UIViewController {
         
         searchTableView.delegate = self
         searchTableView.dataSource = self
+        
+        errorLabel.isHidden = true
         
         searchTableView.register(UINib(nibName: "GameTableViewCell", bundle: nil), forCellReuseIdentifier: "GameCell")
     }
@@ -41,11 +44,18 @@ class SearchGameViewController: UIViewController {
 extension SearchGameViewController: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         currentSearchTask?.cancel()
+        self.activityIndicator.startAnimating()
         currentSearchTask = RAWGClient.search(query: searchText) { (games, error) in
             print("games : \(games)")
-            self.games = games
-            self.searchTableView.reloadData()
-            self.activityIndicator.stopAnimating()
+            
+            if !games.isEmpty {
+                self.games = games
+                self.searchTableView.reloadData()
+                self.activityIndicator.stopAnimating()
+            } else {
+                self.errorLabel.isHidden = false
+                self.activityIndicator.stopAnimating()
+            }
         }
     }
     

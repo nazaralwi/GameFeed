@@ -36,4 +36,13 @@ class Formatter {
             return "Release Not Found"
         }
     }
+    
+    class func formatDateToString(from date: Date) -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        
+        let dateString = dateFormatter.string(from: date)
+        
+        return dateString
+    }
 }

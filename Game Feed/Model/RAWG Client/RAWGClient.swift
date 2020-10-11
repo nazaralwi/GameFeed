@@ -59,8 +59,8 @@ class RAWGClient {
         }
     }
     
-    class func getEntireGame(completion: @escaping ([Game], Error?) -> Void) {
-        taskForGETRequest(url: Endpoints.getEntireGame.url, response: GameResult.self) { (response, error) in
+    class func getNewGameLastMonts(lastMonth: String, now: String, completion: @escaping ([Game], Error?) -> Void) {
+        taskForGETRequest(url: Endpoints.getNewGameLastMonts(lastMonth, now).url, response: GameResult.self) { (response, error) in
             if let response = response {
                 completion(response.results, nil)
             } else {

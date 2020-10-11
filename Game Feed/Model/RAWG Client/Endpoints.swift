@@ -7,7 +7,7 @@ enum Endpoints {
     case backgroundImageURL(String)
     case search(String)
     case getGameDetail(Int)
-    case getEntireGame
+    case getNewGameLastMonts(String, String)
     
     var url: URL {
         return URL(string: stringValue)!
@@ -23,8 +23,8 @@ enum Endpoints {
             return Endpoints.base + "?search=\(query.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? "")"
         case .getGameDetail(let id):
             return Endpoints.base + "/\(String(id))"
-        case .getEntireGame:
-            return Endpoints.base + "?page_size=250"
+        case .getNewGameLastMonts(let startDate, let endDate):
+            return Endpoints.base + "?dates=\(startDate),\(endDate)&&ordering=added"
         }
     }
 }
