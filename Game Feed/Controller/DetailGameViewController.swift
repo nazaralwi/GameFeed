@@ -9,7 +9,7 @@ class DetailGameViewController: UIViewController {
     @IBOutlet var platformGameDetail: UILabel!
     @IBOutlet var releaseGameDetail: UILabel!
     @IBOutlet var genreGameDetail: UILabel!
-    @IBOutlet var developerGameDetail: UILabel!
+    @IBOutlet var publisherGameDetail: UILabel!
     @IBOutlet var metacriticGameDetail: UILabel!
     @IBOutlet var activityIndicator: UIActivityIndicatorView!
     @IBOutlet var scrollView: UIScrollView!
@@ -47,6 +47,7 @@ class DetailGameViewController: UIViewController {
                 self.genreGameDetail.text = Formatter.formatGenre(from: gameDetail.genres ?? [])
                 self.releaseGameDetail.text = Formatter.formatDate(from: gameDetail.released ?? "")
                 self.platformGameDetail.text = Formatter.formatPlatform(from: gameDetail.platforms)
+                self.publisherGameDetail.text = Formatter.formatPublisher(from: gameDetail.publishers)
                 self.metacriticGameDetail.text = String(metacritic)
             }
         }

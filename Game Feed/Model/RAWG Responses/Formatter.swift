@@ -58,4 +58,18 @@ class Formatter {
             return "Platform Not Found"
         }
     }
+    
+    class func formatPublisher(from publishersFromAPI: [Publisher]) -> String {
+        if !publishersFromAPI.isEmpty {
+            var publishers = [String]()
+            for publisher in publishersFromAPI {
+                let publisherName = publisher.name
+                publishers.append(publisherName)
+            }
+            
+            return publishers.joined(separator: ", ")
+        } else {
+            return "Publisher Not Found"
+        }
+    }
 }
