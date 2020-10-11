@@ -1,7 +1,7 @@
 import Foundation
 
 struct Game: Codable {
-    let id: Int
+    let idGame: Int
     let name: String
     let released: String?
     let rating: Double
@@ -9,7 +9,7 @@ struct Game: Codable {
     let genres: [Genre]?
     
     enum CodingKeys: String, CodingKey {
-        case id
+        case idGame = "id"
         case name
         case released
         case rating

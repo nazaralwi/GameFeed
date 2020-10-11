@@ -4,7 +4,6 @@ import MessageUI
 class MyProfileViewController: UIViewController, MFMailComposeViewControllerDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
-        
     }
     
     @IBAction func sendEmail(_ sender: Any) {

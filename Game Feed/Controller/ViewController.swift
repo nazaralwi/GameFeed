@@ -5,27 +5,26 @@ class ViewController: UIViewController {
     @IBOutlet var activityIndicator: UIActivityIndicatorView!
     @IBOutlet var errorLabel: UILabel!
     var selectedIndex = 0
+    var gameList = [Game]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         self.gameTableView.contentInset.bottom = 10
-        
         errorLabel.isHidden = true
         
         gameTableView.dataSource = self
         gameTableView.delegate = self
         
         activityIndicator.startAnimating()
-        
         RAWGClient.getGameList(completion: { (games, error) in
             if !games.isEmpty {
-                GameModel.gameList = games
+                self.gameList = games
                 DispatchQueue.main.async {
                     self.gameTableView.reloadData()
                     self.activityIndicator.stopAnimating()
                 }
-                print("GameModel: \(GameModel.gameList)")
+                print("GameModel: \(self.gameList)")
             } else {
                 self.errorLabel.isHidden = false
                 self.activityIndicator.stopAnimating()
@@ -44,31 +43,26 @@ class ViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
         gameTableView.reloadData()
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "showDetail" {
-            let detail = segue.destination as! DetailGameViewController
-            detail.gameId = GameModel.gameList[selectedIndex].id
+            let detail = segue.destination as? DetailGameViewController
+            detail?.gameId = gameList[selectedIndex].idGame
         }
     }
 }
 
 extension ViewController: UITableViewDataSource {
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
-    }
-    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return GameModel.gameList.count
+        return gameList.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if let cell = tableView.dequeueReusableCell(withIdentifier: "GameCell", for: indexPath) as? GameTableViewCell {
 
-            let game = GameModel.gameList[indexPath.row]
+            let game = gameList[indexPath.row]
             
             cell.releaseGame.text = Formatter.formatDate(from: game.released ?? "")
             cell.genreGame.text = Formatter.formatGenre(from: game.genres ?? [])
@@ -100,14 +94,5 @@ extension ViewController: UITableViewDelegate {
         selectedIndex = indexPath.row
         performSegue(withIdentifier: "showDetail", sender: nil)
         tableView.deselectRow(at: indexPath, animated: true)
-    }
-}
-
-extension UIView {
-   func roundCorners(corners: UIRectCorner, radius: CGFloat) {
-        let path = UIBezierPath(roundedRect: bounds, byRoundingCorners: corners, cornerRadii: CGSize(width: radius, height: radius))
-        let mask = CAShapeLayer()
-        mask.path = path.cgPath
-        layer.mask = mask
     }
 }

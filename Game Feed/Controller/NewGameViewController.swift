@@ -4,6 +4,7 @@ class NewGameViewController: UIViewController {
     @IBOutlet var newGameTableView: UITableView!
     @IBOutlet var activityIndicator: UIActivityIndicatorView!
     @IBOutlet var errorLabel: UILabel!
+   
     var selectedIndex = 0
     var newGame = [Game]()
     
@@ -14,7 +15,6 @@ class NewGameViewController: UIViewController {
         activityIndicator.startAnimating()
         
         let now = Date()
-        
         let oneMonthBefore = Calendar.current.date(byAdding: .month, value: -1, to: now)
         
         RAWGClient.getNewGameLastMonts(lastMonth: Formatter.formatDateToString(from: oneMonthBefore ?? Date()), now: Formatter.formatDateToString(from: now)) { (games, error) in
@@ -30,7 +30,7 @@ class NewGameViewController: UIViewController {
         
         newGameTableView.dataSource = self
         newGameTableView.delegate = self
-        
+
         newGameTableView.register(UINib(nibName: "GameTableViewCell", bundle: nil), forCellReuseIdentifier: "GameCell")
     }
     

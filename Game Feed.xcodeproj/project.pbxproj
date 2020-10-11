@@ -10,29 +10,16 @@
 		3D19822924D792CE00E3AD85 /* Game.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D19822824D792CE00E3AD85 /* Game.swift */; };
 		3D19823524D7F6B000E3AD85 /* DetailGameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D19823424D7F6B000E3AD85 /* DetailGameViewController.swift */; };
 		3D4633B72514544700AF1A70 /* Genre.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D4633B62514544700AF1A70 /* Genre.swift */; };
+		3D55B3AA2532C4D70072AFC3 /* ExtensionUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D55B3A92532C4D70072AFC3 /* ExtensionUIView.swift */; };
 		3D66CE2E24D8F40200E90636 /* MyProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D66CE2D24D8F40200E90636 /* MyProfileViewController.swift */; };
 		3D66CE3024D8F42300E90636 /* SearchGameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D66CE2F24D8F42300E90636 /* SearchGameViewController.swift */; };
 		3D66CE3224D8F43700E90636 /* NewGameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D66CE3124D8F43700E90636 /* NewGameViewController.swift */; };
 		3D75A49A2510AE3C0075C816 /* RAWGClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D75A4992510AE3C0075C816 /* RAWGClient.swift */; };
-		3D7D2ABA252972AC00313795 /* Poppins-MediumItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3D7D2AA82529729D00313795 /* Poppins-MediumItalic.ttf */; };
-		3D7D2ABB252972AC00313795 /* Poppins-LightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3D7D2AA92529729E00313795 /* Poppins-LightItalic.ttf */; };
-		3D7D2ABC252972AC00313795 /* Poppins-Thin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3D7D2AAA2529729E00313795 /* Poppins-Thin.ttf */; };
-		3D7D2ABD252972AC00313795 /* Poppins-ThinItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3D7D2AAB2529729F00313795 /* Poppins-ThinItalic.ttf */; };
-		3D7D2ABE252972AC00313795 /* Poppins-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3D7D2AAC252972A000313795 /* Poppins-Italic.ttf */; };
-		3D7D2ABF252972AC00313795 /* Poppins-BoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3D7D2AAD252972A100313795 /* Poppins-BoldItalic.ttf */; };
 		3D7D2AC0252972AC00313795 /* Poppins-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3D7D2AAE252972A100313795 /* Poppins-Regular.ttf */; };
-		3D7D2AC1252972AC00313795 /* Poppins-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3D7D2AAF252972A300313795 /* Poppins-SemiBold.ttf */; };
-		3D7D2AC2252972AC00313795 /* Poppins-ExtraLight.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3D7D2AB0252972A500313795 /* Poppins-ExtraLight.ttf */; };
-		3D7D2AC3252972AC00313795 /* Poppins-ExtraBoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3D7D2AB1252972A600313795 /* Poppins-ExtraBoldItalic.ttf */; };
-		3D7D2AC4252972AC00313795 /* Poppins-ExtraLightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3D7D2AB2252972A700313795 /* Poppins-ExtraLightItalic.ttf */; };
 		3D7D2AC5252972AC00313795 /* Poppins-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3D7D2AB3252972A800313795 /* Poppins-Bold.ttf */; };
 		3D7D2AC6252972AC00313795 /* Poppins-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3D7D2AB4252972A800313795 /* Poppins-Medium.ttf */; };
 		3D7D2AC7252972AC00313795 /* Poppins-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3D7D2AB5252972A900313795 /* Poppins-Light.ttf */; };
 		3D7D2AC8252972AC00313795 /* Poppins-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3D7D2AB6252972AA00313795 /* Poppins-Black.ttf */; };
-		3D7D2AC9252972AC00313795 /* Poppins-BlackItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3D7D2AB7252972AA00313795 /* Poppins-BlackItalic.ttf */; };
-		3D7D2ACA252972AC00313795 /* Poppins-ExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3D7D2AB8252972AB00313795 /* Poppins-ExtraBold.ttf */; };
-		3D7D2ACB252972AC00313795 /* Poppins-SemiBoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3D7D2AB9252972AC00313795 /* Poppins-SemiBoldItalic.ttf */; };
-		3D96B16925119AAD006A3F1D /* GameModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D96B16825119AAD006A3F1D /* GameModel.swift */; };
 		3D96B1732511CB46006A3F1D /* Platform.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D96B1722511CB46006A3F1D /* Platform.swift */; };
 		3D96B1752511CC5B006A3F1D /* GameResults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D96B1742511CC5B006A3F1D /* GameResults.swift */; };
 		3D96B1772511D843006A3F1D /* Platforms.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D96B1762511D843006A3F1D /* Platforms.swift */; };
@@ -42,15 +29,12 @@
 		3DD8BA3E252DFFB9001754C0 /* Formatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DD8BA3D252DFFB9001754C0 /* Formatter.swift */; };
 		3DDCDC1224D57B790020AB8E /* GameTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DDCDC1024D57B790020AB8E /* GameTableViewCell.swift */; };
 		3DDCDC1324D57B790020AB8E /* GameTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3DDCDC1124D57B790020AB8E /* GameTableViewCell.xib */; };
-		3DEB3552252B46ED0023A31C /* GradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DEB3551252B46ED0023A31C /* GradientView.swift */; };
 		3DF8FD5524D5661C00E64116 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DF8FD5424D5661C00E64116 /* AppDelegate.swift */; };
 		3DF8FD5724D5661C00E64116 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DF8FD5624D5661C00E64116 /* SceneDelegate.swift */; };
 		3DF8FD5924D5661C00E64116 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DF8FD5824D5661C00E64116 /* ViewController.swift */; };
 		3DF8FD5C24D5661C00E64116 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3DF8FD5A24D5661C00E64116 /* Main.storyboard */; };
 		3DF8FD5E24D5662200E64116 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3DF8FD5D24D5662200E64116 /* Assets.xcassets */; };
 		3DF8FD6124D5662200E64116 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3DF8FD5F24D5662200E64116 /* LaunchScreen.storyboard */; };
-		3DF8FD6C24D5662200E64116 /* Game_FeedTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DF8FD6B24D5662200E64116 /* Game_FeedTests.swift */; };
-		3DF8FD7724D5662200E64116 /* Game_FeedUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DF8FD7624D5662200E64116 /* Game_FeedUITests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -74,29 +58,16 @@
 		3D19822824D792CE00E3AD85 /* Game.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Game.swift; sourceTree = "<group>"; };
 		3D19823424D7F6B000E3AD85 /* DetailGameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailGameViewController.swift; sourceTree = "<group>"; };
 		3D4633B62514544700AF1A70 /* Genre.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Genre.swift; sourceTree = "<group>"; };
+		3D55B3A92532C4D70072AFC3 /* ExtensionUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionUIView.swift; sourceTree = "<group>"; };
 		3D66CE2D24D8F40200E90636 /* MyProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyProfileViewController.swift; sourceTree = "<group>"; };
 		3D66CE2F24D8F42300E90636 /* SearchGameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchGameViewController.swift; sourceTree = "<group>"; };
 		3D66CE3124D8F43700E90636 /* NewGameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewGameViewController.swift; sourceTree = "<group>"; };
 		3D75A4992510AE3C0075C816 /* RAWGClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RAWGClient.swift; sourceTree = "<group>"; };
-		3D7D2AA82529729D00313795 /* Poppins-MediumItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-MediumItalic.ttf"; sourceTree = "<group>"; };
-		3D7D2AA92529729E00313795 /* Poppins-LightItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-LightItalic.ttf"; sourceTree = "<group>"; };
-		3D7D2AAA2529729E00313795 /* Poppins-Thin.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-Thin.ttf"; sourceTree = "<group>"; };
-		3D7D2AAB2529729F00313795 /* Poppins-ThinItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-ThinItalic.ttf"; sourceTree = "<group>"; };
-		3D7D2AAC252972A000313795 /* Poppins-Italic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-Italic.ttf"; sourceTree = "<group>"; };
-		3D7D2AAD252972A100313795 /* Poppins-BoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-BoldItalic.ttf"; sourceTree = "<group>"; };
 		3D7D2AAE252972A100313795 /* Poppins-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-Regular.ttf"; sourceTree = "<group>"; };
-		3D7D2AAF252972A300313795 /* Poppins-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-SemiBold.ttf"; sourceTree = "<group>"; };
-		3D7D2AB0252972A500313795 /* Poppins-ExtraLight.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-ExtraLight.ttf"; sourceTree = "<group>"; };
-		3D7D2AB1252972A600313795 /* Poppins-ExtraBoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-ExtraBoldItalic.ttf"; sourceTree = "<group>"; };
-		3D7D2AB2252972A700313795 /* Poppins-ExtraLightItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-ExtraLightItalic.ttf"; sourceTree = "<group>"; };
 		3D7D2AB3252972A800313795 /* Poppins-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-Bold.ttf"; sourceTree = "<group>"; };
 		3D7D2AB4252972A800313795 /* Poppins-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-Medium.ttf"; sourceTree = "<group>"; };
 		3D7D2AB5252972A900313795 /* Poppins-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-Light.ttf"; sourceTree = "<group>"; };
 		3D7D2AB6252972AA00313795 /* Poppins-Black.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-Black.ttf"; sourceTree = "<group>"; };
-		3D7D2AB7252972AA00313795 /* Poppins-BlackItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-BlackItalic.ttf"; sourceTree = "<group>"; };
-		3D7D2AB8252972AB00313795 /* Poppins-ExtraBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-ExtraBold.ttf"; sourceTree = "<group>"; };
-		3D7D2AB9252972AC00313795 /* Poppins-SemiBoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-SemiBoldItalic.ttf"; sourceTree = "<group>"; };
-		3D96B16825119AAD006A3F1D /* GameModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameModel.swift; sourceTree = "<group>"; };
 		3D96B1722511CB46006A3F1D /* Platform.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Platform.swift; sourceTree = "<group>"; };
 		3D96B1742511CC5B006A3F1D /* GameResults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameResults.swift; sourceTree = "<group>"; };
 		3D96B1762511D843006A3F1D /* Platforms.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Platforms.swift; sourceTree = "<group>"; };
@@ -106,7 +77,6 @@
 		3DD8BA3D252DFFB9001754C0 /* Formatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Formatter.swift; sourceTree = "<group>"; };
 		3DDCDC1024D57B790020AB8E /* GameTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameTableViewCell.swift; sourceTree = "<group>"; };
 		3DDCDC1124D57B790020AB8E /* GameTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GameTableViewCell.xib; sourceTree = "<group>"; };
-		3DEB3551252B46ED0023A31C /* GradientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientView.swift; sourceTree = "<group>"; };
 		3DF8FD5124D5661C00E64116 /* Game Feed.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Game Feed.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3DF8FD5424D5661C00E64116 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3DF8FD5624D5661C00E64116 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -116,11 +86,7 @@
 		3DF8FD6024D5662200E64116 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		3DF8FD6224D5662200E64116 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3DF8FD6724D5662200E64116 /* Game FeedTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Game FeedTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
-		3DF8FD6B24D5662200E64116 /* Game_FeedTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Game_FeedTests.swift; sourceTree = "<group>"; };
-		3DF8FD6D24D5662200E64116 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3DF8FD7224D5662200E64116 /* Game FeedUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Game FeedUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
-		3DF8FD7624D5662200E64116 /* Game_FeedUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Game_FeedUITests.swift; sourceTree = "<group>"; };
-		3DF8FD7824D5662200E64116 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -148,14 +114,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		3D75A4952510AC480075C816 /* Data */ = {
-			isa = PBXGroup;
-			children = (
-				3D96B16825119AAD006A3F1D /* GameModel.swift */,
-			);
-			path = Data;
-			sourceTree = "<group>";
-		};
 		3D75A4962510AC750075C816 /* RAWG Client */ = {
 			isa = PBXGroup;
 			children = (
@@ -184,23 +142,10 @@
 			isa = PBXGroup;
 			children = (
 				3D7D2AB6252972AA00313795 /* Poppins-Black.ttf */,
-				3D7D2AB7252972AA00313795 /* Poppins-BlackItalic.ttf */,
 				3D7D2AB3252972A800313795 /* Poppins-Bold.ttf */,
-				3D7D2AAD252972A100313795 /* Poppins-BoldItalic.ttf */,
-				3D7D2AB8252972AB00313795 /* Poppins-ExtraBold.ttf */,
-				3D7D2AB1252972A600313795 /* Poppins-ExtraBoldItalic.ttf */,
-				3D7D2AB0252972A500313795 /* Poppins-ExtraLight.ttf */,
-				3D7D2AB2252972A700313795 /* Poppins-ExtraLightItalic.ttf */,
-				3D7D2AAC252972A000313795 /* Poppins-Italic.ttf */,
 				3D7D2AB5252972A900313795 /* Poppins-Light.ttf */,
-				3D7D2AA92529729E00313795 /* Poppins-LightItalic.ttf */,
 				3D7D2AB4252972A800313795 /* Poppins-Medium.ttf */,
-				3D7D2AA82529729D00313795 /* Poppins-MediumItalic.ttf */,
 				3D7D2AAE252972A100313795 /* Poppins-Regular.ttf */,
-				3D7D2AAF252972A300313795 /* Poppins-SemiBold.ttf */,
-				3D7D2AB9252972AC00313795 /* Poppins-SemiBoldItalic.ttf */,
-				3D7D2AAA2529729E00313795 /* Poppins-Thin.ttf */,
-				3D7D2AAB2529729F00313795 /* Poppins-ThinItalic.ttf */,
 			);
 			path = Fonts;
 			sourceTree = "<group>";
@@ -209,8 +154,6 @@
 			isa = PBXGroup;
 			children = (
 				3DF8FD5324D5661C00E64116 /* Game Feed */,
-				3DF8FD6A24D5662200E64116 /* Game FeedTests */,
-				3DF8FD7524D5662200E64116 /* Game FeedUITests */,
 				3DF8FD5224D5661C00E64116 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -239,31 +182,12 @@
 			path = "Game Feed";
 			sourceTree = "<group>";
 		};
-		3DF8FD6A24D5662200E64116 /* Game FeedTests */ = {
-			isa = PBXGroup;
-			children = (
-				3DF8FD6B24D5662200E64116 /* Game_FeedTests.swift */,
-				3DF8FD6D24D5662200E64116 /* Info.plist */,
-			);
-			path = "Game FeedTests";
-			sourceTree = "<group>";
-		};
-		3DF8FD7524D5662200E64116 /* Game FeedUITests */ = {
-			isa = PBXGroup;
-			children = (
-				3DF8FD7624D5662200E64116 /* Game_FeedUITests.swift */,
-				3DF8FD7824D5662200E64116 /* Info.plist */,
-			);
-			path = "Game FeedUITests";
-			sourceTree = "<group>";
-		};
 		3DF8FD8424D568E300E64116 /* View */ = {
 			isa = PBXGroup;
 			children = (
 				3DF8FD5F24D5662200E64116 /* LaunchScreen.storyboard */,
 				3DF8FD5A24D5661C00E64116 /* Main.storyboard */,
 				3DDCDC1124D57B790020AB8E /* GameTableViewCell.xib */,
-				3DEB3551252B46ED0023A31C /* GradientView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -271,7 +195,6 @@
 		3DF8FD8524D568EA00E64116 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				3D75A4952510AC480075C816 /* Data */,
 				3D75A4962510AC750075C816 /* RAWG Client */,
 				3D75A4972510AC810075C816 /* RAWG Responses */,
 			);
@@ -287,6 +210,7 @@
 				3D66CE2D24D8F40200E90636 /* MyProfileViewController.swift */,
 				3D66CE2F24D8F42300E90636 /* SearchGameViewController.swift */,
 				3D66CE3124D8F43700E90636 /* NewGameViewController.swift */,
+				3D55B3A92532C4D70072AFC3 /* ExtensionUIView.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -310,6 +234,7 @@
 				3DF8FD4D24D5661C00E64116 /* Sources */,
 				3DF8FD4E24D5661C00E64116 /* Frameworks */,
 				3DF8FD4F24D5661C00E64116 /* Resources */,
+				3DB880F22532B7CC00DA39E3 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -406,26 +331,13 @@
 			files = (
 				3DF8FD6124D5662200E64116 /* LaunchScreen.storyboard in Resources */,
 				3D7D2AC7252972AC00313795 /* Poppins-Light.ttf in Resources */,
-				3D7D2ABD252972AC00313795 /* Poppins-ThinItalic.ttf in Resources */,
-				3D7D2ABC252972AC00313795 /* Poppins-Thin.ttf in Resources */,
 				3D7D2AC5252972AC00313795 /* Poppins-Bold.ttf in Resources */,
 				3D7D2AC8252972AC00313795 /* Poppins-Black.ttf in Resources */,
 				3D7D2AC6252972AC00313795 /* Poppins-Medium.ttf in Resources */,
-				3D7D2ABE252972AC00313795 /* Poppins-Italic.ttf in Resources */,
-				3D7D2ABB252972AC00313795 /* Poppins-LightItalic.ttf in Resources */,
 				3DF8FD5E24D5662200E64116 /* Assets.xcassets in Resources */,
-				3D7D2ACA252972AC00313795 /* Poppins-ExtraBold.ttf in Resources */,
-				3D7D2ACB252972AC00313795 /* Poppins-SemiBoldItalic.ttf in Resources */,
 				3DF8FD5C24D5661C00E64116 /* Main.storyboard in Resources */,
 				3DDCDC1324D57B790020AB8E /* GameTableViewCell.xib in Resources */,
-				3D7D2AC9252972AC00313795 /* Poppins-BlackItalic.ttf in Resources */,
 				3D7D2AC0252972AC00313795 /* Poppins-Regular.ttf in Resources */,
-				3D7D2AC1252972AC00313795 /* Poppins-SemiBold.ttf in Resources */,
-				3D7D2AC3252972AC00313795 /* Poppins-ExtraBoldItalic.ttf in Resources */,
-				3D7D2ABA252972AC00313795 /* Poppins-MediumItalic.ttf in Resources */,
-				3D7D2AC4252972AC00313795 /* Poppins-ExtraLightItalic.ttf in Resources */,
-				3D7D2ABF252972AC00313795 /* Poppins-BoldItalic.ttf in Resources */,
-				3D7D2AC2252972AC00313795 /* Poppins-ExtraLight.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -445,6 +357,26 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		3DB880F22532B7CC00DA39E3 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if which swiftlint >/dev/null; then\n  swiftlint\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		3DF8FD4D24D5661C00E64116 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -453,12 +385,11 @@
 				3DAEDB81252C8D2D00DFAF14 /* Publisher.swift in Sources */,
 				3D96B1732511CB46006A3F1D /* Platform.swift in Sources */,
 				3D75A49A2510AE3C0075C816 /* RAWGClient.swift in Sources */,
-				3DEB3552252B46ED0023A31C /* GradientView.swift in Sources */,
 				3DAEDB7F252C8C7B00DFAF14 /* GameDetail.swift in Sources */,
 				3DF8FD5924D5661C00E64116 /* ViewController.swift in Sources */,
 				3D19822924D792CE00E3AD85 /* Game.swift in Sources */,
-				3D96B16925119AAD006A3F1D /* GameModel.swift in Sources */,
 				3DD8BA3C252DD453001754C0 /* Endpoints.swift in Sources */,
+				3D55B3AA2532C4D70072AFC3 /* ExtensionUIView.swift in Sources */,
 				3D4633B72514544700AF1A70 /* Genre.swift in Sources */,
 				3DF8FD5524D5661C00E64116 /* AppDelegate.swift in Sources */,
 				3DF8FD5724D5661C00E64116 /* SceneDelegate.swift in Sources */,
@@ -477,7 +408,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3DF8FD6C24D5662200E64116 /* Game_FeedTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -485,7 +415,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3DF8FD7724D5662200E64116 /* Game_FeedUITests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

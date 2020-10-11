@@ -1,11 +1,3 @@
-//
-//  Formatter.swift
-//  Game Feed
-//
-//  Created by M Nazar Alwi on 07/10/20.
-//  Copyright © 2020 Dicoding Indonesia. All rights reserved.
-//
-
 import Foundation
 
 class Formatter {
@@ -53,6 +45,7 @@ class Formatter {
                 let platformName = platform.platform.name
                 platforms.append(platformName)
             }
+            
             return platforms.joined(separator: ", ")
         } else {
             return "Platform Not Found"

@@ -1,7 +1,6 @@
 import UIKit
 
 class DetailGameViewController: UIViewController {
-
     @IBOutlet weak var photoGameDetail: UIImageView!
     @IBOutlet weak var titleGameDetail: UILabel!
     @IBOutlet weak var ratingGameDetail: UILabel!
@@ -16,7 +15,6 @@ class DetailGameViewController: UIViewController {
     @IBOutlet var myView: UIView!
     @IBOutlet var myViewHeight: NSLayoutConstraint!
     
-    // Get gameId from ViewController
     var gameId: Int?
     
     override func viewDidLoad() {
@@ -26,7 +24,7 @@ class DetailGameViewController: UIViewController {
         scrollView.contentSize = myView.frame.size
         
         activityIndicator.startAnimating()
-        RAWGClient.getGameDetail(id: gameId ?? 0) { (game, error) in
+        RAWGClient.getGameDetail(idGame: gameId ?? 0) { (game, error) in
             self.activityIndicator.stopAnimating()
             print("Game Detail : \(game)")
             if let gameDetail = game {

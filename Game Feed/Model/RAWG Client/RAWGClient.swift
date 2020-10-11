@@ -1,8 +1,12 @@
 import Foundation
 
 class RAWGClient {
-    @discardableResult class func taskForGETRequest<ResponseType: Decodable>(url: URL, response: ResponseType.Type, completion: @escaping (ResponseType?, Error?) -> Void) -> URLSessionTask {
-        let task = URLSession.shared.dataTask(with: url) { (data, response, error) in
+    @discardableResult class func taskForGETRequest
+        <ResponseType: Decodable>(url: URL,
+                                  response: ResponseType.Type,
+                                  completion: @escaping (ResponseType?, Error?)
+        -> Void) -> URLSessionTask {
+        let task = URLSession.shared.dataTask(with: url) { (data, _, error) in
             guard let data = data else {
                 DispatchQueue.main.async {
                     completion(nil, error)
@@ -11,6 +15,7 @@ class RAWGClient {
             }
             
             let decoder = JSONDecoder()
+            
             do {
                 let responseObject = try decoder.decode(ResponseType.self, from: data)
                 DispatchQueue.main.async {
@@ -22,7 +27,6 @@ class RAWGClient {
                 }
             }
         }
-        
         task.resume()
         
         return task
@@ -45,12 +49,11 @@ class RAWGClient {
             } else {
                 completion([], error)            }
         }
-        
         return task
     }
     
-    class func getGameDetail(id: Int, completion: @escaping (GameDetail?, Error?) -> Void) {
-        taskForGETRequest(url: Endpoints.getGameDetail(id).url, response: GameDetail.self) { (response, error) in
+    class func getGameDetail(idGame: Int, completion: @escaping (GameDetail?, Error?) -> Void) {
+        taskForGETRequest(url: Endpoints.getGameDetail(idGame).url, response: GameDetail.self) { (response, error) in
             if let response = response {
                 completion(response, nil)
             } else {
@@ -60,7 +63,8 @@ class RAWGClient {
     }
     
     class func getNewGameLastMonts(lastMonth: String, now: String, completion: @escaping ([Game], Error?) -> Void) {
-        taskForGETRequest(url: Endpoints.getNewGameLastMonts(lastMonth, now).url, response: GameResult.self) { (response, error) in
+        taskForGETRequest(url: Endpoints.getNewGameLastMonts(lastMonth, now).url,
+                          response: GameResult.self) { (response, error) in
             if let response = response {
                 completion(response.results, nil)
             } else {
@@ -70,7 +74,8 @@ class RAWGClient {
     }
     
     class func downloadBackground(backgroundPath: String, completion: @escaping (Data?, Error?) -> Void) {
-        let task = URLSession.shared.dataTask(with: Endpoints.backgroundImageURL(backgroundPath).url) { (data, response, error) in
+        let task = URLSession.shared
+            .dataTask(with: Endpoints.backgroundImageURL(backgroundPath).url) { (data, _, error) in
             DispatchQueue.main.async {
                 completion(data, error)
             }
