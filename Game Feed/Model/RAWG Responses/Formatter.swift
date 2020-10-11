@@ -45,4 +45,17 @@ class Formatter {
         
         return dateString
     }
+    
+    class func formatPlatform(from platformsFromAPI: [Platforms]) -> String {
+        if !platformsFromAPI.isEmpty {
+            var platforms = [String]()
+            for platform in platformsFromAPI {
+                let platformName = platform.platform.name
+                platforms.append(platformName)
+            }
+            return platforms.joined(separator: ", ")
+        } else {
+            return "Platform Not Found"
+        }
+    }
 }
