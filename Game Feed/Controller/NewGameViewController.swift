@@ -14,6 +14,25 @@ class NewGameViewController: UIViewController {
         errorLabel.isHidden = true
         activityIndicator.startAnimating()
         
+        setupView()
+    }
+    
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        navigationController?.navigationBar.barStyle = .black
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "showDetail" {
+            let detail = segue.destination as? DetailGameViewController
+            detail?.gameId = newGame[selectedIndex].idGame
+        }
+    }
+    
+    func setupView() {
         let now = Date()
         let oneMonthBefore = Calendar.current.date(byAdding: .month, value: -1, to: now)
         
@@ -32,14 +51,6 @@ class NewGameViewController: UIViewController {
         newGameTableView.delegate = self
 
         newGameTableView.register(UINib(nibName: "GameTableViewCell", bundle: nil), forCellReuseIdentifier: "GameCell")
-    }
-    
-    override var preferredStatusBarStyle: UIStatusBarStyle {
-        return .lightContent
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        navigationController?.navigationBar.barStyle = .black
     }
 }
 

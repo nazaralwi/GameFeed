@@ -10,27 +10,10 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.gameTableView.contentInset.bottom = 10
         errorLabel.isHidden = true
-        
-        gameTableView.dataSource = self
-        gameTableView.delegate = self
-        
         activityIndicator.startAnimating()
-        RAWGClient.getGameList(completion: { (games, error) in
-            if !games.isEmpty {
-                self.gameList = games
-                DispatchQueue.main.async {
-                    self.gameTableView.reloadData()
-                    self.activityIndicator.stopAnimating()
-                }
-                print("GameModel: \(self.gameList)")
-            } else {
-                self.errorLabel.isHidden = false
-                self.activityIndicator.stopAnimating()
-            }
-        })
-        gameTableView.register(UINib(nibName: "GameTableViewCell", bundle: nil), forCellReuseIdentifier: "GameCell")
+        
+        setupView()
     }
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
@@ -51,6 +34,28 @@ class ViewController: UIViewController {
             let detail = segue.destination as? DetailGameViewController
             detail?.gameId = gameList[selectedIndex].idGame
         }
+    }
+    
+    func setupView() {
+        self.gameTableView.contentInset.bottom = 10
+        
+        gameTableView.dataSource = self
+        gameTableView.delegate = self
+        
+        RAWGClient.getGameList(completion: { (games, error) in
+            if !games.isEmpty {
+                self.gameList = games
+                DispatchQueue.main.async {
+                    self.gameTableView.reloadData()
+                    self.activityIndicator.stopAnimating()
+                }
+                print("GameModel: \(self.gameList)")
+            } else {
+                self.errorLabel.isHidden = false
+                self.activityIndicator.stopAnimating()
+            }
+        })
+        gameTableView.register(UINib(nibName: "GameTableViewCell", bundle: nil), forCellReuseIdentifier: "GameCell")
     }
 }
 

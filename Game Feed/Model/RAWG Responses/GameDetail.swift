@@ -4,13 +4,13 @@ struct GameDetail: Codable {
     let idGame: Int
     let name: String
     let released: String?
-    let description: String
-    let rating: Double
+    let description: String?
+    let rating: Double?
     let backgroundImage: String?
     let genres: [Genre]?
     let platforms: [Platforms]
     let publishers: [Publisher]
-    let metacritic: Int
+    let metacritic: Int?
     
     enum CodingKeys: String, CodingKey {
         case idGame = "id"

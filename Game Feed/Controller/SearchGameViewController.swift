@@ -12,11 +12,7 @@ class SearchGameViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        searchBar.delegate = self
-        searchTableView.delegate = self
-        searchTableView.dataSource = self
-        
-        searchTableView.register(UINib(nibName: "GameTableViewCell", bundle: nil), forCellReuseIdentifier: "GameCell")
+        setupView()
     }
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
@@ -32,6 +28,14 @@ class SearchGameViewController: UIViewController {
             let detail = segue.destination as? DetailGameViewController
             detail?.gameId = games[selectedIndex].idGame
         }
+    }
+    
+    func setupView() {
+        searchBar.delegate = self
+        searchTableView.delegate = self
+        searchTableView.dataSource = self
+        
+        searchTableView.register(UINib(nibName: "GameTableViewCell", bundle: nil), forCellReuseIdentifier: "GameCell")
     }
 }
 

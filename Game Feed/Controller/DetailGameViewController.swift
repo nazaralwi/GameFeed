@@ -41,12 +41,12 @@ class DetailGameViewController: UIViewController {
                 }
                 self.overviewGameDetail.text = gameDetail.description
                 self.titleGameDetail.text = gameDetail.name
-                self.ratingGameDetail.text = String(format: "%.2f", gameDetail.rating)
+                self.ratingGameDetail.text = String(format: "%.2f", gameDetail.rating ?? "")
                 self.genreGameDetail.text = Formatter.formatGenre(from: gameDetail.genres ?? [])
                 self.releaseGameDetail.text = Formatter.formatDate(from: gameDetail.released ?? "")
                 self.platformGameDetail.text = Formatter.formatPlatform(from: gameDetail.platforms)
                 self.publisherGameDetail.text = Formatter.formatPublisher(from: gameDetail.publishers)
-                self.metacriticGameDetail.text = String(metacritic)
+                self.metacriticGameDetail.text = String(metacritic ?? 0)
             }
         }
     }

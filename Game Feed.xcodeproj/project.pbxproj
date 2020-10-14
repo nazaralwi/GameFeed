@@ -114,6 +114,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3D67694A25370A1B00A83779 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				3DDCDC1124D57B790020AB8E /* GameTableViewCell.xib */,
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
 		3D75A4962510AC750075C816 /* RAWG Client */ = {
 			isa = PBXGroup;
 			children = (
@@ -185,9 +193,9 @@
 		3DF8FD8424D568E300E64116 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				3D67694A25370A1B00A83779 /* Cell */,
 				3DF8FD5F24D5662200E64116 /* LaunchScreen.storyboard */,
 				3DF8FD5A24D5661C00E64116 /* Main.storyboard */,
-				3DDCDC1124D57B790020AB8E /* GameTableViewCell.xib */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -234,7 +242,6 @@
 				3DF8FD4D24D5661C00E64116 /* Sources */,
 				3DF8FD4E24D5661C00E64116 /* Frameworks */,
 				3DF8FD4F24D5661C00E64116 /* Resources */,
-				3DB880F22532B7CC00DA39E3 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -356,26 +363,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
-
-/* Begin PBXShellScriptBuildPhase section */
-		3DB880F22532B7CC00DA39E3 /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-			);
-			outputFileListPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "if which swiftlint >/dev/null; then\n  swiftlint\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
-		};
-/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		3DF8FD4D24D5661C00E64116 /* Sources */ = {
