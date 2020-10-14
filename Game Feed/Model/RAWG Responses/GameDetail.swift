@@ -24,17 +24,4 @@ struct GameDetail: Codable {
         case publishers
         case metacritic
     }
-    
-    init() {
-        idGame = 0
-        name = ""
-        released = ""
-        description = ""
-        rating = 0
-        backgroundImage = nil
-        genres = []
-        platforms = []
-        publishers = []
-        metacritic = 0
-    }
 }
