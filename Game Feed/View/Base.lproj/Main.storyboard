@@ -105,7 +105,7 @@
                                 </userDefinedRuntimeAttributes>
                             </imageView>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="1" translatesAutoresizingMaskIntoConstraints="NO" id="6PF-ke-2yA">
-                                <rect key="frame" x="32" y="314" width="366" height="47.5"/>
+                                <rect key="frame" x="32" y="314" width="366" height="43"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="APd-jy-TOF">
                                         <rect key="frame" x="0.0" y="0.0" width="48" height="21"/>
@@ -114,7 +114,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Muhammad Nazar Alwi" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Td4-2t-7Cw">
-                                        <rect key="frame" x="0.0" y="22" width="209.5" height="25.5"/>
+                                        <rect key="frame" x="0.0" y="22" width="187" height="21"/>
                                         <fontDescription key="fontDescription" name="Poppins-Regular" family="Poppins" pointSize="18"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
@@ -122,7 +122,7 @@
                                 </subviews>
                             </stackView>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="1" translatesAutoresizingMaskIntoConstraints="NO" id="bTy-kq-LD5">
-                                <rect key="frame" x="32" y="381.5" width="366" height="47.5"/>
+                                <rect key="frame" x="32" y="377" width="366" height="43"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Company" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aTm-PX-Moq">
                                         <rect key="frame" x="0.0" y="0.0" width="78.5" height="21"/>
@@ -131,7 +131,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Institut Teknologi Telkom Purwokerto" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BK4-Xu-0JY">
-                                        <rect key="frame" x="0.0" y="22" width="326" height="25.5"/>
+                                        <rect key="frame" x="0.0" y="22" width="296" height="21"/>
                                         <fontDescription key="fontDescription" name="Poppins-Regular" family="Poppins" pointSize="18"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
@@ -139,7 +139,7 @@
                                 </subviews>
                             </stackView>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="1" translatesAutoresizingMaskIntoConstraints="NO" id="Uei-6e-Ulf">
-                                <rect key="frame" x="32" y="449" width="366" height="47.5"/>
+                                <rect key="frame" x="32" y="440" width="366" height="43"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Email" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RPU-NL-WPL">
                                         <rect key="frame" x="0.0" y="0.0" width="44.5" height="21"/>
@@ -148,7 +148,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="alwinazar75@gmail.com" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EM9-WU-FgE">
-                                        <rect key="frame" x="0.0" y="22" width="222.5" height="25.5"/>
+                                        <rect key="frame" x="0.0" y="22" width="193.5" height="21"/>
                                         <fontDescription key="fontDescription" name="Poppins-Regular" family="Poppins" pointSize="18"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
@@ -156,7 +156,7 @@
                                 </subviews>
                             </stackView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mpN-yo-9qo">
-                                <rect key="frame" x="64" y="804" width="286" height="38"/>
+                                <rect key="frame" x="64" y="809" width="286" height="33"/>
                                 <color key="backgroundColor" red="0.31847622990000002" green="0.73021417860000004" blue="0.64672988649999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <fontDescription key="fontDescription" name="Poppins-Medium" family="Poppins" pointSize="18"/>
                                 <state key="normal" title="Reset"/>
@@ -170,7 +170,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4ol-M7-cyL">
-                                <rect key="frame" x="64" y="750" width="286" height="38"/>
+                                <rect key="frame" x="64" y="760" width="286" height="33"/>
                                 <color key="backgroundColor" red="0.31847622990000002" green="0.73021417860000004" blue="0.64672988649999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <fontDescription key="fontDescription" name="Poppins-Medium" family="Poppins" pointSize="18"/>
                                 <state key="normal" title="Edit"/>
@@ -779,6 +779,7 @@
                         <segue destination="PIz-ma-c3e" kind="relationship" relationship="viewControllers" id="nOc-fK-M4Y"/>
                         <segue destination="SLI-O2-M6K" kind="relationship" relationship="viewControllers" id="nRL-tP-kcB"/>
                         <segue destination="s4Z-Zj-wbP" kind="relationship" relationship="viewControllers" id="UUH-i6-tgx"/>
+                        <segue destination="Prw-mL-lCQ" kind="relationship" relationship="viewControllers" id="OJY-Q6-ikC"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="CdI-ns-9n6" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -908,10 +909,66 @@
             </objects>
             <point key="canvasLocation" x="1042" y="821"/>
         </scene>
+        <!--Game Feed-->
+        <scene sceneID="bpR-RC-XlV">
+            <objects>
+                <viewController id="Kbf-Q1-QYc" customClass="FavoritesViewController" customModule="Game_Feed" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="nlZ-f4-pgt">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="725"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="x8O-qb-BZp">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="725"/>
+                                <color key="backgroundColor" red="0.08234155923" green="0.082360200580000001" blue="0.082337506120000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="zwd-ID-TCg" firstAttribute="bottom" secondItem="x8O-qb-BZp" secondAttribute="bottom" id="Ea8-no-iRz"/>
+                            <constraint firstItem="x8O-qb-BZp" firstAttribute="top" secondItem="zwd-ID-TCg" secondAttribute="top" id="cvV-Mn-UFJ"/>
+                            <constraint firstItem="zwd-ID-TCg" firstAttribute="trailing" secondItem="x8O-qb-BZp" secondAttribute="trailing" id="qb1-w0-M1U"/>
+                            <constraint firstItem="x8O-qb-BZp" firstAttribute="leading" secondItem="zwd-ID-TCg" secondAttribute="leading" id="rjw-uY-eYH"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="zwd-ID-TCg"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Game Feed" id="Dah-Pd-v5K">
+                        <barButtonItem key="rightBarButtonItem" title="Item" image="person.circle" catalog="system" id="yvc-nl-dR0"/>
+                    </navigationItem>
+                    <connections>
+                        <segue destination="nvJ-v7-58f" kind="show" identifier="showDetail" id="sAM-36-kEJ"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Xah-S7-aFe" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1951" y="1565"/>
+        </scene>
+        <!--Favorites-->
+        <scene sceneID="bcI-XA-K4e">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Prw-mL-lCQ" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Favorites" image="heart" catalog="system" id="1OT-bQ-oov"/>
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translucent="NO" id="HfV-G6-RNG">
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="barTintColor" red="0.08234155923" green="0.082360200580000001" blue="0.082337506120000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <textAttributes key="titleTextAttributes">
+                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </textAttributes>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="Kbf-Q1-QYc" kind="relationship" relationship="rootViewController" id="CI1-Sg-gWk"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="qye-Vf-ioF" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1042" y="1565"/>
+        </scene>
     </scenes>
     <inferredMetricsTieBreakers>
         <segue reference="aor-mu-y26"/>
-        <segue reference="164-1r-S9o"/>
+        <segue reference="sAM-36-kEJ"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
     <resources>
