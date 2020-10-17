@@ -20,8 +20,8 @@ class DetailGameViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        myViewHeight.constant = 2000
-        scrollView.contentSize = myView.frame.size
+//        myViewHeight.constant = 2000
+//        scrollView.contentSize = myView.frame.size
         
         activityIndicator.startAnimating()
         RAWGClient.getGameDetail(idGame: gameId ?? 0) { (game, error) in

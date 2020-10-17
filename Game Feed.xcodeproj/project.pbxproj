@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		3D19822924D792CE00E3AD85 /* Game.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D19822824D792CE00E3AD85 /* Game.swift */; };
 		3D19823524D7F6B000E3AD85 /* DetailGameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D19823424D7F6B000E3AD85 /* DetailGameViewController.swift */; };
+		3D23BA7B2539E8EE0064B284 /* UpdateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D23BA7A2539E8EE0064B284 /* UpdateViewController.swift */; };
 		3D4633B72514544700AF1A70 /* Genre.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D4633B62514544700AF1A70 /* Genre.swift */; };
 		3D55B3AA2532C4D70072AFC3 /* ExtensionUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D55B3A92532C4D70072AFC3 /* ExtensionUIView.swift */; };
 		3D66CE2E24D8F40200E90636 /* MyProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D66CE2D24D8F40200E90636 /* MyProfileViewController.swift */; };
@@ -20,6 +21,8 @@
 		3D7D2AC6252972AC00313795 /* Poppins-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3D7D2AB4252972A800313795 /* Poppins-Medium.ttf */; };
 		3D7D2AC7252972AC00313795 /* Poppins-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3D7D2AB5252972A900313795 /* Poppins-Light.ttf */; };
 		3D7D2AC8252972AC00313795 /* Poppins-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3D7D2AB6252972AA00313795 /* Poppins-Black.ttf */; };
+		3D8B7730253828650076805E /* CreateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D8B772F253828650076805E /* CreateViewController.swift */; };
+		3D8B773225382E390076805E /* ProfileModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D8B773125382E390076805E /* ProfileModel.swift */; };
 		3D96B1732511CB46006A3F1D /* Platform.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D96B1722511CB46006A3F1D /* Platform.swift */; };
 		3D96B1752511CC5B006A3F1D /* GameResults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D96B1742511CC5B006A3F1D /* GameResults.swift */; };
 		3D96B1772511D843006A3F1D /* Platforms.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D96B1762511D843006A3F1D /* Platforms.swift */; };
@@ -57,6 +60,7 @@
 /* Begin PBXFileReference section */
 		3D19822824D792CE00E3AD85 /* Game.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Game.swift; sourceTree = "<group>"; };
 		3D19823424D7F6B000E3AD85 /* DetailGameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailGameViewController.swift; sourceTree = "<group>"; };
+		3D23BA7A2539E8EE0064B284 /* UpdateViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateViewController.swift; sourceTree = "<group>"; };
 		3D4633B62514544700AF1A70 /* Genre.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Genre.swift; sourceTree = "<group>"; };
 		3D55B3A92532C4D70072AFC3 /* ExtensionUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionUIView.swift; sourceTree = "<group>"; };
 		3D66CE2D24D8F40200E90636 /* MyProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyProfileViewController.swift; sourceTree = "<group>"; };
@@ -68,6 +72,8 @@
 		3D7D2AB4252972A800313795 /* Poppins-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-Medium.ttf"; sourceTree = "<group>"; };
 		3D7D2AB5252972A900313795 /* Poppins-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-Light.ttf"; sourceTree = "<group>"; };
 		3D7D2AB6252972AA00313795 /* Poppins-Black.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-Black.ttf"; sourceTree = "<group>"; };
+		3D8B772F253828650076805E /* CreateViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateViewController.swift; sourceTree = "<group>"; };
+		3D8B773125382E390076805E /* ProfileModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileModel.swift; sourceTree = "<group>"; };
 		3D96B1722511CB46006A3F1D /* Platform.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Platform.swift; sourceTree = "<group>"; };
 		3D96B1742511CC5B006A3F1D /* GameResults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameResults.swift; sourceTree = "<group>"; };
 		3D96B1762511D843006A3F1D /* Platforms.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Platforms.swift; sourceTree = "<group>"; };
@@ -127,6 +133,7 @@
 			children = (
 				3DD8BA3B252DD453001754C0 /* Endpoints.swift */,
 				3D75A4992510AE3C0075C816 /* RAWGClient.swift */,
+				3D8B773125382E390076805E /* ProfileModel.swift */,
 			);
 			path = "RAWG Client";
 			sourceTree = "<group>";
@@ -219,6 +226,8 @@
 				3D66CE2F24D8F42300E90636 /* SearchGameViewController.swift */,
 				3D66CE3124D8F43700E90636 /* NewGameViewController.swift */,
 				3D55B3A92532C4D70072AFC3 /* ExtensionUIView.swift */,
+				3D8B772F253828650076805E /* CreateViewController.swift */,
+				3D23BA7A2539E8EE0064B284 /* UpdateViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -369,6 +378,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3D8B7730253828650076805E /* CreateViewController.swift in Sources */,
 				3DAEDB81252C8D2D00DFAF14 /* Publisher.swift in Sources */,
 				3D96B1732511CB46006A3F1D /* Platform.swift in Sources */,
 				3D75A49A2510AE3C0075C816 /* RAWGClient.swift in Sources */,
@@ -379,10 +389,12 @@
 				3D55B3AA2532C4D70072AFC3 /* ExtensionUIView.swift in Sources */,
 				3D4633B72514544700AF1A70 /* Genre.swift in Sources */,
 				3DF8FD5524D5661C00E64116 /* AppDelegate.swift in Sources */,
+				3D23BA7B2539E8EE0064B284 /* UpdateViewController.swift in Sources */,
 				3DF8FD5724D5661C00E64116 /* SceneDelegate.swift in Sources */,
 				3DD8BA3E252DFFB9001754C0 /* Formatter.swift in Sources */,
 				3D96B1772511D843006A3F1D /* Platforms.swift in Sources */,
 				3D19823524D7F6B000E3AD85 /* DetailGameViewController.swift in Sources */,
+				3D8B773225382E390076805E /* ProfileModel.swift in Sources */,
 				3D66CE2E24D8F40200E90636 /* MyProfileViewController.swift in Sources */,
 				3D66CE3224D8F43700E90636 /* NewGameViewController.swift in Sources */,
 				3DDCDC1224D57B790020AB8E /* GameTableViewCell.swift in Sources */,
