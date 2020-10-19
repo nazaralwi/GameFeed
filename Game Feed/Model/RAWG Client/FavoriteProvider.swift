@@ -26,5 +26,11 @@ class FavoriteProvider {
         return container
     }()
     
-    
+    private func newTaskContext() -> NSManagedObjectContext {
+        let taskContext = persistentContainer.newBackgroundContext()
+        taskContext.undoManager = nil
+        
+        taskContext.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
+        return taskContext
+    }
 }
