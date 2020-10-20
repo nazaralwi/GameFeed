@@ -744,7 +744,7 @@
                     <navigationItem key="navigationItem" id="xnX-1P-SDh">
                         <barButtonItem key="rightBarButtonItem" title="Item" image="heart" catalog="system" id="4e7-Lf-V9X">
                             <connections>
-                                <action selector="addToProfile:" destination="nvJ-v7-58f" id="J9O-vR-BvU"/>
+                                <action selector="addToFavorite:" destination="nvJ-v7-58f" id="J9O-vR-BvU"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -921,7 +921,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="725"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="x8O-qb-BZp">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="360" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="x8O-qb-BZp">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="725"/>
                                 <color key="backgroundColor" red="0.08234155923" green="0.082360200580000001" blue="0.082337506120000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </tableView>
@@ -936,7 +936,11 @@
                         <viewLayoutGuide key="safeArea" id="zwd-ID-TCg"/>
                     </view>
                     <navigationItem key="navigationItem" title="Game Feed" id="Dah-Pd-v5K">
-                        <barButtonItem key="rightBarButtonItem" title="Item" image="person.circle" catalog="system" id="yvc-nl-dR0"/>
+                        <barButtonItem key="rightBarButtonItem" title="Item" image="person.circle" catalog="system" id="yvc-nl-dR0">
+                            <connections>
+                                <action selector="profileButton:" destination="Kbf-Q1-QYc" id="Vcu-mi-3cd"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="favoriteTableView" destination="x8O-qb-BZp" id="IeX-eG-TPh"/>

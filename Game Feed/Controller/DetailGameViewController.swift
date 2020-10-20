@@ -1,9 +1,9 @@
 import UIKit
 
 class DetailGameViewController: UIViewController {
-    @IBOutlet weak var photoGameDetail: UIImageView!
-    @IBOutlet weak var titleGameDetail: UILabel!
-    @IBOutlet weak var ratingGameDetail: UILabel!
+    @IBOutlet var photoGameDetail: UIImageView!
+    @IBOutlet var titleGameDetail: UILabel!
+    @IBOutlet var ratingGameDetail: UILabel!
     @IBOutlet var overviewGameDetail: UILabel!
     @IBOutlet var platformGameDetail: UILabel!
     @IBOutlet var releaseGameDetail: UILabel!
@@ -14,6 +14,7 @@ class DetailGameViewController: UIViewController {
     @IBOutlet var scrollView: UIScrollView!
     @IBOutlet var myView: UIView!
     @IBOutlet var myViewHeight: NSLayoutConstraint!
+    private lazy var favoriteProvider: FavoriteProvider = { return FavoriteProvider() }()
     
     var gameId: Int?
     
@@ -47,6 +48,44 @@ class DetailGameViewController: UIViewController {
                 self.platformGameDetail.text = Formatter.formatPlatform(from: gameDetail.platforms)
                 self.publisherGameDetail.text = Formatter.formatPublisher(from: gameDetail.publishers)
                 self.metacriticGameDetail.text = String(metacritic ?? 0)
+            }
+        }
+    }
+    
+    @IBAction func addToFavorite(_ sender: Any) {
+        addToFavorite()
+    }
+    
+    private func addToFavorite() {
+        let name = titleGameDetail.text ?? ""
+        let overview = overviewGameDetail.text ?? ""
+        let rating = ratingGameDetail.text ?? ""
+        let genres = genreGameDetail.text ?? ""
+        let released = releaseGameDetail.text ?? ""
+        let platform = platformGameDetail.text ?? ""
+        let publisher = publisherGameDetail.text ?? ""
+        let metacritic = metacriticGameDetail.text ?? ""
+//        let background = photoGameDetail.image
+        
+        favoriteProvider.addToFavorite(gameId ?? 0, name, released, rating, genres) {
+            DispatchQueue.main.async {
+                let alert = UIAlertController(title: "Successful", message: "New member created.", preferredStyle: .alert)
+                
+                alert.addAction(UIAlertAction(title: "OK", style: .default) { (action) in
+                    self.navigationController?.popViewController(animated: true)
+                })
+                self.present(alert, animated: true, completion: nil)
+            }
+        }
+    }
+    
+    private func loadFavorite() {
+        favoriteProvider.getFavorite(gameId ?? 0) { (favorite) in
+            DispatchQueue.main.async {
+                self.titleGameDetail.text = favorite.name
+                self.ratingGameDetail.text = favorite.rating
+                self.releaseGameDetail.text = favorite.released
+                self.genreGameDetail.text = favorite.genres
             }
         }
     }

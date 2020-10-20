@@ -45,7 +45,7 @@ class FavoriteProvider {
                     let favorite = FavoriteModel(id: result.value(forKeyPath: "id") as? Int64,
                                                  name: result.value(forKeyPath: "name") as? String,
                                                  released: result.value(forKeyPath: "released") as? String,
-                                                 rating: result.value(forKeyPath: "rating") as? Double,
+                                                 rating: result.value(forKeyPath: "rating") as? String,
                                                  backgroundImage: result.value(forKeyPath: "backgroundImage") as? String,
                                                  genres: result.value(forKeyPath: "genres") as? String)
                     
@@ -69,7 +69,7 @@ class FavoriteProvider {
                     let favorite =  FavoriteModel(id: result.value(forKeyPath: "id") as? Int64,
                                                   name: result.value(forKeyPath: "name") as? String,
                                                   released: result.value(forKeyPath: "released") as? String,
-                                                  rating: result.value(forKeyPath: "rating") as? Double,
+                                                  rating: result.value(forKeyPath: "rating") as? String,
                                                   backgroundImage: result.value(forKeyPath: "backgroundImage") as? String,
                                                   genres: result.value(forKeyPath: "genres") as? String)
                     completion(favorite)
@@ -80,7 +80,7 @@ class FavoriteProvider {
         }
     }
     
-    func addToFavorite(_ id: Int, _ name: String, _ released: String, _ rating: Double, _ backgroundPath: String, _ genres: String) {
+    func addToFavorite(_ id: Int, _ name: String, _ released: String, _ rating: String, _ genres: String, completion: @escaping() -> ()) {
         let taskContext = newTaskContext()
         taskContext.performAndWait {
             if let entity = NSEntityDescription.entity(forEntityName: "Favorite", in: taskContext) {
@@ -90,8 +90,15 @@ class FavoriteProvider {
                 favorite.setValue(name, forKey: "name")
                 favorite.setValue(rating, forKey: "rating")
                 favorite.setValue(released, forKey: "released")
-                favorite.setValue(backgroundPath, forKey: "backgroundImage")
+//                favorite.setValue(backgroundPath, forKey: "backgroundImage")
                 favorite.setValue(genres, forKey: "genres")
+                
+                do {
+                    try taskContext.save()
+                    completion()
+                } catch let error as NSError {
+                    print("Could not save. \(error), \(error.userInfo)")
+                }
             }
         }
     }
