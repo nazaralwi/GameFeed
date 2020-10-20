@@ -42,7 +42,7 @@ class FavoriteProvider {
                 let results = try taskContext.fetch(fetchRequest)
                 var favorites: [FavoriteModel] = []
                 for result in results {
-                    let favorite = FavoriteModel(id: result.value(forKeyPath: "id") as? Int32,
+                    let favorite = FavoriteModel(id: result.value(forKeyPath: "id") as? Int64,
                                                  name: result.value(forKeyPath: "name") as? String,
                                                  released: result.value(forKeyPath: "released") as? String,
                                                  rating: result.value(forKeyPath: "rating") as? Double,
@@ -66,7 +66,7 @@ class FavoriteProvider {
             fetchRequest.predicate = NSPredicate(format: "id == \(id)")
             do {
                 if let result = try taskContext.fetch(fetchRequest).first{
-                    let favorite =  FavoriteModel(id: result.value(forKeyPath: "id") as? Int32,
+                    let favorite =  FavoriteModel(id: result.value(forKeyPath: "id") as? Int64,
                                                   name: result.value(forKeyPath: "name") as? String,
                                                   released: result.value(forKeyPath: "released") as? String,
                                                   rating: result.value(forKeyPath: "rating") as? Double,
@@ -79,6 +79,42 @@ class FavoriteProvider {
             }
         }
     }
+    
+    func addToFavorite(_ id: Int, _ name: String, _ released: String, _ rating: Double, _ backgroundPath: String, _ genres: String) {
+        let taskContext = newTaskContext()
+        taskContext.performAndWait {
+            if let entity = NSEntityDescription.entity(forEntityName: "Favorite", in: taskContext) {
+                let favorite = NSManagedObject(entity: entity, insertInto: taskContext)
+                
+                favorite.setValue(id, forKey: "id")
+                favorite.setValue(name, forKey: "name")
+                favorite.setValue(rating, forKey: "rating")
+                favorite.setValue(released, forKey: "released")
+                favorite.setValue(backgroundPath, forKey: "backgroundImage")
+                favorite.setValue(genres, forKey: "genres")
+            }
+        }
+    }
+    
+//    func getMaxId(completion: @escaping(_ maxId: Int) -> ()) {
+//        let taskContext = newTaskContext()
+//        taskContext.performAndWait {
+//            let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "Favorite")
+//            let sortDescriptor = NSSortDescriptor(key: "id", ascending: false)
+//            fetchRequest.sortDescriptors = [sortDescriptor]
+//            fetchRequest.fetchLimit = 1
+//            do {
+//                let lastMember = try taskContext.fetch(fetchRequest)
+//                if let member = lastMember.first, let position = member.value(forKeyPath: "id") as? Int{
+//                    completion(position)
+//                } else {
+//                    completion(0)
+//                }
+//            } catch {
+//                print(error.localizedDescription)
+//            }
+//        }
+//    }
     
     func deleteAllFavorite(completion: @escaping() -> ()) {
         let taskContext = newTaskContext()

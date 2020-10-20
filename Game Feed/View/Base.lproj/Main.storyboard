@@ -275,7 +275,7 @@
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="adA-2Q-kVF">
-                                <rect key="frame" x="60" y="794" width="294" height="33"/>
+                                <rect key="frame" x="60" y="789" width="294" height="38"/>
                                 <color key="backgroundColor" red="0.31847622990000002" green="0.73021417860000004" blue="0.64672988649999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <fontDescription key="fontDescription" name="Poppins-Medium" family="Poppins" pointSize="18"/>
                                 <state key="normal" title="Create"/>
@@ -377,7 +377,7 @@
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zms-Y8-w18">
-                                <rect key="frame" x="64" y="809" width="286" height="33"/>
+                                <rect key="frame" x="64" y="804" width="286" height="38"/>
                                 <color key="backgroundColor" red="0.31847622990000002" green="0.73021417860000004" blue="0.64672988649999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <fontDescription key="fontDescription" name="Poppins-Medium" family="Poppins" pointSize="18"/>
                                 <state key="normal" title="Cancel"/>
@@ -391,7 +391,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lu5-3G-esg">
-                                <rect key="frame" x="64" y="760" width="286" height="33"/>
+                                <rect key="frame" x="64" y="750" width="286" height="38"/>
                                 <color key="backgroundColor" red="0.31847622990000002" green="0.73021417860000004" blue="0.64672988649999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <fontDescription key="fontDescription" name="Poppins-Medium" family="Poppins" pointSize="18"/>
                                 <state key="normal" title="Save"/>
@@ -464,7 +464,7 @@
                                 <color key="color" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </activityIndicatorView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Something Went Wrong" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Cnf-O7-ENk">
-                                <rect key="frame" x="111.5" y="352" width="191" height="21"/>
+                                <rect key="frame" x="100" y="350" width="214" height="25.5"/>
                                 <fontDescription key="fontDescription" name="Poppins-Regular" family="Poppins" pointSize="18"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
@@ -742,7 +742,11 @@
                         <viewLayoutGuide key="safeArea" id="954-36-mFK"/>
                     </view>
                     <navigationItem key="navigationItem" id="xnX-1P-SDh">
-                        <barButtonItem key="rightBarButtonItem" title="Item" image="heart" catalog="system" id="4e7-Lf-V9X"/>
+                        <barButtonItem key="rightBarButtonItem" title="Item" image="heart" catalog="system" id="4e7-Lf-V9X">
+                            <connections>
+                                <action selector="addToProfile:" destination="nvJ-v7-58f" id="J9O-vR-BvU"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="activityIndicator" destination="MIS-Ec-HrQ" id="Hia-7h-dZF"/>
@@ -803,7 +807,7 @@
                                 <color key="color" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </activityIndicatorView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Something Went Wrong" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zSV-hm-n1R">
-                                <rect key="frame" x="111.5" y="352" width="191" height="21"/>
+                                <rect key="frame" x="100" y="350" width="214" height="25.5"/>
                                 <fontDescription key="fontDescription" name="Poppins-Regular" family="Poppins" pointSize="18"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
@@ -935,6 +939,7 @@
                         <barButtonItem key="rightBarButtonItem" title="Item" image="person.circle" catalog="system" id="yvc-nl-dR0"/>
                     </navigationItem>
                     <connections>
+                        <outlet property="favoriteTableView" destination="x8O-qb-BZp" id="IeX-eG-TPh"/>
                         <segue destination="nvJ-v7-58f" kind="show" identifier="showDetail" id="sAM-36-kEJ"/>
                     </connections>
                 </viewController>
