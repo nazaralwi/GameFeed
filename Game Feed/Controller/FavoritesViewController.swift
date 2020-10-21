@@ -114,6 +114,26 @@ extension FavoritesViewController: UITableViewDataSource {
             cell.releaseGame.text = favorite.released
             cell.genreGame.text = favorite.genres
             
+            if let backgroundPath = favorite.backgroundImage {
+                RAWGClient.downloadBackground(backgroundPath: backgroundPath) { (data, error) in
+                    guard let data = data else {
+                        return
+                    }
+                    
+                    let image = UIImage(data: data)
+                    cell.photoGame.image = image
+                    cell.setNeedsLayout()
+                    
+                    cell.photoGame.roundCorners(corners: [.topRight, .topLeft], radius: 10)
+                }
+            }
+            
+//            if let image = favorite.backgroundImage {
+//                cell.photoGame.image = UIImage(data: image)
+//                cell.setNeedsLayout()
+//                cell.photoGame.roundCorners(corners: [.topRight, .topLeft], radius: 10)
+//            }
+            
             return cell
         } else {
             return UITableViewCell()

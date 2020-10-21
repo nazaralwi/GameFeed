@@ -757,9 +757,12 @@
                     </navigationItem>
                     <connections>
                         <outlet property="activityIndicator" destination="MIS-Ec-HrQ" id="Hia-7h-dZF"/>
+                        <outlet property="addToFavoriteButton" destination="4e7-Lf-V9X" id="v4j-vE-fbN"/>
+                        <outlet property="deleteFromFavoriteButton" destination="yLW-UH-R3O" id="vr9-KH-NxM"/>
                         <outlet property="genreGameDetail" destination="yZ5-Wh-ftw" id="lRh-IG-DWf"/>
                         <outlet property="metacriticGameDetail" destination="xXs-ak-Q5W" id="ePQ-OS-v9f"/>
                         <outlet property="myView" destination="M1c-19-w2V" id="Mfz-IC-luY"/>
+                        <outlet property="myViewHeight" destination="uf8-s6-fEU" id="rWW-OB-k4j"/>
                         <outlet property="overviewGameDetail" destination="Rlp-4g-qfq" id="wRG-gq-2fM"/>
                         <outlet property="photoGameDetail" destination="oOg-7p-Ffo" id="iS2-83-hAI"/>
                         <outlet property="platformGameDetail" destination="lvh-8g-VHO" id="Jbs-Iz-Ylk"/>
@@ -932,31 +935,33 @@
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="725"/>
                                 <color key="backgroundColor" red="0.08234155923" green="0.082360200580000001" blue="0.082337506120000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </tableView>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="empty" translatesAutoresizingMaskIntoConstraints="NO" id="4pp-rY-V9B">
-                                <rect key="frame" x="50" y="212.5" width="314" height="300"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="300" id="ICd-oS-JUo"/>
-                                </constraints>
-                            </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No Favorites Item" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7jZ-OH-Jbv">
-                                <rect key="frame" x="20" y="75" width="374" height="31"/>
-                                <fontDescription key="fontDescription" name="Poppins-Regular" family="Poppins" pointSize="22"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <nil key="highlightedColor"/>
-                            </label>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="55" translatesAutoresizingMaskIntoConstraints="NO" id="5SW-5U-qCj">
+                                <rect key="frame" x="30" y="169.5" width="354" height="386"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No Favorites Item" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7jZ-OH-Jbv">
+                                        <rect key="frame" x="78" y="0.0" width="198" height="31"/>
+                                        <fontDescription key="fontDescription" name="Poppins-Bold" family="Poppins" pointSize="22"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="empty2" translatesAutoresizingMaskIntoConstraints="NO" id="4pp-rY-V9B">
+                                        <rect key="frame" x="9" y="86" width="336.5" height="300"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="300" id="ICd-oS-JUo"/>
+                                        </constraints>
+                                    </imageView>
+                                </subviews>
+                            </stackView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
-                            <constraint firstItem="7jZ-OH-Jbv" firstAttribute="top" secondItem="zwd-ID-TCg" secondAttribute="top" constant="75" id="93b-NG-jLl"/>
+                            <constraint firstItem="5SW-5U-qCj" firstAttribute="leading" secondItem="zwd-ID-TCg" secondAttribute="leading" constant="30" id="72h-JA-f0c"/>
                             <constraint firstItem="zwd-ID-TCg" firstAttribute="bottom" secondItem="x8O-qb-BZp" secondAttribute="bottom" id="Ea8-no-iRz"/>
-                            <constraint firstItem="zwd-ID-TCg" firstAttribute="trailing" secondItem="7jZ-OH-Jbv" secondAttribute="trailing" constant="20" id="Mgm-8z-l91"/>
+                            <constraint firstItem="5SW-5U-qCj" firstAttribute="centerY" secondItem="nlZ-f4-pgt" secondAttribute="centerY" id="H5p-2H-mPW"/>
+                            <constraint firstItem="zwd-ID-TCg" firstAttribute="trailing" secondItem="5SW-5U-qCj" secondAttribute="trailing" constant="30" id="UPP-7I-hDV"/>
                             <constraint firstItem="x8O-qb-BZp" firstAttribute="top" secondItem="zwd-ID-TCg" secondAttribute="top" id="cvV-Mn-UFJ"/>
-                            <constraint firstItem="4pp-rY-V9B" firstAttribute="leading" secondItem="zwd-ID-TCg" secondAttribute="leading" constant="50" id="dCB-yz-34V"/>
-                            <constraint firstItem="zwd-ID-TCg" firstAttribute="trailing" secondItem="4pp-rY-V9B" secondAttribute="trailing" constant="50" id="hsu-DO-GrK"/>
-                            <constraint firstItem="7jZ-OH-Jbv" firstAttribute="leading" secondItem="zwd-ID-TCg" secondAttribute="leading" constant="20" id="lDU-MS-CQQ"/>
                             <constraint firstItem="zwd-ID-TCg" firstAttribute="trailing" secondItem="x8O-qb-BZp" secondAttribute="trailing" id="qb1-w0-M1U"/>
                             <constraint firstItem="x8O-qb-BZp" firstAttribute="leading" secondItem="zwd-ID-TCg" secondAttribute="leading" id="rjw-uY-eYH"/>
-                            <constraint firstItem="4pp-rY-V9B" firstAttribute="centerY" secondItem="nlZ-f4-pgt" secondAttribute="centerY" id="xRg-MH-t8U"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="zwd-ID-TCg"/>
                     </view>
@@ -1011,7 +1016,7 @@
     </inferredMetricsTieBreakers>
     <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
     <resources>
-        <image name="empty" width="336.5" height="263"/>
+        <image name="empty2" width="336.5" height="263"/>
         <image name="flame" catalog="system" width="109" height="128"/>
         <image name="gamecontroller" catalog="system" width="128" height="82"/>
         <image name="heart" catalog="system" width="128" height="109"/>

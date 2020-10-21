@@ -82,7 +82,7 @@ class FavoriteProvider {
                 favorite.setValue(name, forKey: "name")
                 favorite.setValue(rating, forKey: "rating")
                 favorite.setValue(released, forKey: "released")
-//                favorite.setValue(backgroundPath, forKey: "backgroundImage")
+//                favorite.setValue(backgroundImage, forKey: "backgroundImage")
                 favorite.setValue(genres, forKey: "genres")
                 
                 do {
