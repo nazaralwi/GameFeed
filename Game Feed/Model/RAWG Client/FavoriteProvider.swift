@@ -1,11 +1,3 @@
-//
-//  FavoriteProvider.swift
-//  Game Feed
-//
-//  Created by M Nazar Alwi on 17/10/20.
-//  Copyright © 2020 Dicoding Indonesia. All rights reserved.
-//
-
 import UIKit
 import CoreData
 
@@ -102,26 +94,6 @@ class FavoriteProvider {
             }
         }
     }
-    
-//    func getMaxId(completion: @escaping(_ maxId: Int) -> ()) {
-//        let taskContext = newTaskContext()
-//        taskContext.performAndWait {
-//            let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "Favorite")
-//            let sortDescriptor = NSSortDescriptor(key: "id", ascending: false)
-//            fetchRequest.sortDescriptors = [sortDescriptor]
-//            fetchRequest.fetchLimit = 1
-//            do {
-//                let lastMember = try taskContext.fetch(fetchRequest)
-//                if let member = lastMember.first, let position = member.value(forKeyPath: "id") as? Int{
-//                    completion(position)
-//                } else {
-//                    completion(0)
-//                }
-//            } catch {
-//                print(error.localizedDescription)
-//            }
-//        }
-//    }
     
     func deleteAllFavorite(completion: @escaping() -> ()) {
         let taskContext = newTaskContext()

@@ -17,12 +17,6 @@ class MyProfileViewController: UIViewController, MFMailComposeViewControllerDele
     }
     
     @IBAction func editProfile(_ sender: Any) {
-//        let mailComposeViewController = configureMailComposer()
-//        if MFMailComposeViewController.canSendMail() {
-//           self.present(mailComposeViewController, animated: true, completion: nil)
-//        } else {
-//           print("Can't send email")
-//        }
         self.performSegue(withIdentifier: "moveToUpdate", sender: self)
     }
     

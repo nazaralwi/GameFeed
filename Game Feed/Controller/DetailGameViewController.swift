@@ -17,6 +17,16 @@ class DetailGameViewController: UIViewController {
     private lazy var favoriteProvider: FavoriteProvider = { return FavoriteProvider() }()
     
     var gameId: Int?
+    var gameDetail: GameDetail!
+    
+    var isFavorite: Bool {
+        if GameModel.favorites.contains(where: {favorite in Int(favorite.id ?? 0) == gameId ?? 0}) {
+            return true
+        } else {
+            return false
+        }
+//        if GameModel.favorites.contains(where: game)
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,6 +37,7 @@ class DetailGameViewController: UIViewController {
         activityIndicator.startAnimating()
         RAWGClient.getGameDetail(idGame: gameId ?? 0) { (game, error) in
             self.activityIndicator.stopAnimating()
+
             print("Game Detail : \(game)")
             if let gameDetail = game {
                 let metacritic = gameDetail.metacritic
@@ -52,7 +63,33 @@ class DetailGameViewController: UIViewController {
         }
     }
     
+    @IBAction func deleteFromFavorite(_ sender: Any) {
+        favoriteProvider.deleteFavorite(gameId ?? 0) {
+            DispatchQueue.main.async {
+                let alert = UIAlertController(title: "Successful", message: "Member deleted.", preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "OK", style: .default) { (action) in
+                    self.navigationController?.popViewController(animated: true)
+                })
+                self.present(alert, animated: true, completion: nil)
+            }
+        }
+    }
     @IBAction func addToFavorite(_ sender: Any) {
+//        if isFavorite {
+//            favoriteProvider.deleteFavorite(gameId ?? 0) {
+//                print("Id: \(self.gameId)")
+//                print("Fav Id: \(GameModel.favorites[0].id)")
+//                DispatchQueue.main.async {
+//                    let alert = UIAlertController(title: "Successful", message: "Member deleted.", preferredStyle: .alert)
+//                    alert.addAction(UIAlertAction(title: "OK", style: .default) { (action) in
+//                        self.navigationController?.popViewController(animated: true)
+//                    })
+//                    self.present(alert, animated: true, completion: nil)
+//                }
+//            }
+//        } else {
+//            addToFavorite()
+//        }
         addToFavorite()
     }
     
@@ -69,7 +106,7 @@ class DetailGameViewController: UIViewController {
         
         favoriteProvider.addToFavorite(gameId ?? 0, name, released, rating, genres) {
             DispatchQueue.main.async {
-                let alert = UIAlertController(title: "Successful", message: "New member created.", preferredStyle: .alert)
+                let alert = UIAlertController(title: "Successful", message: "Add \(name) to favorite", preferredStyle: .alert)
                 
                 alert.addAction(UIAlertAction(title: "OK", style: .default) { (action) in
                     self.navigationController?.popViewController(animated: true)

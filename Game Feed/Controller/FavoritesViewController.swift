@@ -2,8 +2,11 @@ import UIKit
 
 class FavoritesViewController: UIViewController {
     @IBOutlet var favoriteTableView: UITableView!
-    private var favorites: [FavoriteModel] = []
+//    private var favorites: [FavoriteModel] = []
+    private var favorites = GameModel.favorites
     private lazy var favoriteProvider: FavoriteProvider = { return FavoriteProvider() }()
+    @IBOutlet var emptyLabel: UILabel!
+    @IBOutlet var emptyImage: UIImageView!
     var selectedIndex = 0
 //    var gameList = [Game]()
     
@@ -50,8 +53,15 @@ class FavoritesViewController: UIViewController {
     private func loadFavorites() {
         self.favoriteProvider.getAllFavorites { (results) in
             DispatchQueue.main.async {
-                self.favorites = results
-                self.favoriteTableView.reloadData()
+                if !results.isEmpty {
+                    self.favorites = results
+                    self.favoriteTableView.reloadData()
+                    self.favoriteIsEmpty(state: true)
+                } else {
+                    self.favorites = results
+                    self.favoriteTableView.reloadData()
+                    self.favoriteIsEmpty(state: false)
+                }
             }
         }
     }
@@ -77,6 +87,16 @@ class FavoritesViewController: UIViewController {
 //        })
         
         favoriteTableView.register(UINib(nibName: "GameTableViewCell", bundle: nil), forCellReuseIdentifier: "GameCell")
+    }
+    
+    func favoriteIsEmpty(state: Bool) {
+        if state {
+            emptyLabel.isHidden = true
+            emptyImage.isHidden = true
+        } else {
+            emptyLabel.isHidden = false
+            emptyImage.isHidden = false
+        }
     }
 }
 
