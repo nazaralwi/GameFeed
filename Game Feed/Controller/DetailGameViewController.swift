@@ -21,15 +21,6 @@ class DetailGameViewController: UIViewController {
     var gameId: Int?
     var gameDetail: GameDetail!
     
-    var isFavorite: Bool {
-        if GameModel.favorites.contains(where: {favorite in Int(favorite.id ?? 0) == gameId ?? 0}) {
-            return true
-        } else {
-            return false
-        }
-//        if GameModel.favorites.contains(where: game)
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -47,7 +38,6 @@ class DetailGameViewController: UIViewController {
             if let gameDetail = game {
                 let metacritic = gameDetail.metacritic
                 if let backgroundPath = gameDetail.backgroundImage {
-//                   let backgroundPath1 = gameDetail.backgroundImage ?? ""
                    RAWGClient.downloadBackground(backgroundPath: backgroundPath) { (data, error) in
                        guard let data = data else {
                            return
@@ -82,21 +72,6 @@ class DetailGameViewController: UIViewController {
         }
     }
     @IBAction func addToFavorite(_ sender: Any) {
-//        if isFavorite {
-//            favoriteProvider.deleteFavorite(gameId ?? 0) {
-//                print("Id: \(self.gameId)")
-//                print("Fav Id: \(GameModel.favorites[0].id)")
-//                DispatchQueue.main.async {
-//                    let alert = UIAlertController(title: "Successful", message: "Member deleted.", preferredStyle: .alert)
-//                    alert.addAction(UIAlertAction(title: "OK", style: .default) { (action) in
-//                        self.navigationController?.popViewController(animated: true)
-//                    })
-//                    self.present(alert, animated: true, completion: nil)
-//                }
-//            }
-//        } else {
-//            addToFavorite()
-//        }
         addToFavorite()
     }
     
@@ -109,21 +84,7 @@ class DetailGameViewController: UIViewController {
         let platform = platformGameDetail.text ?? ""
         let publisher = publisherGameDetail.text ?? ""
         let metacritic = metacriticGameDetail.text ?? ""
-//        let backgroundPath = gameDetail.backgroundImage ?? ""
-//        let background = photoGameDetail.image
-        
-//        if let image = photoGameDetail.image, let data = image.pngData() as NSData? {
-//            favoriteProvider.addToFavorite(gameId ?? 0, name, released, rating, genres) {
-//                DispatchQueue.main.async {
-//                    let alert = UIAlertController(title: "Successful", message: "Add \(name) to favorite", preferredStyle: .alert)
-//                    
-//                    alert.addAction(UIAlertAction(title: "OK", style: .default) { (action) in
-//                        self.navigationController?.popViewController(animated: true)
-//                    })
-//                    self.present(alert, animated: true, completion: nil)
-//                }
-//            }
-//        }
+
         favoriteProvider.addToFavorite(gameId ?? 0, name, released, rating, genres) {
             DispatchQueue.main.async {
                 let alert = UIAlertController(title: "Successful", message: "Add \(name) to favorite", preferredStyle: .alert)
@@ -144,6 +105,14 @@ class DetailGameViewController: UIViewController {
                 self.releaseGameDetail.text = favorite.released
                 self.genreGameDetail.text = favorite.genres
             }
+        }
+    }
+    
+    func toggleFavoriteButton(_ button: UIBarButtonItem, enable: Bool) {
+        if enable {
+            addToFavoriteButton.image = UIImage(systemName: "heart.fill")
+        } else {
+            addToFavoriteButton.image = UIImage(systemName: "heart")
         }
     }
 }
