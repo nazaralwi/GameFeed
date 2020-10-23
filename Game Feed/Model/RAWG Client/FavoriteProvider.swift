@@ -57,7 +57,7 @@ class FavoriteProvider {
             fetchRequest.fetchLimit = 1
             fetchRequest.predicate = NSPredicate(format: "id == \(id)")
             do {
-                if let result = try taskContext.fetch(fetchRequest).first{
+                if let result = try taskContext.fetch(fetchRequest).first {
                     let favorite =  FavoriteModel(id: result.value(forKeyPath: "id") as? Int64,
                                                   name: result.value(forKeyPath: "name") as? String,
                                                   released: result.value(forKeyPath: "released") as? String,
@@ -74,24 +74,28 @@ class FavoriteProvider {
     
     func addToFavorite(_ id: Int, _ name: String, _ released: String, _ rating: String, _ genres: String, completion: @escaping() -> ()) {
         let taskContext = newTaskContext()
-        taskContext.performAndWait {
-            if let entity = NSEntityDescription.entity(forEntityName: "Favorite", in: taskContext) {
-                let favorite = NSManagedObject(entity: entity, insertInto: taskContext)
-                
-                favorite.setValue(id, forKey: "id")
-                favorite.setValue(name, forKey: "name")
-                favorite.setValue(rating, forKey: "rating")
-                favorite.setValue(released, forKey: "released")
-//                favorite.setValue(backgroundImage, forKey: "backgroundImage")
-                favorite.setValue(genres, forKey: "genres")
-                
-                do {
-                    try taskContext.save()
-                    completion()
-                } catch let error as NSError {
-                    print("Could not save. \(error), \(error.userInfo)")
+        if !checkData(id: id, taskContext: taskContext) {
+            taskContext.performAndWait {
+                if let entity = NSEntityDescription.entity(forEntityName: "Favorite", in: taskContext) {
+                    let favorite = NSManagedObject(entity: entity, insertInto: taskContext)
+                    
+                    favorite.setValue(id, forKey: "id")
+                    favorite.setValue(name, forKey: "name")
+                    favorite.setValue(rating, forKey: "rating")
+                    favorite.setValue(released, forKey: "released")
+//                    favorite.setValue(backgroundImage, forKey: "backgroundImage")
+                    favorite.setValue(genres, forKey: "genres")
+                    
+                    do {
+                        try taskContext.save()
+                        completion()
+                    } catch let error as NSError {
+                        print("Could not save. \(error), \(error.userInfo)")
+                    }
                 }
             }
+        } else {
+            print("Data sudah ada pada favorite")
         }
     }
     
@@ -108,7 +112,22 @@ class FavoriteProvider {
         }
     }
     
-    func deleteFavorite(_ id: Int, completion: @escaping() -> ()){
+    func checkData(id: Int, taskContext: NSManagedObjectContext) -> Bool {
+        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "Favorite")
+        
+        fetchRequest.predicate = NSPredicate(format: "id = %d", id)
+        var results: [NSManagedObject] = []
+        
+        do {
+            results = try taskContext.fetch(fetchRequest)
+        } catch let error as NSError {
+            print("Could not fetch. \(error), \(error.userInfo)")
+        }
+        
+        return results.count > 0
+    }
+    
+    func deleteFavorite(_ id: Int, completion: @escaping() -> ()) {
         let taskContext = newTaskContext()
         taskContext.perform {
             let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Favorite")
