@@ -7,6 +7,9 @@ class MyProfileViewController: UIViewController, MFMailComposeViewControllerDele
     @IBOutlet var emailLabel: UILabel!
     override func viewDidLoad() {
         super.viewDidLoad()
+        if !ProfileModel.stateEdit {
+            saveExistingData()
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -16,26 +19,19 @@ class MyProfileViewController: UIViewController, MFMailComposeViewControllerDele
         emailLabel.text = ProfileModel.email
     }
     
-    @IBAction func editProfile(_ sender: Any) {
-        self.performSegue(withIdentifier: "moveToUpdate", sender: self)
-    }
-    
-    @IBAction func resetProfile(_ sender: Any) {
-        if ProfileModel.deleteAll() {
-            self.performSegue(withIdentifier: "moveToCreate", sender: self)
+    func saveExistingData() {
+        if let name = nameLabel.text, let company = companyLabel.text, let email = emailLabel.text {
+            saveProfile(name, company, email)
         }
     }
     
-    func configureMailComposer() -> MFMailComposeViewController {
-        let mailComposeVC = MFMailComposeViewController()
-        mailComposeVC.mailComposeDelegate = self
-        mailComposeVC.setToRecipients(["alwinazar75@gmail.com"])
-        mailComposeVC.setSubject("Review Your Code")
-        mailComposeVC.setMessageBody("Hi, Nazar", isHTML: false)
-        return mailComposeVC
+    func saveProfile(_ name: String, _ company: String, _ email: String) {
+        ProfileModel.name = name
+        ProfileModel.company = company
+        ProfileModel.email = email
     }
-
-    func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
-        controller.dismiss(animated: true, completion: nil)
+    
+    @IBAction func editProfile(_ sender: Any) {
+        self.performSegue(withIdentifier: "moveToUpdate", sender: self)
     }
 }

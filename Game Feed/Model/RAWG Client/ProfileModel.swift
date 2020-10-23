@@ -1,17 +1,17 @@
 import Foundation
 
 class ProfileModel {
-    static let stateLoginKey = "state"
+    static let stateEditKey = "state"
     static let nameKey = "name"
     static let companyKey = "company"
     static let emailKey = "email"
     
-    static var stateLogin: Bool {
+    static var stateEdit: Bool {
         get {
-            return UserDefaults.standard.bool(forKey: stateLoginKey)
+            return UserDefaults.standard.bool(forKey: stateEditKey)
         }
         set {
-            UserDefaults.standard.set(newValue, forKey: stateLoginKey)
+            UserDefaults.standard.set(newValue, forKey: stateEditKey)
         }
     }
     

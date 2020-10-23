@@ -16,20 +16,6 @@ class ViewController: UIViewController {
         setupView()
     }
     
-    @IBAction func profileButton(_ sender: Any) {
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        
-        if !ProfileModel.stateLogin {
-            let createViewController = storyboard.instantiateViewController(withIdentifier: "CreateScene") as! CreateViewController
-            self.navigationController?.pushViewController(createViewController, animated: true)
-//            self.present(createViewController, animated: true, completion: nil)
-        } else {
-            let profileViewController = storyboard.instantiateViewController(withIdentifier: "ProfileScene") as! MyProfileViewController
-            self.navigationController?.pushViewController(profileViewController, animated: true)
-//            self.present(profileViewController, animated: true, completion: nil)
-        }
-    }
-    
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
     }

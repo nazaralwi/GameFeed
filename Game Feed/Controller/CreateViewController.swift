@@ -26,7 +26,7 @@ class CreateViewController: UIViewController {
     }
     
     func saveProfile(_ name: String, _ company: String, _ email: String) {
-        ProfileModel.stateLogin = true
+//        ProfileModel.stateLogin = true
         ProfileModel.name = name
         ProfileModel.company = company
         ProfileModel.email = email
