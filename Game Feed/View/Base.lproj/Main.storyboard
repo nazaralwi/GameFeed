@@ -439,7 +439,7 @@
                                 <color key="color" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </activityIndicatorView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Something Went Wrong" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Cnf-O7-ENk">
-                                <rect key="frame" x="111.5" y="352" width="191" height="21"/>
+                                <rect key="frame" x="100" y="350" width="214" height="25.5"/>
                                 <fontDescription key="fontDescription" name="Poppins-Regular" family="Poppins" pointSize="18"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
@@ -717,23 +717,15 @@
                         <viewLayoutGuide key="safeArea" id="954-36-mFK"/>
                     </view>
                     <navigationItem key="navigationItem" id="xnX-1P-SDh">
-                        <rightBarButtonItems>
-                            <barButtonItem title="Item" image="heart" catalog="system" id="4e7-Lf-V9X">
-                                <connections>
-                                    <action selector="addToFavorite:" destination="nvJ-v7-58f" id="J9O-vR-BvU"/>
-                                </connections>
-                            </barButtonItem>
-                            <barButtonItem title="Item" image="trash" catalog="system" id="yLW-UH-R3O">
-                                <connections>
-                                    <action selector="deleteFromFavorite:" destination="nvJ-v7-58f" id="ch9-bs-Rvu"/>
-                                </connections>
-                            </barButtonItem>
-                        </rightBarButtonItems>
+                        <barButtonItem key="rightBarButtonItem" title="Item" image="heart" catalog="system" id="4e7-Lf-V9X">
+                            <connections>
+                                <action selector="addToFavorite:" destination="nvJ-v7-58f" id="J9O-vR-BvU"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="activityIndicator" destination="MIS-Ec-HrQ" id="Hia-7h-dZF"/>
                         <outlet property="addToFavoriteButton" destination="4e7-Lf-V9X" id="v4j-vE-fbN"/>
-                        <outlet property="deleteFromFavoriteButton" destination="yLW-UH-R3O" id="vr9-KH-NxM"/>
                         <outlet property="genreGameDetail" destination="yZ5-Wh-ftw" id="lRh-IG-DWf"/>
                         <outlet property="metacriticGameDetail" destination="xXs-ak-Q5W" id="ePQ-OS-v9f"/>
                         <outlet property="myView" destination="M1c-19-w2V" id="Mfz-IC-luY"/>
@@ -792,7 +784,7 @@
                                 <color key="color" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </activityIndicatorView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Something Went Wrong" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zSV-hm-n1R">
-                                <rect key="frame" x="111.5" y="352" width="191" height="21"/>
+                                <rect key="frame" x="100" y="350" width="214" height="25.5"/>
                                 <fontDescription key="fontDescription" name="Poppins-Regular" family="Poppins" pointSize="18"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
@@ -911,16 +903,16 @@
                                 <color key="backgroundColor" red="0.08234155923" green="0.082360200580000001" blue="0.082337506120000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </tableView>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="55" translatesAutoresizingMaskIntoConstraints="NO" id="5SW-5U-qCj">
-                                <rect key="frame" x="30" y="172" width="354" height="381"/>
+                                <rect key="frame" x="30" y="169.5" width="354" height="386"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No Favorites Item" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7jZ-OH-Jbv">
-                                        <rect key="frame" x="90" y="0.0" width="174" height="26"/>
+                                        <rect key="frame" x="78" y="0.0" width="198" height="31"/>
                                         <fontDescription key="fontDescription" name="Poppins-Bold" family="Poppins" pointSize="22"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="empty2" translatesAutoresizingMaskIntoConstraints="NO" id="4pp-rY-V9B">
-                                        <rect key="frame" x="9" y="81" width="336.5" height="300"/>
+                                        <rect key="frame" x="9" y="86" width="336.5" height="300"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="300" id="ICd-oS-JUo"/>
                                         </constraints>
@@ -941,14 +933,11 @@
                         <viewLayoutGuide key="safeArea" id="zwd-ID-TCg"/>
                     </view>
                     <navigationItem key="navigationItem" title="Game Feed" id="Dah-Pd-v5K">
-                        <rightBarButtonItems>
-                            <barButtonItem title="Item" image="person.circle" catalog="system" id="yvc-nl-dR0">
-                                <connections>
-                                    <action selector="profileButton:" destination="Kbf-Q1-QYc" id="Vcu-mi-3cd"/>
-                                </connections>
-                            </barButtonItem>
-                            <barButtonItem title="Delete" image="trash" catalog="system" id="6GV-mE-34i"/>
-                        </rightBarButtonItems>
+                        <barButtonItem key="rightBarButtonItem" title="Item" image="person.circle" catalog="system" id="yvc-nl-dR0">
+                            <connections>
+                                <action selector="profileButton:" destination="Kbf-Q1-QYc" id="Vcu-mi-3cd"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="emptyImage" destination="4pp-rY-V9B" id="LR7-si-AZ8"/>
@@ -987,7 +976,7 @@
     </scenes>
     <inferredMetricsTieBreakers>
         <segue reference="aor-mu-y26"/>
-        <segue reference="wsP-Hl-13X"/>
+        <segue reference="sAM-36-kEJ"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
     <resources>
@@ -1000,6 +989,5 @@
         <image name="magnifyingglass" catalog="system" width="128" height="115"/>
         <image name="person.circle" catalog="system" width="128" height="121"/>
         <image name="star.fill" catalog="system" width="128" height="116"/>
-        <image name="trash" catalog="system" width="121" height="128"/>
     </resources>
 </document>

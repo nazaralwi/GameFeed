@@ -15,7 +15,6 @@ class DetailGameViewController: UIViewController {
     @IBOutlet var myView: UIView!
     @IBOutlet var myViewHeight: NSLayoutConstraint!
     @IBOutlet var addToFavoriteButton: UIBarButtonItem!
-    @IBOutlet var deleteFromFavoriteButton: UIBarButtonItem!
     private lazy var favoriteProvider: FavoriteProvider = { return FavoriteProvider() }()
     
     var gameId: Int?
@@ -28,13 +27,15 @@ class DetailGameViewController: UIViewController {
         myViewHeight.constant = 2000
         scrollView.contentSize = myView.frame.size
         
-        activityIndicator.startAnimating()
-        addToFavoriteButton.isEnabled = false
-        deleteFromFavoriteButton.isEnabled = false
+        if favoriteProvider.checkData(id: gameId ?? 0) {
+            addToFavoriteButton.image = UIImage(systemName: "heart.fill")
+        } else {
+            addToFavoriteButton.image = UIImage(systemName: "heart")
+        }
+        
+        loading(state: true)
         RAWGClient.getGameDetail(idGame: gameId ?? 0) { (game, error) in
-            self.activityIndicator.stopAnimating()
-            self.addToFavoriteButton.isEnabled = true
-            self.deleteFromFavoriteButton.isEnabled = true
+            self.loading(state: false)
             print("Game Detail : \(game)")
             if let gameDetail = game {
                 let metacritic = gameDetail.metacritic
@@ -61,12 +62,14 @@ class DetailGameViewController: UIViewController {
         }
     }
     
-    @IBAction func deleteFromFavorite(_ sender: Any) {
-        deleteFromFavorite()
-    }
-    
     @IBAction func addToFavorite(_ sender: Any) {
-        addToFavorite()
+        if !favoriteProvider.checkData(id: gameId ?? 0) {
+            addToFavorite()
+            addToFavoriteButton.image = UIImage(systemName: "heart.fill")
+        } else {
+            deleteFromFavorite()
+            addToFavoriteButton.image = UIImage(systemName: "heart")
+        }
     }
     
     private func deleteFromFavorite() {
@@ -84,13 +87,9 @@ class DetailGameViewController: UIViewController {
     
     private func addToFavorite() {
         let name = titleGameDetail.text ?? ""
-        let overview = overviewGameDetail.text ?? ""
         let rating = ratingGameDetail.text ?? ""
         let genres = genreGameDetail.text ?? ""
         let released = releaseGameDetail.text ?? ""
-        let platform = platformGameDetail.text ?? ""
-        let publisher = publisherGameDetail.text ?? ""
-        let metacritic = metacriticGameDetail.text ?? ""
 
         favoriteProvider.addToFavorite(gameId ?? 0, name, released, rating, genres, path, true) {
             DispatchQueue.main.async {
@@ -103,24 +102,15 @@ class DetailGameViewController: UIViewController {
             }
         }
     }
-    
-    private func loadFavorite() {
-        favoriteProvider.getFavorite(gameId ?? 0) { (favorite) in
-            DispatchQueue.main.async {
-                self.titleGameDetail.text = favorite.name
-                self.ratingGameDetail.text = favorite.rating
-                self.releaseGameDetail.text = favorite.released
-                self.genreGameDetail.text = favorite.genres
-                self.toggleFavoriteButton(self.addToFavoriteButton, enable: favorite.isFavorite ?? false)
-            }
-        }
-    }
-    
-    func toggleFavoriteButton(_ button: UIBarButtonItem, enable: Bool) {
-        if enable {
-            button.image = UIImage(systemName: "heart.fill")
+
+    private func loading(state: Bool) {
+        if state {
+            activityIndicator.startAnimating()
+            addToFavoriteButton.isEnabled = false
         } else {
-            button.image = UIImage(systemName: "heart")
+            self.activityIndicator.stopAnimating()
+            self.addToFavoriteButton.isEnabled = true
+
         }
     }
 }

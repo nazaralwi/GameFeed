@@ -18,7 +18,7 @@ class FavoriteProvider {
         return container
     }()
     
-    private func newTaskContext() -> NSManagedObjectContext {
+    func newTaskContext() -> NSManagedObjectContext {
         let taskContext = persistentContainer.newBackgroundContext()
         taskContext.undoManager = nil
         
@@ -74,7 +74,7 @@ class FavoriteProvider {
     
     func addToFavorite(_ id: Int, _ name: String, _ released: String, _ rating: String, _ genres: String, _ backgroundImage: String, _ isFavorite: Bool, completion: @escaping() -> ()) {
         let taskContext = newTaskContext()
-        if !checkData(id: id, taskContext: taskContext) {
+        if !checkData(id: id) {
             taskContext.performAndWait {
                 if let entity = NSEntityDescription.entity(forEntityName: "Favorite", in: taskContext) {
                     let favorite = NSManagedObject(entity: entity, insertInto: taskContext)
@@ -112,7 +112,8 @@ class FavoriteProvider {
         }
     }
     
-    func checkData(id: Int, taskContext: NSManagedObjectContext) -> Bool {
+    func checkData(id: Int) -> Bool {
+        let taskContext = newTaskContext()
         let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "Favorite")
         
         fetchRequest.predicate = NSPredicate(format: "id = %d", id)
