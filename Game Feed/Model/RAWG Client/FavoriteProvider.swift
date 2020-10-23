@@ -115,7 +115,6 @@ class FavoriteProvider {
     func checkData(id: Int) -> Bool {
         let taskContext = newTaskContext()
         let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "Favorite")
-        
         fetchRequest.predicate = NSPredicate(format: "id = %d", id)
         var results: [NSManagedObject] = []
         
