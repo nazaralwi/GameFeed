@@ -2,7 +2,7 @@ import UIKit
 
 class FavoritesViewController: UIViewController {
     @IBOutlet var favoriteTableView: UITableView!
-    private var favorites = GameModel.favorites
+    private var favorites = [FavoriteModel]()
     private lazy var favoriteProvider: FavoriteProvider = { return FavoriteProvider() }()
     @IBOutlet var emptyLabel: UILabel!
     @IBOutlet var emptyImage: UIImageView!

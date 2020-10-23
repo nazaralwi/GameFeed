@@ -21,7 +21,6 @@
 		3D7D2AC6252972AC00313795 /* Poppins-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3D7D2AB4252972A800313795 /* Poppins-Medium.ttf */; };
 		3D7D2AC7252972AC00313795 /* Poppins-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3D7D2AB5252972A900313795 /* Poppins-Light.ttf */; };
 		3D7D2AC8252972AC00313795 /* Poppins-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3D7D2AB6252972AA00313795 /* Poppins-Black.ttf */; };
-		3D8B7730253828650076805E /* CreateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D8B772F253828650076805E /* CreateViewController.swift */; };
 		3D8B773225382E390076805E /* ProfileModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D8B773125382E390076805E /* ProfileModel.swift */; };
 		3D96B1732511CB46006A3F1D /* Platform.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D96B1722511CB46006A3F1D /* Platform.swift */; };
 		3D96B1752511CC5B006A3F1D /* GameResults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D96B1742511CC5B006A3F1D /* GameResults.swift */; };
@@ -36,7 +35,6 @@
 		3DD8EC20253AF04500BBE509 /* FavoriteProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DD8EC1F253AF04500BBE509 /* FavoriteProvider.swift */; };
 		3DDCDC1224D57B790020AB8E /* GameTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DDCDC1024D57B790020AB8E /* GameTableViewCell.swift */; };
 		3DDCDC1324D57B790020AB8E /* GameTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3DDCDC1124D57B790020AB8E /* GameTableViewCell.xib */; };
-		3DE28F30253F0F510039095E /* GameModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DE28F2F253F0F510039095E /* GameModel.swift */; };
 		3DF8FD5524D5661C00E64116 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DF8FD5424D5661C00E64116 /* AppDelegate.swift */; };
 		3DF8FD5724D5661C00E64116 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DF8FD5624D5661C00E64116 /* SceneDelegate.swift */; };
 		3DF8FD5924D5661C00E64116 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DF8FD5824D5661C00E64116 /* ViewController.swift */; };
@@ -77,7 +75,6 @@
 		3D7D2AB4252972A800313795 /* Poppins-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-Medium.ttf"; sourceTree = "<group>"; };
 		3D7D2AB5252972A900313795 /* Poppins-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-Light.ttf"; sourceTree = "<group>"; };
 		3D7D2AB6252972AA00313795 /* Poppins-Black.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-Black.ttf"; sourceTree = "<group>"; };
-		3D8B772F253828650076805E /* CreateViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateViewController.swift; sourceTree = "<group>"; };
 		3D8B773125382E390076805E /* ProfileModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileModel.swift; sourceTree = "<group>"; };
 		3D96B1722511CB46006A3F1D /* Platform.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Platform.swift; sourceTree = "<group>"; };
 		3D96B1742511CC5B006A3F1D /* GameResults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameResults.swift; sourceTree = "<group>"; };
@@ -92,7 +89,6 @@
 		3DD8EC1F253AF04500BBE509 /* FavoriteProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteProvider.swift; sourceTree = "<group>"; };
 		3DDCDC1024D57B790020AB8E /* GameTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameTableViewCell.swift; sourceTree = "<group>"; };
 		3DDCDC1124D57B790020AB8E /* GameTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GameTableViewCell.xib; sourceTree = "<group>"; };
-		3DE28F2F253F0F510039095E /* GameModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameModel.swift; sourceTree = "<group>"; };
 		3DF8FD5124D5661C00E64116 /* Game Feed.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Game Feed.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3DF8FD5424D5661C00E64116 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3DF8FD5624D5661C00E64116 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -178,14 +174,6 @@
 			path = Fonts;
 			sourceTree = "<group>";
 		};
-		3DE28F2E253F0F3E0039095E /* Data */ = {
-			isa = PBXGroup;
-			children = (
-				3DE28F2F253F0F510039095E /* GameModel.swift */,
-			);
-			path = Data;
-			sourceTree = "<group>";
-		};
 		3DF8FD4824D5661C00E64116 = {
 			isa = PBXGroup;
 			children = (
@@ -231,7 +219,6 @@
 		3DF8FD8524D568EA00E64116 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				3DE28F2E253F0F3E0039095E /* Data */,
 				3D75A4962510AC750075C816 /* RAWG Client */,
 				3D75A4972510AC810075C816 /* RAWG Responses */,
 			);
@@ -241,14 +228,13 @@
 		3DF8FD8624D568F300E64116 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				3D55B3A92532C4D70072AFC3 /* ExtensionUIView.swift */,
 				3DDCDC1024D57B790020AB8E /* GameTableViewCell.swift */,
 				3DF8FD5824D5661C00E64116 /* ViewController.swift */,
 				3D19823424D7F6B000E3AD85 /* DetailGameViewController.swift */,
 				3D66CE2D24D8F40200E90636 /* MyProfileViewController.swift */,
 				3D66CE2F24D8F42300E90636 /* SearchGameViewController.swift */,
 				3D66CE3124D8F43700E90636 /* NewGameViewController.swift */,
-				3D55B3A92532C4D70072AFC3 /* ExtensionUIView.swift */,
-				3D8B772F253828650076805E /* CreateViewController.swift */,
 				3D23BA7A2539E8EE0064B284 /* UpdateViewController.swift */,
 				3DD8EC15253ACE9C00BBE509 /* FavoritesViewController.swift */,
 			);
@@ -401,7 +387,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3D8B7730253828650076805E /* CreateViewController.swift in Sources */,
 				3DAEDB81252C8D2D00DFAF14 /* Publisher.swift in Sources */,
 				3D96B1732511CB46006A3F1D /* Platform.swift in Sources */,
 				3D75A49A2510AE3C0075C816 /* RAWGClient.swift in Sources */,
@@ -421,7 +406,6 @@
 				3D8B773225382E390076805E /* ProfileModel.swift in Sources */,
 				3D66CE2E24D8F40200E90636 /* MyProfileViewController.swift in Sources */,
 				3D66CE3224D8F43700E90636 /* NewGameViewController.swift in Sources */,
-				3DE28F30253F0F510039095E /* GameModel.swift in Sources */,
 				3DDCDC1224D57B790020AB8E /* GameTableViewCell.swift in Sources */,
 				3DD8EC1C253AD88B00BBE509 /* UserFavorites.xcdatamodeld in Sources */,
 				3DD8EC1E253AEFA200BBE509 /* FavoriteModel.swift in Sources */,

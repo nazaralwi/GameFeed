@@ -11,9 +11,6 @@ class NewGameViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        errorLabel.isHidden = true
-        activityIndicator.startAnimating()
-        
         setupView()
     }
     
@@ -35,6 +32,9 @@ class NewGameViewController: UIViewController {
     func setupView() {
         let now = Date()
         let oneMonthBefore = Calendar.current.date(byAdding: .month, value: -1, to: now)
+        
+        errorLabel.isHidden = true
+        activityIndicator.startAnimating()
         
         RAWGClient.getNewGameLastMonts(lastMonth: Formatter.formatDateToString(from: oneMonthBefore ?? Date()), now: Formatter.formatDateToString(from: now)) { (games, error) in
             if !games.isEmpty {

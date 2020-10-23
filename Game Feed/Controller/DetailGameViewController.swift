@@ -27,16 +27,19 @@ class DetailGameViewController: UIViewController {
         myViewHeight.constant = 2000
         scrollView.contentSize = myView.frame.size
         
+        setupView()
+    }
+    
+    func setupView() {
         if favoriteProvider.checkData(id: gameId ?? 0) {
             addToFavoriteButton.image = UIImage(systemName: "heart.fill")
         } else {
             addToFavoriteButton.image = UIImage(systemName: "heart")
         }
         
-        loading(state: true)
+        isLoading(state: true)
         RAWGClient.getGameDetail(idGame: gameId ?? 0) { (game, error) in
-            self.loading(state: false)
-            print("Game Detail : \(game)")
+            self.isLoading(state: false)
             if let gameDetail = game {
                 let metacritic = gameDetail.metacritic
                 if let backgroundPath = gameDetail.backgroundImage {
@@ -103,7 +106,7 @@ class DetailGameViewController: UIViewController {
         }
     }
 
-    private func loading(state: Bool) {
+    private func isLoading(state: Bool) {
         if state {
             activityIndicator.startAnimating()
             addToFavoriteButton.isEnabled = false

@@ -10,9 +10,6 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        errorLabel.isHidden = true
-        activityIndicator.startAnimating()
-        
         setupView()
     }
     
@@ -41,6 +38,9 @@ class ViewController: UIViewController {
         
         gameTableView.dataSource = self
         gameTableView.delegate = self
+        
+        errorLabel.isHidden = true
+        activityIndicator.startAnimating()
         
         RAWGClient.getGameList(completion: { (games, error) in
             if !games.isEmpty {
