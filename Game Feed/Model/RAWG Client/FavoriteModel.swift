@@ -7,4 +7,5 @@ struct FavoriteModel {
     var rating: String?
     var backgroundImage: String?
     var genres: String?
+    var isFavorite: Bool?
 }

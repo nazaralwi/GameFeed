@@ -2,13 +2,11 @@ import UIKit
 
 class FavoritesViewController: UIViewController {
     @IBOutlet var favoriteTableView: UITableView!
-//    private var favorites: [FavoriteModel] = []
     private var favorites = GameModel.favorites
     private lazy var favoriteProvider: FavoriteProvider = { return FavoriteProvider() }()
     @IBOutlet var emptyLabel: UILabel!
     @IBOutlet var emptyImage: UIImageView!
     var selectedIndex = 0
-//    var gameList = [Game]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -41,7 +39,6 @@ class FavoritesViewController: UIViewController {
             let detail = segue.destination as? DetailGameViewController
             let id = Int(favorites[selectedIndex].id ?? 0)
             detail?.gameId = id
-//            detail?.gameId = gameList[selectedIndex].idGame
         }
     }
     
@@ -71,20 +68,6 @@ class FavoritesViewController: UIViewController {
         
         favoriteTableView.dataSource = self
         favoriteTableView.delegate = self
-        
-//        RAWGClient.getGameList(completion: { (games, error) in
-//            if !games.isEmpty {
-//                self.gameList = games
-//                DispatchQueue.main.async {
-//                    self.favoriteTableView.reloadData()
-////                    self.activityIndicator.stopAnimating()
-//                }
-//                print("GameModel: \(self.gameList)")
-//            } else {
-////                self.errorLabel.isHidden = false
-////                self.activityIndicator.stopAnimating()
-//            }
-//        })
         
         favoriteTableView.register(UINib(nibName: "GameTableViewCell", bundle: nil), forCellReuseIdentifier: "GameCell")
     }
@@ -127,12 +110,6 @@ extension FavoritesViewController: UITableViewDataSource {
                     cell.photoGame.roundCorners(corners: [.topRight, .topLeft], radius: 10)
                 }
             }
-            
-//            if let image = favorite.backgroundImage {
-//                cell.photoGame.image = UIImage(data: image)
-//                cell.setNeedsLayout()
-//                cell.photoGame.roundCorners(corners: [.topRight, .topLeft], radius: 10)
-//            }
             
             return cell
         } else {

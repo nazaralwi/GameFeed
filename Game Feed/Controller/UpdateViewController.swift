@@ -28,13 +28,10 @@ class UpdateViewController: UIViewController {
             } else {
                 saveProfil(name, company, email)
                 
-                self.dismiss(animated: true)
+                navigationController?.popViewController(animated: true)
+                dismiss(animated: true, completion: nil)
             }
         }
-    }
-    
-    @IBAction func cancelButton(_ sender: Any) {
-        self.dismiss(animated: true)
     }
     
     func saveProfil(_ name: String, _ company: String, _ email: String) {

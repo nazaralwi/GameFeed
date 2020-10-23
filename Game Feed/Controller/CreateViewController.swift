@@ -8,8 +8,6 @@ class CreateViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        
     }
     
     @IBAction func createAccount(_ sender: Any) {

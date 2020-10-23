@@ -72,7 +72,7 @@ class FavoriteProvider {
         }
     }
     
-    func addToFavorite(_ id: Int, _ name: String, _ released: String, _ rating: String, _ genres: String, completion: @escaping() -> ()) {
+    func addToFavorite(_ id: Int, _ name: String, _ released: String, _ rating: String, _ genres: String, _ backgroundImage: String, _ isFavorite: Bool, completion: @escaping() -> ()) {
         let taskContext = newTaskContext()
         if !checkData(id: id, taskContext: taskContext) {
             taskContext.performAndWait {
@@ -83,9 +83,9 @@ class FavoriteProvider {
                     favorite.setValue(name, forKey: "name")
                     favorite.setValue(rating, forKey: "rating")
                     favorite.setValue(released, forKey: "released")
-//                    favorite.setValue(backgroundImage, forKey: "backgroundImage")
+                    favorite.setValue(backgroundImage, forKey: "backgroundImage")
                     favorite.setValue(genres, forKey: "genres")
-                    
+                    favorite.setValue(isFavorite, forKey: "isFavorite")
                     do {
                         try taskContext.save()
                         completion()

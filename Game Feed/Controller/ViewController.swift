@@ -21,10 +21,12 @@ class ViewController: UIViewController {
         
         if !ProfileModel.stateLogin {
             let createViewController = storyboard.instantiateViewController(withIdentifier: "CreateScene") as! CreateViewController
-            self.present(createViewController, animated: true, completion: nil)
+            self.navigationController?.pushViewController(createViewController, animated: true)
+//            self.present(createViewController, animated: true, completion: nil)
         } else {
             let profileViewController = storyboard.instantiateViewController(withIdentifier: "ProfileScene") as! MyProfileViewController
-            self.present(profileViewController, animated: true, completion: nil)
+            self.navigationController?.pushViewController(profileViewController, animated: true)
+//            self.present(profileViewController, animated: true, completion: nil)
         }
     }
     
