@@ -56,7 +56,7 @@
 /* Begin PBXFileReference section */
 		3D19822824D792CE00E3AD85 /* Game.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Game.swift; sourceTree = "<group>"; };
 		3D19823424D7F6B000E3AD85 /* DetailGameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailGameViewController.swift; sourceTree = "<group>"; };
-		3D1ADDB726E1C94F00614DF8 /* Game Feed Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Game Feed Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		3D1ADDB726E1C94F00614DF8 /* GameFeedTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GameFeedTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		3D1ADDBB26E1C94F00614DF8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3D23BA7A2539E8EE0064B284 /* UpdateViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateViewController.swift; sourceTree = "<group>"; };
 		3D4633B62514544700AF1A70 /* Genre.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Genre.swift; sourceTree = "<group>"; };
@@ -84,7 +84,7 @@
 		3DD8EC1F253AF04500BBE509 /* FavoriteProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteProvider.swift; sourceTree = "<group>"; };
 		3DDCDC1024D57B790020AB8E /* GameTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameTableViewCell.swift; sourceTree = "<group>"; };
 		3DDCDC1124D57B790020AB8E /* GameTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GameTableViewCell.xib; sourceTree = "<group>"; };
-		3DF8FD5124D5661C00E64116 /* Game Feed.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Game Feed.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		3DF8FD5124D5661C00E64116 /* GameFeed.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GameFeed.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3DF8FD5424D5661C00E64116 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3DF8FD5624D5661C00E64116 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		3DF8FD5824D5661C00E64116 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; wrapsLines = 0; };
@@ -112,12 +112,12 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		3D1ADDB826E1C94F00614DF8 /* Game Feed Tests */ = {
+		3D1ADDB826E1C94F00614DF8 /* GameFeedTests */ = {
 			isa = PBXGroup;
 			children = (
 				3D1ADDBB26E1C94F00614DF8 /* Info.plist */,
 			);
-			path = "Game Feed Tests";
+			path = GameFeedTests;
 			sourceTree = "<group>";
 		};
 		3D67694A25370A1B00A83779 /* Cell */ = {
@@ -171,8 +171,8 @@
 		3DF8FD4824D5661C00E64116 = {
 			isa = PBXGroup;
 			children = (
-				3DF8FD5324D5661C00E64116 /* Game Feed */,
-				3D1ADDB826E1C94F00614DF8 /* Game Feed Tests */,
+				3DF8FD5324D5661C00E64116 /* GameFeed */,
+				3D1ADDB826E1C94F00614DF8 /* GameFeedTests */,
 				3DF8FD5224D5661C00E64116 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -180,13 +180,13 @@
 		3DF8FD5224D5661C00E64116 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				3DF8FD5124D5661C00E64116 /* Game Feed.app */,
-				3D1ADDB726E1C94F00614DF8 /* Game Feed Tests.xctest */,
+				3DF8FD5124D5661C00E64116 /* GameFeed.app */,
+				3D1ADDB726E1C94F00614DF8 /* GameFeedTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		3DF8FD5324D5661C00E64116 /* Game Feed */ = {
+		3DF8FD5324D5661C00E64116 /* GameFeed */ = {
 			isa = PBXGroup;
 			children = (
 				3DF8FD8524D568EA00E64116 /* Model */,
@@ -197,7 +197,7 @@
 				3DF8FD5D24D5662200E64116 /* Assets.xcassets */,
 				3DF8FD6224D5662200E64116 /* Info.plist */,
 			);
-			path = "Game Feed";
+			path = GameFeed;
 			sourceTree = "<group>";
 		};
 		3DF8FD8424D568E300E64116 /* View */ = {
@@ -247,9 +247,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		3D1ADDB626E1C94F00614DF8 /* Game Feed Tests */ = {
+		3D1ADDB626E1C94F00614DF8 /* GameFeedTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 3D1ADDBE26E1C94F00614DF8 /* Build configuration list for PBXNativeTarget "Game Feed Tests" */;
+			buildConfigurationList = 3D1ADDBE26E1C94F00614DF8 /* Build configuration list for PBXNativeTarget "GameFeedTests" */;
 			buildPhases = (
 				3D1ADDB326E1C94F00614DF8 /* Sources */,
 				3D1ADDB426E1C94F00614DF8 /* Frameworks */,
@@ -260,14 +260,14 @@
 			dependencies = (
 				3D1ADDBD26E1C94F00614DF8 /* PBXTargetDependency */,
 			);
-			name = "Game Feed Tests";
+			name = GameFeedTests;
 			productName = "Game Feed Tests";
-			productReference = 3D1ADDB726E1C94F00614DF8 /* Game Feed Tests.xctest */;
+			productReference = 3D1ADDB726E1C94F00614DF8 /* GameFeedTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		3DF8FD5024D5661C00E64116 /* Game Feed */ = {
+		3DF8FD5024D5661C00E64116 /* GameFeed */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 3DF8FD7B24D5662200E64116 /* Build configuration list for PBXNativeTarget "Game Feed" */;
+			buildConfigurationList = 3DF8FD7B24D5662200E64116 /* Build configuration list for PBXNativeTarget "GameFeed" */;
 			buildPhases = (
 				3DF8FD4D24D5661C00E64116 /* Sources */,
 				3DF8FD4E24D5661C00E64116 /* Frameworks */,
@@ -278,9 +278,9 @@
 			);
 			dependencies = (
 			);
-			name = "Game Feed";
+			name = GameFeed;
 			productName = "Game Feed";
-			productReference = 3DF8FD5124D5661C00E64116 /* Game Feed.app */;
+			productReference = 3DF8FD5124D5661C00E64116 /* GameFeed.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -302,7 +302,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 3DF8FD4C24D5661C00E64116 /* Build configuration list for PBXProject "Game Feed" */;
+			buildConfigurationList = 3DF8FD4C24D5661C00E64116 /* Build configuration list for PBXProject "GameFeed" */;
 			compatibilityVersion = "Xcode 9.3";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -315,8 +315,8 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				3DF8FD5024D5661C00E64116 /* Game Feed */,
-				3D1ADDB626E1C94F00614DF8 /* Game Feed Tests */,
+				3DF8FD5024D5661C00E64116 /* GameFeed */,
+				3D1ADDB626E1C94F00614DF8 /* GameFeedTests */,
 			);
 		};
 /* End PBXProject section */
@@ -413,7 +413,7 @@
 /* Begin PBXTargetDependency section */
 		3D1ADDBD26E1C94F00614DF8 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 3DF8FD5024D5661C00E64116 /* Game Feed */;
+			target = 3DF8FD5024D5661C00E64116 /* GameFeed */;
 			targetProxy = 3D1ADDBC26E1C94F00614DF8 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -444,18 +444,18 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 7DZF29DD8P;
-				INFOPLIST_FILE = "Game Feed Tests/Info.plist";
+				INFOPLIST_FILE = GameFeedTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.nazaralwi.Game-Feed-Tests";
+				PRODUCT_BUNDLE_IDENTIFIER = com.nazaralwi.GameFeedTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Game Feed.app/Game Feed";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/GameFeed.app/GameFeed";
 			};
 			name = Debug;
 		};
@@ -465,18 +465,18 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 7DZF29DD8P;
-				INFOPLIST_FILE = "Game Feed Tests/Info.plist";
+				INFOPLIST_FILE = GameFeedTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.nazaralwi.Game-Feed-Tests";
+				PRODUCT_BUNDLE_IDENTIFIER = com.nazaralwi.GameFeedTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Game Feed.app/Game Feed";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/GameFeed.app/GameFeed";
 			};
 			name = Release;
 		};
@@ -601,12 +601,12 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				INFOPLIST_FILE = "Game Feed/Info.plist";
+				INFOPLIST_FILE = GameFeed/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.dicoding.academy.Game-Feed";
+				PRODUCT_BUNDLE_IDENTIFIER = com.dicoding.academy.GameFeed;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -618,12 +618,12 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				INFOPLIST_FILE = "Game Feed/Info.plist";
+				INFOPLIST_FILE = GameFeed/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.dicoding.academy.Game-Feed";
+				PRODUCT_BUNDLE_IDENTIFIER = com.dicoding.academy.GameFeed;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -633,7 +633,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		3D1ADDBE26E1C94F00614DF8 /* Build configuration list for PBXNativeTarget "Game Feed Tests" */ = {
+		3D1ADDBE26E1C94F00614DF8 /* Build configuration list for PBXNativeTarget "GameFeedTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				3D1ADDBF26E1C94F00614DF8 /* Debug */,
@@ -642,7 +642,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		3DF8FD4C24D5661C00E64116 /* Build configuration list for PBXProject "Game Feed" */ = {
+		3DF8FD4C24D5661C00E64116 /* Build configuration list for PBXProject "GameFeed" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				3DF8FD7924D5662200E64116 /* Debug */,
@@ -651,7 +651,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		3DF8FD7B24D5662200E64116 /* Build configuration list for PBXNativeTarget "Game Feed" */ = {
+		3DF8FD7B24D5662200E64116 /* Build configuration list for PBXNativeTarget "GameFeed" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				3DF8FD7C24D5662200E64116 /* Debug */,

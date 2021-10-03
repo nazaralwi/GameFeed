@@ -2,6 +2,6 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "self:Game Feed.xcodeproj">
+      location = "self:/Users/alwi/Documents/Nazar/Coding/BelajarIOS/Dicoding/Game Feed/GameFeed.xcodeproj">
    </FileRef>
 </Workspace>
