@@ -11,7 +11,7 @@
 		3D19823524D7F6B000E3AD85 /* DetailGameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D19823424D7F6B000E3AD85 /* DetailGameViewController.swift */; };
 		3D23BA7B2539E8EE0064B284 /* UpdateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D23BA7A2539E8EE0064B284 /* UpdateViewController.swift */; };
 		3D4633B72514544700AF1A70 /* Genre.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D4633B62514544700AF1A70 /* Genre.swift */; };
-		3D55B3AA2532C4D70072AFC3 /* ExtensionUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D55B3A92532C4D70072AFC3 /* ExtensionUIView.swift */; };
+		3D55B3AA2532C4D70072AFC3 /* UIView+RoundCorners.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D55B3A92532C4D70072AFC3 /* UIView+RoundCorners.swift */; };
 		3D62420E270AAD9000C23356 /* LoadGameFromRemoteUseCaseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D62420D270AAD9000C23356 /* LoadGameFromRemoteUseCaseTests.swift */; };
 		3D624210270AB0A700C23356 /* EndpointTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D62420F270AB0A700C23356 /* EndpointTests.swift */; };
 		3D66CE2E24D8F40200E90636 /* MyProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D66CE2D24D8F40200E90636 /* MyProfileViewController.swift */; };
@@ -62,7 +62,7 @@
 		3D1ADDBB26E1C94F00614DF8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3D23BA7A2539E8EE0064B284 /* UpdateViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateViewController.swift; sourceTree = "<group>"; };
 		3D4633B62514544700AF1A70 /* Genre.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Genre.swift; sourceTree = "<group>"; };
-		3D55B3A92532C4D70072AFC3 /* ExtensionUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionUIView.swift; sourceTree = "<group>"; };
+		3D55B3A92532C4D70072AFC3 /* UIView+RoundCorners.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+RoundCorners.swift"; sourceTree = "<group>"; };
 		3D62420D270AAD9000C23356 /* LoadGameFromRemoteUseCaseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadGameFromRemoteUseCaseTests.swift; sourceTree = "<group>"; };
 		3D62420F270AB0A700C23356 /* EndpointTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndpointTests.swift; sourceTree = "<group>"; };
 		3D66CE2D24D8F40200E90636 /* MyProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyProfileViewController.swift; sourceTree = "<group>"; };
@@ -228,7 +228,7 @@
 		3DF8FD8624D568F300E64116 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				3D55B3A92532C4D70072AFC3 /* ExtensionUIView.swift */,
+				3D55B3A92532C4D70072AFC3 /* UIView+RoundCorners.swift */,
 				3DDCDC1024D57B790020AB8E /* GameTableViewCell.swift */,
 				3DF8FD5824D5661C00E64116 /* ViewController.swift */,
 				3D19823424D7F6B000E3AD85 /* DetailGameViewController.swift */,
@@ -396,7 +396,7 @@
 				3DF8FD5924D5661C00E64116 /* ViewController.swift in Sources */,
 				3D19822924D792CE00E3AD85 /* Game.swift in Sources */,
 				3DD8BA3C252DD453001754C0 /* Endpoints.swift in Sources */,
-				3D55B3AA2532C4D70072AFC3 /* ExtensionUIView.swift in Sources */,
+				3D55B3AA2532C4D70072AFC3 /* UIView+RoundCorners.swift in Sources */,
 				3D4633B72514544700AF1A70 /* Genre.swift in Sources */,
 				3DD8EC20253AF04500BBE509 /* FavoriteProvider.swift in Sources */,
 				3DF8FD5524D5661C00E64116 /* AppDelegate.swift in Sources */,

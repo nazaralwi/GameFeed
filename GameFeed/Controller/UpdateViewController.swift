@@ -14,7 +14,6 @@ class UpdateViewController: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-//        ProfileModel.stateLogin = true
         nameTextField.text = ProfileModel.name
         companyTextField.text = ProfileModel.company
         emailTextField.text = ProfileModel.email

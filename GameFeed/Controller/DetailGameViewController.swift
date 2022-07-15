@@ -113,7 +113,6 @@ class DetailGameViewController: UIViewController {
         } else {
             self.activityIndicator.stopAnimating()
             self.addToFavoriteButton.isEnabled = true
-
         }
     }
 }

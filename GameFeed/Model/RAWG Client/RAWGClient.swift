@@ -47,7 +47,8 @@ public class RAWGClient {
             if let response = response {
                 completion(response.results, error)
             } else {
-                completion([], error)            }
+                completion([], error)            
+            }
         }
         return task
     }
