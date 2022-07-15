@@ -25,7 +25,7 @@ enum Endpoints {
         case .getGameDetail(let idGame):
             return Endpoints.base + "/\(String(idGame))?key=\(Endpoints.key)"
         case .getNewGameLastMonts(let startDate, let endDate):
-            return Endpoints.base + "?dates=\(startDate),\(endDate)&&ordering=added?key=\(Endpoints.key)"
+            return Endpoints.base + "?dates=\(startDate),\(endDate)&&ordering=added&key=\(Endpoints.key)"
         }
     }
 }
