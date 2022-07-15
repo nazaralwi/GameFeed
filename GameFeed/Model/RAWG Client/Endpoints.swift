@@ -1,7 +1,7 @@
 import Foundation
 
 enum Endpoints {
-    static let key = "YOUR_API_KEY"
+    static let key = "2d318da4043d4db9bcbe0ec84c6c44bd"
     static let base = "https://api.rawg.io/api/games"
     case getGameList
     case backgroundImageURL(String)
@@ -21,7 +21,7 @@ enum Endpoints {
             return backgroundPath
         case .search(let query):
             return Endpoints.base +
-                "?search=\(query.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? "")?key=\(Endpoints.key)"
+                "?search=\(query.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? "")&key=\(Endpoints.key)"
         case .getGameDetail(let idGame):
             return Endpoints.base + "/\(String(idGame))?key=\(Endpoints.key)"
         case .getNewGameLastMonts(let startDate, let endDate):

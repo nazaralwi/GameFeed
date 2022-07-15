@@ -1,6 +1,6 @@
 import Foundation
 
-class RAWGClient {
+public class RAWGClient {
     @discardableResult class func taskForGETRequest
         <ResponseType: Decodable>(url: URL,
                                   response: ResponseType.Type,

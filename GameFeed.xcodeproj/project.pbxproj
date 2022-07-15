@@ -12,6 +12,8 @@
 		3D23BA7B2539E8EE0064B284 /* UpdateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D23BA7A2539E8EE0064B284 /* UpdateViewController.swift */; };
 		3D4633B72514544700AF1A70 /* Genre.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D4633B62514544700AF1A70 /* Genre.swift */; };
 		3D55B3AA2532C4D70072AFC3 /* ExtensionUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D55B3A92532C4D70072AFC3 /* ExtensionUIView.swift */; };
+		3D62420E270AAD9000C23356 /* LoadGameFromRemoteUseCaseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D62420D270AAD9000C23356 /* LoadGameFromRemoteUseCaseTests.swift */; };
+		3D624210270AB0A700C23356 /* EndpointTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D62420F270AB0A700C23356 /* EndpointTests.swift */; };
 		3D66CE2E24D8F40200E90636 /* MyProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D66CE2D24D8F40200E90636 /* MyProfileViewController.swift */; };
 		3D66CE3024D8F42300E90636 /* SearchGameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D66CE2F24D8F42300E90636 /* SearchGameViewController.swift */; };
 		3D66CE3224D8F43700E90636 /* NewGameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D66CE3124D8F43700E90636 /* NewGameViewController.swift */; };
@@ -61,6 +63,8 @@
 		3D23BA7A2539E8EE0064B284 /* UpdateViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateViewController.swift; sourceTree = "<group>"; };
 		3D4633B62514544700AF1A70 /* Genre.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Genre.swift; sourceTree = "<group>"; };
 		3D55B3A92532C4D70072AFC3 /* ExtensionUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionUIView.swift; sourceTree = "<group>"; };
+		3D62420D270AAD9000C23356 /* LoadGameFromRemoteUseCaseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadGameFromRemoteUseCaseTests.swift; sourceTree = "<group>"; };
+		3D62420F270AB0A700C23356 /* EndpointTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndpointTests.swift; sourceTree = "<group>"; };
 		3D66CE2D24D8F40200E90636 /* MyProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyProfileViewController.swift; sourceTree = "<group>"; };
 		3D66CE2F24D8F42300E90636 /* SearchGameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchGameViewController.swift; sourceTree = "<group>"; };
 		3D66CE3124D8F43700E90636 /* NewGameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewGameViewController.swift; sourceTree = "<group>"; };
@@ -116,6 +120,8 @@
 			isa = PBXGroup;
 			children = (
 				3D1ADDBB26E1C94F00614DF8 /* Info.plist */,
+				3D62420D270AAD9000C23356 /* LoadGameFromRemoteUseCaseTests.swift */,
+				3D62420F270AB0A700C23356 /* EndpointTests.swift */,
 			);
 			path = GameFeedTests;
 			sourceTree = "<group>";
@@ -295,6 +301,7 @@
 				TargetAttributes = {
 					3D1ADDB626E1C94F00614DF8 = {
 						CreatedOnToolsVersion = 12.5.1;
+						LastSwiftMigration = 1250;
 						TestTargetID = 3DF8FD5024D5661C00E64116;
 					};
 					3DF8FD5024D5661C00E64116 = {
@@ -373,6 +380,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3D624210270AB0A700C23356 /* EndpointTests.swift in Sources */,
+				3D62420E270AAD9000C23356 /* LoadGameFromRemoteUseCaseTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -442,6 +451,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 7DZF29DD8P;
 				INFOPLIST_FILE = GameFeedTests/Info.plist;
@@ -453,6 +463,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.nazaralwi.GameFeedTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/GameFeed.app/GameFeed";
@@ -463,6 +474,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 7DZF29DD8P;
 				INFOPLIST_FILE = GameFeedTests/Info.plist;
