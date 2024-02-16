@@ -76,16 +76,7 @@ class DetailGameViewController: UIViewController {
     }
     
     private func deleteFromFavorite() {
-        favoriteProvider.deleteFavorite(gameId ?? 0) {
-            DispatchQueue.main.async {
-                let name = self.titleGameDetail.text ?? ""
-                let alert = UIAlertController(title: "Successful", message: "\(name) deleted.", preferredStyle: .alert)
-                alert.addAction(UIAlertAction(title: "OK", style: .default) { (action) in
-                    self.navigationController?.popViewController(animated: true)
-                })
-                self.present(alert, animated: true, completion: nil)
-            }
-        }
+        favoriteProvider.deleteFavorite(gameId ?? 0)
     }
     
     private func addToFavorite() {
@@ -94,16 +85,7 @@ class DetailGameViewController: UIViewController {
         let genres = genreGameDetail.text ?? ""
         let released = releaseGameDetail.text ?? ""
 
-        favoriteProvider.addToFavorite(gameId ?? 0, name, released, rating, genres, path, true) {
-            DispatchQueue.main.async {
-                let alert = UIAlertController(title: "Successful", message: "Add \(name) to favorite", preferredStyle: .alert)
-                
-                alert.addAction(UIAlertAction(title: "OK", style: .default) { (action) in
-                    self.navigationController?.popViewController(animated: true)
-                })
-                self.present(alert, animated: true, completion: nil)
-            }
-        }
+        favoriteProvider.addToFavorite(gameId ?? 0, name, released, rating, genres, path, true)
     }
 
     private func isLoading(state: Bool) {

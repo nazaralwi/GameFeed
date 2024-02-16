@@ -72,7 +72,7 @@ class FavoriteProvider {
         }
     }
     
-    func addToFavorite(_ id: Int, _ name: String, _ released: String, _ rating: String, _ genres: String, _ backgroundImage: String, _ isFavorite: Bool, completion: @escaping() -> ()) {
+    func addToFavorite(_ id: Int, _ name: String, _ released: String, _ rating: String, _ genres: String, _ backgroundImage: String, _ isFavorite: Bool, completion: @escaping() -> () = { }) {
         let taskContext = newTaskContext()
         if !checkData(id: id) {
             taskContext.performAndWait {
@@ -127,7 +127,7 @@ class FavoriteProvider {
         return results.count > 0
     }
     
-    func deleteFavorite(_ id: Int, completion: @escaping() -> ()) {
+    func deleteFavorite(_ id: Int, completion: @escaping() -> () = {}) {
         let taskContext = newTaskContext()
         taskContext.perform {
             let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Favorite")
