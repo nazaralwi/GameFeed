@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="dp4-LQ-tah">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="22155" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="dp4-LQ-tah">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22131"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -26,13 +26,13 @@
         <!--Game Feed-->
         <scene sceneID="Crd-vU-7SO">
             <objects>
-                <viewController id="zxA-o6-ue6" customClass="SearchGameViewController" customModule="Game_Feed" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="zxA-o6-ue6" customClass="SearchGameViewController" customModule="GameFeed" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="dAC-Ol-WHg">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="725"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="721"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="360" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="tL1-Oh-uMZ">
-                                <rect key="frame" x="0.0" y="55" width="414" height="670"/>
+                                <rect key="frame" x="0.0" y="55" width="414" height="666"/>
                                 <color key="backgroundColor" red="0.08234155923" green="0.082360200580000001" blue="0.082337506120000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </tableView>
                             <searchBar contentMode="redraw" translucent="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4vv-uW-JSK">
@@ -50,7 +50,7 @@
                                 </userDefinedRuntimeAttributes>
                             </searchBar>
                             <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="LBv-Tz-d3U">
-                                <rect key="frame" x="188.5" y="344" width="37" height="37"/>
+                                <rect key="frame" x="188.5" y="342" width="37" height="37"/>
                                 <color key="color" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </activityIndicatorView>
                         </subviews>
@@ -89,9 +89,9 @@
         <!--My Profile View Controller-->
         <scene sceneID="lYi-jq-0cZ">
             <objects>
-                <viewController storyboardIdentifier="ProfileScene" hidesBottomBarWhenPushed="YES" id="hzj-pp-zeC" customClass="MyProfileViewController" customModule="Game_Feed" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ProfileScene" hidesBottomBarWhenPushed="YES" id="hzj-pp-zeC" customClass="MyProfileViewController" customModule="GameFeed" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="msC-aM-Efc">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="808"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="804"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="myphoto" translatesAutoresizingMaskIntoConstraints="NO" id="iKt-e0-h0v">
@@ -157,46 +157,34 @@
                                     </label>
                                 </subviews>
                             </stackView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4ol-M7-cyL">
-                                <rect key="frame" x="64" y="492.5" width="286" height="38"/>
-                                <color key="backgroundColor" red="0.31847622990000002" green="0.73021417860000004" blue="0.64672988649999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <fontDescription key="fontDescription" name="Poppins-Medium" family="Poppins" pointSize="18"/>
-                                <state key="normal" title="Edit"/>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                        <integer key="value" value="10"/>
-                                    </userDefinedRuntimeAttribute>
-                                </userDefinedRuntimeAttributes>
-                                <connections>
-                                    <action selector="editProfile:" destination="hzj-pp-zeC" eventType="touchUpInside" id="pTb-NG-lxF"/>
-                                </connections>
-                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="bMg-pB-bPw"/>
                         <color key="backgroundColor" red="0.08234155923" green="0.082360200580000001" blue="0.082337506120000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="bTy-kq-LD5" firstAttribute="top" secondItem="6PF-ke-2yA" secondAttribute="bottom" constant="20" id="0Px-NJ-eh4"/>
-                            <constraint firstItem="4ol-M7-cyL" firstAttribute="top" secondItem="Uei-6e-Ulf" secondAttribute="bottom" constant="40" id="7Fk-N5-oQV"/>
                             <constraint firstItem="bMg-pB-bPw" firstAttribute="trailing" secondItem="bTy-kq-LD5" secondAttribute="trailing" constant="16" id="FtW-DV-cXg"/>
                             <constraint firstItem="6PF-ke-2yA" firstAttribute="leading" secondItem="bMg-pB-bPw" secondAttribute="leading" constant="32" id="GkZ-cs-52Q"/>
                             <constraint firstItem="bMg-pB-bPw" firstAttribute="trailing" secondItem="6PF-ke-2yA" secondAttribute="trailing" constant="16" id="HyM-rn-oLt"/>
                             <constraint firstItem="bTy-kq-LD5" firstAttribute="leading" secondItem="bMg-pB-bPw" secondAttribute="leading" constant="32" id="IGz-Ig-7XH"/>
                             <constraint firstItem="bMg-pB-bPw" firstAttribute="trailing" secondItem="Uei-6e-Ulf" secondAttribute="trailing" constant="16" id="MYN-Nn-XuP"/>
                             <constraint firstItem="iKt-e0-h0v" firstAttribute="centerX" secondItem="msC-aM-Efc" secondAttribute="centerX" id="NGB-RV-LAw"/>
-                            <constraint firstItem="bMg-pB-bPw" firstAttribute="trailing" secondItem="4ol-M7-cyL" secondAttribute="trailing" constant="64" id="Phy-kM-yFv"/>
-                            <constraint firstItem="4ol-M7-cyL" firstAttribute="leading" secondItem="bMg-pB-bPw" secondAttribute="leading" constant="64" id="RsP-xm-DSQ"/>
                             <constraint firstItem="Uei-6e-Ulf" firstAttribute="top" secondItem="bTy-kq-LD5" secondAttribute="bottom" constant="20" id="TvQ-E3-sOC"/>
                             <constraint firstItem="iKt-e0-h0v" firstAttribute="top" secondItem="bMg-pB-bPw" secondAttribute="top" constant="50" id="c8V-uF-oFl"/>
                             <constraint firstItem="Uei-6e-Ulf" firstAttribute="leading" secondItem="bMg-pB-bPw" secondAttribute="leading" constant="32" id="gHh-px-eT5"/>
                             <constraint firstItem="6PF-ke-2yA" firstAttribute="top" secondItem="iKt-e0-h0v" secondAttribute="bottom" constant="70" id="u8F-Fx-z9V"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="mBg-ia-Khq"/>
+                    <navigationItem key="navigationItem" id="mBg-ia-Khq">
+                        <barButtonItem key="rightBarButtonItem" style="plain" systemItem="edit" id="YD9-3F-LYu">
+                            <connections>
+                                <segue destination="dqW-Pb-tVt" kind="show" identifier="moveToUpdate" id="jBw-EI-ovN"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="companyLabel" destination="BK4-Xu-0JY" id="CrU-8i-Yx3"/>
                         <outlet property="emailLabel" destination="EM9-WU-FgE" id="WV0-Q5-8ce"/>
                         <outlet property="nameLabel" destination="Td4-2t-7Cw" id="avH-ev-n3B"/>
-                        <segue destination="dqW-Pb-tVt" kind="show" identifier="moveToUpdate" id="xMo-dt-4JA"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hdJ-v0-IIc" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -206,9 +194,9 @@
         <!--Update View Controller-->
         <scene sceneID="HiJ-xW-xmb">
             <objects>
-                <viewController hidesBottomBarWhenPushed="YES" id="dqW-Pb-tVt" customClass="UpdateViewController" customModule="Game_Feed" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController hidesBottomBarWhenPushed="YES" id="dqW-Pb-tVt" customClass="UpdateViewController" customModule="GameFeed" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8nK-uU-ut3">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="808"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="804"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="myphoto" translatesAutoresizingMaskIntoConstraints="NO" id="geO-BB-Nja">
@@ -259,20 +247,6 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lu5-3G-esg">
-                                <rect key="frame" x="64" y="545" width="286" height="38"/>
-                                <color key="backgroundColor" red="0.31847622990000002" green="0.73021417860000004" blue="0.64672988649999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <fontDescription key="fontDescription" name="Poppins-Medium" family="Poppins" pointSize="18"/>
-                                <state key="normal" title="Save"/>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                        <integer key="value" value="10"/>
-                                    </userDefinedRuntimeAttribute>
-                                </userDefinedRuntimeAttributes>
-                                <connections>
-                                    <action selector="saveProfile:" destination="dqW-Pb-tVt" eventType="touchUpInside" id="A50-vK-Lb2"/>
-                                </connections>
-                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="R32-Ay-AcB"/>
                         <color key="backgroundColor" red="0.08234155923" green="0.082360200580000001" blue="0.082337506120000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -292,9 +266,6 @@
                             <constraint firstItem="R32-Ay-AcB" firstAttribute="trailing" secondItem="hMs-35-yRR" secondAttribute="trailing" constant="30" id="LQl-Xr-JEU"/>
                             <constraint firstItem="R32-Ay-AcB" firstAttribute="trailing" secondItem="4AS-pd-iwR" secondAttribute="trailing" constant="30" id="Msh-Zm-7z8"/>
                             <constraint firstItem="R32-Ay-AcB" firstAttribute="trailing" secondItem="1l3-3w-LYA" secondAttribute="trailing" constant="30" id="NID-R9-Yce"/>
-                            <constraint firstItem="lu5-3G-esg" firstAttribute="leading" secondItem="R32-Ay-AcB" secondAttribute="leading" constant="64" id="cBp-4D-bHP"/>
-                            <constraint firstItem="lu5-3G-esg" firstAttribute="top" secondItem="55L-o6-LWg" secondAttribute="bottom" constant="40" id="e4I-aR-aL1"/>
-                            <constraint firstItem="R32-Ay-AcB" firstAttribute="trailing" secondItem="lu5-3G-esg" secondAttribute="trailing" constant="64" id="eK8-nE-iDb"/>
                             <constraint firstItem="geO-BB-Nja" firstAttribute="top" secondItem="R32-Ay-AcB" secondAttribute="top" constant="50" id="kXw-jD-1K1"/>
                             <constraint firstItem="Thj-RZ-UIh" firstAttribute="top" secondItem="hMs-35-yRR" secondAttribute="bottom" constant="10" id="oAP-Qh-ydp"/>
                             <constraint firstItem="R32-Ay-AcB" firstAttribute="trailing" secondItem="55L-o6-LWg" secondAttribute="trailing" constant="30" id="rfq-jI-DZK"/>
@@ -303,7 +274,13 @@
                             <constraint firstItem="R32-Ay-AcB" firstAttribute="trailing" secondItem="3QH-0P-yDn" secondAttribute="trailing" constant="30" id="xS6-Rm-3Wa"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="nqO-vg-UUU"/>
+                    <navigationItem key="navigationItem" id="nqO-vg-UUU">
+                        <barButtonItem key="rightBarButtonItem" style="plain" systemItem="save" id="Cx2-sz-2Ze">
+                            <connections>
+                                <action selector="saveProfile:" destination="dqW-Pb-tVt" id="Xhq-RK-THL"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="companyTextField" destination="3QH-0P-yDn" id="hRx-n6-mtp"/>
                         <outlet property="emailTextField" destination="55L-o6-LWg" id="JEh-Nv-PaI"/>
@@ -318,21 +295,21 @@
         <!--Game Feed-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="Game_Feed" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="GameFeed" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="725"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="721"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="360" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="fni-kU-clh">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="725"/>
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="721"/>
                                 <color key="backgroundColor" red="0.08235294118" green="0.08235294118" blue="0.08235294118" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </tableView>
                             <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="Rft-hc-lge">
-                                <rect key="frame" x="188.5" y="344" width="37" height="37"/>
+                                <rect key="frame" x="188.5" y="342" width="37" height="37"/>
                                 <color key="color" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </activityIndicatorView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Something Went Wrong" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Cnf-O7-ENk">
-                                <rect key="frame" x="100" y="350" width="214" height="25.5"/>
+                                <rect key="frame" x="111.5" y="350" width="191" height="21"/>
                                 <fontDescription key="fontDescription" name="Poppins-Regular" family="Poppins" pointSize="18"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
@@ -372,13 +349,13 @@
         <!--Game-->
         <scene sceneID="tio-Ll-g9I">
             <objects>
-                <viewController storyboardIdentifier="DetailGameViewControllerScene" title="Game" hidesBottomBarWhenPushed="YES" id="nvJ-v7-58f" customClass="DetailGameViewController" customModule="Game_Feed" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="DetailGameViewControllerScene" title="Game" hidesBottomBarWhenPushed="YES" id="nvJ-v7-58f" customClass="DetailGameViewController" customModule="GameFeed" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="f9w-xm-rXW">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="808"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="804"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" indicatorStyle="white" translatesAutoresizingMaskIntoConstraints="NO" id="9sV-yW-Zfy">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="774"/>
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="770"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="M1c-19-w2V">
                                         <rect key="frame" x="0.0" y="0.0" width="414" height="831"/>
@@ -404,7 +381,7 @@
                                                                 </constraints>
                                                             </imageView>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Yeg-3N-1Ut">
-                                                                <rect key="frame" x="33.5" y="10" width="31.5" height="0.0"/>
+                                                                <rect key="frame" x="65" y="10" width="0.0" height="0.0"/>
                                                                 <fontDescription key="fontDescription" name="Poppins-Regular" family="Poppins" pointSize="14"/>
                                                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 <nil key="highlightedColor"/>
@@ -584,7 +561,7 @@
                                         </constraints>
                                     </view>
                                     <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="MIS-Ec-HrQ">
-                                        <rect key="frame" x="188.5" y="368.5" width="37" height="37"/>
+                                        <rect key="frame" x="188.5" y="366.5" width="37" height="37"/>
                                         <color key="color" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </activityIndicatorView>
                                 </subviews>
@@ -663,21 +640,21 @@
         <!--Game Feed-->
         <scene sceneID="XmL-p1-69h">
             <objects>
-                <viewController id="2YL-BV-gfN" customClass="NewGameViewController" customModule="Game_Feed" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="2YL-BV-gfN" customClass="NewGameViewController" customModule="GameFeed" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Oyf-hZ-iSI">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="721"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="360" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="IeE-yS-gbl">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="725"/>
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="721"/>
                                 <color key="backgroundColor" red="0.08234155923" green="0.082360200580000001" blue="0.082337506120000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </tableView>
                             <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="UPo-SN-gl1">
-                                <rect key="frame" x="188.5" y="344" width="37" height="37"/>
+                                <rect key="frame" x="188.5" y="342" width="37" height="37"/>
                                 <color key="color" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </activityIndicatorView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Something Went Wrong" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zSV-hm-n1R">
-                                <rect key="frame" x="100" y="350" width="214" height="25.5"/>
+                                <rect key="frame" x="111.5" y="350" width="191" height="21"/>
                                 <fontDescription key="fontDescription" name="Poppins-Regular" family="Poppins" pointSize="18"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
@@ -721,7 +698,7 @@
                     <tabBarItem key="tabBarItem" title="Home" image="house" catalog="system" id="L9G-dK-b2e"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translucent="NO" id="q0P-bO-y1K">
-                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <rect key="frame" x="0.0" y="48" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="barTintColor" red="0.082352941176470587" green="0.082352941176470587" blue="0.082352941176470587" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <textAttributes key="titleTextAttributes">
@@ -744,7 +721,7 @@
                     <tabBarItem key="tabBarItem" title="Search" image="magnifyingglass" catalog="system" id="2FW-cj-XuM"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translucent="NO" id="ry4-Zi-FZt">
-                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <rect key="frame" x="0.0" y="48" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="barTintColor" red="0.08234155923" green="0.082360200580000001" blue="0.082337506120000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <textAttributes key="titleTextAttributes">
@@ -767,7 +744,7 @@
                     <tabBarItem key="tabBarItem" title="New Released" image="flame" catalog="system" id="jbz-NR-nKX"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translucent="NO" id="sRX-tS-c5U">
-                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <rect key="frame" x="0.0" y="48" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="barTintColor" red="0.08234155923" green="0.082360200580000001" blue="0.082337506120000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <textAttributes key="titleTextAttributes">
@@ -786,17 +763,17 @@
         <!--Game Feed-->
         <scene sceneID="bpR-RC-XlV">
             <objects>
-                <viewController id="Kbf-Q1-QYc" customClass="FavoritesViewController" customModule="Game_Feed" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="Kbf-Q1-QYc" customClass="FavoritesViewController" customModule="GameFeed" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="nlZ-f4-pgt">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="725"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="721"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="360" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="x8O-qb-BZp">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="725"/>
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="721"/>
                                 <color key="backgroundColor" red="0.08234155923" green="0.082360200580000001" blue="0.082337506120000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </tableView>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="55" translatesAutoresizingMaskIntoConstraints="NO" id="5SW-5U-qCj">
-                                <rect key="frame" x="30" y="169.5" width="354" height="386"/>
+                                <rect key="frame" x="30" y="167.5" width="354" height="386"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No Favorites Item" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7jZ-OH-Jbv">
                                         <rect key="frame" x="78" y="0.0" width="198" height="31"/>
@@ -850,7 +827,7 @@
                     <tabBarItem key="tabBarItem" title="Favorites" image="heart" catalog="system" id="1OT-bQ-oov"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translucent="NO" id="HfV-G6-RNG">
-                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <rect key="frame" x="0.0" y="48" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="barTintColor" red="0.08234155923" green="0.082360200580000001" blue="0.082337506120000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <textAttributes key="titleTextAttributes">
@@ -868,19 +845,19 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="Uab-sl-V08"/>
-        <segue reference="RFJ-TZ-WFL"/>
+        <segue reference="wsP-Hl-13X"/>
+        <segue reference="6uA-n2-YEf"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
     <resources>
         <image name="empty2" width="336.5" height="263"/>
-        <image name="flame" catalog="system" width="108" height="128"/>
-        <image name="gamecontroller" catalog="system" width="128" height="80"/>
-        <image name="heart" catalog="system" width="128" height="109"/>
-        <image name="house" catalog="system" width="128" height="106"/>
-        <image name="magnifyingglass" catalog="system" width="128" height="115"/>
+        <image name="flame" catalog="system" width="106" height="128"/>
+        <image name="gamecontroller" catalog="system" width="128" height="79"/>
+        <image name="heart" catalog="system" width="128" height="107"/>
+        <image name="house" catalog="system" width="128" height="104"/>
+        <image name="magnifyingglass" catalog="system" width="128" height="117"/>
         <image name="myphoto" width="413" height="479"/>
-        <image name="person.circle" catalog="system" width="128" height="121"/>
+        <image name="person.circle" catalog="system" width="128" height="123"/>
         <image name="star.fill" catalog="system" width="128" height="116"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

@@ -30,8 +30,4 @@ class MyProfileViewController: UIViewController, MFMailComposeViewControllerDele
         ProfileModel.company = company
         ProfileModel.email = email
     }
-    
-    @IBAction func editProfile(_ sender: Any) {
-        self.performSegue(withIdentifier: "moveToUpdate", sender: self)
-    }
 }
