@@ -9,7 +9,6 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         setupView()
     }
     
@@ -39,9 +38,13 @@ class ViewController: UIViewController {
         gameTableView.dataSource = self
         gameTableView.delegate = self
         
+        gameTableView.refreshControl = UIRefreshControl()
+        gameTableView.refreshControl?.tintColor = UIColor.gray
+        gameTableView.refreshControl?.addTarget(self, action: #selector(fetchGameList), for: UIControl.Event.valueChanged)
+        
         errorLabel.isHidden = true
         activityIndicator.startAnimating()
-        
+                
         RAWGClient.getGameList(completion: { (games, error) in
             if !games.isEmpty {
                 self.gameList = games
@@ -56,6 +59,22 @@ class ViewController: UIViewController {
             }
         })
         gameTableView.register(UINib(nibName: "GameTableViewCell", bundle: nil), forCellReuseIdentifier: "GameCell")
+    }
+    
+    @objc func fetchGameList() {
+        RAWGClient.getGameList(completion: { (games, error) in
+            if !games.isEmpty {
+                self.gameList = games
+                DispatchQueue.main.async {
+                    self.gameTableView.reloadData()
+                }
+            } else {
+                self.errorLabel.isHidden = false
+            }
+        })
+        DispatchQueue.main.async {
+           self.gameTableView.refreshControl?.endRefreshing()
+        }
     }
 }
 
