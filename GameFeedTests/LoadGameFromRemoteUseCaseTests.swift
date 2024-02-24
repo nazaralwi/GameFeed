@@ -7,7 +7,7 @@
 //
 
 import XCTest
-import GameFeed
+@testable import GameFeed
 
 class LoadGameFromRemoteUseCaseTests: XCTestCase {
     func test_taskForGETRequest_requestsDataFromURL() {
