@@ -21,11 +21,41 @@ class DetailGameViewController: UIViewController {
     var gameDetail: GameDetail!
     var path = String()
     
+    var didChangeTitle = false
+    var defaultTitle = ""
+    var animateUp: CATransition = {
+        let animation = CATransition()
+        animation.duration = 0.5
+        animation.type = CATransitionType.push
+        animation.subtype = CATransitionSubtype.fromTop
+        animation.timingFunction = CAMediaTimingFunction.init(name: CAMediaTimingFunctionName.easeInEaseOut)
+        return animation
+    }()
+    
+    var animateDown: CATransition = {
+        let animation = CATransition()
+        animation.duration = 0.5
+        animation.type = CATransitionType.push
+        animation.subtype = CATransitionSubtype.fromBottom
+        animation.timingFunction = CAMediaTimingFunction.init(name: CAMediaTimingFunctionName.easeInEaseOut)
+        return animation
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        scrollView.delegate = self
+        
         myViewHeight.constant = 2000
         scrollView.contentSize = myView.frame.size
+        
+        let titleLabelView = UILabel.init(frame: CGRect(x: 0, y: 0, width: 200, height: 44))
+        titleLabelView.backgroundColor = .clear
+        titleLabelView.textAlignment = .center
+        titleLabelView.textColor = .white
+        titleLabelView.font = UIFont.boldSystemFont(ofSize: 16)
+        titleLabelView.text = defaultTitle
+        self.navigationItem.titleView = titleLabelView
         
         setupView()
     }
@@ -95,6 +125,24 @@ class DetailGameViewController: UIViewController {
         } else {
             self.activityIndicator.stopAnimating()
             self.addToFavoriteButton.isEnabled = true
+        }
+    }
+}
+
+extension DetailGameViewController: UIScrollViewDelegate {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        if scrollView.contentOffset.y >= (titleGameDetail.frame.origin.y + titleGameDetail.frame.height) && !didChangeTitle {
+            if let label = navigationItem.titleView as? UILabel {
+                label.layer.add(animateUp, forKey: "changeTitle")
+                label.text = titleGameDetail.text
+            }
+            didChangeTitle = true
+        } else if scrollView.contentOffset.y < titleGameDetail.frame.origin.y && didChangeTitle {
+            if let label = navigationItem.titleView as? UILabel {
+                label.layer.add(animateDown, forKey: "changeTitle")
+                label.text = defaultTitle
+            }
+            didChangeTitle = false
         }
     }
 }
