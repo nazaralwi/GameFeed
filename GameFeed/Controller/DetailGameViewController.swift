@@ -1,4 +1,5 @@
 import UIKit
+import Combine
 
 class DetailGameViewController: UIViewController {
     @IBOutlet var photoGameDetail: UIImageView!
@@ -16,6 +17,8 @@ class DetailGameViewController: UIViewController {
     @IBOutlet var myViewHeight: NSLayoutConstraint!
     @IBOutlet var addToFavoriteButton: UIBarButtonItem!
     private lazy var favoriteProvider: FavoriteProvider = { return FavoriteProvider() }()
+    
+    var cancellables = Set<AnyCancellable>()
     
     var gameId: Int?
     var gameDetail: GameDetail!
@@ -68,31 +71,39 @@ class DetailGameViewController: UIViewController {
         }
         
         isLoading(state: true)
-        RAWGClient.getGameDetail(idGame: gameId ?? 0) { (game, error) in
-            self.isLoading(state: false)
-            if let gameDetail = game {
-                let metacritic = gameDetail.metacritic
+        RAWGClient.getGameDetail(idGame: gameId ?? 0)
+            .flatMap { gameDetail -> AnyPublisher<(GameDetail, Data?), Error> in
+                let backgroundPublisher: AnyPublisher<Data?, Error>
                 if let backgroundPath = gameDetail.backgroundImage {
-                   self.path = backgroundPath
-                   RAWGClient.downloadBackground(backgroundPath: backgroundPath) { (data, error) in
-                       guard let data = data else {
-                           return
-                       }
-                       
-                       let image = UIImage(data: data)
-                       self.photoGameDetail.image = image
-                   }
+                    self.path = backgroundPath
+                    backgroundPublisher = RAWGClient.downloadBackground(backgroundPath: backgroundPath)
+                        .map { Optional($0) }
+                        .catch { _ in Just(nil).setFailureType(to: Error.self) }
+                        .eraseToAnyPublisher()
+                } else {
+                    backgroundPublisher = Just(nil).setFailureType(to: Error.self).eraseToAnyPublisher()
+                }
+                return backgroundPublisher.map { (gameDetail, $0) }.eraseToAnyPublisher()
+            }
+            .sink(receiveCompletion: { completion in
+                self.isLoading(state: false)
+                if case .failure(let error) = completion {
+                    print("Failed with error: \(error)")
+                }
+            }, receiveValue: { gameDetail, imageData in
+                if let imageData = imageData {
+                    self.photoGameDetail.image = UIImage(data: imageData)
                 }
                 self.overviewGameDetail.text = gameDetail.description
                 self.titleGameDetail.text = gameDetail.name
-                self.ratingGameDetail.text = String(format: "%.2f", gameDetail.rating ?? "")
+                self.ratingGameDetail.text = String(format: "%.2f", gameDetail.rating ?? 0.0)
                 self.genreGameDetail.text = Formatter.formatGenre(from: gameDetail.genres ?? [])
                 self.releaseGameDetail.text = Formatter.formatDate(from: gameDetail.released ?? "")
                 self.platformGameDetail.text = Formatter.formatPlatform(from: gameDetail.platforms)
                 self.publisherGameDetail.text = Formatter.formatPublisher(from: gameDetail.publishers)
-                self.metacriticGameDetail.text = String(metacritic ?? 0)
-            }
-        }
+                self.metacriticGameDetail.text = String(gameDetail.metacritic ?? 0)
+            })
+            .store(in: &cancellables)
     }
     
     @IBAction func addToFavorite(_ sender: Any) {
@@ -114,6 +125,7 @@ class DetailGameViewController: UIViewController {
         let rating = ratingGameDetail.text ?? ""
         let genres = genreGameDetail.text ?? ""
         let released = releaseGameDetail.text ?? ""
+        let path = self.path
 
         favoriteProvider.addToFavorite(gameId ?? 0, name, released, rating, genres, path, true)
     }

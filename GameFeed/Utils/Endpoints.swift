@@ -9,8 +9,12 @@ enum Endpoints {
     case getGameDetail(Int)
     case getNewGameLastMonts(String, String)
     
-    var url: URL {
-        return URL(string: stringValue)!
+    var url: URL? {
+        guard let urlString = stringValue.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed),
+              let url = URL(string: urlString) else {
+            return nil
+        }
+        return url
     }
     
     var stringValue: String {

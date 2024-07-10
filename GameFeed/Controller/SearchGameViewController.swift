@@ -1,13 +1,16 @@
 import UIKit
+import Combine
 
 class SearchGameViewController: UIViewController {
     @IBOutlet var searchTableView: UITableView!
     @IBOutlet var searchBar: UISearchBar!
     @IBOutlet var activityIndicator: UIActivityIndicatorView!
     
+    var cancellables = Set<AnyCancellable>()
+    
     var games = [Game]()
     var selectedIndex = 0
-    var currentSearchTask: URLSessionTask?
+    var currentSearchTask: AnyCancellable?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -43,15 +46,24 @@ extension SearchGameViewController: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         self.activityIndicator.startAnimating()
         currentSearchTask?.cancel()
-        currentSearchTask = RAWGClient.search(query: searchText) { (games, error) in
-            print("games : \(games)")
-            if !games.isEmpty {
-                self.games = games
-                self.searchTableView.reloadData()
+        currentSearchTask = RAWGClient.search(query: searchText)
+            .sink(receiveCompletion: { completion in
                 self.activityIndicator.stopAnimating()
-            } else {
-                self.activityIndicator.startAnimating()
-            }
+                if case .failure(let error) = completion {
+                    print("Search failed with error: \(error)")
+                }
+            }, receiveValue: { games in
+                print("games : \(games)")
+                if !games.isEmpty {
+                    self.games = games
+                    self.searchTableView.reloadData()
+                } else {
+                    // Handle no results case if needed
+                }
+            })
+        
+        if currentSearchTask != nil {
+            currentSearchTask?.store(in: &cancellables)
         }
     }
     
@@ -83,17 +95,23 @@ extension SearchGameViewController: UITableViewDataSource {
             cell.ratingGame.text = String(format: "%.2f", game.rating)
             
             if let backgroundPath = game.backgroundImage {
-                RAWGClient.downloadBackground(backgroundPath: backgroundPath) { (data, error) in
-                    guard let data = data else {
-                        return
-                    }
-                    
-                    let image = UIImage(data: data)
-                    cell.photoGame.image = image
-                    cell.setNeedsLayout()
-                    
-                    cell.photoGame.roundCorners(corners: [.topLeft, .topRight], radius: 10)
-                }
+                RAWGClient.downloadBackground(backgroundPath: backgroundPath)
+                    .sink(receiveCompletion: { completion in
+                        switch completion {
+                        case .finished:
+                            print("Image download finished successfully.")
+                        case .failure(let error):
+                            print("Image download failed with error: \(error)")
+                        }
+                    }, receiveValue: { data in
+                        guard let image = UIImage(data: data) else {
+                            return
+                        }
+                        cell.photoGame.image = image
+                        cell.setNeedsLayout()
+                        cell.photoGame.roundCorners(corners: [.topRight, .topLeft], radius: 10)
+                    })
+                    .store(in: &cancellables)
             }
             
             return cell

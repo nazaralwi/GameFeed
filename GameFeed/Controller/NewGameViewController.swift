@@ -1,9 +1,12 @@
 import UIKit
+import Combine
 
 class NewGameViewController: UIViewController {
     @IBOutlet var newGameTableView: UITableView!
     @IBOutlet var activityIndicator: UIActivityIndicatorView!
     @IBOutlet var errorLabel: UILabel!
+    
+    var cancellables = Set<AnyCancellable>()
    
     var selectedIndex = 0
     var newGame = [Game]()
@@ -36,17 +39,23 @@ class NewGameViewController: UIViewController {
         errorLabel.isHidden = true
         activityIndicator.startAnimating()
         
-        RAWGClient.getNewGameLastMonts(lastMonth: Formatter.formatDateToString(from: oneMonthBefore ?? Date()), now: Formatter.formatDateToString(from: now)) { (games, error) in
-            if !games.isEmpty {
-                self.newGame = games
-                self.newGameTableView.reloadData()
+        RAWGClient.getNewGameLastMonths(lastMonth: Formatter.formatDateToString(from: oneMonthBefore ?? Date()), now: Formatter.formatDateToString(from: now))
+            .sink(receiveCompletion: { completion in
                 self.activityIndicator.stopAnimating()
-            } else {
-                self.errorLabel.isHidden = false
-                self.activityIndicator.stopAnimating()
-            }
-        }
-        
+                if case .failure(let error) = completion {
+                    print("Failed with error: \(error)")
+                    self.errorLabel.isHidden = false
+                }
+            }, receiveValue: { games in
+                if !games.isEmpty {
+                    self.newGame = games
+                    self.newGameTableView.reloadData()
+                } else {
+                    self.errorLabel.isHidden = false
+                }
+            })
+            .store(in: &cancellables)
+
         newGameTableView.dataSource = self
         newGameTableView.delegate = self
 
@@ -69,17 +78,23 @@ extension NewGameViewController: UITableViewDataSource {
             cell.ratingGame.text = String(format: "%.2f", game.rating)
             
             if let backgroundPath = game.backgroundImage {
-                RAWGClient.downloadBackground(backgroundPath: backgroundPath) { (data, error) in
-                    guard let data = data else {
-                        return
-                    }
-                    
-                    let image = UIImage(data: data)
-                    cell.photoGame.image = image
-                    cell.setNeedsLayout()
-                    
-                    cell.photoGame.roundCorners(corners: [.topRight, .topLeft], radius: 10)
-                }
+                RAWGClient.downloadBackground(backgroundPath: backgroundPath)
+                    .sink(receiveCompletion: { completion in
+                        switch completion {
+                        case .finished:
+                            print("Image download finished successfully.")
+                        case .failure(let error):
+                            print("Image download failed with error: \(error)")
+                        }
+                    }, receiveValue: { data in
+                        guard let image = UIImage(data: data) else {
+                            return
+                        }
+                        cell.photoGame.image = image
+                        cell.setNeedsLayout()
+                        cell.photoGame.roundCorners(corners: [.topRight, .topLeft], radius: 10)
+                    })
+                    .store(in: &cancellables)
             }
             
             return cell

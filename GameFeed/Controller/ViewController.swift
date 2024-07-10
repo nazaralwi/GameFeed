@@ -1,4 +1,5 @@
 import UIKit
+import Combine
 
 class ViewController: UIViewController {
     @IBOutlet weak var gameTableView: UITableView!
@@ -6,6 +7,8 @@ class ViewController: UIViewController {
     @IBOutlet var errorLabel: UILabel!
     var selectedIndex = 0
     var gameList = [Game]()
+    
+    var cancellables = Set<AnyCancellable>()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -45,33 +48,41 @@ class ViewController: UIViewController {
         errorLabel.isHidden = true
         activityIndicator.startAnimating()
                 
-        RAWGClient.getGameList(completion: { (games, error) in
-            if !games.isEmpty {
-                self.gameList = games
-                DispatchQueue.main.async {
-                    self.gameTableView.reloadData()
-                    self.activityIndicator.stopAnimating()
-                }
-                print("GameModel: \(self.gameList)")
-            } else {
+        RAWGClient.getGameList().sink(receiveCompletion: { completion in
+            switch completion {
+            case .finished:
+                self.gameTableView.reloadData()
+                self.activityIndicator.stopAnimating()
+            case .failure(let error):
                 self.errorLabel.isHidden = false
                 self.activityIndicator.stopAnimating()
             }
+        }, receiveValue: { games in
+            self.gameList = games
         })
+        .store(in: &cancellables)
+
+                
         gameTableView.register(UINib(nibName: "GameTableViewCell", bundle: nil), forCellReuseIdentifier: "GameCell")
     }
     
     @objc func fetchGameList() {
-        RAWGClient.getGameList(completion: { (games, error) in
-            if !games.isEmpty {
-                self.gameList = games
-                DispatchQueue.main.async {
-                    self.gameTableView.reloadData()
-                }
-            } else {
+        var cancellables = Set<AnyCancellable>()
+        
+        RAWGClient.getGameList().sink(receiveCompletion: { completion in
+            switch completion {
+            case .finished:
+                self.gameTableView.reloadData()
+                self.activityIndicator.stopAnimating()
+            case .failure(let error):
                 self.errorLabel.isHidden = false
+                self.activityIndicator.stopAnimating()
             }
+        }, receiveValue: { games in
+            self.gameList = games
         })
+        .store(in: &cancellables)
+
         DispatchQueue.main.async {
            self.gameTableView.refreshControl?.endRefreshing()
         }
@@ -94,17 +105,23 @@ extension ViewController: UITableViewDataSource {
             cell.ratingGame.text = String(format: "%.2f", game.rating)
             
             if let backgroundPath = game.backgroundImage {
-                RAWGClient.downloadBackground(backgroundPath: backgroundPath) { (data, error) in
-                    guard let data = data else {
-                        return
-                    }
-                    
-                    let image = UIImage(data: data)
-                    cell.photoGame.image = image
-                    cell.setNeedsLayout()
-                    
-                    cell.photoGame.roundCorners(corners: [.topRight, .topLeft], radius: 10)
-                }
+                RAWGClient.downloadBackground(backgroundPath: backgroundPath)
+                    .sink(receiveCompletion: { completion in
+                        switch completion {
+                        case .finished:
+                            print("Image download finished successfully.")
+                        case .failure(let error):
+                            print("Image download failed with error: \(error)")
+                        }
+                    }, receiveValue: { data in
+                        guard let image = UIImage(data: data) else {
+                            return
+                        }
+                        cell.photoGame.image = image
+                        cell.setNeedsLayout()
+                        cell.photoGame.roundCorners(corners: [.topRight, .topLeft], radius: 10)
+                    })
+                    .store(in: &cancellables)
             }
             return cell
         } else {

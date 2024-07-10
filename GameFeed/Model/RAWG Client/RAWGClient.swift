@@ -1,86 +1,80 @@
 import Foundation
+import Combine
 
 public class RAWGClient {
-    @discardableResult class func taskForGETRequest
-        <ResponseType: Decodable>(url: URL,
-                                  response: ResponseType.Type,
-                                  completion: @escaping (ResponseType?, Error?)
-        -> Void) -> URLSessionTask {
-        let task = URLSession.shared.dataTask(with: url) { (data, _, error) in
-            guard let data = data else {
-                DispatchQueue.main.async {
-                    completion(nil, error)
-                }
-                return
-            }
-            
-            let decoder = JSONDecoder()
-            
-            do {
-                let responseObject = try decoder.decode(ResponseType.self, from: data)
-                DispatchQueue.main.async {
-                    completion(responseObject, nil)
-                }
-            } catch {
-                DispatchQueue.main.async {
-                    completion(nil, error)
-                }
-            }
-        }
-        task.resume()
+    private static let session = URLSession.shared
+    private static let decoder = JSONDecoder()
         
-        return task
+    static func getGameList() -> AnyPublisher<[Game], Error> {
+        guard let gameListURL = Endpoints.getGameList.url else {
+            return Fail(error: URLError(.badURL))
+                .eraseToAnyPublisher()
+        }
+        
+        return taskForGETRequest(url: gameListURL, response: GameResult.self)
+            .map { $0.results }
+            .eraseToAnyPublisher()
     }
     
-    class func getGameList(completion: @escaping ([Game], Error?) -> Void) {
-        taskForGETRequest(url: Endpoints.getGameList.url, response: GameResult.self) { (response, error) in
-            if let response = response {
-                completion(response.results, nil)
-            } else {
-                completion([], error)
-            }
+    static func search(query: String) -> AnyPublisher<[Game], Error> {
+        guard let gameSearchURL = Endpoints.search(query).url else {
+            return Fail(error: URLError(.badURL))
+                .eraseToAnyPublisher()
         }
+        
+        return taskForGETRequest(url: gameSearchURL, response: GameResult.self)
+            .map { $0.results }
+            .eraseToAnyPublisher()
     }
     
-    class func search(query: String, completion: @escaping ([Game], Error?) -> Void) -> URLSessionTask {
-        let task = taskForGETRequest(url: Endpoints.search(query).url, response: GameResult.self) { (response, error) in
-            if let response = response {
-                completion(response.results, error)
-            } else {
-                completion([], error)            
-            }
+    static func getGameDetail(idGame: Int) -> AnyPublisher<GameDetail, Error> {
+        guard let gameDetailURL = Endpoints.getGameDetail(idGame).url else {
+            return Fail(error: URLError(.badURL))
+                .eraseToAnyPublisher()
         }
-        return task
+        
+        return taskForGETRequest(url: gameDetailURL, response: GameDetail.self)
+            .eraseToAnyPublisher()
     }
     
-    class func getGameDetail(idGame: Int, completion: @escaping (GameDetail?, Error?) -> Void) {
-        taskForGETRequest(url: Endpoints.getGameDetail(idGame).url, response: GameDetail.self) { (response, error) in
-            if let response = response {
-                completion(response, nil)
-            } else {
-                completion(nil, error)
-            }
+    static func getNewGameLastMonths(lastMonth: String, now: String) -> AnyPublisher<[Game], Error> {
+        guard let gameLastMonthsURL = Endpoints.getNewGameLastMonts(lastMonth, now).url else {
+            return Fail(error: URLError(.badURL))
+                .eraseToAnyPublisher()
         }
+        
+        return taskForGETRequest(url: gameLastMonthsURL, response: GameResult.self)
+            .map { $0.results }
+            .eraseToAnyPublisher()
     }
     
-    class func getNewGameLastMonts(lastMonth: String, now: String, completion: @escaping ([Game], Error?) -> Void) {
-        taskForGETRequest(url: Endpoints.getNewGameLastMonts(lastMonth, now).url,
-                          response: GameResult.self) { (response, error) in
-            if let response = response {
-                completion(response.results, nil)
-            } else {
-                completion([], error)
+    private static func taskForGETRequest<ResponseType: Decodable>(url: URL, response: ResponseType.Type) -> AnyPublisher<ResponseType, Error> {
+        return session.dataTaskPublisher(for: url)
+            .tryMap { data, response in
+                guard let httpResponse = response as? HTTPURLResponse, 200..<300 ~= httpResponse.statusCode else {
+                    throw URLError(.badServerResponse)
+                }
+                return data
             }
-        }
+            .decode(type: ResponseType.self, decoder: JSONDecoder())
+            .receive(on: DispatchQueue.main)
+            .eraseToAnyPublisher()
     }
     
-    class func downloadBackground(backgroundPath: String, completion: @escaping (Data?, Error?) -> Void) {
-        let task = URLSession.shared
-            .dataTask(with: Endpoints.backgroundImageURL(backgroundPath).url) { (data, _, error) in
-            DispatchQueue.main.async {
-                completion(data, error)
-            }
+    static func downloadBackground(backgroundPath: String) -> AnyPublisher<Data, Error> {
+        guard let gameBackgroundURL = Endpoints.backgroundImageURL(backgroundPath).url else {
+            return Fail(error: URLError(.badURL))
+                .eraseToAnyPublisher()
         }
-        task.resume()
+        
+        return session.dataTaskPublisher(for: gameBackgroundURL)
+            .tryMap { data, response in
+                guard let httpResponse = response as? HTTPURLResponse, 200..<300 ~= httpResponse.statusCode else {
+                    throw URLError(.badServerResponse)
+                }
+                return data
+            }
+            .receive(on: DispatchQueue.main)
+            .eraseToAnyPublisher()
     }
 }

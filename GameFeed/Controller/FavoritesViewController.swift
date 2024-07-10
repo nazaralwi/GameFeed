@@ -1,4 +1,5 @@
 import UIKit
+import Combine
 
 class FavoritesViewController: UIViewController {
     @IBOutlet var favoriteTableView: UITableView!
@@ -7,6 +8,8 @@ class FavoritesViewController: UIViewController {
     @IBOutlet var emptyLabel: UILabel!
     @IBOutlet var emptyImage: UIImageView!
     var selectedIndex = 0
+    
+    var cancellables = Set<AnyCancellable>()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -86,17 +89,24 @@ extension FavoritesViewController: UITableViewDataSource {
             cell.genreGame.text = favorite.genres
             
             if let backgroundPath = favorite.backgroundImage {
-                RAWGClient.downloadBackground(backgroundPath: backgroundPath) { (data, error) in
-                    guard let data = data else {
-                        return
-                    }
-                    
-                    let image = UIImage(data: data)
-                    cell.photoGame.image = image
-                    cell.setNeedsLayout()
-                    
-                    cell.photoGame.roundCorners(corners: [.topRight, .topLeft], radius: 10)
-                }
+                print(backgroundPath)
+                RAWGClient.downloadBackground(backgroundPath: backgroundPath)
+                    .sink(receiveCompletion: { completion in
+                        switch completion {
+                        case .finished:
+                            print("Image download finished successfully.")
+                        case .failure(let error):
+                            print("Image download failed with error: \(error)")
+                        }
+                    }, receiveValue: { data in
+                        guard let image = UIImage(data: data) else {
+                            return
+                        }
+                        cell.photoGame.image = image
+                        cell.setNeedsLayout()
+                        cell.photoGame.roundCorners(corners: [.topRight, .topLeft], radius: 10)
+                    })
+                    .store(in: &cancellables)
             }
             
             return cell
