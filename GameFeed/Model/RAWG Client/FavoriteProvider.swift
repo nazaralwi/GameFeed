@@ -54,67 +54,75 @@ class FavoriteProvider {
         }
     }
 
-    func getFavorite(_ id: Int, completion: @escaping(_ members: FavoriteModel) -> Void) {
-        let taskContext = newTaskContext()
-        taskContext.perform {
-            let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "Favorite")
-            fetchRequest.fetchLimit = 1
-            fetchRequest.predicate = NSPredicate(format: "id == \(id)")
-            do {
-                if let result = try taskContext.fetch(fetchRequest).first {
-                    let favorite =  FavoriteModel(id: result.value(forKeyPath: "id") as? Int64,
-                                                  name: result.value(forKeyPath: "name") as? String,
-                                                  released: result.value(forKeyPath: "released") as? String,
-                                                  rating: result.value(forKeyPath: "rating") as? String,
-                                                  backgroundImage:
-                                                    result.value(forKeyPath: "backgroundImage") as? String,
-                                                  genres: result.value(forKeyPath: "genres") as? String)
-                    completion(favorite)
+    func getFavorite(_ id: Int) -> Future<FavoriteModel, Error> {
+        return Future { promise in
+            let taskContext = self.newTaskContext()
+            taskContext.perform {
+                let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "Favorite")
+                fetchRequest.fetchLimit = 1
+                fetchRequest.predicate = NSPredicate(format: "id == \(id)")
+                do {
+                    if let result = try taskContext.fetch(fetchRequest).first {
+                        let favorite =  FavoriteModel(
+                            id: result.value(forKeyPath: "id") as? Int64,
+                            name: result.value(forKeyPath: "name") as? String,
+                            released: result.value(forKeyPath: "released") as? String,
+                            rating: result.value(forKeyPath: "rating") as? String,
+                            backgroundImage: result.value(forKeyPath: "backgroundImage") as? String,
+                            genres: result.value(forKeyPath: "genres") as? String)
+                        promise(.success(favorite))
+                    }
+                } catch {
+                    promise(.failure(error))
                 }
-            } catch let error as NSError {
-                print("Could not fetch. \(error), \(error.userInfo)")
             }
         }
     }
 
-    func addToFavorite(game: GameFavoriteViewModel,
-                       _ isFavorite: Bool,
-                       completion: @escaping() -> Void = { }) {
-        let taskContext = newTaskContext()
-        if !checkData(id: game.idGame) {
-            taskContext.performAndWait {
-                if let entity = NSEntityDescription.entity(forEntityName: "Favorite", in: taskContext) {
-                    let favorite = NSManagedObject(entity: entity, insertInto: taskContext)
+    func addToFavorite(game: GameFavoriteViewModel, _ isFavorite: Bool) -> Future<Void, Error> {
+        return Future { promise in
+            let taskContext = self.newTaskContext()
+            if !self.checkData(id: game.idGame) {
+                taskContext.performAndWait {
+                    if let entity = NSEntityDescription.entity(forEntityName: "Favorite", in: taskContext) {
+                        let favorite = NSManagedObject(entity: entity, insertInto: taskContext)
 
-                    favorite.setValue(game.idGame, forKey: "id")
-                    favorite.setValue(game.name, forKey: "name")
-                    favorite.setValue(game.rating, forKey: "rating")
-                    favorite.setValue(game.released, forKey: "released")
-                    favorite.setValue(game.backgroundImage, forKey: "backgroundImage")
-                    favorite.setValue(game.genres, forKey: "genres")
-                    favorite.setValue(isFavorite, forKey: "isFavorite")
-                    do {
-                        try taskContext.save()
-                        completion()
-                    } catch let error as NSError {
-                        print("Could not save. \(error), \(error.userInfo)")
+                        favorite.setValue(game.idGame, forKey: "id")
+                        favorite.setValue(game.name, forKey: "name")
+                        favorite.setValue(game.rating, forKey: "rating")
+                        favorite.setValue(game.released, forKey: "released")
+                        favorite.setValue(game.backgroundImage, forKey: "backgroundImage")
+                        favorite.setValue(game.genres, forKey: "genres")
+                        favorite.setValue(isFavorite, forKey: "isFavorite")
+                        do {
+                            try taskContext.save()
+                            promise(.success(()))
+                        } catch {
+                            promise(.failure(error))
+                        }
                     }
                 }
+            } else {
+                promise(.failure(NSError(
+                    domain: "",
+                    code: 0,
+                    userInfo: [NSLocalizedDescriptionKey: "Data sudah ada pada favorite"]
+                )))
             }
-        } else {
-            print("Data sudah ada pada favorite")
         }
     }
 
-    func deleteAllFavorite(completion: @escaping() -> Void) {
-        let taskContext = newTaskContext()
-        taskContext.perform {
-            let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Member")
-            let batchDeleteRequest = NSBatchDeleteRequest(fetchRequest: fetchRequest)
-            batchDeleteRequest.resultType = .resultTypeCount
-            if let batchDeleteResult = try? taskContext.execute(batchDeleteRequest) as? NSBatchDeleteResult,
-                batchDeleteResult.result != nil {
-                completion()
+    func deleteAllFavorite() -> Future<Void, Error> {
+        return Future { promise in
+            let taskContext = self.newTaskContext()
+            taskContext.perform {
+                let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Member")
+                let batchDeleteRequest = NSBatchDeleteRequest(fetchRequest: fetchRequest)
+                batchDeleteRequest.resultType = .resultTypeCount
+                if let batchDeleteResult = try? taskContext.execute(batchDeleteRequest) as? NSBatchDeleteResult,
+                    batchDeleteResult.result != nil {
+                    promise(.success(()))
+                }
             }
         }
     }
@@ -134,17 +142,19 @@ class FavoriteProvider {
         return results.count > 0
     }
 
-    func deleteFavorite(_ id: Int, completion: @escaping() -> Void = {}) {
-        let taskContext = newTaskContext()
-        taskContext.perform {
-            let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Favorite")
-            fetchRequest.fetchLimit = 1
-            fetchRequest.predicate = NSPredicate(format: "id == \(id)")
-            let batchDeleteRequest = NSBatchDeleteRequest(fetchRequest: fetchRequest)
-            batchDeleteRequest.resultType = .resultTypeCount
-            if let batchDeleteResult = try? taskContext.execute(batchDeleteRequest) as? NSBatchDeleteResult,
-                batchDeleteResult.result != nil {
-                completion()
+    func deleteFavorite(_ id: Int) -> Future<Void, Error> {
+        return Future { promise in
+            let taskContext = self.newTaskContext()
+            taskContext.perform {
+                let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Favorite")
+                fetchRequest.fetchLimit = 1
+                fetchRequest.predicate = NSPredicate(format: "id == \(id)")
+                let batchDeleteRequest = NSBatchDeleteRequest(fetchRequest: fetchRequest)
+                batchDeleteRequest.resultType = .resultTypeCount
+                if let batchDeleteResult = try? taskContext.execute(batchDeleteRequest) as? NSBatchDeleteResult,
+                    batchDeleteResult.result != nil {
+                    promise(.success(()))
+                }
             }
         }
     }

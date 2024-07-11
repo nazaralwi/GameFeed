@@ -119,7 +119,7 @@ class DetailGameViewController: UIViewController {
     }
 
     private func deleteFromFavorite() {
-        favoriteProvider.deleteFavorite(gameId ?? 0)
+        _ = favoriteProvider.deleteFavorite(gameId ?? 0)
     }
 
     private func addToFavorite() {
@@ -138,7 +138,8 @@ class DetailGameViewController: UIViewController {
             backgroundImage: path,
             genres: genres)
 
-        favoriteProvider.addToFavorite(game: game, true)
+        _ = favoriteProvider.addToFavorite(game: game, true)
+            .sink(receiveCompletion: { _ in }, receiveValue: { _ in })
     }
 
     private func isLoading(state: Bool) {
