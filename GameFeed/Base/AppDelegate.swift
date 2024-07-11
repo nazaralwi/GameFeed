@@ -10,15 +10,28 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                      didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         let container = Container { container in
             container.register(Networking.self) { _ in AlamofireNetworking() }
-            container.register(RAWGClient1.self) { resolver in
-                RAWGClient1(networking: resolver.resolve(Networking.self)!)
+            container.register(RAWGClient.self) { resolver in
+                RAWGClient(networking: resolver.resolve(Networking.self)!)
             }
+
             container.storyboardInitCompleted(ViewController.self) { resolver, viewController in
-                viewController.rawgClient = resolver.resolve(RAWGClient1.self)
+                viewController.rawgClient = resolver.resolve(RAWGClient.self)
             }
 
             container.storyboardInitCompleted(DetailGameViewController.self) { resolver, detailViewController in
-                detailViewController.rawgClient = resolver.resolve(RAWGClient1.self)
+                detailViewController.rawgClient = resolver.resolve(RAWGClient.self)
+            }
+            
+            container.storyboardInitCompleted(SearchGameViewController.self) { resolver, searchGameViewController in
+                searchGameViewController.rawgClient = resolver.resolve(RAWGClient.self)
+            }
+
+            container.storyboardInitCompleted(NewGameViewController.self) { resolver, newGameViewController in
+                newGameViewController.rawgClient = resolver.resolve(RAWGClient.self)
+            }
+
+            container.storyboardInitCompleted(FavoritesViewController.self) { resolver, favoritesViewController in
+                favoritesViewController.rawgClient = resolver.resolve(RAWGClient.self)
             }
         }
 

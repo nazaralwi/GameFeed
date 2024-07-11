@@ -6,7 +6,7 @@ class ViewController: UIViewController {
     @IBOutlet var activityIndicator: UIActivityIndicatorView!
     @IBOutlet var errorLabel: UILabel!
 
-    var rawgClient: RAWGClient1?
+    var rawgClient: RAWGClient?
 
     var selectedIndex = 0
     var gameList = [Game]()

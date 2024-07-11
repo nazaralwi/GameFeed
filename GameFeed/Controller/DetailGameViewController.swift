@@ -18,7 +18,7 @@ class DetailGameViewController: UIViewController {
     @IBOutlet var addToFavoriteButton: UIBarButtonItem!
     private lazy var favoriteProvider: FavoriteProvider = { return FavoriteProvider() }()
     
-    var rawgClient: RAWGClient1?
+    var rawgClient: RAWGClient?
 
     var cancellables = Set<AnyCancellable>()
 
