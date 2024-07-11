@@ -1,8 +1,9 @@
 import Foundation
+import Alamofire
 import Combine
 
 public class RAWGClient {
-    private static let session = URLSession.shared
+    private static let session = Alamofire.Session.default
     private static let decoder = JSONDecoder()
 
     static func getGameList() -> AnyPublisher<[Game], Error> {
@@ -53,16 +54,21 @@ public class RAWGClient {
                     url: URL,
                     response: ResponseType.Type
                 ) -> AnyPublisher<ResponseType, Error> {
-        return session.dataTaskPublisher(for: url)
-            .tryMap { data, response in
-                guard let httpResponse = response as? HTTPURLResponse, 200..<300 ~= httpResponse.statusCode else {
-                    throw URLError(.badServerResponse)
+        return Future { promise in
+            session
+                .request(url)
+                .validate()
+                .responseDecodable(of: response) { response in
+                    switch response.result {
+                    case .success(let value):
+                        promise(.success(value))
+                    case .failure(let error):
+                        promise(.failure(error))
+                    }
                 }
-                return data
-            }
-            .decode(type: ResponseType.self, decoder: JSONDecoder())
-            .receive(on: DispatchQueue.main)
-            .eraseToAnyPublisher()
+        }
+        .receive(on: DispatchQueue.main)
+        .eraseToAnyPublisher()
     }
 
     static func downloadBackground(backgroundPath: String) -> AnyPublisher<Data, Error> {
@@ -71,14 +77,20 @@ public class RAWGClient {
                 .eraseToAnyPublisher()
         }
 
-        return session.dataTaskPublisher(for: gameBackgroundURL)
-            .tryMap { data, response in
-                guard let httpResponse = response as? HTTPURLResponse, 200..<300 ~= httpResponse.statusCode else {
-                    throw URLError(.badServerResponse)
+        return Future { promise in
+            session
+                .request(gameBackgroundURL)
+                .validate()
+                .responseData { response in
+                    switch response.result {
+                    case .success(let data):
+                        promise(.success(data))
+                    case .failure(let error):
+                        promise(.failure(error))
+                    }
                 }
-                return data
-            }
-            .receive(on: DispatchQueue.main)
-            .eraseToAnyPublisher()
+        }
+        .receive(on: DispatchQueue.main)
+        .eraseToAnyPublisher()
     }
 }
