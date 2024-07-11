@@ -2,28 +2,7 @@ import Foundation
 import Alamofire
 import Combine
 
-protocol Networking {
-    func request(_ url: URL) -> AnyPublisher<Data, Error>
-}
-
-class AlamofireNetworking: Networking {
-    func request(_ url: URL) -> AnyPublisher<Data, Error> {
-        return Future { promise in
-            AF.request(url)
-                .validate()
-                .responseData { response in
-                    switch response.result {
-                    case .success(let data):
-                        promise(.success(data))
-                    case .failure(let error):
-                        promise(.failure(error))
-                    }
-                }
-        }.eraseToAnyPublisher()
-    }
-}
-
-public class RAWGClient {
+public class RAWGService {
     private let networking: Networking
 
     init(networking: Networking) {

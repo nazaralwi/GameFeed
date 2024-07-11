@@ -10,28 +10,28 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                      didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         let container = Container { container in
             container.register(Networking.self) { _ in AlamofireNetworking() }
-            container.register(RAWGClient.self) { resolver in
-                RAWGClient(networking: resolver.resolve(Networking.self)!)
+            container.register(RAWGService.self) { resolver in
+                RAWGService(networking: resolver.resolve(Networking.self)!)
             }
 
             container.storyboardInitCompleted(ViewController.self) { resolver, viewController in
-                viewController.rawgClient = resolver.resolve(RAWGClient.self)
+                viewController.rawgService = resolver.resolve(RAWGService.self)
             }
 
             container.storyboardInitCompleted(DetailGameViewController.self) { resolver, detailViewController in
-                detailViewController.rawgClient = resolver.resolve(RAWGClient.self)
+                detailViewController.rawgService = resolver.resolve(RAWGService.self)
             }
             
             container.storyboardInitCompleted(SearchGameViewController.self) { resolver, searchGameViewController in
-                searchGameViewController.rawgClient = resolver.resolve(RAWGClient.self)
+                searchGameViewController.rawgService = resolver.resolve(RAWGService.self)
             }
 
             container.storyboardInitCompleted(NewGameViewController.self) { resolver, newGameViewController in
-                newGameViewController.rawgClient = resolver.resolve(RAWGClient.self)
+                newGameViewController.rawgService = resolver.resolve(RAWGService.self)
             }
 
             container.storyboardInitCompleted(FavoritesViewController.self) { resolver, favoritesViewController in
-                favoritesViewController.rawgClient = resolver.resolve(RAWGClient.self)
+                favoritesViewController.rawgService = resolver.resolve(RAWGService.self)
             }
         }
 

@@ -6,7 +6,7 @@ class SearchGameViewController: UIViewController {
     @IBOutlet var searchBar: UISearchBar!
     @IBOutlet var activityIndicator: UIActivityIndicatorView!
     
-    var rawgClient: RAWGClient?
+    var rawgService: RAWGService?
 
     var cancellables = Set<AnyCancellable>()
 
@@ -48,7 +48,7 @@ extension SearchGameViewController: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         self.activityIndicator.startAnimating()
         currentSearchTask?.cancel()
-        currentSearchTask = rawgClient?.search(query: searchText)
+        currentSearchTask = rawgService?.search(query: searchText)
             .sink(receiveCompletion: { completion in
                 self.activityIndicator.stopAnimating()
                 if case .failure(let error) = completion {
@@ -97,7 +97,7 @@ extension SearchGameViewController: UITableViewDataSource {
             cell.ratingGame.text = String(format: "%.2f", game.rating)
 
             if let backgroundPath = game.backgroundImage {
-                rawgClient?.downloadBackground(backgroundPath: backgroundPath)
+                rawgService?.downloadBackground(backgroundPath: backgroundPath)
                     .sink(receiveCompletion: { completion in
                         switch completion {
                         case .finished:

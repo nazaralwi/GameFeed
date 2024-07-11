@@ -17,7 +17,7 @@
 		3D66CE2E24D8F40200E90636 /* MyProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D66CE2D24D8F40200E90636 /* MyProfileViewController.swift */; };
 		3D66CE3024D8F42300E90636 /* SearchGameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D66CE2F24D8F42300E90636 /* SearchGameViewController.swift */; };
 		3D66CE3224D8F43700E90636 /* NewGameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D66CE3124D8F43700E90636 /* NewGameViewController.swift */; };
-		3D75A49A2510AE3C0075C816 /* RAWGClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D75A4992510AE3C0075C816 /* RAWGClient.swift */; };
+		3D75A49A2510AE3C0075C816 /* RAWGService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D75A4992510AE3C0075C816 /* RAWGService.swift */; };
 		3D7D2AC0252972AC00313795 /* Poppins-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3D7D2AAE252972A100313795 /* Poppins-Regular.ttf */; };
 		3D7D2AC5252972AC00313795 /* Poppins-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3D7D2AB3252972A800313795 /* Poppins-Bold.ttf */; };
 		3D7D2AC6252972AC00313795 /* Poppins-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3D7D2AB4252972A800313795 /* Poppins-Medium.ttf */; };
@@ -45,6 +45,7 @@
 		E25FF2222C3ED33300507993 /* Endpoints.swift in Sources */ = {isa = PBXBuildFile; fileRef = E25FF21F2C3ED33300507993 /* Endpoints.swift */; };
 		E25FF2232C3ED33300507993 /* Formatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E25FF2202C3ED33300507993 /* Formatter.swift */; };
 		E25FF2262C3ED36700507993 /* UIView+RoundCorners.swift in Sources */ = {isa = PBXBuildFile; fileRef = E25FF2242C3ED36700507993 /* UIView+RoundCorners.swift */; };
+		E25FF2292C3FBF9E00507993 /* AlamofireNetworking.swift in Sources */ = {isa = PBXBuildFile; fileRef = E25FF2282C3FBF9E00507993 /* AlamofireNetworking.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -71,7 +72,7 @@
 		3D66CE2D24D8F40200E90636 /* MyProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyProfileViewController.swift; sourceTree = "<group>"; };
 		3D66CE2F24D8F42300E90636 /* SearchGameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchGameViewController.swift; sourceTree = "<group>"; };
 		3D66CE3124D8F43700E90636 /* NewGameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewGameViewController.swift; sourceTree = "<group>"; };
-		3D75A4992510AE3C0075C816 /* RAWGClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RAWGClient.swift; sourceTree = "<group>"; };
+		3D75A4992510AE3C0075C816 /* RAWGService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RAWGService.swift; sourceTree = "<group>"; };
 		3D7D2AAE252972A100313795 /* Poppins-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-Regular.ttf"; sourceTree = "<group>"; };
 		3D7D2AB3252972A800313795 /* Poppins-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-Bold.ttf"; sourceTree = "<group>"; };
 		3D7D2AB4252972A800313795 /* Poppins-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-Medium.ttf"; sourceTree = "<group>"; };
@@ -103,6 +104,7 @@
 		E25FF21F2C3ED33300507993 /* Endpoints.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Endpoints.swift; sourceTree = "<group>"; };
 		E25FF2202C3ED33300507993 /* Formatter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Formatter.swift; sourceTree = "<group>"; };
 		E25FF2242C3ED36700507993 /* UIView+RoundCorners.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+RoundCorners.swift"; sourceTree = "<group>"; };
+		E25FF2282C3FBF9E00507993 /* AlamofireNetworking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlamofireNetworking.swift; sourceTree = "<group>"; };
 		FC2266C7B3EF82459B567159 /* Pods_GameFeed.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GameFeed.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -156,7 +158,6 @@
 		3D75A4962510AC750075C816 /* RAWG Client */ = {
 			isa = PBXGroup;
 			children = (
-				3D75A4992510AE3C0075C816 /* RAWGClient.swift */,
 				3D8B773125382E390076805E /* ProfileModel.swift */,
 				3DD8EC1A253AD88B00BBE509 /* UserFavorites.xcdatamodeld */,
 				3DD8EC1D253AEFA200BBE509 /* FavoriteModel.swift */,
@@ -214,6 +215,7 @@
 		3DF8FD5324D5661C00E64116 /* GameFeed */ = {
 			isa = PBXGroup;
 			children = (
+				E25FF2272C3FBF8200507993 /* Service */,
 				3DF8FD8524D568EA00E64116 /* Model */,
 				3DF8FD8424D568E300E64116 /* View */,
 				3DF8FD8624D568F300E64116 /* Controller */,
@@ -288,6 +290,15 @@
 			path = Extensions;
 			sourceTree = "<group>";
 		};
+		E25FF2272C3FBF8200507993 /* Service */ = {
+			isa = PBXGroup;
+			children = (
+				3D75A4992510AE3C0075C816 /* RAWGService.swift */,
+				E25FF2282C3FBF9E00507993 /* AlamofireNetworking.swift */,
+			);
+			path = Service;
+			sourceTree = "<group>";
+		};
 		F06AD96876499CD677A4BBDB /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -296,7 +307,6 @@
 				D205EB1EBB3D0403AB5FBB0F /* Pods-GameFeedTests.debug.xcconfig */,
 				C8C339A4ABAB19D96E7E55D8 /* Pods-GameFeedTests.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -505,12 +515,13 @@
 			files = (
 				3DAEDB81252C8D2D00DFAF14 /* Publisher.swift in Sources */,
 				3D96B1732511CB46006A3F1D /* Platform.swift in Sources */,
-				3D75A49A2510AE3C0075C816 /* RAWGClient.swift in Sources */,
+				3D75A49A2510AE3C0075C816 /* RAWGService.swift in Sources */,
 				3DAEDB7F252C8C7B00DFAF14 /* GameDetail.swift in Sources */,
 				3DF8FD5924D5661C00E64116 /* ViewController.swift in Sources */,
 				3D19822924D792CE00E3AD85 /* Game.swift in Sources */,
 				E25FF2232C3ED33300507993 /* Formatter.swift in Sources */,
 				3D4633B72514544700AF1A70 /* Genre.swift in Sources */,
+				E25FF2292C3FBF9E00507993 /* AlamofireNetworking.swift in Sources */,
 				3DD8EC20253AF04500BBE509 /* FavoriteProvider.swift in Sources */,
 				3DF8FD5524D5661C00E64116 /* AppDelegate.swift in Sources */,
 				3D23BA7B2539E8EE0064B284 /* UpdateViewController.swift in Sources */,

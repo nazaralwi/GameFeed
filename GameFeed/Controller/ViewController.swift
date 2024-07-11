@@ -6,7 +6,7 @@ class ViewController: UIViewController {
     @IBOutlet var activityIndicator: UIActivityIndicatorView!
     @IBOutlet var errorLabel: UILabel!
 
-    var rawgClient: RAWGClient?
+    var rawgService: RAWGService?
 
     var selectedIndex = 0
     var gameList = [Game]()
@@ -55,7 +55,7 @@ class ViewController: UIViewController {
         errorLabel.isHidden = true
         activityIndicator.startAnimating()
 
-        rawgClient?.getGameList().sink(receiveCompletion: { completion in
+        rawgService?.getGameList().sink(receiveCompletion: { completion in
             switch completion {
             case .finished:
                 self.gameTableView.reloadData()
@@ -73,7 +73,7 @@ class ViewController: UIViewController {
     }
 
     @objc func fetchGameList() {
-        rawgClient?.getGameList().sink(receiveCompletion: { completion in
+        rawgService?.getGameList().sink(receiveCompletion: { completion in
             switch completion {
             case .finished:
                 self.gameTableView.reloadData()
@@ -109,7 +109,7 @@ extension ViewController: UITableViewDataSource {
             cell.ratingGame.text = String(format: "%.2f", game.rating)
 
             if let backgroundPath = game.backgroundImage {
-                rawgClient?.downloadBackground(backgroundPath: backgroundPath)
+                rawgService?.downloadBackground(backgroundPath: backgroundPath)
                     .sink(receiveCompletion: { completion in
                         switch completion {
                         case .finished:

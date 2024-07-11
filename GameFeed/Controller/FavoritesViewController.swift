@@ -9,7 +9,7 @@ class FavoritesViewController: UIViewController {
     @IBOutlet var emptyImage: UIImageView!
     var selectedIndex = 0
     
-    var rawgClient: RAWGClient?
+    var rawgService: RAWGService?
 
     var cancellables = Set<AnyCancellable>()
 
@@ -94,7 +94,7 @@ extension FavoritesViewController: UITableViewDataSource {
 
             if let backgroundPath = favorite.backgroundImage {
                 print(backgroundPath)
-                rawgClient?.downloadBackground(backgroundPath: backgroundPath)
+                rawgService?.downloadBackground(backgroundPath: backgroundPath)
                     .sink(receiveCompletion: { completion in
                         switch completion {
                         case .finished:
