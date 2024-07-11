@@ -139,7 +139,6 @@ class DetailGameViewController: UIViewController {
             genres: genres)
 
         _ = favoriteProvider.addToFavorite(game: game, true)
-            .sink(receiveCompletion: { _ in }, receiveValue: { _ in })
     }
 
     private func isLoading(state: Bool) {

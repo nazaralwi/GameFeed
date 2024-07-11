@@ -8,10 +8,10 @@ class ViewController: UIViewController {
 
     var rawgService: RAWGService?
 
+    var cancellables = Set<AnyCancellable>()
+
     var selectedIndex = 0
     var gameList = [Game]()
-
-    var cancellables = Set<AnyCancellable>()
 
     override func viewDidLoad() {
         super.viewDidLoad()

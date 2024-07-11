@@ -55,12 +55,9 @@ extension SearchGameViewController: UISearchBarDelegate {
                     print("Search failed with error: \(error)")
                 }
             }, receiveValue: { games in
-                print("games : \(games)")
                 if !games.isEmpty {
                     self.games = games
                     self.searchTableView.reloadData()
-                } else {
-                    // Handle no results case if needed
                 }
             })
 
