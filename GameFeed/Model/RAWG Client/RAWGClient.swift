@@ -179,8 +179,6 @@ public class RAWGClient1 {
                 ) -> AnyPublisher<ResponseType, Error> {
         return networking.request(url)
             .tryMap { data in
-                // Debug print to ensure data is received
-                print(String(data: data, encoding: .utf8) ?? "No data")
                 return try JSONDecoder().decode(ResponseType.self, from: data)
             }
             .receive(on: DispatchQueue.main)

@@ -15,7 +15,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }
             container.storyboardInitCompleted(ViewController.self) { resolver, viewController in
                 viewController.rawgClient = resolver.resolve(RAWGClient1.self)
-                print("Injected rawgClient")
+            }
+
+            container.storyboardInitCompleted(DetailGameViewController.self) { resolver, detailViewController in
+                detailViewController.rawgClient = resolver.resolve(RAWGClient1.self)
             }
         }
 

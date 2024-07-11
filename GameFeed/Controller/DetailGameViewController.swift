@@ -17,6 +17,8 @@ class DetailGameViewController: UIViewController {
     @IBOutlet var myViewHeight: NSLayoutConstraint!
     @IBOutlet var addToFavoriteButton: UIBarButtonItem!
     private lazy var favoriteProvider: FavoriteProvider = { return FavoriteProvider() }()
+    
+    var rawgClient: RAWGClient1?
 
     var cancellables = Set<AnyCancellable>()
 
@@ -71,15 +73,15 @@ class DetailGameViewController: UIViewController {
         }
 
         isLoading(state: true)
-        RAWGClient.getGameDetail(idGame: gameId ?? 0)
-            .flatMap { gameDetail -> AnyPublisher<(GameDetail, Data?), Error> in
+        rawgClient?.getGameDetail(idGame: gameId ?? 0)
+            .flatMap { [self] gameDetail -> AnyPublisher<(GameDetail, Data?), Error> in
                 let backgroundPublisher: AnyPublisher<Data?, Error>
                 if let backgroundPath = gameDetail.backgroundImage {
                     self.path = backgroundPath
-                    backgroundPublisher = RAWGClient.downloadBackground(backgroundPath: backgroundPath)
+                    backgroundPublisher = (rawgClient?.downloadBackground(backgroundPath: backgroundPath)
                         .map { Optional($0) }
                         .catch { _ in Just(nil).setFailureType(to: Error.self) }
-                        .eraseToAnyPublisher()
+                        .eraseToAnyPublisher())!
                 } else {
                     backgroundPublisher = Just(nil).setFailureType(to: Error.self).eraseToAnyPublisher()
                 }
