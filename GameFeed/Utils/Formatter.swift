@@ -11,7 +11,7 @@ class Formatter {
 
             return genres.joined(separator: ", ")
         } else {
-            return "Genre Not Found"
+            return "-"
         }
     }
 
