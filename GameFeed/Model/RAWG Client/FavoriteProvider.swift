@@ -1,5 +1,6 @@
 import UIKit
 import CoreData
+import Combine
 
 class FavoriteProvider {
     lazy var persistentContainer: NSPersistentContainer = {
@@ -26,27 +27,29 @@ class FavoriteProvider {
         return taskContext
     }
 
-    func getAllFavorites(completion: @escaping(_ members: [FavoriteModel]) -> Void) {
-        let taskContext = newTaskContext()
-        taskContext.perform {
-            let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "Favorite")
-            do {
-                let results = try taskContext.fetch(fetchRequest)
-                var favorites: [FavoriteModel] = []
-                for result in results {
-                    let favorite = FavoriteModel(id: result.value(forKeyPath: "id") as? Int64,
-                                                 name: result.value(forKeyPath: "name") as? String,
-                                                 released: result.value(forKeyPath: "released") as? String,
-                                                 rating: result.value(forKeyPath: "rating") as? String,
-                                                 backgroundImage:
-                                                    result.value(forKeyPath: "backgroundImage") as? String,
-                                                 genres: result.value(forKeyPath: "genres") as? String)
+    func getAllFavorites() -> Future<[FavoriteModel], Error> {
+        return Future { promise in
+            let taskContext = self.newTaskContext()
+            taskContext.perform {
+                let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "Favorite")
+                do {
+                    let results = try taskContext.fetch(fetchRequest)
+                    var favorites: [FavoriteModel] = []
+                    for result in results {
+                        let favorite = FavoriteModel(
+                            id: result.value(forKeyPath: "id") as? Int64,
+                            name: result.value(forKeyPath: "name") as? String,
+                            released: result.value(forKeyPath: "released") as? String,
+                            rating: result.value(forKeyPath: "rating") as? String,
+                            backgroundImage: result.value(forKeyPath: "backgroundImage") as? String,
+                            genres: result.value(forKeyPath: "genres") as? String)
 
-                    favorites.append(favorite)
+                        favorites.append(favorite)
+                    }
+                    promise(.success(favorites))
+                } catch {
+                    promise(.failure(error))
                 }
-                completion(favorites)
-            } catch let error as NSError {
-                print("Could not fetch. \(error), \(error.userInfo)")
             }
         }
     }

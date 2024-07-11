@@ -41,19 +41,21 @@ class FavoritesViewController: UIViewController {
     }
 
     private func loadFavorites() {
-        self.favoriteProvider.getAllFavorites { (results) in
-            DispatchQueue.main.async {
-                if !results.isEmpty {
-                    self.favorites = results
+        self.favoriteProvider.getAllFavorites()
+            .receive(on: DispatchQueue.main)
+            .sink(receiveCompletion: { completion in
+                switch completion {
+                case .finished:
                     self.favoriteTableView.reloadData()
-                    self.favoriteIsEmpty(state: true)
-                } else {
-                    self.favorites = results
-                    self.favoriteTableView.reloadData()
-                    self.favoriteIsEmpty(state: false)
+                case .failure(let error):
+                    print("Failed to fetch favorites: \(error)")
                 }
-            }
-        }
+            }, receiveValue: { favorites in
+                self.favoriteIsEmpty(state: !favorites.isEmpty)
+                self.favorites = favorites
+                self.favoriteTableView.reloadData()
+            })
+            .store(in: &cancellables)
     }
 
     func setupView() {
