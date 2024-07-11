@@ -5,6 +5,9 @@ class ViewController: UIViewController {
     @IBOutlet weak var gameTableView: UITableView!
     @IBOutlet var activityIndicator: UIActivityIndicatorView!
     @IBOutlet var errorLabel: UILabel!
+
+    var rawgClient: RAWGClient1?
+
     var selectedIndex = 0
     var gameList = [Game]()
 
@@ -13,6 +16,7 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupView()
+        print("setupView()")
     }
 
     override var preferredStatusBarStyle: UIStatusBarStyle {
@@ -51,7 +55,7 @@ class ViewController: UIViewController {
         errorLabel.isHidden = true
         activityIndicator.startAnimating()
 
-        RAWGClient.getGameList().sink(receiveCompletion: { completion in
+        rawgClient?.getGameList().sink(receiveCompletion: { completion in
             switch completion {
             case .finished:
                 self.gameTableView.reloadData()
@@ -69,9 +73,7 @@ class ViewController: UIViewController {
     }
 
     @objc func fetchGameList() {
-        var cancellables = Set<AnyCancellable>()
-
-        RAWGClient.getGameList().sink(receiveCompletion: { completion in
+        rawgClient?.getGameList().sink(receiveCompletion: { completion in
             switch completion {
             case .finished:
                 self.gameTableView.reloadData()
@@ -107,7 +109,7 @@ extension ViewController: UITableViewDataSource {
             cell.ratingGame.text = String(format: "%.2f", game.rating)
 
             if let backgroundPath = game.backgroundImage {
-                RAWGClient.downloadBackground(backgroundPath: backgroundPath)
+                rawgClient?.downloadBackground(backgroundPath: backgroundPath)
                     .sink(receiveCompletion: { completion in
                         switch completion {
                         case .finished:

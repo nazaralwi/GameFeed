@@ -1,9 +1,26 @@
 import UIKit
+import Swinject
+import SwinjectStoryboard
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
+    var window: UIWindow?
+
     func application(_ application: UIApplication,
                      didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+        let container = Container { container in
+            container.register(Networking.self) { _ in AlamofireNetworking() }
+            container.register(RAWGClient1.self) { resolver in
+                RAWGClient1(networking: resolver.resolve(Networking.self)!)
+            }
+            container.storyboardInitCompleted(ViewController.self) { resolver, viewController in
+                viewController.rawgClient = resolver.resolve(RAWGClient1.self)
+                print("Injected rawgClient")
+            }
+        }
+
+        // Set the default container
+        SwinjectStoryboard.defaultContainer = container
 
         return true
     }
