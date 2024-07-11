@@ -7,53 +7,56 @@ class ViewController: UIViewController {
     @IBOutlet var errorLabel: UILabel!
     var selectedIndex = 0
     var gameList = [Game]()
-    
+
     var cancellables = Set<AnyCancellable>()
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         setupView()
     }
-    
+
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
     }
-    
+
     override func viewDidAppear(_ animated: Bool) {
         navigationController?.navigationBar.barStyle = .black
     }
-    
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         gameTableView.reloadData()
     }
-    
+
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "showDetail" {
             let detail = segue.destination as? DetailGameViewController
             detail?.gameId = gameList[selectedIndex].idGame
         }
     }
-    
+
     func setupView() {
         self.gameTableView.contentInset.bottom = 10
-        
+
         gameTableView.dataSource = self
         gameTableView.delegate = self
-        
+
         gameTableView.refreshControl = UIRefreshControl()
         gameTableView.refreshControl?.tintColor = UIColor.gray
-        gameTableView.refreshControl?.addTarget(self, action: #selector(fetchGameList), for: UIControl.Event.valueChanged)
-        
+        gameTableView.refreshControl?.addTarget(
+            self,
+            action: #selector(fetchGameList),
+            for: UIControl.Event.valueChanged)
+
         errorLabel.isHidden = true
         activityIndicator.startAnimating()
-                
+
         RAWGClient.getGameList().sink(receiveCompletion: { completion in
             switch completion {
             case .finished:
                 self.gameTableView.reloadData()
                 self.activityIndicator.stopAnimating()
-            case .failure(let error):
+            case .failure:
                 self.errorLabel.isHidden = false
                 self.activityIndicator.stopAnimating()
             }
@@ -62,19 +65,18 @@ class ViewController: UIViewController {
         })
         .store(in: &cancellables)
 
-                
         gameTableView.register(UINib(nibName: "GameTableViewCell", bundle: nil), forCellReuseIdentifier: "GameCell")
     }
-    
+
     @objc func fetchGameList() {
         var cancellables = Set<AnyCancellable>()
-        
+
         RAWGClient.getGameList().sink(receiveCompletion: { completion in
             switch completion {
             case .finished:
                 self.gameTableView.reloadData()
                 self.activityIndicator.stopAnimating()
-            case .failure(let error):
+            case .failure:
                 self.errorLabel.isHidden = false
                 self.activityIndicator.stopAnimating()
             }
@@ -93,17 +95,17 @@ extension ViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return gameList.count
     }
-    
+
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if let cell = tableView.dequeueReusableCell(withIdentifier: "GameCell", for: indexPath) as? GameTableViewCell {
 
             let game = gameList[indexPath.row]
-            
+
             cell.releaseGame.text = Formatter.formatDate(from: game.released ?? "")
             cell.genreGame.text = Formatter.formatGenre(from: game.genres ?? [])
             cell.titleGame.text = game.name
             cell.ratingGame.text = String(format: "%.2f", game.rating)
-            
+
             if let backgroundPath = game.backgroundImage {
                 RAWGClient.downloadBackground(backgroundPath: backgroundPath)
                     .sink(receiveCompletion: { completion in

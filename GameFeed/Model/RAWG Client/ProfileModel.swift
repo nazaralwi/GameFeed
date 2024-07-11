@@ -5,7 +5,7 @@ class ProfileModel {
     static let nameKey = "name"
     static let companyKey = "company"
     static let emailKey = "email"
-    
+
     static var stateEdit: Bool {
         get {
             return UserDefaults.standard.bool(forKey: stateEditKey)
@@ -14,7 +14,7 @@ class ProfileModel {
             UserDefaults.standard.set(newValue, forKey: stateEditKey)
         }
     }
-    
+
     static var name: String {
         get {
             return UserDefaults.standard.string(forKey: nameKey) ?? ""
@@ -23,7 +23,7 @@ class ProfileModel {
             UserDefaults.standard.set(newValue, forKey: nameKey)
         }
     }
-    
+
     static var company: String {
         get {
             return UserDefaults.standard.string(forKey: companyKey) ?? ""
@@ -32,7 +32,7 @@ class ProfileModel {
             UserDefaults.standard.set(newValue, forKey: companyKey)
         }
     }
-    
+
     static var email: String {
         get {
             return UserDefaults.standard.string(forKey: emailKey) ?? ""
@@ -41,8 +41,8 @@ class ProfileModel {
             UserDefaults.standard.set(newValue, forKey: emailKey)
         }
     }
-    
-    static func deleteAll() -> Bool{
+
+    static func deleteAll() -> Bool {
         if let domain = Bundle.main.bundleIdentifier {
             UserDefaults.standard.removePersistentDomain(forName: domain)
             UserDefaults.standard.synchronize()
@@ -51,7 +51,7 @@ class ProfileModel {
             return false
         }
     }
-    
+
     static func synchronize() {
         UserDefaults.standard.synchronize()
     }

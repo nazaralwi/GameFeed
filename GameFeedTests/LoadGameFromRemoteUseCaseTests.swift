@@ -12,6 +12,6 @@ import XCTest
 class LoadGameFromRemoteUseCaseTests: XCTestCase {
     func test_taskForGETRequest_requestsDataFromURL() {
         let sut = RAWGClient()
-        
+
     }
 }

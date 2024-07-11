@@ -7,7 +7,7 @@ struct Game: Codable {
     let rating: Double
     let backgroundImage: String?
     let genres: [Genre]?
-    
+
     enum CodingKeys: String, CodingKey {
         case idGame = "id"
         case name
@@ -16,4 +16,13 @@ struct Game: Codable {
         case backgroundImage = "background_image"
         case genres
     }
+}
+
+struct GameFavoriteViewModel {
+    let idGame: Int
+    let name: String
+    let released: String
+    let rating: String
+    let backgroundImage: String
+    let genres: String
 }

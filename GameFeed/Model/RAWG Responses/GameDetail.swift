@@ -11,7 +11,7 @@ struct GameDetail: Codable {
     let platforms: [Platforms]
     let publishers: [Publisher]
     let metacritic: Int?
-    
+
     enum CodingKeys: String, CodingKey {
         case idGame = "id"
         case name

@@ -5,41 +5,44 @@ class NewGameViewController: UIViewController {
     @IBOutlet var newGameTableView: UITableView!
     @IBOutlet var activityIndicator: UIActivityIndicatorView!
     @IBOutlet var errorLabel: UILabel!
-    
+
     var cancellables = Set<AnyCancellable>()
-   
+
     var selectedIndex = 0
     var newGame = [Game]()
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         setupView()
     }
-    
+
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
     }
-    
+
     override func viewDidAppear(_ animated: Bool) {
         navigationController?.navigationBar.barStyle = .black
     }
-    
+
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "showDetail" {
             let detail = segue.destination as? DetailGameViewController
             detail?.gameId = newGame[selectedIndex].idGame
         }
     }
-    
+
     func setupView() {
         let now = Date()
         let oneMonthBefore = Calendar.current.date(byAdding: .month, value: -1, to: now)
-        
+
         errorLabel.isHidden = true
         activityIndicator.startAnimating()
-        
-        RAWGClient.getNewGameLastMonths(lastMonth: Formatter.formatDateToString(from: oneMonthBefore ?? Date()), now: Formatter.formatDateToString(from: now))
+
+        RAWGClient.getNewGameLastMonths(
+            lastMonth: Formatter.formatDateToString(
+                from: oneMonthBefore ?? Date()),
+            now: Formatter.formatDateToString(from: now))
             .sink(receiveCompletion: { completion in
                 self.activityIndicator.stopAnimating()
                 if case .failure(let error) = completion {
@@ -67,16 +70,16 @@ extension NewGameViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return newGame.count
     }
-    
+
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if let cell = tableView.dequeueReusableCell(withIdentifier: "GameCell", for: indexPath) as? GameTableViewCell {
             let game = newGame[indexPath.row]
-            
+
             cell.releaseGame.text = Formatter.formatDate(from: game.released ?? "")
             cell.genreGame.text = Formatter.formatGenre(from: game.genres ?? [])
             cell.titleGame.text = game.name
             cell.ratingGame.text = String(format: "%.2f", game.rating)
-            
+
             if let backgroundPath = game.backgroundImage {
                 RAWGClient.downloadBackground(backgroundPath: backgroundPath)
                     .sink(receiveCompletion: { completion in
@@ -96,7 +99,7 @@ extension NewGameViewController: UITableViewDataSource {
                     })
                     .store(in: &cancellables)
             }
-            
+
             return cell
         } else {
             return UITableViewCell()

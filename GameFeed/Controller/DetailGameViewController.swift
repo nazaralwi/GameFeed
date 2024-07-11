@@ -17,13 +17,13 @@ class DetailGameViewController: UIViewController {
     @IBOutlet var myViewHeight: NSLayoutConstraint!
     @IBOutlet var addToFavoriteButton: UIBarButtonItem!
     private lazy var favoriteProvider: FavoriteProvider = { return FavoriteProvider() }()
-    
+
     var cancellables = Set<AnyCancellable>()
-    
+
     var gameId: Int?
     var gameDetail: GameDetail!
     var path = String()
-    
+
     var didChangeTitle = false
     var defaultTitle = ""
     var animateUp: CATransition = {
@@ -34,7 +34,7 @@ class DetailGameViewController: UIViewController {
         animation.timingFunction = CAMediaTimingFunction.init(name: CAMediaTimingFunctionName.easeInEaseOut)
         return animation
     }()
-    
+
     var animateDown: CATransition = {
         let animation = CATransition()
         animation.duration = 0.5
@@ -43,15 +43,15 @@ class DetailGameViewController: UIViewController {
         animation.timingFunction = CAMediaTimingFunction.init(name: CAMediaTimingFunctionName.easeInEaseOut)
         return animation
     }()
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         scrollView.delegate = self
-        
+
         myViewHeight.constant = 2000
         scrollView.contentSize = myView.frame.size
-        
+
         let titleLabelView = UILabel.init(frame: CGRect(x: 0, y: 0, width: 200, height: 44))
         titleLabelView.backgroundColor = .clear
         titleLabelView.textAlignment = .center
@@ -59,17 +59,17 @@ class DetailGameViewController: UIViewController {
         titleLabelView.font = UIFont.boldSystemFont(ofSize: 16)
         titleLabelView.text = defaultTitle
         self.navigationItem.titleView = titleLabelView
-        
+
         setupView()
     }
-    
+
     func setupView() {
         if favoriteProvider.checkData(id: gameId ?? 0) {
             addToFavoriteButton.image = UIImage(systemName: "heart.fill")
         } else {
             addToFavoriteButton.image = UIImage(systemName: "heart")
         }
-        
+
         isLoading(state: true)
         RAWGClient.getGameDetail(idGame: gameId ?? 0)
             .flatMap { gameDetail -> AnyPublisher<(GameDetail, Data?), Error> in
@@ -105,7 +105,7 @@ class DetailGameViewController: UIViewController {
             })
             .store(in: &cancellables)
     }
-    
+
     @IBAction func addToFavorite(_ sender: Any) {
         if !favoriteProvider.checkData(id: gameId ?? 0) {
             addToFavorite()
@@ -115,19 +115,28 @@ class DetailGameViewController: UIViewController {
             addToFavoriteButton.image = UIImage(systemName: "heart")
         }
     }
-    
+
     private func deleteFromFavorite() {
         favoriteProvider.deleteFavorite(gameId ?? 0)
     }
-    
+
     private func addToFavorite() {
         let name = titleGameDetail.text ?? ""
         let rating = ratingGameDetail.text ?? ""
         let genres = genreGameDetail.text ?? ""
         let released = releaseGameDetail.text ?? ""
+
         let path = self.path
 
-        favoriteProvider.addToFavorite(gameId ?? 0, name, released, rating, genres, path, true)
+        let game = GameFavoriteViewModel(
+            idGame: gameId ?? 0,
+            name: name,
+            released: released,
+            rating: rating,
+            backgroundImage: path,
+            genres: genres)
+
+        favoriteProvider.addToFavorite(game: game, true)
     }
 
     private func isLoading(state: Bool) {
@@ -143,7 +152,10 @@ class DetailGameViewController: UIViewController {
 
 extension DetailGameViewController: UIScrollViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        if scrollView.contentOffset.y >= (titleGameDetail.frame.origin.y + titleGameDetail.frame.height) && !didChangeTitle {
+        let yAxis = titleGameDetail.frame.origin.y
+        let height = titleGameDetail.frame.height
+        if scrollView.contentOffset.y >=
+            (yAxis + height) && !didChangeTitle {
             if let label = navigationItem.titleView as? UILabel {
                 label.layer.add(animateUp, forKey: "changeTitle")
                 label.text = titleGameDetail.text

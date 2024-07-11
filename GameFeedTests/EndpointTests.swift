@@ -10,6 +10,6 @@ import XCTest
 
 class EndpointTests: XCTestCase {
     func test() {
-        
+
     }
 }

@@ -8,7 +8,7 @@ enum Endpoints {
     case search(String)
     case getGameDetail(Int)
     case getNewGameLastMonts(String, String)
-    
+
     var url: URL? {
         guard let urlString = stringValue.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed),
               let url = URL(string: urlString) else {
@@ -16,7 +16,7 @@ enum Endpoints {
         }
         return url
     }
-    
+
     var stringValue: String {
         switch self {
         case .getGameList:
@@ -24,8 +24,10 @@ enum Endpoints {
         case .backgroundImageURL(let backgroundPath):
             return backgroundPath
         case .search(let query):
+            let queryWithEncoding = query.addingPercentEncoding(
+                withAllowedCharacters: .urlQueryAllowed) ?? ""
             return Endpoints.base +
-                "?search=\(query.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? "")&key=\(Endpoints.key)"
+                "?search=\(queryWithEncoding)&key=\(Endpoints.key)"
         case .getGameDetail(let idGame):
             return Endpoints.base + "/\(String(idGame))?key=\(Endpoints.key)"
         case .getNewGameLastMonts(let startDate, let endDate):

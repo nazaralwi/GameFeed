@@ -4,8 +4,8 @@ import CoreData
 class FavoriteProvider {
     lazy var persistentContainer: NSPersistentContainer = {
         let container = NSPersistentContainer(name: "UserFavorites")
-        
-        container.loadPersistentStores { storeDesription, error in
+
+        container.loadPersistentStores { _, error in
             guard error == nil else {
                 fatalError("Unresolved error \(error!)")
             }
@@ -14,19 +14,19 @@ class FavoriteProvider {
         container.viewContext.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
         container.viewContext.shouldDeleteInaccessibleFaults = true
         container.viewContext.undoManager = nil
-        
+
         return container
     }()
-    
+
     func newTaskContext() -> NSManagedObjectContext {
         let taskContext = persistentContainer.newBackgroundContext()
         taskContext.undoManager = nil
-        
+
         taskContext.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
         return taskContext
     }
-    
-    func getAllFavorites(completion: @escaping(_ members: [FavoriteModel]) -> ()) {
+
+    func getAllFavorites(completion: @escaping(_ members: [FavoriteModel]) -> Void) {
         let taskContext = newTaskContext()
         taskContext.perform {
             let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "Favorite")
@@ -38,9 +38,10 @@ class FavoriteProvider {
                                                  name: result.value(forKeyPath: "name") as? String,
                                                  released: result.value(forKeyPath: "released") as? String,
                                                  rating: result.value(forKeyPath: "rating") as? String,
-                                                 backgroundImage: result.value(forKeyPath: "backgroundImage") as? String,
+                                                 backgroundImage:
+                                                    result.value(forKeyPath: "backgroundImage") as? String,
                                                  genres: result.value(forKeyPath: "genres") as? String)
-                    
+
                     favorites.append(favorite)
                 }
                 completion(favorites)
@@ -49,8 +50,8 @@ class FavoriteProvider {
             }
         }
     }
-    
-    func getFavorite(_ id: Int, completion: @escaping(_ members: FavoriteModel) -> ()) {
+
+    func getFavorite(_ id: Int, completion: @escaping(_ members: FavoriteModel) -> Void) {
         let taskContext = newTaskContext()
         taskContext.perform {
             let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "Favorite")
@@ -62,7 +63,8 @@ class FavoriteProvider {
                                                   name: result.value(forKeyPath: "name") as? String,
                                                   released: result.value(forKeyPath: "released") as? String,
                                                   rating: result.value(forKeyPath: "rating") as? String,
-                                                  backgroundImage: result.value(forKeyPath: "backgroundImage") as? String,
+                                                  backgroundImage:
+                                                    result.value(forKeyPath: "backgroundImage") as? String,
                                                   genres: result.value(forKeyPath: "genres") as? String)
                     completion(favorite)
                 }
@@ -71,20 +73,22 @@ class FavoriteProvider {
             }
         }
     }
-    
-    func addToFavorite(_ id: Int, _ name: String, _ released: String, _ rating: String, _ genres: String, _ backgroundImage: String, _ isFavorite: Bool, completion: @escaping() -> () = { }) {
+
+    func addToFavorite(game: GameFavoriteViewModel,
+                       _ isFavorite: Bool,
+                       completion: @escaping() -> Void = { }) {
         let taskContext = newTaskContext()
-        if !checkData(id: id) {
+        if !checkData(id: game.idGame) {
             taskContext.performAndWait {
                 if let entity = NSEntityDescription.entity(forEntityName: "Favorite", in: taskContext) {
                     let favorite = NSManagedObject(entity: entity, insertInto: taskContext)
-                    
-                    favorite.setValue(id, forKey: "id")
-                    favorite.setValue(name, forKey: "name")
-                    favorite.setValue(rating, forKey: "rating")
-                    favorite.setValue(released, forKey: "released")
-                    favorite.setValue(backgroundImage, forKey: "backgroundImage")
-                    favorite.setValue(genres, forKey: "genres")
+
+                    favorite.setValue(game.idGame, forKey: "id")
+                    favorite.setValue(game.name, forKey: "name")
+                    favorite.setValue(game.rating, forKey: "rating")
+                    favorite.setValue(game.released, forKey: "released")
+                    favorite.setValue(game.backgroundImage, forKey: "backgroundImage")
+                    favorite.setValue(game.genres, forKey: "genres")
                     favorite.setValue(isFavorite, forKey: "isFavorite")
                     do {
                         try taskContext.save()
@@ -98,8 +102,8 @@ class FavoriteProvider {
             print("Data sudah ada pada favorite")
         }
     }
-    
-    func deleteAllFavorite(completion: @escaping() -> ()) {
+
+    func deleteAllFavorite(completion: @escaping() -> Void) {
         let taskContext = newTaskContext()
         taskContext.perform {
             let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Member")
@@ -111,23 +115,23 @@ class FavoriteProvider {
             }
         }
     }
-    
+
     func checkData(id: Int) -> Bool {
         let taskContext = newTaskContext()
         let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "Favorite")
         fetchRequest.predicate = NSPredicate(format: "id = %d", id)
         var results: [NSManagedObject] = []
-        
+
         do {
             results = try taskContext.fetch(fetchRequest)
         } catch let error as NSError {
             print("Could not fetch. \(error), \(error.userInfo)")
         }
-        
+
         return results.count > 0
     }
-    
-    func deleteFavorite(_ id: Int, completion: @escaping() -> () = {}) {
+
+    func deleteFavorite(_ id: Int, completion: @escaping() -> Void = {}) {
         let taskContext = newTaskContext()
         taskContext.perform {
             let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Favorite")
