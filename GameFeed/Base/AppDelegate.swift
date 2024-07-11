@@ -35,7 +35,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }
         }
 
-        // Set the default container
         SwinjectStoryboard.defaultContainer = container
 
         return true

@@ -1,0 +1,47 @@
+import Foundation
+
+struct GameDetail: Codable {
+    let idGame: Int
+    let name: String
+    let released: String?
+    let description: String?
+    let rating: Double?
+    let backgroundImage: String?
+    let genres: [Genre]?
+    let platforms: [Platforms]
+    let publishers: [Publisher]
+    let metacritic: Int?
+
+    enum CodingKeys: String, CodingKey {
+        case idGame = "id"
+        case name
+        case released
+        case description = "description_raw"
+        case rating
+        case backgroundImage = "background_image"
+        case genres
+        case platforms
+        case publishers
+        case metacritic
+    }
+}
+
+struct Publisher: Codable {
+    let name: String
+}
+
+struct Platforms: Codable {
+    let platform: Platform
+    let releasedAt: String
+
+    enum CodingKeys: String, CodingKey {
+        case platform
+        case releasedAt = "released_at"
+    }
+}
+
+struct Platform: Codable {
+    let name: String
+    let slug: String
+}
+
