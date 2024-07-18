@@ -9,45 +9,45 @@ public class RAWGService {
         self.networking = networking
     }
 
-    func getGameList() -> AnyPublisher<[Game], Error> {
+    func getGameList() -> AnyPublisher<[GameResponse], Error> {
         guard let gameListURL = Endpoints.getGameList.url else {
             return Fail(error: URLError(.badURL))
                 .eraseToAnyPublisher()
         }
 
-        return taskForGETRequest(url: gameListURL, response: GameResult.self)
+        return taskForGETRequest(url: gameListURL, response: GameResultResponse.self)
             .map { $0.results }
             .eraseToAnyPublisher()
     }
 
-    func search(query: String) -> AnyPublisher<[Game], Error> {
+    func search(query: String) -> AnyPublisher<[GameResponse], Error> {
         guard let gameSearchURL = Endpoints.search(query).url else {
             return Fail(error: URLError(.badURL))
                 .eraseToAnyPublisher()
         }
 
-        return taskForGETRequest(url: gameSearchURL, response: GameResult.self)
+        return taskForGETRequest(url: gameSearchURL, response: GameResultResponse.self)
             .map { $0.results }
             .eraseToAnyPublisher()
     }
 
-    func getGameDetail(idGame: Int) -> AnyPublisher<GameDetail, Error> {
+    func getGameDetail(idGame: Int) -> AnyPublisher<GameDetailResponse, Error> {
         guard let gameDetailURL = Endpoints.getGameDetail(idGame).url else {
             return Fail(error: URLError(.badURL))
                 .eraseToAnyPublisher()
         }
 
-        return taskForGETRequest(url: gameDetailURL, response: GameDetail.self)
+        return taskForGETRequest(url: gameDetailURL, response: GameDetailResponse.self)
             .eraseToAnyPublisher()
     }
 
-    func getNewGameLastMonths(lastMonth: String, now: String) -> AnyPublisher<[Game], Error> {
+    func getNewGameLastMonths(lastMonth: String, now: String) -> AnyPublisher<[GameResponse], Error> {
         guard let gameLastMonthsURL = Endpoints.getNewGameLastMonts(lastMonth, now).url else {
             return Fail(error: URLError(.badURL))
                 .eraseToAnyPublisher()
         }
 
-        return taskForGETRequest(url: gameLastMonthsURL, response: GameResult.self)
+        return taskForGETRequest(url: gameLastMonthsURL, response: GameResultResponse.self)
             .map { $0.results }
             .eraseToAnyPublisher()
     }

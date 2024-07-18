@@ -10,7 +10,7 @@ class SearchGameViewController: UIViewController {
 
     var cancellables = Set<AnyCancellable>()
 
-    var games = [Game]()
+    var games = [GameResponse]()
     var selectedIndex = 0
     var currentSearchTask: AnyCancellable?
 

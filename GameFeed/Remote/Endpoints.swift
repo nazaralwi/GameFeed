@@ -27,7 +27,8 @@ enum Endpoints {
         }
 
         if value.starts(with: "_") {
-            fatalError("Register for a RAWG developer account and get an API key at https://rawg.io/login?forward=developer")
+            fatalError("Register for a RAWG developer account and get an API key at "
+                       + "https://rawg.io/login?forward=developer")
         }
         return value
     }()

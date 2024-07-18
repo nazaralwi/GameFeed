@@ -23,7 +23,7 @@ class DetailGameViewController: UIViewController {
     var cancellables = Set<AnyCancellable>()
 
     var gameId: Int?
-    var gameDetail: GameDetail!
+    var gameDetail: GameDetailResponse!
     var path = String()
 
     var didChangeTitle = false
@@ -74,7 +74,7 @@ class DetailGameViewController: UIViewController {
 
         isLoading(state: true)
         rawgService?.getGameDetail(idGame: gameId ?? 0)
-            .flatMap { [self] gameDetail -> AnyPublisher<(GameDetail, Data?), Error> in
+            .flatMap { [self] gameDetail -> AnyPublisher<(GameDetailResponse, Data?), Error> in
                 let backgroundPublisher: AnyPublisher<Data?, Error>
                 if let backgroundPath = gameDetail.backgroundImage {
                     self.path = backgroundPath

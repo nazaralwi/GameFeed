@@ -11,7 +11,7 @@ class NewGameViewController: UIViewController {
     var cancellables = Set<AnyCancellable>()
 
     var selectedIndex = 0
-    var newGame = [Game]()
+    var newGame = [GameResponse]()
 
     override func viewDidLoad() {
         super.viewDidLoad()

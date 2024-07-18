@@ -1,7 +1,7 @@
 import Foundation
 
 class Formatter {
-    class func formatGenre(from genresFromAPI: [Genre]) -> String {
+    class func formatGenre(from genresFromAPI: [GenreResponse]) -> String {
         if !genresFromAPI.isEmpty {
             var genres = [String]()
             for genre in genresFromAPI {
@@ -38,7 +38,7 @@ class Formatter {
         return dateString
     }
 
-    class func formatPlatform(from platformsFromAPI: [Platforms]) -> String {
+    class func formatPlatform(from platformsFromAPI: [PlatformsResponse]) -> String {
         if !platformsFromAPI.isEmpty {
             var platforms = [String]()
             for platform in platformsFromAPI {
@@ -52,7 +52,7 @@ class Formatter {
         }
     }
 
-    class func formatPublisher(from publishersFromAPI: [Publisher]) -> String {
+    class func formatPublisher(from publishersFromAPI: [PublisherResponse]) -> String {
         if !publishersFromAPI.isEmpty {
             var publishers = [String]()
             for publisher in publishersFromAPI {

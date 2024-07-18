@@ -1,15 +1,15 @@
 import Foundation
 
-struct GameDetail: Codable {
+struct GameDetailResponse: Codable {
     let idGame: Int
     let name: String
     let released: String?
     let description: String?
     let rating: Double?
     let backgroundImage: String?
-    let genres: [Genre]?
-    let platforms: [Platforms]
-    let publishers: [Publisher]
+    let genres: [GenreResponse]?
+    let platforms: [PlatformsResponse]
+    let publishers: [PublisherResponse]
     let metacritic: Int?
 
     enum CodingKeys: String, CodingKey {
@@ -26,12 +26,12 @@ struct GameDetail: Codable {
     }
 }
 
-struct Publisher: Codable {
+struct PublisherResponse: Codable {
     let name: String
 }
 
-struct Platforms: Codable {
-    let platform: Platform
+struct PlatformsResponse: Codable {
+    let platform: PlatformResponse
     let releasedAt: String
 
     enum CodingKeys: String, CodingKey {
@@ -40,8 +40,7 @@ struct Platforms: Codable {
     }
 }
 
-struct Platform: Codable {
+struct PlatformResponse: Codable {
     let name: String
     let slug: String
 }
-
