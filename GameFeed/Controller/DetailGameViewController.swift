@@ -18,7 +18,7 @@ class DetailGameViewController: UIViewController {
     @IBOutlet var addToFavoriteButton: UIBarButtonItem!
     private lazy var favoriteProvider: FavoriteProvider = { return FavoriteProvider() }()
     
-    var gameMediator: GameMediator?
+    var rawgUseCase: RAWGUseCase?
 
     var cancellables = Set<AnyCancellable>()
 
@@ -66,19 +66,23 @@ class DetailGameViewController: UIViewController {
     }
 
     func setupView() {
-        if favoriteProvider.checkData(id: gameId ?? 0) {
-            addToFavoriteButton.image = UIImage(systemName: "heart.fill")
+        if let rawgUseCase = rawgUseCase {
+            if rawgUseCase.checkData(id: gameId ?? 0) {
+                addToFavoriteButton.image = UIImage(systemName: "heart.fill")
+            } else {
+                addToFavoriteButton.image = UIImage(systemName: "heart")
+            }
         } else {
-            addToFavoriteButton.image = UIImage(systemName: "heart")
+            fatalError("nill")
         }
 
         isLoading(state: true)
-        gameMediator?.getGameDetail(idGame: gameId ?? 0)
+        rawgUseCase?.getGameDetail(idGame: gameId ?? 0)
             .flatMap { [self] gameDetail -> AnyPublisher<(GameUIModel, Data?), Error> in
                 let backgroundPublisher: AnyPublisher<Data?, Error>
                 if let backgroundPath = gameDetail.backgroundImage {
                     self.path = backgroundPath
-                    backgroundPublisher = (gameMediator?.downloadBackground(backgroundPath: backgroundPath)
+                    backgroundPublisher = (rawgUseCase?.downloadBackground(backgroundPath: backgroundPath)
                         .map { Optional($0) }
                         .catch { _ in Just(nil).setFailureType(to: Error.self) }
                         .eraseToAnyPublisher())!
@@ -109,7 +113,7 @@ class DetailGameViewController: UIViewController {
     }
 
     @IBAction func addToFavorite(_ sender: Any) {
-        if !favoriteProvider.checkData(id: gameId ?? 0) {
+        if !(rawgUseCase?.checkData(id: gameId ?? 0) ?? false) {
             addToFavorite()
             addToFavoriteButton.image = UIImage(systemName: "heart.fill")
         } else {
@@ -119,7 +123,7 @@ class DetailGameViewController: UIViewController {
     }
 
     private func deleteFromFavorite() {
-        _ = favoriteProvider.deleteFavorite(gameId ?? 0)
+        _ = rawgUseCase?.deleteFavorite(gameId ?? 0)
     }
 
     private func addToFavorite() {
@@ -142,7 +146,7 @@ class DetailGameViewController: UIViewController {
             publishers: nil,
             metacritic: nil)
 
-        _ = favoriteProvider.addToFavorite(game: game, true)
+        _ = rawgUseCase?.addToFavorite(game: game, true)
     }
 
     private func isLoading(state: Bool) {

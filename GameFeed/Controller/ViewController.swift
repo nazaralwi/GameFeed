@@ -6,7 +6,7 @@ class ViewController: UIViewController {
     @IBOutlet var activityIndicator: UIActivityIndicatorView!
     @IBOutlet var errorLabel: UILabel!
 
-    var gameMediator: GameMediator?
+    var rawgUseCase: RAWGUseCase?
 
     var cancellables = Set<AnyCancellable>()
 
@@ -61,7 +61,7 @@ class ViewController: UIViewController {
     }
 
     private func loadGameList() {
-        gameMediator?.getGameList().sink(receiveCompletion: { completion in
+        rawgUseCase?.getGameList().sink(receiveCompletion: { completion in
             switch completion {
             case .finished:
                 self.gameTableView.reloadData()
@@ -101,7 +101,7 @@ extension ViewController: UITableViewDataSource {
             cell.ratingGame.text = String(format: "%.2f", game.rating)
 
             if let backgroundPath = game.backgroundImage {
-                gameMediator?.downloadBackground(backgroundPath: backgroundPath)
+                rawgUseCase?.downloadBackground(backgroundPath: backgroundPath)
                     .sink(receiveCompletion: { completion in
                         switch completion {
                         case .finished:

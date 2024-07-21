@@ -18,28 +18,34 @@ class SwinjectContainer {
                 RAWGService(networking: resolver.resolve(Networking.self)!)
             }
 
-            container.register(GameMediator.self) { resolver in
-                GameMediator(rawgService: resolver.resolve(RAWGService.self)!)
+            container.register(FavoriteProvider.self) { _ in
+                FavoriteProvider()
+            }
+
+            container.register(RAWGUseCase.self) { resolver in
+                RAWGUseCase(
+                    rawgService: resolver.resolve(RAWGService.self)!,
+                    favoriteProvider: resolver.resolve(FavoriteProvider.self)!)
             }
 
             container.storyboardInitCompleted(ViewController.self) { resolver, viewController in
-                viewController.gameMediator = resolver.resolve(GameMediator.self)
+                viewController.rawgUseCase = resolver.resolve(RAWGUseCase.self)
             }
 
             container.storyboardInitCompleted(DetailGameViewController.self) { resolver, detailViewController in
-                detailViewController.gameMediator = resolver.resolve(GameMediator.self)
+                detailViewController.rawgUseCase = resolver.resolve(RAWGUseCase.self)
             }
 
             container.storyboardInitCompleted(SearchGameViewController.self) { resolver, searchGameViewController in
-                searchGameViewController.gameMediator = resolver.resolve(GameMediator.self)
+                searchGameViewController.rawgUseCase = resolver.resolve(RAWGUseCase.self)
             }
 
             container.storyboardInitCompleted(NewGameViewController.self) { resolver, newGameViewController in
-                newGameViewController.gameMediator = resolver.resolve(GameMediator.self)
+                newGameViewController.rawgUseCase = resolver.resolve(RAWGUseCase.self)
             }
 
             container.storyboardInitCompleted(FavoritesViewController.self) { resolver, favoritesViewController in
-                favoritesViewController.gameMediator = resolver.resolve(GameMediator.self)
+                favoritesViewController.rawgUseCase = resolver.resolve(RAWGUseCase.self)
             }
         }
 

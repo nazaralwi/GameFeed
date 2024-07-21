@@ -9,7 +9,7 @@ class FavoritesViewController: UIViewController {
     @IBOutlet var emptyImage: UIImageView!
     var selectedIndex = 0
     
-    var gameMediator: GameMediator?
+    var rawgUseCase: RAWGUseCase?
 
     var cancellables = Set<AnyCancellable>()
 
@@ -41,7 +41,7 @@ class FavoritesViewController: UIViewController {
     }
 
     private func loadFavorites() {
-        self.favoriteProvider.getAllFavorites()
+        self.rawgUseCase?.getAllFavorites()
             .receive(on: DispatchQueue.main)
             .sink(receiveCompletion: { completion in
                 switch completion {
@@ -94,7 +94,7 @@ extension FavoritesViewController: UITableViewDataSource {
 
             if let backgroundPath = favorite.backgroundImage {
                 print(backgroundPath)
-                gameMediator?.downloadBackground(backgroundPath: backgroundPath)
+                rawgUseCase?.downloadBackground(backgroundPath: backgroundPath)
                     .sink(receiveCompletion: { completion in
                         switch completion {
                         case .finished:
