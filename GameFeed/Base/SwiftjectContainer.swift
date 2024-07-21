@@ -18,29 +18,28 @@ class SwinjectContainer {
                 RAWGService(networking: resolver.resolve(Networking.self)!)
             }
 
-            container.register(RAWGService.self) { resolver in
-                RAWGService(networking: resolver.resolve(Networking.self)!)
+            container.register(GameMediator.self) { resolver in
+                GameMediator(rawgService: resolver.resolve(RAWGService.self)!)
             }
 
             container.storyboardInitCompleted(ViewController.self) { resolver, viewController in
-                viewController.rawgService = resolver.resolve(RAWGService.self)
-//                viewController.gamePresenter = resolver.resolve()
+                viewController.gameMediator = resolver.resolve(GameMediator.self)
             }
 
             container.storyboardInitCompleted(DetailGameViewController.self) { resolver, detailViewController in
-                detailViewController.rawgService = resolver.resolve(RAWGService.self)
+                detailViewController.gameMediator = resolver.resolve(GameMediator.self)
             }
 
             container.storyboardInitCompleted(SearchGameViewController.self) { resolver, searchGameViewController in
-                searchGameViewController.rawgService = resolver.resolve(RAWGService.self)
+                searchGameViewController.gameMediator = resolver.resolve(GameMediator.self)
             }
 
             container.storyboardInitCompleted(NewGameViewController.self) { resolver, newGameViewController in
-                newGameViewController.rawgService = resolver.resolve(RAWGService.self)
+                newGameViewController.gameMediator = resolver.resolve(GameMediator.self)
             }
 
             container.storyboardInitCompleted(FavoritesViewController.self) { resolver, favoritesViewController in
-                favoritesViewController.rawgService = resolver.resolve(RAWGService.self)
+                favoritesViewController.gameMediator = resolver.resolve(GameMediator.self)
             }
         }
 

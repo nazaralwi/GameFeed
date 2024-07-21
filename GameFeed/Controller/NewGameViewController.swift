@@ -6,7 +6,7 @@ class NewGameViewController: UIViewController {
     @IBOutlet var activityIndicator: UIActivityIndicatorView!
     @IBOutlet var errorLabel: UILabel!
     
-    var rawgService: RAWGService?
+    var gameMediator: GameMediator?
 
     var cancellables = Set<AnyCancellable>()
 
@@ -41,7 +41,7 @@ class NewGameViewController: UIViewController {
         errorLabel.isHidden = true
         activityIndicator.startAnimating()
 
-        rawgService?.getNewGameLastMonths(
+        gameMediator?.getNewGameLastMonths(
             lastMonth: Formatter.formatDateToString(
                 from: oneMonthBefore ?? Date()),
             now: Formatter.formatDateToString(from: now))
@@ -83,7 +83,7 @@ extension NewGameViewController: UITableViewDataSource {
             cell.ratingGame.text = String(format: "%.2f", game.rating)
 
             if let backgroundPath = game.backgroundImage {
-                rawgService?.downloadBackground(backgroundPath: backgroundPath)
+                gameMediator?.downloadBackground(backgroundPath: backgroundPath)
                     .sink(receiveCompletion: { completion in
                         switch completion {
                         case .finished:

@@ -15,6 +15,35 @@ protocol GameDataSourceProtocol {
     func getGameDetail() -> GameEntity
 }
 
+class GameMediator {
+
+    private let rawgService: RAWGService
+
+    init(rawgService: RAWGService) {
+        self.rawgService = rawgService
+    }
+
+    func getGameList() -> AnyPublisher<[GameUIModel], Error> {
+        return rawgService.getGameList()
+    }
+
+    func search(query: String) -> AnyPublisher<[GameUIModel], Error> {
+        return rawgService.search(query: query)
+    }
+
+    func getGameDetail(idGame: Int) -> AnyPublisher<GameUIModel, Error> {
+        return rawgService.getGameDetail(idGame: idGame)
+    }
+
+    func getNewGameLastMonths(lastMonth: String, now: String) -> AnyPublisher<[GameUIModel], Error> {
+        return rawgService.getNewGameLastMonths(lastMonth: lastMonth, now: now)
+    }
+
+    func downloadBackground(backgroundPath: String) -> AnyPublisher<Data, Error> {
+        return rawgService.downloadBackground(backgroundPath: backgroundPath)
+    }
+}
+
 class GameDataSource: GameDataSourceProtocol {
     func getGames() -> AnyPublisher<[GameResponse], Error> {
         return Future<[GameResponse], Error> { completion in
@@ -221,5 +250,4 @@ class GameMapper {
                            publishers: Formatter.formatPublisher(from: game.publishers),
                            metacritic: game.metacritic)
     }
-
 }
