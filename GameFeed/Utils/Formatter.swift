@@ -1,7 +1,9 @@
 import Foundation
 
 class Formatter {
-    class func formatGenre(from genresFromAPI: [GenreResponse]) -> String {
+    class func formatGenre(from genresFromAPI: [GenreResponse]?) -> String {
+        guard let genresFromAPI = genresFromAPI else { return "-" }
+
         if !genresFromAPI.isEmpty {
             var genres = [String]()
             for genre in genresFromAPI {
@@ -17,6 +19,7 @@ class Formatter {
 
     class func formatDate(from dateFromAPI: String?) -> String {
         guard let dateFromAPI = dateFromAPI else { return "-" }
+
         let dateFormatterGet = DateFormatter()
         dateFormatterGet.dateFormat = "yyyy-MM-dd"
 
@@ -39,7 +42,9 @@ class Formatter {
         return dateString
     }
 
-    class func formatPlatform(from platformsFromAPI: [PlatformsResponse]) -> String {
+    class func formatPlatform(from platformsFromAPI: [PlatformsResponse]?) -> String {
+        guard let platformsFromAPI = platformsFromAPI else { return "-" }
+
         if !platformsFromAPI.isEmpty {
             var platforms = [String]()
             for platform in platformsFromAPI {
@@ -49,11 +54,13 @@ class Formatter {
 
             return platforms.joined(separator: ", ")
         } else {
-            return "Platform Not Found"
+            return "-"
         }
     }
 
-    class func formatPublisher(from publishersFromAPI: [PublisherResponse]) -> String {
+    class func formatPublisher(from publishersFromAPI: [PublisherResponse]?) -> String {
+        guard let publishersFromAPI = publishersFromAPI else { return "-" }
+
         if !publishersFromAPI.isEmpty {
             var publishers = [String]()
             for publisher in publishersFromAPI {
@@ -63,7 +70,7 @@ class Formatter {
 
             return publishers.joined(separator: ", ")
         } else {
-            return "Publisher Not Found"
+            return "-"
         }
     }
 }

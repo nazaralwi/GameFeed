@@ -74,7 +74,7 @@ class DetailGameViewController: UIViewController {
 
         isLoading(state: true)
         rawgService?.getGameDetail(idGame: gameId ?? 0)
-            .flatMap { [self] gameDetail -> AnyPublisher<(GameDetailResponse, Data?), Error> in
+            .flatMap { [self] gameDetail -> AnyPublisher<(GameUIModel, Data?), Error> in
                 let backgroundPublisher: AnyPublisher<Data?, Error>
                 if let backgroundPath = gameDetail.backgroundImage {
                     self.path = backgroundPath
@@ -98,11 +98,11 @@ class DetailGameViewController: UIViewController {
                 }
                 self.overviewGameDetail.text = gameDetail.description
                 self.titleGameDetail.text = gameDetail.name
-                self.ratingGameDetail.text = String(format: "%.2f", gameDetail.rating ?? 0.0)
-                self.genreGameDetail.text = Formatter.formatGenre(from: gameDetail.genres ?? [])
-                self.releaseGameDetail.text = Formatter.formatDate(from: gameDetail.released ?? "")
-                self.platformGameDetail.text = Formatter.formatPlatform(from: gameDetail.platforms)
-                self.publisherGameDetail.text = Formatter.formatPublisher(from: gameDetail.publishers)
+                self.ratingGameDetail.text = gameDetail.rating
+                self.genreGameDetail.text = gameDetail.genres
+                self.releaseGameDetail.text = gameDetail.released
+                self.platformGameDetail.text = gameDetail.platforms
+                self.publisherGameDetail.text = gameDetail.publishers
                 self.metacriticGameDetail.text = String(gameDetail.metacritic ?? 0)
             })
             .store(in: &cancellables)
@@ -130,13 +130,17 @@ class DetailGameViewController: UIViewController {
 
         let path = self.path
 
-        let game = GameFavoriteUIModel(
+        let game = GameUIModel(
             idGame: gameId ?? 0,
             name: name,
             released: released,
+            description: nil,
             rating: rating,
             backgroundImage: path,
-            genres: genres)
+            genres: genres,
+            platforms: nil,
+            publishers: nil,
+            metacritic: nil)
 
         _ = favoriteProvider.addToFavorite(game: game, true)
     }

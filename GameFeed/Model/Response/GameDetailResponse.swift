@@ -8,8 +8,8 @@ struct GameDetailResponse: Codable {
     let rating: Double?
     let backgroundImage: String?
     let genres: [GenreResponse]?
-    let platforms: [PlatformsResponse]
-    let publishers: [PublisherResponse]
+    let platforms: [PlatformsResponse]?
+    let publishers: [PublisherResponse]?
     let metacritic: Int?
 
     enum CodingKeys: String, CodingKey {

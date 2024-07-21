@@ -55,24 +55,12 @@ class ViewController: UIViewController {
         errorLabel.isHidden = true
         activityIndicator.startAnimating()
 
-        rawgService?.getGameList().sink(receiveCompletion: { completion in
-            switch completion {
-            case .finished:
-                self.gameTableView.reloadData()
-                self.activityIndicator.stopAnimating()
-            case .failure:
-                self.errorLabel.isHidden = false
-                self.activityIndicator.stopAnimating()
-            }
-        }, receiveValue: { games in
-            self.gameList = games
-        })
-        .store(in: &cancellables)
+        loadGameList()
 
         gameTableView.register(UINib(nibName: "GameTableViewCell", bundle: nil), forCellReuseIdentifier: "GameCell")
     }
 
-    @objc func fetchGameList() {
+    private func loadGameList() {
         rawgService?.getGameList().sink(receiveCompletion: { completion in
             switch completion {
             case .finished:
@@ -86,6 +74,10 @@ class ViewController: UIViewController {
             self.gameList = games
         })
         .store(in: &cancellables)
+    }
+
+    @objc func fetchGameList() {
+        loadGameList()
 
         DispatchQueue.main.async {
            self.gameTableView.refreshControl?.endRefreshing()

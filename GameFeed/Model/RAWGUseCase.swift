@@ -157,8 +157,8 @@ class GamePresenter: GamePresenterProtocol {
                            rating: String(game.rating),
                            backgroundImage: game.backgroundImage!.absoluteString,
                            genres: Formatter.formatGenre(from: game.genres!),
-                           platforms: game.platforms,
-                           publishers: game.publishers,
+                           platforms: nil,
+                           publishers: nil,
                            metacritic: game.metacritic)
     }
 }
@@ -191,22 +191,35 @@ class GameMapper {
                            rating: String(game.rating),
                            backgroundImage: game.backgroundImage!.absoluteString,
                            genres: Formatter.formatGenre(from: game.genres!),
-                           platforms: game.platforms,
-                           publishers: game.publishers,
-                           metacritic: game.metacritic)
+                           platforms: nil,
+                           publishers: nil,
+                           metacritic: nil)
     }
 
     static func mapGameResponseToGameUIModel(game: GameResponse) -> GameUIModel {
         return GameUIModel(idGame: game.idGame,
                            name: game.name,
                            released: Formatter.formatDate(from: game.released),
-                           description: "",
+                           description: nil,
                            rating: String(game.rating),
                            backgroundImage: game.backgroundImage,
-                           genres: Formatter.formatGenre(from: game.genres!),
-                           platforms: [],
-                           publishers: [],
-                           metacritic: 0)
+                           genres: Formatter.formatGenre(from: game.genres),
+                           platforms: nil,
+                           publishers: nil,
+                           metacritic: nil)
+    }
+
+    static func mapGameDetailResponseToGameUIModel(game: GameDetailResponse) -> GameUIModel {
+        return GameUIModel(idGame: game.idGame,
+                           name: game.name,
+                           released: Formatter.formatDate(from: game.released),
+                           description: game.description,
+                           rating: String(game.rating ?? 0.0),
+                           backgroundImage: game.backgroundImage,
+                           genres: Formatter.formatGenre(from: game.genres),
+                           platforms: Formatter.formatPlatform(from: game.platforms),
+                           publishers: Formatter.formatPublisher(from: game.publishers),
+                           metacritic: game.metacritic)
     }
 
 }

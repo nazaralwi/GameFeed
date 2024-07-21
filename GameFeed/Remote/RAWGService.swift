@@ -31,13 +31,14 @@ public class RAWGService {
             .eraseToAnyPublisher()
     }
 
-    func getGameDetail(idGame: Int) -> AnyPublisher<GameDetailResponse, Error> {
+    func getGameDetail(idGame: Int) -> AnyPublisher<GameUIModel, Error> {
         guard let gameDetailURL = Endpoints.getGameDetail(idGame).url else {
             return Fail(error: URLError(.badURL))
                 .eraseToAnyPublisher()
         }
 
         return taskForGETRequest(url: gameDetailURL, response: GameDetailResponse.self)
+            .map { GameMapper.mapGameDetailResponseToGameUIModel(game: $0) }
             .eraseToAnyPublisher()
     }
 
