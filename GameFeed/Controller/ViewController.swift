@@ -11,7 +11,7 @@ class ViewController: UIViewController {
     var cancellables = Set<AnyCancellable>()
 
     var selectedIndex = 0
-    var gameList = [GameResponse]()
+    var gameList = [GameUIModel]()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -103,8 +103,8 @@ extension ViewController: UITableViewDataSource {
 
             let game = gameList[indexPath.row]
 
-            cell.releaseGame.text = Formatter.formatDate(from: game.released ?? "")
-            cell.genreGame.text = Formatter.formatGenre(from: game.genres ?? [])
+            cell.releaseGame.text = game.released
+            cell.genreGame.text = game.genres
             cell.titleGame.text = game.name
             cell.ratingGame.text = String(format: "%.2f", game.rating)
 

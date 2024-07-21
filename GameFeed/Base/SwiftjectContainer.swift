@@ -18,8 +18,13 @@ class SwinjectContainer {
                 RAWGService(networking: resolver.resolve(Networking.self)!)
             }
 
+            container.register(RAWGService.self) { resolver in
+                RAWGService(networking: resolver.resolve(Networking.self)!)
+            }
+
             container.storyboardInitCompleted(ViewController.self) { resolver, viewController in
                 viewController.rawgService = resolver.resolve(RAWGService.self)
+//                viewController.gamePresenter = resolver.resolve()
             }
 
             container.storyboardInitCompleted(DetailGameViewController.self) { resolver, detailViewController in

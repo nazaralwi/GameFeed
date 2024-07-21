@@ -9,25 +9,25 @@ public class RAWGService {
         self.networking = networking
     }
 
-    func getGameList() -> AnyPublisher<[GameResponse], Error> {
+    func getGameList() -> AnyPublisher<[GameUIModel], Error> {
         guard let gameListURL = Endpoints.getGameList.url else {
             return Fail(error: URLError(.badURL))
                 .eraseToAnyPublisher()
         }
 
         return taskForGETRequest(url: gameListURL, response: GameResultResponse.self)
-            .map { $0.results }
+            .map { $0.results.map { GameMapper.mapGameResponseToGameUIModel(game: $0) } }
             .eraseToAnyPublisher()
     }
 
-    func search(query: String) -> AnyPublisher<[GameResponse], Error> {
+    func search(query: String) -> AnyPublisher<[GameUIModel], Error> {
         guard let gameSearchURL = Endpoints.search(query).url else {
             return Fail(error: URLError(.badURL))
                 .eraseToAnyPublisher()
         }
 
         return taskForGETRequest(url: gameSearchURL, response: GameResultResponse.self)
-            .map { $0.results }
+            .map { $0.results.map { GameMapper.mapGameResponseToGameUIModel(game: $0) } }
             .eraseToAnyPublisher()
     }
 
@@ -41,14 +41,15 @@ public class RAWGService {
             .eraseToAnyPublisher()
     }
 
-    func getNewGameLastMonths(lastMonth: String, now: String) -> AnyPublisher<[GameResponse], Error> {
+    func getNewGameLastMonths(lastMonth: String, now: String) -> AnyPublisher<[GameUIModel], Error> {
         guard let gameLastMonthsURL = Endpoints.getNewGameLastMonts(lastMonth, now).url else {
             return Fail(error: URLError(.badURL))
                 .eraseToAnyPublisher()
         }
 
+        print(gameLastMonthsURL)
         return taskForGETRequest(url: gameLastMonthsURL, response: GameResultResponse.self)
-            .map { $0.results }
+            .map { $0.results.map { GameMapper.mapGameResponseToGameUIModel(game: $0) } }
             .eraseToAnyPublisher()
     }
 

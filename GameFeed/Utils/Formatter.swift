@@ -15,7 +15,8 @@ class Formatter {
         }
     }
 
-    class func formatDate(from dateFromAPI: String) -> String? {
+    class func formatDate(from dateFromAPI: String?) -> String {
+        guard let dateFromAPI = dateFromAPI else { return "-" }
         let dateFormatterGet = DateFormatter()
         dateFormatterGet.dateFormat = "yyyy-MM-dd"
 
@@ -25,7 +26,7 @@ class Formatter {
         if let date = dateFormatterGet.date(from: dateFromAPI) {
             return dateFormatterPrint.string(from: date)
         } else {
-            return "Release Not Found"
+            return "-"
         }
     }
 

@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct GameFavoriteViewModel {
+struct GameFavoriteUIModel {
     let idGame: Int
     let name: String
     let released: String
@@ -17,15 +17,15 @@ struct GameFavoriteViewModel {
     let genres: String
 }
 
-struct GameFavoriteUIModel {
+struct GameUIModel {
     let idGame: Int
     let name: String
     let released: String
     let description: String?
     let rating: String
-    let backgroundImage: String
+    let backgroundImage: String?
     let genres: String
-    let platforms: [PlatformsResponse]
-    let publishers: [PublisherResponse]
+    let platforms: [PlatformsResponse]?
+    let publishers: [PublisherResponse]?
     let metacritic: Int?
 }

@@ -79,7 +79,7 @@ class FavoriteProvider {
         }
     }
 
-    func addToFavorite(game: GameFavoriteViewModel, _ isFavorite: Bool) -> Future<Void, Error> {
+    func addToFavorite(game: GameFavoriteUIModel, _ isFavorite: Bool) -> Future<Void, Error> {
         return Future { promise in
             let taskContext = self.newTaskContext()
             if !self.checkData(id: game.idGame) {

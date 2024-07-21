@@ -130,7 +130,7 @@ class DetailGameViewController: UIViewController {
 
         let path = self.path
 
-        let game = GameFavoriteViewModel(
+        let game = GameFavoriteUIModel(
             idGame: gameId ?? 0,
             name: name,
             released: released,

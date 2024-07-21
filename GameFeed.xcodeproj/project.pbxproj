@@ -46,6 +46,7 @@
 		E2800F7E2C48034F003D93A6 /* RAWGInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2800F7D2C48034F003D93A6 /* RAWGInteractor.swift */; };
 		E2800F802C48C82C003D93A6 /* GameUIModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2800F7F2C48C82C003D93A6 /* GameUIModel.swift */; };
 		E2800F822C48C83A003D93A6 /* GameEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2800F812C48C83A003D93A6 /* GameEntity.swift */; };
+		E2B8B90F2C4B7B9E0050C97D /* ViewControllerUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2B8B90E2C4B7B9E0050C97D /* ViewControllerUseCase.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -105,6 +106,7 @@
 		E2800F7D2C48034F003D93A6 /* RAWGInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RAWGInteractor.swift; sourceTree = "<group>"; };
 		E2800F7F2C48C82C003D93A6 /* GameUIModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameUIModel.swift; sourceTree = "<group>"; };
 		E2800F812C48C83A003D93A6 /* GameEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameEntity.swift; sourceTree = "<group>"; };
+		E2B8B90E2C4B7B9E0050C97D /* ViewControllerUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerUseCase.swift; sourceTree = "<group>"; };
 		FC2266C7B3EF82459B567159 /* Pods_GameFeed.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GameFeed.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -232,6 +234,7 @@
 			children = (
 				3DDCDC1024D57B790020AB8E /* GameTableViewCell.swift */,
 				3DF8FD5824D5661C00E64116 /* ViewController.swift */,
+				E2B8B90E2C4B7B9E0050C97D /* ViewControllerUseCase.swift */,
 				3D19823424D7F6B000E3AD85 /* DetailGameViewController.swift */,
 				3D66CE2D24D8F40200E90636 /* MyProfileViewController.swift */,
 				3D66CE2F24D8F42300E90636 /* SearchGameViewController.swift */,
@@ -544,6 +547,7 @@
 				E2800F782C47EC77003D93A6 /* SwiftjectContainer.swift in Sources */,
 				3D19822924D792CE00E3AD85 /* GameResponse.swift in Sources */,
 				E25FF2232C3ED33300507993 /* Formatter.swift in Sources */,
+				E2B8B90F2C4B7B9E0050C97D /* ViewControllerUseCase.swift in Sources */,
 				E25FF2292C3FBF9E00507993 /* AlamofireNetworking.swift in Sources */,
 				3DD8EC20253AF04500BBE509 /* FavoriteProvider.swift in Sources */,
 				3DF8FD5524D5661C00E64116 /* AppDelegate.swift in Sources */,

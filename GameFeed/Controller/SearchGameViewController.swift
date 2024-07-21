@@ -10,7 +10,7 @@ class SearchGameViewController: UIViewController {
 
     var cancellables = Set<AnyCancellable>()
 
-    var games = [GameResponse]()
+    var games = [GameUIModel]()
     var selectedIndex = 0
     var currentSearchTask: AnyCancellable?
 
@@ -88,8 +88,8 @@ extension SearchGameViewController: UITableViewDataSource {
         if let cell = tableView.dequeueReusableCell(withIdentifier: "GameCell", for: indexPath) as? GameTableViewCell {
             let game = games[indexPath.row]
 
-            cell.releaseGame.text = Formatter.formatDate(from: game.released ?? "")
-            cell.genreGame.text = Formatter.formatGenre(from: game.genres ?? [])
+            cell.releaseGame.text = game.released
+            cell.genreGame.text = game.genres
             cell.titleGame.text = game.name
             cell.ratingGame.text = String(format: "%.2f", game.rating)
 
