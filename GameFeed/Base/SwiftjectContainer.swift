@@ -18,9 +18,7 @@ class SwinjectContainer {
                 RAWGService(networking: resolver.resolve(Networking.self)!)
             }
 
-            container.register(FavoriteProvider.self) { _ in
-                FavoriteProvider()
-            }
+            container.register(FavoriteProvider.self) { _ in FavoriteProvider() }
 
             container.register(RAWGUseCase.self) { resolver in
                 RAWGUseCase(

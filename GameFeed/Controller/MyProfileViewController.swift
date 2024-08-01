@@ -1,7 +1,6 @@
 import UIKit
-import MessageUI
 
-class MyProfileViewController: UIViewController, MFMailComposeViewControllerDelegate {
+class MyProfileViewController: UIViewController {
     @IBOutlet var nameLabel: UILabel!
     @IBOutlet var companyLabel: UILabel!
     @IBOutlet var emailLabel: UILabel!
