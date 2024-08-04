@@ -6,7 +6,7 @@
 //  Copyright © 2024 Dicoding Indonesia. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 struct GameUIModel {
     let idGame: Int
@@ -19,4 +19,6 @@ struct GameUIModel {
     let platforms: String?
     let publishers: String?
     let metacritic: Int?
+
+    var downloadedBackgroundImage: UIImage?
 }
