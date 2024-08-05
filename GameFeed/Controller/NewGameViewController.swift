@@ -1,14 +1,11 @@
 import UIKit
-import Combine
 
 class NewGameViewController: UIViewController {
     @IBOutlet var newGameTableView: UITableView!
     @IBOutlet var activityIndicator: UIActivityIndicatorView!
     @IBOutlet var errorLabel: UILabel!
     
-    var rawgUseCase: RAWGUseCase?
-
-    var cancellables = Set<AnyCancellable>()
+    var newGameViewModel: NewGameViewModel?
 
     var selectedIndex = 0
     var newGame = [GameUIModel]()
@@ -41,28 +38,14 @@ class NewGameViewController: UIViewController {
         errorLabel.isHidden = true
         activityIndicator.startAnimating()
 
-        rawgUseCase?.getNewGameLastMonths(
-            lastMonth: Formatter.formatDateToString(
-                from: oneMonthBefore ?? Date()),
+        newGameViewModel?.fetchNewGame(
+            lastMonth: Formatter.formatDateToString(from: oneMonthBefore ?? Date()),
             now: Formatter.formatDateToString(from: now))
-            .sink(receiveCompletion: { completion in
-                self.activityIndicator.stopAnimating()
-                if case .failure(let error) = completion {
-                    print("Failed with error: \(error)")
-                    self.errorLabel.isHidden = false
-                }
-            }, receiveValue: { games in
-                if !games.isEmpty {
-                    self.newGame = games
-                    self.newGameTableView.reloadData()
-                } else {
-                    self.errorLabel.isHidden = false
-                }
-            })
-            .store(in: &cancellables)
 
         newGameTableView.dataSource = self
         newGameTableView.delegate = self
+
+        newGameViewModel?.delegate = self
 
         newGameTableView.register(UINib(nibName: "GameTableViewCell", bundle: nil), forCellReuseIdentifier: "GameCell")
     }
@@ -82,25 +65,14 @@ extension NewGameViewController: UITableViewDataSource {
             cell.titleGame.text = game.name
             cell.ratingGame.text = String(format: "%.2f", game.rating)
 
-            if let backgroundPath = game.backgroundImage {
-                rawgUseCase?.downloadBackground(backgroundPath: backgroundPath)
-                    .sink(receiveCompletion: { completion in
-                        switch completion {
-                        case .finished:
-                            print("Image download finished successfully.")
-                        case .failure(let error):
-                            print("Image download failed with error: \(error)")
-                        }
-                    }, receiveValue: { data in
-                        guard let image = UIImage(data: data) else {
-                            return
-                        }
-                        cell.photoGame.image = image
-                        cell.setNeedsLayout()
-                        cell.photoGame.roundCorners(corners: [.topRight, .topLeft], radius: 10)
-                    })
-                    .store(in: &cancellables)
+            if let downloadedImage = game.downloadedBackgroundImage {
+                cell.photoGame.image = downloadedImage
+            } else if let backgroundPath = game.backgroundImage {
+                newGameViewModel!.fetchBackground(for: game)
             }
+
+            cell.setNeedsLayout()
+            cell.photoGame.roundCorners(corners: [.topRight, .topLeft], radius: 10)
 
             return cell
         } else {
@@ -114,5 +86,26 @@ extension NewGameViewController: UITableViewDelegate {
         selectedIndex = indexPath.row
         performSegue(withIdentifier: "showDetail", sender: nil)
         tableView.deselectRow(at: indexPath, animated: true)
+    }
+}
+
+extension NewGameViewController: NewGameViewModelDelegate {
+    func didUpdateGames() {
+        self.newGame = newGameViewModel!.games
+        self.newGameTableView.reloadData()
+    }
+
+    func didUpdateLoadingIndicator(isLoading: Bool) {
+        if isLoading {
+            self.activityIndicator.startAnimating()
+        } else {
+            self.activityIndicator.stopAnimating()
+        }
+    }
+
+    func didReceivedError(message: String) {
+        let alert = UIAlertController(title: "Error", message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default))
+        self.present(alert, animated: true)
     }
 }

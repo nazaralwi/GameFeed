@@ -34,6 +34,14 @@ class SwinjectContainer {
                 DetailViewModel(rawgUseCase: resolver.resolve(RAWGUseCase.self)!)
             }
 
+            container.register(SearchGameViewModel.self) { resolver in
+                SearchGameViewModel(rawgUseCase: resolver.resolve(RAWGUseCase.self)!)
+            }
+
+            container.register(NewGameViewModel.self) { resolver in
+                NewGameViewModel(rawgUseCase: resolver.resolve(RAWGUseCase.self)!)
+            }
+
             container.storyboardInitCompleted(ViewController.self) { resolver, viewController in
                 viewController.gameViewModel = resolver.resolve(HomeViewModel.self)
             }
@@ -43,11 +51,11 @@ class SwinjectContainer {
             }
 
             container.storyboardInitCompleted(SearchGameViewController.self) { resolver, searchGameViewController in
-                searchGameViewController.rawgUseCase = resolver.resolve(RAWGUseCase.self)
+                searchGameViewController.searchGameViewModel = resolver.resolve(SearchGameViewModel.self)
             }
 
             container.storyboardInitCompleted(NewGameViewController.self) { resolver, newGameViewController in
-                newGameViewController.rawgUseCase = resolver.resolve(RAWGUseCase.self)
+                newGameViewController.newGameViewModel = resolver.resolve(NewGameViewModel.self)
             }
 
             container.storyboardInitCompleted(FavoritesViewController.self) { resolver, favoritesViewController in

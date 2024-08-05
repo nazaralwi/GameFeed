@@ -1,57 +1,65 @@
 //
-//  HomeViewModel.swift
+//  SearchGameViewModel.swift
 //  GameFeed
 //
-//  Created by Macintosh on 04/08/24.
+//  Created by Macintosh on 05/08/24.
 //  Copyright © 2024 Dicoding Indonesia. All rights reserved.
 //
 
 import UIKit
 import Combine
 
-protocol HomeViewModelDelegate: AnyObject {
+protocol SearchGameViewModelDelegate: AnyObject {
     func didUpdateGames()
     func didUpdateLoadingIndicator(isLoading: Bool)
     func didReceivedError(message: String)
 }
 
-class HomeViewModel {
+class SearchGameViewModel {
     @Published var games: [GameUIModel] = []
     @Published var loadingIndicator: Bool = false
     @Published var gameBackground: UIImage?
     @Published var errorMessage: String?
 
     private var cancellables = Set<AnyCancellable>()
+    private var currentSearchTask: AnyCancellable?
 
     private var rawgUseCase: RAWGUseCase
 
-    weak var delegate: HomeViewModelDelegate?
+    weak var delegate: SearchGameViewModelDelegate?
 
     init(rawgUseCase: RAWGUseCase) {
         self.rawgUseCase = rawgUseCase
     }
 
-    func fetchUsers() {
+    func searchGames(query: String) {
         self.loadingIndicator = true
         self.delegate?.didUpdateLoadingIndicator(isLoading: true)
-        rawgUseCase.getGameList().sink(receiveCompletion: { completion in
-            switch completion {
-            case .finished:
+
+        currentSearchTask?.cancel()
+
+        currentSearchTask = rawgUseCase.search(query: query)
+            .sink(receiveCompletion: { completion in
                 self.loadingIndicator = false
                 self.delegate?.didUpdateLoadingIndicator(isLoading: false)
-            case .failure(let error):
-                self.errorMessage = error.localizedDescription
+
+                if case .failure(let error) = completion {
+                    print("Search failed with error: \(error)")
+                    self.delegate?.didReceivedError(message: error.localizedDescription)
+                }
+            }, receiveValue: { games in
+                if !games.isEmpty {
+                    self.games = games
+                    self.delegate?.didUpdateGames()
+                }
+
                 self.loadingIndicator = false
                 self.delegate?.didUpdateLoadingIndicator(isLoading: false)
-                self.delegate?.didReceivedError(message: error.localizedDescription)
-            }
-        }, receiveValue: { games in
-            self.games = games
-            self.loadingIndicator = false
-            self.delegate?.didUpdateLoadingIndicator(isLoading: false)
-            self.delegate?.didUpdateGames()
-        })
-        .store(in: &cancellables)
+            })
+
+        if currentSearchTask != nil {
+            currentSearchTask?.store(in: &cancellables)
+        }
     }
 
     func fetchBackground(for game: GameUIModel) {

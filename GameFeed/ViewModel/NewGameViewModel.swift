@@ -1,21 +1,21 @@
 //
-//  HomeViewModel.swift
+//  NewGameViewModel.swift
 //  GameFeed
 //
-//  Created by Macintosh on 04/08/24.
+//  Created by Macintosh on 05/08/24.
 //  Copyright © 2024 Dicoding Indonesia. All rights reserved.
 //
 
 import UIKit
 import Combine
 
-protocol HomeViewModelDelegate: AnyObject {
+protocol NewGameViewModelDelegate: AnyObject {
     func didUpdateGames()
     func didUpdateLoadingIndicator(isLoading: Bool)
     func didReceivedError(message: String)
 }
 
-class HomeViewModel {
+class NewGameViewModel {
     @Published var games: [GameUIModel] = []
     @Published var loadingIndicator: Bool = false
     @Published var gameBackground: UIImage?
@@ -25,16 +25,16 @@ class HomeViewModel {
 
     private var rawgUseCase: RAWGUseCase
 
-    weak var delegate: HomeViewModelDelegate?
+    weak var delegate: NewGameViewModelDelegate?
 
     init(rawgUseCase: RAWGUseCase) {
         self.rawgUseCase = rawgUseCase
     }
 
-    func fetchUsers() {
+    func fetchNewGame(lastMonth: String, now: String) {
         self.loadingIndicator = true
         self.delegate?.didUpdateLoadingIndicator(isLoading: true)
-        rawgUseCase.getGameList().sink(receiveCompletion: { completion in
+        rawgUseCase.getNewGameLastMonths(lastMonth: lastMonth, now: now).sink(receiveCompletion: { completion in
             switch completion {
             case .finished:
                 self.loadingIndicator = false
