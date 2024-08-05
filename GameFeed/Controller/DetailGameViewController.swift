@@ -1,5 +1,4 @@
 import UIKit
-import Combine
 
 class DetailGameViewController: UIViewController {
     @IBOutlet var photoGameDetail: UIImageView!
@@ -18,12 +17,9 @@ class DetailGameViewController: UIViewController {
     @IBOutlet var addToFavoriteButton: UIBarButtonItem!
     private lazy var favoriteProvider: FavoriteProvider = { return FavoriteProvider() }()
     
-    var rawgUseCase: RAWGUseCase?
-
-    var cancellables = Set<AnyCancellable>()
+    var detailViewModel: DetailViewModel?
 
     var gameId: Int?
-    var gameDetail: GameDetailResponse!
     var path = String()
 
     var didChangeTitle = false
@@ -51,6 +47,8 @@ class DetailGameViewController: UIViewController {
 
         scrollView.delegate = self
 
+        detailViewModel?.delegate = self
+
         myViewHeight.constant = 2000
         scrollView.contentSize = myView.frame.size
 
@@ -66,64 +64,16 @@ class DetailGameViewController: UIViewController {
     }
 
     func setupView() {
-        if let rawgUseCase = rawgUseCase {
-            if rawgUseCase.checkData(id: gameId ?? 0) {
-                addToFavoriteButton.image = UIImage(systemName: "heart.fill")
-            } else {
-                addToFavoriteButton.image = UIImage(systemName: "heart")
-            }
-        } else {
-            fatalError("nill")
-        }
-
-        isLoading(state: true)
-        rawgUseCase?.getGameDetail(idGame: gameId ?? 0)
-            .flatMap { [self] gameDetail -> AnyPublisher<(GameUIModel, Data?), Error> in
-                let backgroundPublisher: AnyPublisher<Data?, Error>
-                if let backgroundPath = gameDetail.backgroundImage {
-                    self.path = backgroundPath
-                    backgroundPublisher = (rawgUseCase?.downloadBackground(backgroundPath: backgroundPath)
-                        .map { Optional($0) }
-                        .catch { _ in Just(nil).setFailureType(to: Error.self) }
-                        .eraseToAnyPublisher())!
-                } else {
-                    backgroundPublisher = Just(nil).setFailureType(to: Error.self).eraseToAnyPublisher()
-                }
-                return backgroundPublisher.map { (gameDetail, $0) }.eraseToAnyPublisher()
-            }
-            .sink(receiveCompletion: { completion in
-                self.isLoading(state: false)
-                if case .failure(let error) = completion {
-                    print("Failed with error: \(error)")
-                }
-            }, receiveValue: { gameDetail, imageData in
-                if let imageData = imageData {
-                    self.photoGameDetail.image = UIImage(data: imageData)
-                }
-                self.overviewGameDetail.text = gameDetail.description
-                self.titleGameDetail.text = gameDetail.name
-                self.ratingGameDetail.text = gameDetail.rating
-                self.genreGameDetail.text = gameDetail.genres
-                self.releaseGameDetail.text = gameDetail.released
-                self.platformGameDetail.text = gameDetail.platforms
-                self.publisherGameDetail.text = gameDetail.publishers
-                self.metacriticGameDetail.text = String(gameDetail.metacritic ?? 0)
-            })
-            .store(in: &cancellables)
+        detailViewModel?.fetchFavoriteState(for: gameId ?? 0)
+        detailViewModel?.fetchGameDetail(idGame: gameId ?? 0)
     }
 
     @IBAction func addToFavorite(_ sender: Any) {
-        if !(rawgUseCase?.checkData(id: gameId ?? 0) ?? false) {
-            addToFavorite()
-            addToFavoriteButton.image = UIImage(systemName: "heart.fill")
-        } else {
-            deleteFromFavorite()
-            addToFavoriteButton.image = UIImage(systemName: "heart")
-        }
+        detailViewModel?.updateFavoriteState(for: gameId ?? 0)
     }
 
     private func deleteFromFavorite() {
-        _ = rawgUseCase?.deleteFavorite(gameId ?? 0)
+        detailViewModel?.deleteGameFavorite(gameId ?? 0)
     }
 
     private func addToFavorite() {
@@ -146,17 +96,7 @@ class DetailGameViewController: UIViewController {
             publishers: nil,
             metacritic: nil)
 
-        _ = rawgUseCase?.addToFavorite(game: game, true)
-    }
-
-    private func isLoading(state: Bool) {
-        if state {
-            activityIndicator.startAnimating()
-            addToFavoriteButton.isEnabled = false
-        } else {
-            self.activityIndicator.stopAnimating()
-            self.addToFavoriteButton.isEnabled = true
-        }
+        detailViewModel?.addGameToFavorite(game)
     }
 }
 
@@ -178,5 +118,55 @@ extension DetailGameViewController: UIScrollViewDelegate {
             }
             didChangeTitle = false
         }
+    }
+}
+
+extension DetailGameViewController: DetailViewModelDelegate {
+    func didLoadDetailGame(game: GameUIModel) {
+        self.overviewGameDetail.text = game.description
+        self.titleGameDetail.text = game.name
+        self.ratingGameDetail.text = game.rating
+        self.genreGameDetail.text = game.genres
+        self.releaseGameDetail.text = game.released
+        self.platformGameDetail.text = game.platforms
+        self.publisherGameDetail.text = game.publishers
+        self.metacriticGameDetail.text = String(game.metacritic ?? 0)
+        self.photoGameDetail.image = game.downloadedBackgroundImage
+
+        self.path = game.backgroundImage ?? ""
+    }
+
+    func didFetchFavoriteState(isFavorite: Bool) {
+        if isFavorite {
+            addToFavoriteButton.image = UIImage(systemName: "heart.fill")
+        } else {
+            addToFavoriteButton.image = UIImage(systemName: "heart")
+        }
+    }
+
+    func didUpdateFavoriteState(isFavorite: Bool) {
+        if isFavorite {
+            addToFavorite()
+            addToFavoriteButton.image = UIImage(systemName: "heart.fill")
+        } else {
+            deleteFromFavorite()
+            addToFavoriteButton.image = UIImage(systemName: "heart")
+        }
+    }
+
+    func didUpdateLoadingIndicator(isLoading: Bool) {
+        if isLoading {
+            activityIndicator.startAnimating()
+            addToFavoriteButton.isEnabled = false
+        } else {
+            self.activityIndicator.stopAnimating()
+            self.addToFavoriteButton.isEnabled = true
+        }
+    }
+
+    func didReceivedError(message: String) {
+        let alert = UIAlertController(title: "Error", message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default))
+        self.present(alert, animated: true)
     }
 }

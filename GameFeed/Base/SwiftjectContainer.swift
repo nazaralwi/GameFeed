@@ -30,12 +30,16 @@ class SwinjectContainer {
                 HomeViewModel(rawgUseCase: resolver.resolve(RAWGUseCase.self)!)
             }
 
+            container.register(DetailViewModel.self) { resolver in
+                DetailViewModel(rawgUseCase: resolver.resolve(RAWGUseCase.self)!)
+            }
+
             container.storyboardInitCompleted(ViewController.self) { resolver, viewController in
                 viewController.gameViewModel = resolver.resolve(HomeViewModel.self)
             }
 
             container.storyboardInitCompleted(DetailGameViewController.self) { resolver, detailViewController in
-                detailViewController.rawgUseCase = resolver.resolve(RAWGUseCase.self)
+                detailViewController.detailViewModel = resolver.resolve(DetailViewModel.self)
             }
 
             container.storyboardInitCompleted(SearchGameViewController.self) { resolver, searchGameViewController in
