@@ -6,15 +6,6 @@ class ProfileModel {
     static let companyKey = "company"
     static let emailKey = "email"
 
-    static var stateEdit: Bool {
-        get {
-            return UserDefaults.standard.bool(forKey: stateEditKey)
-        }
-        set {
-            UserDefaults.standard.set(newValue, forKey: stateEditKey)
-        }
-    }
-
     static var name: String {
         get {
             return UserDefaults.standard.string(forKey: nameKey) ?? ""

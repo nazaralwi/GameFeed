@@ -46,6 +46,12 @@ class SwinjectContainer {
                 FavoritesViewModel(rawgUseCase: resolver.resolve(RAWGUseCase.self)!)
             }
 
+            container.register(MyProfileViewModel.self) { _ in
+                MyProfileViewModel(name: "Muhammad Nazar Alwi",
+                                   company: "Dicoding",
+                                   email: "alwinazar75@gmail.com")
+            }.inObjectScope(.container)
+
             container.storyboardInitCompleted(ViewController.self) { resolver, viewController in
                 viewController.gameViewModel = resolver.resolve(HomeViewModel.self)
             }
@@ -64,6 +70,14 @@ class SwinjectContainer {
 
             container.storyboardInitCompleted(FavoritesViewController.self) { resolver, favoritesViewController in
                 favoritesViewController.favoritesViewModel = resolver.resolve(FavoritesViewModel.self)
+            }
+
+            container.storyboardInitCompleted(MyProfileViewController.self) { resolver, myProfileViewController in
+                myProfileViewController.myProfileViewModel = resolver.resolve(MyProfileViewModel.self)
+            }
+
+            container.storyboardInitCompleted(UpdateViewController.self) { resolver, updateProfileViewController in
+                updateProfileViewController.profileViewModel = resolver.resolve(MyProfileViewModel.self)
             }
         }
 

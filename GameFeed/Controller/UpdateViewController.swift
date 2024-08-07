@@ -6,6 +6,8 @@ class UpdateViewController: UIViewController {
     @IBOutlet var companyTextField: UITextField!
     @IBOutlet var emailTextField: UITextField!
 
+    var profileViewModel: MyProfileViewModel?
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -14,36 +16,29 @@ class UpdateViewController: UIViewController {
     }
 
     override func viewWillAppear(_ animated: Bool) {
-        nameTextField.text = ProfileModel.name
-        companyTextField.text = ProfileModel.company
-        emailTextField.text = ProfileModel.email
+        super.viewWillAppear(animated)
+
+        updateUI()
+    }
+
+    func updateUI() {
+        nameTextField.text = profileViewModel!.name
+        companyTextField.text = profileViewModel!.company
+        emailTextField.text = profileViewModel!.email
     }
 
     @IBAction func saveProfile(_ sender: Any) {
         if let name = nameTextField.text, let company = companyTextField.text, let email = emailTextField.text {
-            if name.isEmpty {
-                textEmpty("Name")
-            } else if company.isEmpty {
-                textEmpty("Email")
-            } else if email.isEmpty {
-                textEmpty("Profession")
-            } else {
-                saveProfil(name, company, email)
-
+            if profileViewModel!.saveProfile(name: name, company: company, email: email) {
                 navigationController?.popViewController(animated: true)
                 dismiss(animated: true, completion: nil)
+            } else {
+                showAlert(for: "Name, Company, or Email")
             }
         }
     }
 
-    func saveProfil(_ name: String, _ company: String, _ email: String) {
-        ProfileModel.stateEdit = true
-        ProfileModel.name = name
-        ProfileModel.company = company
-        ProfileModel.email = email
-    }
-
-    func textEmpty(_ field: String) {
+    func showAlert(for field: String) {
         let alert = UIAlertController(
             title: "Alert",
             message: "\(field) is empty",

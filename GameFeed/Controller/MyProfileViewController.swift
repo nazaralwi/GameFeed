@@ -4,29 +4,18 @@ class MyProfileViewController: UIViewController {
     @IBOutlet var nameLabel: UILabel!
     @IBOutlet var companyLabel: UILabel!
     @IBOutlet var emailLabel: UILabel!
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        if !ProfileModel.stateEdit {
-            saveExistingData()
-        }
-    }
+
+    var myProfileViewModel: MyProfileViewModel?
 
     override func viewWillAppear(_ animated: Bool) {
-        ProfileModel.synchronize()
-        nameLabel.text = ProfileModel.name
-        companyLabel.text = ProfileModel.company
-        emailLabel.text = ProfileModel.email
+        super.viewWillAppear(animated)
+        myProfileViewModel?.synchronize()
+        updateUI()
     }
 
-    func saveExistingData() {
-        if let name = nameLabel.text, let company = companyLabel.text, let email = emailLabel.text {
-            saveProfile(name, company, email)
-        }
-    }
-
-    func saveProfile(_ name: String, _ company: String, _ email: String) {
-        ProfileModel.name = name
-        ProfileModel.company = company
-        ProfileModel.email = email
+    func updateUI() {
+        nameLabel.text = myProfileViewModel!.name
+        companyLabel.text = myProfileViewModel!.company
+        emailLabel.text = myProfileViewModel!.email
     }
 }

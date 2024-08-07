@@ -50,6 +50,7 @@
 		E28B092E2C6090BD000502B9 /* SearchGameViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E28B092D2C6090BD000502B9 /* SearchGameViewModel.swift */; };
 		E28B09302C609AEA000502B9 /* NewGameViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E28B092F2C609AEA000502B9 /* NewGameViewModel.swift */; };
 		E28B09322C634D91000502B9 /* FavoritesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E28B09312C634D91000502B9 /* FavoritesViewModel.swift */; };
+		E28B09342C637A1E000502B9 /* MyProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E28B09332C637A1E000502B9 /* MyProfileViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -113,6 +114,7 @@
 		E28B092D2C6090BD000502B9 /* SearchGameViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchGameViewModel.swift; sourceTree = "<group>"; };
 		E28B092F2C609AEA000502B9 /* NewGameViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewGameViewModel.swift; sourceTree = "<group>"; };
 		E28B09312C634D91000502B9 /* FavoritesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesViewModel.swift; sourceTree = "<group>"; };
+		E28B09332C637A1E000502B9 /* MyProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyProfileViewModel.swift; sourceTree = "<group>"; };
 		FC2266C7B3EF82459B567159 /* Pods_GameFeed.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GameFeed.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -339,6 +341,7 @@
 				E28B092D2C6090BD000502B9 /* SearchGameViewModel.swift */,
 				E28B092F2C609AEA000502B9 /* NewGameViewModel.swift */,
 				E28B09312C634D91000502B9 /* FavoritesViewModel.swift */,
+				E28B09332C637A1E000502B9 /* MyProfileViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -558,6 +561,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3D75A49A2510AE3C0075C816 /* RAWGService.swift in Sources */,
+				E28B09342C637A1E000502B9 /* MyProfileViewModel.swift in Sources */,
 				3DAEDB7F252C8C7B00DFAF14 /* GameDetailResponse.swift in Sources */,
 				3DF8FD5924D5661C00E64116 /* ViewController.swift in Sources */,
 				E2800F802C48C82C003D93A6 /* GameUIModel.swift in Sources */,
