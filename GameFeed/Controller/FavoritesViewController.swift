@@ -1,17 +1,13 @@
 import UIKit
-import Combine
 
 class FavoritesViewController: UIViewController {
     @IBOutlet var favoriteTableView: UITableView!
-    private var favorites = [FavoriteModel]()
-    private lazy var favoriteProvider: FavoriteProvider = { return FavoriteProvider() }()
+    private var favorites = [GameUIModel]()
     @IBOutlet var emptyLabel: UILabel!
     @IBOutlet var emptyImage: UIImageView!
     var selectedIndex = 0
     
-    var rawgUseCase: RAWGUseCase?
-
-    var cancellables = Set<AnyCancellable>()
+    var favoritesViewModel: FavoritesViewModel?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,8 +26,9 @@ class FavoritesViewController: UIViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "showDetail" {
             let detail = segue.destination as? DetailGameViewController
-            let id = Int(favorites[selectedIndex].id ?? 0)
+            let id = Int(favorites[selectedIndex].idGame)
             detail?.gameId = id
+            detail?.game = favorites[selectedIndex]
         }
     }
 
@@ -41,21 +38,7 @@ class FavoritesViewController: UIViewController {
     }
 
     private func loadFavorites() {
-        self.rawgUseCase?.getAllFavorites()
-            .receive(on: DispatchQueue.main)
-            .sink(receiveCompletion: { completion in
-                switch completion {
-                case .finished:
-                    self.favoriteTableView.reloadData()
-                case .failure(let error):
-                    print("Failed to fetch favorites: \(error)")
-                }
-            }, receiveValue: { favorites in
-                self.favoriteIsEmpty(state: !favorites.isEmpty)
-                self.favorites = favorites
-                self.favoriteTableView.reloadData()
-            })
-            .store(in: &cancellables)
+        self.favoritesViewModel?.fetchUsers()
     }
 
     func setupView() {
@@ -63,6 +46,8 @@ class FavoritesViewController: UIViewController {
 
         favoriteTableView.dataSource = self
         favoriteTableView.delegate = self
+
+        favoritesViewModel?.delegate = self
 
         favoriteTableView.register(UINib(nibName: "GameTableViewCell", bundle: nil), forCellReuseIdentifier: "GameCell")
     }
@@ -92,25 +77,10 @@ extension FavoritesViewController: UITableViewDataSource {
             cell.releaseGame.text = favorite.released
             cell.genreGame.text = favorite.genres
 
-            if let backgroundPath = favorite.backgroundImage {
-                print(backgroundPath)
-                rawgUseCase?.downloadBackground(backgroundPath: backgroundPath)
-                    .sink(receiveCompletion: { completion in
-                        switch completion {
-                        case .finished:
-                            print("Image download finished successfully.")
-                        case .failure(let error):
-                            print("Image download failed with error: \(error)")
-                        }
-                    }, receiveValue: { data in
-                        guard let image = UIImage(data: data) else {
-                            return
-                        }
-                        cell.photoGame.image = image
-                        cell.setNeedsLayout()
-                        cell.photoGame.roundCorners(corners: [.topRight, .topLeft], radius: 10)
-                    })
-                    .store(in: &cancellables)
+            if let downloadedImage = favorite.downloadedBackgroundImage {
+                cell.photoGame.image = downloadedImage
+            } else if let backgroundPath = favorite.backgroundImage {
+                favoritesViewModel!.fetchBackground(for: favorite)
             }
 
             return cell
@@ -125,5 +95,23 @@ extension FavoritesViewController: UITableViewDelegate {
         selectedIndex = indexPath.row
         performSegue(withIdentifier: "showDetail", sender: nil)
         tableView.deselectRow(at: indexPath, animated: true)
+    }
+}
+
+extension FavoritesViewController: FavoritesViewModelDelegate {
+    func didUpdateGames() {
+        self.favorites = favoritesViewModel!.games
+        self.favoriteTableView.reloadData()
+        favoriteIsEmpty(state: !self.favorites.isEmpty)
+    }
+
+    func didUpdateLoadingIndicator(isLoading: Bool) {
+
+    }
+
+    func didReceivedError(message: String) {
+        let alert = UIAlertController(title: "Error", message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default))
+        self.present(alert, animated: true)
     }
 }

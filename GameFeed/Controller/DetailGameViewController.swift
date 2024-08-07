@@ -20,6 +20,7 @@ class DetailGameViewController: UIViewController {
     var detailViewModel: DetailViewModel?
 
     var gameId: Int?
+    var game: GameUIModel?
     var path = String()
 
     var didChangeTitle = false
@@ -64,8 +65,25 @@ class DetailGameViewController: UIViewController {
     }
 
     func setupView() {
+        populatingGames()
         detailViewModel?.fetchFavoriteState(for: gameId ?? 0)
         detailViewModel?.fetchGameDetail(idGame: gameId ?? 0)
+    }
+
+    func populatingGames() {
+        guard let game = game else { return }
+
+        self.overviewGameDetail.text = game.description
+        self.titleGameDetail.text = game.name
+        self.ratingGameDetail.text = game.rating
+        self.genreGameDetail.text = game.genres
+        self.releaseGameDetail.text = game.released
+        self.platformGameDetail.text = game.platforms
+        self.publisherGameDetail.text = game.publishers
+        self.metacriticGameDetail.text = String(game.metacritic ?? 0)
+        self.photoGameDetail.image = game.downloadedBackgroundImage
+
+        self.path = game.backgroundImage ?? ""
     }
 
     @IBAction func addToFavorite(_ sender: Any) {
@@ -124,16 +142,9 @@ extension DetailGameViewController: UIScrollViewDelegate {
 extension DetailGameViewController: DetailViewModelDelegate {
     func didLoadDetailGame(game: GameUIModel) {
         self.overviewGameDetail.text = game.description
-        self.titleGameDetail.text = game.name
-        self.ratingGameDetail.text = game.rating
-        self.genreGameDetail.text = game.genres
-        self.releaseGameDetail.text = game.released
         self.platformGameDetail.text = game.platforms
         self.publisherGameDetail.text = game.publishers
         self.metacriticGameDetail.text = String(game.metacritic ?? 0)
-        self.photoGameDetail.image = game.downloadedBackgroundImage
-
-        self.path = game.backgroundImage ?? ""
     }
 
     func didFetchFavoriteState(isFavorite: Bool) {

@@ -42,6 +42,10 @@ class SwinjectContainer {
                 NewGameViewModel(rawgUseCase: resolver.resolve(RAWGUseCase.self)!)
             }
 
+            container.register(FavoritesViewModel.self) { resolver in
+                FavoritesViewModel(rawgUseCase: resolver.resolve(RAWGUseCase.self)!)
+            }
+
             container.storyboardInitCompleted(ViewController.self) { resolver, viewController in
                 viewController.gameViewModel = resolver.resolve(HomeViewModel.self)
             }
@@ -59,7 +63,7 @@ class SwinjectContainer {
             }
 
             container.storyboardInitCompleted(FavoritesViewController.self) { resolver, favoritesViewController in
-                favoritesViewController.rawgUseCase = resolver.resolve(RAWGUseCase.self)
+                favoritesViewController.favoritesViewModel = resolver.resolve(FavoritesViewModel.self)
             }
         }
 

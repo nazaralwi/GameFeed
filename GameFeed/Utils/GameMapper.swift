@@ -34,4 +34,17 @@ class GameMapper {
                            publishers: Formatter.formatPublisher(from: game.publishers),
                            metacritic: game.metacritic)
     }
+
+    static func mapGameFavoriteModelToGameUIModel(game: FavoriteModel) -> GameUIModel {
+        return GameUIModel(idGame: Int(game.id ?? 0),
+                           name: game.name ?? "",
+                           released: game.released ?? "-",
+                           description: nil,
+                           rating: game.rating ?? "0.0",
+                           backgroundImage: game.backgroundImage,
+                           genres: game.genres ?? "-",
+                           platforms: nil,
+                           publishers: nil,
+                           metacritic: nil)
+    }
 }

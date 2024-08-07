@@ -49,6 +49,7 @@
 		E28B092C2C5FB84E000502B9 /* DetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E28B092B2C5FB84E000502B9 /* DetailViewModel.swift */; };
 		E28B092E2C6090BD000502B9 /* SearchGameViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E28B092D2C6090BD000502B9 /* SearchGameViewModel.swift */; };
 		E28B09302C609AEA000502B9 /* NewGameViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E28B092F2C609AEA000502B9 /* NewGameViewModel.swift */; };
+		E28B09322C634D91000502B9 /* FavoritesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E28B09312C634D91000502B9 /* FavoritesViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -111,6 +112,7 @@
 		E28B092B2C5FB84E000502B9 /* DetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewModel.swift; sourceTree = "<group>"; };
 		E28B092D2C6090BD000502B9 /* SearchGameViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchGameViewModel.swift; sourceTree = "<group>"; };
 		E28B092F2C609AEA000502B9 /* NewGameViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewGameViewModel.swift; sourceTree = "<group>"; };
+		E28B09312C634D91000502B9 /* FavoritesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesViewModel.swift; sourceTree = "<group>"; };
 		FC2266C7B3EF82459B567159 /* Pods_GameFeed.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GameFeed.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -336,6 +338,7 @@
 				E28B092B2C5FB84E000502B9 /* DetailViewModel.swift */,
 				E28B092D2C6090BD000502B9 /* SearchGameViewModel.swift */,
 				E28B092F2C609AEA000502B9 /* NewGameViewModel.swift */,
+				E28B09312C634D91000502B9 /* FavoritesViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -568,6 +571,7 @@
 				3D23BA7B2539E8EE0064B284 /* UpdateViewController.swift in Sources */,
 				3DF8FD5724D5661C00E64116 /* SceneDelegate.swift in Sources */,
 				E25FF2222C3ED33300507993 /* Endpoints.swift in Sources */,
+				E28B09322C634D91000502B9 /* FavoritesViewModel.swift in Sources */,
 				3D19823524D7F6B000E3AD85 /* DetailGameViewController.swift in Sources */,
 				3D8B773225382E390076805E /* ProfileModel.swift in Sources */,
 				E28B092E2C6090BD000502B9 /* SearchGameViewModel.swift in Sources */,

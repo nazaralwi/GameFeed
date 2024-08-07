@@ -31,6 +31,7 @@ class ViewController: UIViewController {
         if segue.identifier == "showDetail" {
             let detail = segue.destination as? DetailGameViewController
             detail?.gameId = gameViewModel!.games[selectedIndex].idGame
+            detail?.game = gameViewModel!.games[selectedIndex]
         }
     }
 
