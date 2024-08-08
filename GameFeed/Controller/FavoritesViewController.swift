@@ -1,13 +1,15 @@
 import UIKit
 
-class FavoritesViewController: UIViewController {
-    @IBOutlet var favoriteTableView: UITableView!
-    private var favorites = [GameUIModel]()
-    @IBOutlet var emptyLabel: UILabel!
-    @IBOutlet var emptyImage: UIImageView!
-    var selectedIndex = 0
-    
-    var favoritesViewModel: FavoritesViewModel?
+final class FavoritesViewController: UIViewController {
+    @IBOutlet private weak var tableView: UITableView!
+    @IBOutlet private weak var emptyLabel: UILabel!
+    @IBOutlet private weak var loadingIndicator: UIActivityIndicatorView!
+    @IBOutlet private weak var emptyImage: UIImageView!
+
+    var viewModel: FavoritesViewModel?
+
+    private var games = [GameUIModel]()
+    private var selectedIndex = 0
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,9 +28,8 @@ class FavoritesViewController: UIViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "showDetail" {
             let detail = segue.destination as? DetailGameViewController
-            let id = Int(favorites[selectedIndex].idGame)
-            detail?.gameId = id
-            detail?.game = favorites[selectedIndex]
+            let id = Int(games[selectedIndex].idGame)
+            detail?.game = games[selectedIndex]
         }
     }
 
@@ -38,21 +39,21 @@ class FavoritesViewController: UIViewController {
     }
 
     private func loadFavorites() {
-        self.favoritesViewModel?.fetchUsers()
+        self.viewModel?.fetchUsers()
     }
 
-    func setupView() {
-        self.favoriteTableView.contentInset.bottom = 10
+    private func setupView() {
+        self.tableView.contentInset.bottom = 10
 
-        favoriteTableView.dataSource = self
-        favoriteTableView.delegate = self
+        tableView.dataSource = self
+        tableView.delegate = self
 
-        favoritesViewModel?.delegate = self
+        viewModel?.delegate = self
 
-        favoriteTableView.register(UINib(nibName: "GameTableViewCell", bundle: nil), forCellReuseIdentifier: "GameCell")
+        tableView.register(UINib(nibName: "GameTableViewCell", bundle: nil), forCellReuseIdentifier: "GameCell")
     }
 
-    func favoriteIsEmpty(state: Bool) {
+    private func favoriteIsEmpty(state: Bool) {
         if state {
             emptyLabel.isHidden = true
             emptyImage.isHidden = true
@@ -65,12 +66,12 @@ class FavoritesViewController: UIViewController {
 
 extension FavoritesViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return favorites.count
+        return games.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if let cell = tableView.dequeueReusableCell(withIdentifier: "GameCell", for: indexPath) as? GameTableViewCell {
-            let favorite = favorites[indexPath.row]
+            let favorite = games[indexPath.row]
 
             cell.titleGame.text = favorite.name
             cell.ratingGame.text = favorite.rating
@@ -79,8 +80,8 @@ extension FavoritesViewController: UITableViewDataSource {
 
             if let downloadedImage = favorite.downloadedBackgroundImage {
                 cell.photoGame.image = downloadedImage
-            } else if let backgroundPath = favorite.backgroundImage {
-                favoritesViewModel!.fetchBackground(for: favorite)
+            } else if favorite.backgroundImage != nil {
+                viewModel!.fetchBackground(for: favorite)
             }
 
             return cell
@@ -100,13 +101,19 @@ extension FavoritesViewController: UITableViewDelegate {
 
 extension FavoritesViewController: FavoritesViewModelDelegate {
     func didUpdateGames() {
-        self.favorites = favoritesViewModel!.games
-        self.favoriteTableView.reloadData()
-        favoriteIsEmpty(state: !self.favorites.isEmpty)
+        self.games = viewModel!.games
+        self.tableView.reloadData()
+        favoriteIsEmpty(state: !self.games.isEmpty)
     }
 
     func didUpdateLoadingIndicator(isLoading: Bool) {
-
+        if isLoading {
+            self.loadingIndicator.isHidden = false
+            self.loadingIndicator.startAnimating()
+        } else {
+            self.loadingIndicator.isHidden = true
+            self.loadingIndicator.stopAnimating()
+        }
     }
 
     func didReceivedError(message: String) {

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="22155" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="dp4-LQ-tah">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="dp4-LQ-tah">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22131"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22684"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -76,9 +76,9 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="activityIndicator" destination="LBv-Tz-d3U" id="K5t-Rq-sMF"/>
+                        <outlet property="loadingIndicator" destination="LBv-Tz-d3U" id="K5t-Rq-sMF"/>
                         <outlet property="searchBar" destination="4vv-uW-JSK" id="NCN-Hr-ioy"/>
-                        <outlet property="searchTableView" destination="tL1-Oh-uMZ" id="EJD-08-pJT"/>
+                        <outlet property="tableView" destination="tL1-Oh-uMZ" id="EJD-08-pJT"/>
                         <segue destination="nvJ-v7-58f" kind="show" identifier="showDetail" id="wsP-Hl-13X"/>
                     </connections>
                 </viewController>
@@ -336,9 +336,9 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="activityIndicator" destination="Rft-hc-lge" id="zJf-gD-kWn"/>
                         <outlet property="errorLabel" destination="Cnf-O7-ENk" id="XHf-Ij-BEt"/>
-                        <outlet property="gameTableView" destination="fni-kU-clh" id="SWM-Mw-fIa"/>
+                        <outlet property="loadingIndicator" destination="Rft-hc-lge" id="zJf-gD-kWn"/>
+                        <outlet property="tableView" destination="fni-kU-clh" id="SWM-Mw-fIa"/>
                         <segue destination="nvJ-v7-58f" kind="show" identifier="showDetail" id="Uab-sl-V08"/>
                     </connections>
                 </viewController>
@@ -683,9 +683,9 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="activityIndicator" destination="UPo-SN-gl1" id="Y45-Ct-dja"/>
                         <outlet property="errorLabel" destination="zSV-hm-n1R" id="4TQ-jI-27Y"/>
-                        <outlet property="newGameTableView" destination="IeE-yS-gbl" id="zQ6-BZ-APl"/>
+                        <outlet property="loadingIndicator" destination="UPo-SN-gl1" id="Y45-Ct-dja"/>
+                        <outlet property="tableView" destination="IeE-yS-gbl" id="zQ6-BZ-APl"/>
                         <segue destination="nvJ-v7-58f" kind="show" identifier="showDetail" id="164-1r-S9o"/>
                     </connections>
                 </viewController>
@@ -774,6 +774,9 @@
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="721"/>
                                 <color key="backgroundColor" red="0.08234155923" green="0.082360200580000001" blue="0.082337506120000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </tableView>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="sWd-Z2-qYM">
+                                <rect key="frame" x="188.5" y="342" width="37" height="37"/>
+                            </activityIndicatorView>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="55" translatesAutoresizingMaskIntoConstraints="NO" id="5SW-5U-qCj">
                                 <rect key="frame" x="30" y="167.5" width="354" height="386"/>
                                 <subviews>
@@ -798,10 +801,12 @@
                             <constraint firstItem="5SW-5U-qCj" firstAttribute="leading" secondItem="zwd-ID-TCg" secondAttribute="leading" constant="30" id="72h-JA-f0c"/>
                             <constraint firstItem="zwd-ID-TCg" firstAttribute="bottom" secondItem="x8O-qb-BZp" secondAttribute="bottom" id="Ea8-no-iRz"/>
                             <constraint firstItem="5SW-5U-qCj" firstAttribute="centerY" secondItem="nlZ-f4-pgt" secondAttribute="centerY" id="H5p-2H-mPW"/>
+                            <constraint firstItem="sWd-Z2-qYM" firstAttribute="centerX" secondItem="nlZ-f4-pgt" secondAttribute="centerX" id="H6r-34-Q8K"/>
                             <constraint firstItem="zwd-ID-TCg" firstAttribute="trailing" secondItem="5SW-5U-qCj" secondAttribute="trailing" constant="30" id="UPP-7I-hDV"/>
                             <constraint firstItem="x8O-qb-BZp" firstAttribute="top" secondItem="zwd-ID-TCg" secondAttribute="top" id="cvV-Mn-UFJ"/>
                             <constraint firstItem="zwd-ID-TCg" firstAttribute="trailing" secondItem="x8O-qb-BZp" secondAttribute="trailing" id="qb1-w0-M1U"/>
                             <constraint firstItem="x8O-qb-BZp" firstAttribute="leading" secondItem="zwd-ID-TCg" secondAttribute="leading" id="rjw-uY-eYH"/>
+                            <constraint firstItem="sWd-Z2-qYM" firstAttribute="centerY" secondItem="nlZ-f4-pgt" secondAttribute="centerY" id="wPc-ln-Knx"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Game Feed" id="Dah-Pd-v5K">
@@ -814,7 +819,8 @@
                     <connections>
                         <outlet property="emptyImage" destination="4pp-rY-V9B" id="LR7-si-AZ8"/>
                         <outlet property="emptyLabel" destination="7jZ-OH-Jbv" id="d9Y-rK-z9h"/>
-                        <outlet property="favoriteTableView" destination="x8O-qb-BZp" id="IeX-eG-TPh"/>
+                        <outlet property="loadingIndicator" destination="sWd-Z2-qYM" id="Mwx-Yv-JaZ"/>
+                        <outlet property="tableView" destination="x8O-qb-BZp" id="IeX-eG-TPh"/>
                         <segue destination="nvJ-v7-58f" kind="show" identifier="showDetail" id="sAM-36-kEJ"/>
                     </connections>
                 </viewController>

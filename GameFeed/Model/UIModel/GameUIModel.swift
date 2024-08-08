@@ -8,17 +8,17 @@
 
 import UIKit
 
-struct GameUIModel {
-    let idGame: Int
-    let name: String
-    let released: String
-    let description: String?
-    let rating: String
-    let backgroundImage: String?
-    let genres: String
-    let platforms: String?
-    let publishers: String?
-    let metacritic: Int?
+public struct GameUIModel {
+    public let idGame: Int
+    public let name: String?
+    public let released: String?
+    public let description: String?
+    public let rating: String?
+    public let backgroundImage: String?
+    public let genres: String?
+    public let platforms: String?
+    public let publishers: String?
+    public let metacritic: Int?
 
-    var downloadedBackgroundImage: UIImage?
+    public var downloadedBackgroundImage: UIImage?
 }

@@ -1,14 +1,14 @@
 import UIKit
 
-class NewGameViewController: UIViewController {
-    @IBOutlet var newGameTableView: UITableView!
-    @IBOutlet var activityIndicator: UIActivityIndicatorView!
-    @IBOutlet var errorLabel: UILabel!
+final class NewGameViewController: UIViewController {
+    @IBOutlet private weak var tableView: UITableView!
+    @IBOutlet private weak var loadingIndicator: UIActivityIndicatorView!
+    @IBOutlet private weak var errorLabel: UILabel!
     
-    var newGameViewModel: NewGameViewModel?
+    var viewModel: NewGameViewModel?
 
-    var selectedIndex = 0
-    var newGame = [GameUIModel]()
+    private var games: [GameUIModel] = []
+    private var selectedIndex = 0
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,48 +27,48 @@ class NewGameViewController: UIViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "showDetail" {
             let detail = segue.destination as? DetailGameViewController
-            detail?.gameId = newGame[selectedIndex].idGame
+            detail?.game = games[selectedIndex]
         }
     }
 
-    func setupView() {
+    private func setupView() {
         let now = Date()
         let oneMonthBefore = Calendar.current.date(byAdding: .month, value: -1, to: now)
 
         errorLabel.isHidden = true
-        activityIndicator.startAnimating()
+        loadingIndicator.startAnimating()
 
-        newGameViewModel?.fetchNewGame(
+        viewModel?.fetchNewGame(
             lastMonth: Formatter.formatDateToString(from: oneMonthBefore ?? Date()),
             now: Formatter.formatDateToString(from: now))
 
-        newGameTableView.dataSource = self
-        newGameTableView.delegate = self
+        tableView.dataSource = self
+        tableView.delegate = self
 
-        newGameViewModel?.delegate = self
+        viewModel?.delegate = self
 
-        newGameTableView.register(UINib(nibName: "GameTableViewCell", bundle: nil), forCellReuseIdentifier: "GameCell")
+        tableView.register(UINib(nibName: "GameTableViewCell", bundle: nil), forCellReuseIdentifier: "GameCell")
     }
 }
 
 extension NewGameViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return newGame.count
+        return games.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if let cell = tableView.dequeueReusableCell(withIdentifier: "GameCell", for: indexPath) as? GameTableViewCell {
-            let game = newGame[indexPath.row]
+            let game = games[indexPath.row]
 
             cell.releaseGame.text = game.released
             cell.genreGame.text = game.genres
             cell.titleGame.text = game.name
-            cell.ratingGame.text = String(format: "%.2f", game.rating)
+            cell.ratingGame.text = game.rating
 
             if let downloadedImage = game.downloadedBackgroundImage {
                 cell.photoGame.image = downloadedImage
-            } else if let backgroundPath = game.backgroundImage {
-                newGameViewModel!.fetchBackground(for: game)
+            } else if game.backgroundImage != nil {
+                viewModel!.fetchBackground(for: game)
             }
 
             cell.setNeedsLayout()
@@ -91,15 +91,17 @@ extension NewGameViewController: UITableViewDelegate {
 
 extension NewGameViewController: NewGameViewModelDelegate {
     func didUpdateGames() {
-        self.newGame = newGameViewModel!.games
-        self.newGameTableView.reloadData()
+        self.games = viewModel!.games
+        self.tableView.reloadData()
     }
 
     func didUpdateLoadingIndicator(isLoading: Bool) {
         if isLoading {
-            self.activityIndicator.startAnimating()
+            self.loadingIndicator.isHidden = false
+            self.loadingIndicator.startAnimating()
         } else {
-            self.activityIndicator.stopAnimating()
+            self.loadingIndicator.isHidden = true
+            self.loadingIndicator.stopAnimating()
         }
     }
 

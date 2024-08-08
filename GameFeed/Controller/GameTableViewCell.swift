@@ -1,9 +1,9 @@
 import UIKit
 
-class GameTableViewCell: UITableViewCell {
-    @IBOutlet var titleGame: UILabel!
-    @IBOutlet var photoGame: UIImageView!
-    @IBOutlet var releaseGame: UILabel!
-    @IBOutlet var ratingGame: UILabel!
-    @IBOutlet var genreGame: UILabel!
+public final class GameTableViewCell: UITableViewCell {
+    @IBOutlet public var titleGame: UILabel!
+    @IBOutlet public var photoGame: UIImageView!
+    @IBOutlet public var releaseGame: UILabel!
+    @IBOutlet public var ratingGame: UILabel!
+    @IBOutlet public var genreGame: UILabel!
 }

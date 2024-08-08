@@ -1,31 +1,28 @@
 import UIKit
 
-class DetailGameViewController: UIViewController {
-    @IBOutlet var photoGameDetail: UIImageView!
-    @IBOutlet var titleGameDetail: UILabel!
-    @IBOutlet var ratingGameDetail: UILabel!
-    @IBOutlet var overviewGameDetail: UILabel!
-    @IBOutlet var platformGameDetail: UILabel!
-    @IBOutlet var releaseGameDetail: UILabel!
-    @IBOutlet var genreGameDetail: UILabel!
-    @IBOutlet var publisherGameDetail: UILabel!
-    @IBOutlet var metacriticGameDetail: UILabel!
-    @IBOutlet var activityIndicator: UIActivityIndicatorView!
-    @IBOutlet var scrollView: UIScrollView!
-    @IBOutlet var myView: UIView!
-    @IBOutlet var myViewHeight: NSLayoutConstraint!
-    @IBOutlet var addToFavoriteButton: UIBarButtonItem!
-    private lazy var favoriteProvider: FavoriteProvider = { return FavoriteProvider() }()
-    
-    var detailViewModel: DetailViewModel?
+final class DetailGameViewController: UIViewController {
+    @IBOutlet private var photoGameDetail: UIImageView!
+    @IBOutlet private var titleGameDetail: UILabel!
+    @IBOutlet private var ratingGameDetail: UILabel!
+    @IBOutlet private var overviewGameDetail: UILabel!
+    @IBOutlet private var platformGameDetail: UILabel!
+    @IBOutlet private var releaseGameDetail: UILabel!
+    @IBOutlet private var genreGameDetail: UILabel!
+    @IBOutlet private var publisherGameDetail: UILabel!
+    @IBOutlet private var metacriticGameDetail: UILabel!
+    @IBOutlet private var activityIndicator: UIActivityIndicatorView!
+    @IBOutlet private var scrollView: UIScrollView!
+    @IBOutlet private var myView: UIView!
+    @IBOutlet private var myViewHeight: NSLayoutConstraint!
+    @IBOutlet private var addToFavoriteButton: UIBarButtonItem!
 
-    var gameId: Int?
-    var game: GameUIModel?
-    var path = String()
+    public var viewModel: DetailViewModel?
+    public var game: GameUIModel?
 
-    var didChangeTitle = false
-    var defaultTitle = ""
-    var animateUp: CATransition = {
+    private var didChangeTitle = false
+    private var defaultTitle = ""
+
+    private var animateUp: CATransition = {
         let animation = CATransition()
         animation.duration = 0.5
         animation.type = CATransitionType.push
@@ -34,7 +31,7 @@ class DetailGameViewController: UIViewController {
         return animation
     }()
 
-    var animateDown: CATransition = {
+    private var animateDown: CATransition = {
         let animation = CATransition()
         animation.duration = 0.5
         animation.type = CATransitionType.push
@@ -48,7 +45,7 @@ class DetailGameViewController: UIViewController {
 
         scrollView.delegate = self
 
-        detailViewModel?.delegate = self
+        viewModel?.delegate = self
 
         myViewHeight.constant = 2000
         scrollView.contentSize = myView.frame.size
@@ -64,13 +61,12 @@ class DetailGameViewController: UIViewController {
         setupView()
     }
 
-    func setupView() {
+    private func setupView() {
+        viewModel?.fetchGameDetail(idGame: game?.idGame ?? 0)
         populatingGames()
-        detailViewModel?.fetchFavoriteState(for: gameId ?? 0)
-        detailViewModel?.fetchGameDetail(idGame: gameId ?? 0)
     }
 
-    func populatingGames() {
+    private func populatingGames() {
         guard let game = game else { return }
 
         self.overviewGameDetail.text = game.description
@@ -81,40 +77,24 @@ class DetailGameViewController: UIViewController {
         self.platformGameDetail.text = game.platforms
         self.publisherGameDetail.text = game.publishers
         self.metacriticGameDetail.text = String(game.metacritic ?? 0)
-        self.photoGameDetail.image = game.downloadedBackgroundImage
 
-        self.path = game.backgroundImage ?? ""
+        if let downloadedImage = game.downloadedBackgroundImage {
+            self.photoGameDetail.image = downloadedImage
+        } else if game.backgroundImage != nil {
+            print("Background NIL")
+        }
     }
 
-    @IBAction func addToFavorite(_ sender: Any) {
-        detailViewModel?.updateFavoriteState(for: gameId ?? 0)
+    @IBAction private func addToFavorite(_ sender: Any) {
+        viewModel?.updateFavoriteState(for: game?.idGame ?? 0)
     }
 
     private func deleteFromFavorite() {
-        detailViewModel?.deleteGameFavorite(gameId ?? 0)
+        viewModel?.deleteGameFavorite(game?.idGame ?? 0)
     }
 
     private func addToFavorite() {
-        let name = titleGameDetail.text ?? ""
-        let rating = ratingGameDetail.text ?? ""
-        let genres = genreGameDetail.text ?? ""
-        let released = releaseGameDetail.text ?? ""
-
-        let path = self.path
-
-        let game = GameUIModel(
-            idGame: gameId ?? 0,
-            name: name,
-            released: released,
-            description: nil,
-            rating: rating,
-            backgroundImage: path,
-            genres: genres,
-            platforms: nil,
-            publishers: nil,
-            metacritic: nil)
-
-        detailViewModel?.addGameToFavorite(game)
+        viewModel?.addGameToFavorite(game!)
     }
 }
 

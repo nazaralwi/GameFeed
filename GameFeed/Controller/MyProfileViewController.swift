@@ -1,21 +1,23 @@
 import UIKit
 
-class MyProfileViewController: UIViewController {
+final class MyProfileViewController: UIViewController {
     @IBOutlet var nameLabel: UILabel!
     @IBOutlet var companyLabel: UILabel!
     @IBOutlet var emailLabel: UILabel!
 
-    var myProfileViewModel: MyProfileViewModel?
+    var viewModel: MyProfileViewModel?
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        myProfileViewModel?.synchronize()
+        viewModel!.synchronize()
         updateUI()
     }
 
-    func updateUI() {
-        nameLabel.text = myProfileViewModel!.name
-        companyLabel.text = myProfileViewModel!.company
-        emailLabel.text = myProfileViewModel!.email
+    private func updateUI() {
+        let devProfile = viewModel!.getProfile()
+
+        nameLabel.text = devProfile.name
+        companyLabel.text = devProfile.company
+        emailLabel.text = devProfile.email
     }
 }

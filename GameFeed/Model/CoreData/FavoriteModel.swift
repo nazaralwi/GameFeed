@@ -1,11 +1,11 @@
 import UIKit
 
-struct FavoriteModel {
-    var id: Int64?
-    var name: String?
-    var released: String?
-    var rating: String?
-    var backgroundImage: String?
-    var genres: String?
-    var isFavorite: Bool?
+public struct FavoriteModel {
+    public var id: Int64?
+    public var name: String?
+    public var released: String?
+    public var rating: String?
+    public var backgroundImage: String?
+    public var genres: String?
+    public var isFavorite: Bool?
 }

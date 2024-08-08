@@ -2,8 +2,8 @@ import UIKit
 import CoreData
 import Combine
 
-class FavoriteProvider {
-    lazy var persistentContainer: NSPersistentContainer = {
+public final class FavoriteProvider {
+    private lazy var persistentContainer: NSPersistentContainer = {
         let container = NSPersistentContainer(name: "UserFavorites")
 
         container.loadPersistentStores { _, error in
@@ -19,7 +19,7 @@ class FavoriteProvider {
         return container
     }()
 
-    func newTaskContext() -> NSManagedObjectContext {
+    private func newTaskContext() -> NSManagedObjectContext {
         let taskContext = persistentContainer.newBackgroundContext()
         taskContext.undoManager = nil
 
@@ -27,7 +27,7 @@ class FavoriteProvider {
         return taskContext
     }
 
-    func getAllFavorites() -> Future<[FavoriteModel], Error> {
+    public func getAllFavorites() -> Future<[FavoriteModel], Error> {
         return Future { promise in
             let taskContext = self.newTaskContext()
             taskContext.perform {
@@ -54,7 +54,7 @@ class FavoriteProvider {
         }
     }
 
-    func getFavorite(_ id: Int) -> Future<FavoriteModel, Error> {
+    public func getFavorite(_ id: Int) -> Future<FavoriteModel, Error> {
         return Future { promise in
             let taskContext = self.newTaskContext()
             taskContext.perform {
@@ -79,7 +79,7 @@ class FavoriteProvider {
         }
     }
 
-    func addToFavorite(game: GameUIModel, _ isFavorite: Bool) -> Future<Void, Error> {
+    public func addToFavorite(game: GameUIModel, _ isFavorite: Bool) -> Future<Void, Error> {
         return Future { promise in
             let taskContext = self.newTaskContext()
             if !self.checkData(id: game.idGame) {
@@ -112,7 +112,7 @@ class FavoriteProvider {
         }
     }
 
-    func deleteAllFavorite() -> Future<Void, Error> {
+    public func deleteAllFavorite() -> Future<Void, Error> {
         return Future { promise in
             let taskContext = self.newTaskContext()
             taskContext.perform {
@@ -127,7 +127,7 @@ class FavoriteProvider {
         }
     }
 
-    func checkData(id: Int) -> Bool {
+    public func checkData(id: Int) -> Bool {
         let taskContext = newTaskContext()
         let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "Favorite")
         fetchRequest.predicate = NSPredicate(format: "id = %d", id)
@@ -142,7 +142,7 @@ class FavoriteProvider {
         return results.count > 0
     }
 
-    func deleteFavorite(_ id: Int) -> Future<Void, Error> {
+    public func deleteFavorite(_ id: Int) -> Future<Void, Error> {
         return Future { promise in
             let taskContext = self.newTaskContext()
             taskContext.perform {

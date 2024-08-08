@@ -1,18 +1,18 @@
 import Foundation
 
-struct GameResultResponse: Codable {
-    let results: [GameResponse]
+public struct GameResultResponse: Codable {
+    public let results: [GameResponse]
 }
 
-struct GameResponse: Codable {
-    let idGame: Int
-    let name: String
-    let released: String?
-    let rating: Double
-    let backgroundImage: String?
-    let genres: [GenreResponse]?
+public struct GameResponse: Codable {
+    public let idGame: Int
+    public let name: String
+    public let released: String?
+    public let rating: Double
+    public let backgroundImage: String?
+    public let genres: [GenreResponse]?
 
-    enum CodingKeys: String, CodingKey {
+    private enum CodingKeys: String, CodingKey {
         case idGame = "id"
         case name
         case released
@@ -22,6 +22,6 @@ struct GameResponse: Codable {
     }
 }
 
-struct GenreResponse: Codable {
-    let name: String
+public struct GenreResponse: Codable {
+    public let name: String
 }

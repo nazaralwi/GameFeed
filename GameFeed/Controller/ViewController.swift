@@ -1,13 +1,14 @@
 import UIKit
 
-class ViewController: UIViewController {
-    @IBOutlet weak var gameTableView: UITableView!
-    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
-    @IBOutlet weak var errorLabel: UILabel!
+final class ViewController: UIViewController {
+    @IBOutlet private weak var tableView: UITableView!
+    @IBOutlet private weak var loadingIndicator: UIActivityIndicatorView!
+    @IBOutlet private weak var errorLabel: UILabel!
 
-    var gameViewModel: HomeViewModel?
+    public var viewModel: HomeViewModel?
 
-    var selectedIndex = 0
+    private var games: [GameUIModel] = []
+    private var selectedIndex = 0
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,28 +25,27 @@ class ViewController: UIViewController {
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        gameTableView.reloadData()
+        tableView.reloadData()
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "showDetail" {
             let detail = segue.destination as? DetailGameViewController
-            detail?.gameId = gameViewModel!.games[selectedIndex].idGame
-            detail?.game = gameViewModel!.games[selectedIndex]
+            detail?.game = games[selectedIndex]
         }
     }
 
-    func setupView() {
-        self.gameTableView.contentInset.bottom = 10
+    private func setupView() {
+        self.tableView.contentInset.bottom = 10
 
-        gameTableView.dataSource = self
-        gameTableView.delegate = self
+        tableView.dataSource = self
+        tableView.delegate = self
 
-        gameViewModel?.delegate = self
+        viewModel?.delegate = self
 
-        gameTableView.refreshControl = UIRefreshControl()
-        gameTableView.refreshControl?.tintColor = UIColor.gray
-        gameTableView.refreshControl?.addTarget(
+        tableView.refreshControl = UIRefreshControl()
+        tableView.refreshControl?.tintColor = UIColor.gray
+        tableView.refreshControl?.addTarget(
             self,
             action: #selector(fetchGameList),
             for: UIControl.Event.valueChanged)
@@ -54,31 +54,31 @@ class ViewController: UIViewController {
 
         loadGameList()
 
-        gameTableView.register(UINib(nibName: "GameTableViewCell", bundle: nil), forCellReuseIdentifier: "GameCell")
+        tableView.register(UINib(nibName: "GameTableViewCell", bundle: nil), forCellReuseIdentifier: "GameCell")
     }
 
     private func loadGameList() {
-        gameViewModel?.fetchUsers()
+        viewModel?.fetchGames()
     }
 
-    @objc func fetchGameList() {
-        gameViewModel?.fetchUsers()
+    @objc private func fetchGameList() {
+        viewModel?.fetchGames()
 
         DispatchQueue.main.async {
-           self.gameTableView.refreshControl?.endRefreshing()
+           self.tableView.refreshControl?.endRefreshing()
         }
     }
 }
 
 extension ViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return gameViewModel!.games.count
+        return games.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if let cell = tableView.dequeueReusableCell(withIdentifier: "GameCell", for: indexPath) as? GameTableViewCell {
 
-            let game = gameViewModel!.games[indexPath.row]
+            let game = games[indexPath.row]
 
             cell.releaseGame.text = game.released
             cell.genreGame.text = game.genres
@@ -87,8 +87,8 @@ extension ViewController: UITableViewDataSource {
 
             if let downloadedImage = game.downloadedBackgroundImage {
                 cell.photoGame.image = downloadedImage
-            } else if let backgroundPath = game.backgroundImage {
-                gameViewModel!.fetchBackground(for: game)
+            } else if game.backgroundImage != nil {
+                viewModel!.fetchBackground(for: game)
             }
 
             return cell
@@ -108,14 +108,17 @@ extension ViewController: UITableViewDelegate {
 
 extension ViewController: HomeViewModelDelegate {
     func didUpdateGames() {
-        self.gameTableView.reloadData()
+        self.games = viewModel!.games
+        self.tableView.reloadData()
     }
     
     func didUpdateLoadingIndicator(isLoading: Bool) {
         if isLoading {
-            self.activityIndicator.startAnimating()
+            self.loadingIndicator.isHidden = false
+            self.loadingIndicator.startAnimating()
         } else {
-            self.activityIndicator.stopAnimating()
+            self.loadingIndicator.isHidden = true
+            self.loadingIndicator.stopAnimating()
         }
     }
     

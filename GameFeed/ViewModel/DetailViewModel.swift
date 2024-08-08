@@ -9,7 +9,7 @@
 import UIKit
 import Combine
 
-protocol DetailViewModelDelegate: AnyObject {
+public protocol DetailViewModelDelegate: AnyObject {
     func didLoadDetailGame(game: GameUIModel)
     func didUpdateLoadingIndicator(isLoading: Bool)
     func didFetchFavoriteState(isFavorite: Bool)
@@ -17,24 +17,19 @@ protocol DetailViewModelDelegate: AnyObject {
     func didReceivedError(message: String)
 }
 
-class DetailViewModel {
-    @Published var gameDetail: GameUIModel?
-    @Published var isFavorite: Bool?
-    @Published var loadingIndicator: Bool?
-    @Published var errorMessage: String?
+public final class DetailViewModel {
+    @Published public var gameDetail: GameUIModel?
 
     private var cancellables = Set<AnyCancellable>()
-
     private var rawgUseCase: RAWGUseCase
 
-    weak var delegate: DetailViewModelDelegate?
+    public weak var delegate: DetailViewModelDelegate?
 
-    init(rawgUseCase: RAWGUseCase) {
+    public init(rawgUseCase: RAWGUseCase) {
         self.rawgUseCase = rawgUseCase
     }
 
-    func fetchGameDetail(idGame: Int) {
-        self.loadingIndicator = true
+    public func fetchGameDetail(idGame: Int) {
         self.delegate?.didUpdateLoadingIndicator(isLoading: true)
 
         rawgUseCase.getGameDetail(idGame: idGame)
@@ -51,7 +46,6 @@ class DetailViewModel {
                 return backgroundPublisher.map { (gameDetail, $0) }.eraseToAnyPublisher()
             }
             .sink(receiveCompletion: { completion in
-                self.loadingIndicator = false
                 self.delegate?.didUpdateLoadingIndicator(isLoading: false)
 
                 if case .failure(let error) = completion {
@@ -59,38 +53,33 @@ class DetailViewModel {
                 }
             }, receiveValue: { gameDetail, imageData in
                 self.gameDetail = gameDetail
+                
                 if let imageData = imageData {
                     self.gameDetail?.downloadedBackgroundImage = UIImage(data: imageData)
                 }
-                self.delegate?.didLoadDetailGame(game: self.gameDetail!)
 
-                self.loadingIndicator = false
+                self.delegate?.didLoadDetailGame(game: self.gameDetail!)
                 self.delegate?.didUpdateLoadingIndicator(isLoading: false)
 
             })
             .store(in: &cancellables)
-    }
 
-    func fetchFavoriteState(for gameId: Int) {
-        let isFavorite = rawgUseCase.checkData(id: gameId)
-        self.isFavorite = isFavorite
+        let isFavorite = rawgUseCase.checkData(id: idGame)
         self.delegate?.didFetchFavoriteState(isFavorite: isFavorite)
     }
 
-    func addGameToFavorite(_ game: GameUIModel) {
+    public func addGameToFavorite(_ game: GameUIModel) {
         _ = rawgUseCase.addToFavorite(game: game, true)
     }
 
-    func deleteGameFavorite(_ gameId: Int) {
+    public func deleteGameFavorite(_ gameId: Int) {
         _ = rawgUseCase.deleteFavorite(gameId)
     }
 
-    func updateFavoriteState(for gameId: Int) {
+    public func updateFavoriteState(for gameId: Int) {
         if !rawgUseCase.checkData(id: gameId) {
-            self.isFavorite = true
             self.delegate?.didUpdateFavoriteState(isFavorite: true)
         } else {
-            self.isFavorite = false
             self.delegate?.didUpdateFavoriteState(isFavorite: false)
         }
     }

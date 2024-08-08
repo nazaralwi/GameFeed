@@ -10,12 +10,12 @@ import Foundation
 import Combine
 import Alamofire
 
-protocol Networking {
+public protocol Networking {
     func request(_ url: URL) -> AnyPublisher<Data, Error>
 }
 
-class AlamofireNetworking: Networking {
-    func request(_ url: URL) -> AnyPublisher<Data, Error> {
+public final class AlamofireNetworking: Networking {
+    public func request(_ url: URL) -> AnyPublisher<Data, Error> {
         return Future { promise in
             AF.request(url)
                 .validate()

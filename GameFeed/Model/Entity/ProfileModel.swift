@@ -1,12 +1,12 @@
 import Foundation
 
-class ProfileModel {
-    static let stateEditKey = "state"
-    static let nameKey = "name"
-    static let companyKey = "company"
-    static let emailKey = "email"
+public final class ProfileModel {
+    public static let stateEditKey = "state"
+    public static let nameKey = "name"
+    public static let companyKey = "company"
+    public static let emailKey = "email"
 
-    static var name: String {
+    public static var name: String {
         get {
             return UserDefaults.standard.string(forKey: nameKey) ?? ""
         }
@@ -15,7 +15,7 @@ class ProfileModel {
         }
     }
 
-    static var company: String {
+    public static var company: String {
         get {
             return UserDefaults.standard.string(forKey: companyKey) ?? ""
         }
@@ -24,7 +24,7 @@ class ProfileModel {
         }
     }
 
-    static var email: String {
+    public static var email: String {
         get {
             return UserDefaults.standard.string(forKey: emailKey) ?? ""
         }
@@ -33,7 +33,7 @@ class ProfileModel {
         }
     }
 
-    static func deleteAll() -> Bool {
+    public static func deleteAll() -> Bool {
         if let domain = Bundle.main.bundleIdentifier {
             UserDefaults.standard.removePersistentDomain(forName: domain)
             UserDefaults.standard.synchronize()
@@ -43,7 +43,7 @@ class ProfileModel {
         }
     }
 
-    static func synchronize() {
+    public static func synchronize() {
         UserDefaults.standard.synchronize()
     }
 }

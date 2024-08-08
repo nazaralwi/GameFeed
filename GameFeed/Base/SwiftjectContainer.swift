@@ -46,38 +46,36 @@ class SwinjectContainer {
                 FavoritesViewModel(rawgUseCase: resolver.resolve(RAWGUseCase.self)!)
             }
 
-            container.register(MyProfileViewModel.self) { _ in
-                MyProfileViewModel(name: "Muhammad Nazar Alwi",
-                                   company: "Dicoding",
-                                   email: "alwinazar75@gmail.com")
+            container.register(MyProfileViewModel.self) { resolver in
+                MyProfileViewModel(rawgUseCase: resolver.resolve(RAWGUseCase.self)!)
             }.inObjectScope(.container)
 
             container.storyboardInitCompleted(ViewController.self) { resolver, viewController in
-                viewController.gameViewModel = resolver.resolve(HomeViewModel.self)
+                viewController.viewModel = resolver.resolve(HomeViewModel.self)
             }
 
             container.storyboardInitCompleted(DetailGameViewController.self) { resolver, detailViewController in
-                detailViewController.detailViewModel = resolver.resolve(DetailViewModel.self)
+                detailViewController.viewModel = resolver.resolve(DetailViewModel.self)
             }
 
             container.storyboardInitCompleted(SearchGameViewController.self) { resolver, searchGameViewController in
-                searchGameViewController.searchGameViewModel = resolver.resolve(SearchGameViewModel.self)
+                searchGameViewController.viewModel = resolver.resolve(SearchGameViewModel.self)
             }
 
             container.storyboardInitCompleted(NewGameViewController.self) { resolver, newGameViewController in
-                newGameViewController.newGameViewModel = resolver.resolve(NewGameViewModel.self)
+                newGameViewController.viewModel = resolver.resolve(NewGameViewModel.self)
             }
 
             container.storyboardInitCompleted(FavoritesViewController.self) { resolver, favoritesViewController in
-                favoritesViewController.favoritesViewModel = resolver.resolve(FavoritesViewModel.self)
+                favoritesViewController.viewModel = resolver.resolve(FavoritesViewModel.self)
             }
 
             container.storyboardInitCompleted(MyProfileViewController.self) { resolver, myProfileViewController in
-                myProfileViewController.myProfileViewModel = resolver.resolve(MyProfileViewModel.self)
+                myProfileViewController.viewModel = resolver.resolve(MyProfileViewModel.self)
             }
 
             container.storyboardInitCompleted(UpdateViewController.self) { resolver, updateProfileViewController in
-                updateProfileViewController.profileViewModel = resolver.resolve(MyProfileViewModel.self)
+                updateProfileViewController.viewModel = resolver.resolve(MyProfileViewModel.self)
             }
         }
 

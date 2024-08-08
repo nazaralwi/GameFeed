@@ -9,42 +9,35 @@
 import UIKit
 import Combine
 
-protocol SearchGameViewModelDelegate: AnyObject {
+public protocol SearchGameViewModelDelegate: AnyObject {
     func didUpdateGames()
     func didUpdateLoadingIndicator(isLoading: Bool)
     func didReceivedError(message: String)
 }
 
-class SearchGameViewModel {
-    @Published var games: [GameUIModel] = []
-    @Published var loadingIndicator: Bool = false
-    @Published var gameBackground: UIImage?
-    @Published var errorMessage: String?
+public final class SearchGameViewModel {
+    @Published public var games: [GameUIModel] = []
 
     private var cancellables = Set<AnyCancellable>()
     private var currentSearchTask: AnyCancellable?
-
     private var rawgUseCase: RAWGUseCase
 
-    weak var delegate: SearchGameViewModelDelegate?
+    public weak var delegate: SearchGameViewModelDelegate?
 
-    init(rawgUseCase: RAWGUseCase) {
+    public init(rawgUseCase: RAWGUseCase) {
         self.rawgUseCase = rawgUseCase
     }
 
-    func searchGames(query: String) {
-        self.loadingIndicator = true
+    public func searchGames(query: String) {
         self.delegate?.didUpdateLoadingIndicator(isLoading: true)
 
         currentSearchTask?.cancel()
 
         currentSearchTask = rawgUseCase.search(query: query)
             .sink(receiveCompletion: { completion in
-                self.loadingIndicator = false
                 self.delegate?.didUpdateLoadingIndicator(isLoading: false)
 
                 if case .failure(let error) = completion {
-                    print("Search failed with error: \(error)")
                     self.delegate?.didReceivedError(message: error.localizedDescription)
                 }
             }, receiveValue: { games in
@@ -53,7 +46,6 @@ class SearchGameViewModel {
                     self.delegate?.didUpdateGames()
                 }
 
-                self.loadingIndicator = false
                 self.delegate?.didUpdateLoadingIndicator(isLoading: false)
             })
 
@@ -62,7 +54,7 @@ class SearchGameViewModel {
         }
     }
 
-    func fetchBackground(for game: GameUIModel) {
+    public func fetchBackground(for game: GameUIModel) {
         guard let backgroundPath = game.backgroundImage else { return }
 
         rawgUseCase.downloadBackground(backgroundPath: backgroundPath)

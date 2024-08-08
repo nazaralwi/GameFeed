@@ -1,14 +1,15 @@
 import Foundation
 
-enum Endpoints {
-    static let base = "https://api.rawg.io/api/games"
+public enum Endpoints {
+    private static let base = "https://api.rawg.io/api/games"
+
     case getGameList
     case backgroundImageURL(String)
     case search(String)
     case getGameDetail(Int)
     case getNewGameLastMonts(String, String)
 
-    var url: URL? {
+    public var url: URL? {
         guard let urlString = stringValue.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed),
               let url = URL(string: urlString) else {
             return nil
@@ -33,7 +34,7 @@ enum Endpoints {
         return value
     }()
 
-    var stringValue: String {
+    private var stringValue: String {
         switch self {
         case .getGameList:
             return Endpoints.base + "?key=\(Endpoints.apiKey)"

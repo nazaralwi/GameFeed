@@ -1,14 +1,14 @@
 import UIKit
 
-class SearchGameViewController: UIViewController {
-    @IBOutlet var searchTableView: UITableView!
-    @IBOutlet var searchBar: UISearchBar!
-    @IBOutlet var activityIndicator: UIActivityIndicatorView!
+final class SearchGameViewController: UIViewController {
+    @IBOutlet private weak var tableView: UITableView!
+    @IBOutlet private weak var searchBar: UISearchBar!
+    @IBOutlet private weak var loadingIndicator: UIActivityIndicatorView!
 
-    var searchGameViewModel: SearchGameViewModel?
+    public var viewModel: SearchGameViewModel?
 
-    var games = [GameUIModel]()
-    var selectedIndex = 0
+    private var games: [GameUIModel] = []
+    private var selectedIndex = 0
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,24 +27,24 @@ class SearchGameViewController: UIViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "showDetail" {
             let detail = segue.destination as? DetailGameViewController
-            detail?.gameId = games[selectedIndex].idGame
+            detail?.game = games[selectedIndex]
         }
     }
 
-    func setupView() {
+    private func setupView() {
         searchBar.delegate = self
-        searchTableView.delegate = self
-        searchTableView.dataSource = self
+        tableView.delegate = self
+        tableView.dataSource = self
 
-        searchGameViewModel?.delegate = self
+        viewModel?.delegate = self
 
-        searchTableView.register(UINib(nibName: "GameTableViewCell", bundle: nil), forCellReuseIdentifier: "GameCell")
+        tableView.register(UINib(nibName: "GameTableViewCell", bundle: nil), forCellReuseIdentifier: "GameCell")
     }
 }
 
 extension SearchGameViewController: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        searchGameViewModel?.searchGames(query: searchText)
+        viewModel?.searchGames(query: searchText)
     }
 
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
@@ -72,12 +72,12 @@ extension SearchGameViewController: UITableViewDataSource {
             cell.releaseGame.text = game.released
             cell.genreGame.text = game.genres
             cell.titleGame.text = game.name
-            cell.ratingGame.text = String(format: "%.2f", game.rating)
+            cell.ratingGame.text = game.rating
 
             if let downloadedImage = game.downloadedBackgroundImage {
                 cell.photoGame.image = downloadedImage
             } else if game.backgroundImage != nil {
-                searchGameViewModel?.fetchBackground(for: game)
+                viewModel!.fetchBackground(for: game)
             }
 
             cell.setNeedsLayout()
@@ -94,21 +94,23 @@ extension SearchGameViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         selectedIndex = indexPath.row
         performSegue(withIdentifier: "showDetail", sender: nil)
-        searchTableView.deselectRow(at: indexPath, animated: true)
+        tableView.deselectRow(at: indexPath, animated: true)
     }
 }
 
 extension SearchGameViewController: SearchGameViewModelDelegate {
     func didUpdateGames() {
-        self.games = searchGameViewModel!.games
-        self.searchTableView.reloadData()
+        self.games = viewModel!.games
+        self.tableView.reloadData()
     }
     
     func didUpdateLoadingIndicator(isLoading: Bool) {
         if isLoading {
-            self.activityIndicator.startAnimating()
+            self.loadingIndicator.isHidden = false
+            self.loadingIndicator.startAnimating()
         } else {
-            self.activityIndicator.stopAnimating()
+            self.loadingIndicator.isHidden = true
+            self.loadingIndicator.stopAnimating()
         }
     }
     

@@ -8,44 +8,31 @@
 
 import Foundation
 
-class MyProfileViewModel {
-    var name: String {
-        didSet {
-            ProfileModel.name = name
-        }
+public struct DeveloperProfile {
+    let name: String
+    let company: String
+    let email: String
+}
+
+public final class MyProfileViewModel {
+    private var rawgUseCase: RAWGUseCase
+
+    public init(rawgUseCase: RAWGUseCase) {
+        self.rawgUseCase = rawgUseCase
     }
 
-    var company: String {
-        didSet {
-            ProfileModel.company = company
-        }
+    public func synchronize() {
+        rawgUseCase.synchronizeProfileModel()
     }
 
-    var email: String {
-        didSet {
-            ProfileModel.email = email
-        }
+    public func getProfile() -> DeveloperProfile {
+        return rawgUseCase.getProfileModelData()
     }
 
-    init(name: String, company: String, email: String) {
-        self.name = name
-        self.company = company
-        self.email = email
-    }
-
-    func synchronize() {
-        ProfileModel.synchronize()
-        name = ProfileModel.name
-        company = ProfileModel.company
-        email = ProfileModel.email
-    }
-
-    func saveProfile(name: String, company: String, email: String) -> Bool {
+    public func saveProfile(name: String, company: String, email: String) -> Bool {
         guard !name.isEmpty, !company.isEmpty, !email.isEmpty else { return false }
 
-        ProfileModel.name = name
-        ProfileModel.company = company
-        ProfileModel.email = email
+        rawgUseCase.setProfileModellData(name: name, company: company, email: email)
 
         return true
     }

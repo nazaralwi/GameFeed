@@ -1,12 +1,12 @@
 import UIKit
 
-class UpdateViewController: UIViewController {
+final class UpdateViewController: UIViewController {
     @IBOutlet var photo: UIImageView!
     @IBOutlet var nameTextField: UITextField!
     @IBOutlet var companyTextField: UITextField!
     @IBOutlet var emailTextField: UITextField!
 
-    var profileViewModel: MyProfileViewModel?
+    var viewModel: MyProfileViewModel?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -21,15 +21,17 @@ class UpdateViewController: UIViewController {
         updateUI()
     }
 
-    func updateUI() {
-        nameTextField.text = profileViewModel!.name
-        companyTextField.text = profileViewModel!.company
-        emailTextField.text = profileViewModel!.email
+    private func updateUI() {
+        let devProfile = viewModel!.getProfile()
+
+        nameTextField.text = devProfile.name
+        companyTextField.text = devProfile.company
+        emailTextField.text = devProfile.email
     }
 
     @IBAction func saveProfile(_ sender: Any) {
         if let name = nameTextField.text, let company = companyTextField.text, let email = emailTextField.text {
-            if profileViewModel!.saveProfile(name: name, company: company, email: email) {
+            if viewModel!.saveProfile(name: name, company: company, email: email) {
                 navigationController?.popViewController(animated: true)
                 dismiss(animated: true, completion: nil)
             } else {
@@ -38,7 +40,7 @@ class UpdateViewController: UIViewController {
         }
     }
 
-    func showAlert(for field: String) {
+    private func showAlert(for field: String) {
         let alert = UIAlertController(
             title: "Alert",
             message: "\(field) is empty",

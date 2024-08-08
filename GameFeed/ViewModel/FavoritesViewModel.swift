@@ -9,40 +9,32 @@
 import UIKit
 import Combine
 
-protocol FavoritesViewModelDelegate: AnyObject {
+public protocol FavoritesViewModelDelegate: AnyObject {
     func didUpdateGames()
     func didUpdateLoadingIndicator(isLoading: Bool)
     func didReceivedError(message: String)
 }
 
-class FavoritesViewModel {
-    @Published var games: [GameUIModel] = []
-    @Published var loadingIndicator: Bool = false
-    @Published var gameBackground: UIImage?
-    @Published var errorMessage: String?
+public final class FavoritesViewModel {
+    @Published public var games: [GameUIModel] = []
 
     private var cancellables = Set<AnyCancellable>()
-
     private var rawgUseCase: RAWGUseCase
 
-    weak var delegate: FavoritesViewModelDelegate?
+    public weak var delegate: FavoritesViewModelDelegate?
 
-    init(rawgUseCase: RAWGUseCase) {
+    public init(rawgUseCase: RAWGUseCase) {
         self.rawgUseCase = rawgUseCase
     }
 
-    func fetchUsers() {
-        self.loadingIndicator = true
+    public func fetchUsers() {
         self.rawgUseCase.getAllFavorites()
             .receive(on: DispatchQueue.main)
             .sink(receiveCompletion: { completion in
                 switch completion {
                 case .finished:
-                    self.loadingIndicator = false
                     self.delegate?.didUpdateLoadingIndicator(isLoading: false)
                 case .failure(let error):
-                    self.errorMessage = error.localizedDescription
-                    self.loadingIndicator = false
                     self.delegate?.didUpdateLoadingIndicator(isLoading: false)
                     self.delegate?.didReceivedError(message: error.localizedDescription)
                 }
@@ -50,7 +42,6 @@ class FavoritesViewModel {
                 let mappedFavorites = favorites.map {  GameMapper.mapGameFavoriteModelToGameUIModel(game: $0)
                 }
                 self.games = mappedFavorites
-                self.loadingIndicator = false
                 self.delegate?.didUpdateLoadingIndicator(isLoading: false)
                 self.delegate?.didUpdateGames()
             })
@@ -58,7 +49,7 @@ class FavoritesViewModel {
 
     }
 
-    func fetchBackground(for game: GameUIModel) {
+    public func fetchBackground(for game: GameUIModel) {
         guard let backgroundPath = game.backgroundImage else { return }
 
         rawgUseCase.downloadBackground(backgroundPath: backgroundPath)
