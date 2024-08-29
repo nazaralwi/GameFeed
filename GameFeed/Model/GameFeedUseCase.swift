@@ -9,12 +9,12 @@
 import Foundation
 import Combine
 
-public final class RAWGUseCase {
+public final class GameFeedUseCase {
 
-    private let rawgService: RAWGService
-    private let favoriteProvider: FavoriteProvider
+    private let rawgService: RAWGServiceProtocol
+    private let favoriteProvider: FavoriteProviderProtocol
 
-    public init(rawgService: RAWGService, favoriteProvider: FavoriteProvider) {
+    public init(rawgService: RAWGServiceProtocol, favoriteProvider: FavoriteProviderProtocol) {
         self.rawgService = rawgService
         self.favoriteProvider = favoriteProvider
     }

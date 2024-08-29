@@ -20,11 +20,11 @@ public final class SearchGameViewModel {
 
     private var cancellables = Set<AnyCancellable>()
     private var currentSearchTask: AnyCancellable?
-    private var rawgUseCase: RAWGUseCase
+    private var rawgUseCase: GameFeedUseCase
 
     public weak var delegate: SearchGameViewModelDelegate?
 
-    public init(rawgUseCase: RAWGUseCase) {
+    public init(rawgUseCase: GameFeedUseCase) {
         self.rawgUseCase = rawgUseCase
     }
 

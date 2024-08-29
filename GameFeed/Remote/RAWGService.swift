@@ -1,7 +1,15 @@
 import Foundation
 import Combine
 
-public final class RAWGService {
+public protocol RAWGServiceProtocol {
+    func getGameList() -> AnyPublisher<[GameUIModel], Error>
+    func search(query: String) -> AnyPublisher<[GameUIModel], Error>
+    func getGameDetail(idGame: Int) -> AnyPublisher<GameUIModel, Error>
+    func getNewGameLastMonths(lastMonth: String, now: String) -> AnyPublisher<[GameUIModel], Error>
+    func downloadBackground(backgroundPath: String) -> AnyPublisher<Data, Error>
+}
+
+public class RAWGService: RAWGServiceProtocol {
     private let networking: Networking
 
     public init(networking: Networking) {

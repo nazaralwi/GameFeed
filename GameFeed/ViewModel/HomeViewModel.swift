@@ -19,11 +19,11 @@ public final class HomeViewModel {
     @Published public var games: [GameUIModel] = []
 
     private var cancellables = Set<AnyCancellable>()
-    private var rawgUseCase: RAWGUseCase
+    private var rawgUseCase: GameFeedUseCase
 
     public weak var delegate: HomeViewModelDelegate?
 
-    public init(rawgUseCase: RAWGUseCase) {
+    public init(rawgUseCase: GameFeedUseCase) {
         self.rawgUseCase = rawgUseCase
     }
 

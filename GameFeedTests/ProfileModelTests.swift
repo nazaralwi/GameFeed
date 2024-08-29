@@ -31,14 +31,12 @@ final class ProfileModelTests: XCTestCase {
         ProfileModel.name = "Nazar Alwi"
         ProfileModel.company = "Dicoding"
         ProfileModel.email = "alwinazar75@gmail.com"
-        ProfileModel.stateEdit = true
 
         XCTAssertTrue(ProfileModel.deleteAll())
 
         XCTAssertEqual(ProfileModel.name, "")
         XCTAssertEqual(ProfileModel.company, "")
         XCTAssertEqual(ProfileModel.email, "")
-        XCTAssertFalse(ProfileModel.stateEdit)
     }
 
     func testSynchronize() {

@@ -15,9 +15,9 @@ public struct DeveloperProfile {
 }
 
 public final class MyProfileViewModel {
-    private var rawgUseCase: RAWGUseCase
+    private var rawgUseCase: GameFeedUseCase
 
-    public init(rawgUseCase: RAWGUseCase) {
+    public init(rawgUseCase: GameFeedUseCase) {
         self.rawgUseCase = rawgUseCase
     }
 

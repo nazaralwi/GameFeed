@@ -21,11 +21,11 @@ public final class DetailViewModel {
     @Published public var gameDetail: GameUIModel?
 
     private var cancellables = Set<AnyCancellable>()
-    private var rawgUseCase: RAWGUseCase
+    private var rawgUseCase: GameFeedUseCase
 
     public weak var delegate: DetailViewModelDelegate?
 
-    public init(rawgUseCase: RAWGUseCase) {
+    public init(rawgUseCase: GameFeedUseCase) {
         self.rawgUseCase = rawgUseCase
     }
 

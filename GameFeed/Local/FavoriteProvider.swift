@@ -2,7 +2,16 @@ import UIKit
 import CoreData
 import Combine
 
-public final class FavoriteProvider {
+public protocol FavoriteProviderProtocol {
+    func getAllFavorites() -> Future<[FavoriteModel], Error>
+    func getFavorite(_ id: Int) -> Future<FavoriteModel, Error>
+    func addToFavorite(game: GameUIModel, _ isFavorite: Bool) -> Future<Void, Error>
+    func deleteAllFavorite() -> Future<Void, Error>
+    func checkData(id: Int) -> Bool
+    func deleteFavorite(_ id: Int) -> Future<Void, Error>
+}
+
+public final class FavoriteProvider: FavoriteProviderProtocol {
     private lazy var persistentContainer: NSPersistentContainer = {
         let container = NSPersistentContainer(name: "UserFavorites")
 

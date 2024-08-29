@@ -20,34 +20,34 @@ class SwinjectContainer {
 
             container.register(FavoriteProvider.self) { _ in FavoriteProvider() }
 
-            container.register(RAWGUseCase.self) { resolver in
-                RAWGUseCase(
+            container.register(GameFeedUseCase.self) { resolver in
+                GameFeedUseCase(
                     rawgService: resolver.resolve(RAWGService.self)!,
                     favoriteProvider: resolver.resolve(FavoriteProvider.self)!)
             }
 
             container.register(HomeViewModel.self) { resolver in
-                HomeViewModel(rawgUseCase: resolver.resolve(RAWGUseCase.self)!)
+                HomeViewModel(rawgUseCase: resolver.resolve(GameFeedUseCase.self)!)
             }
 
             container.register(DetailViewModel.self) { resolver in
-                DetailViewModel(rawgUseCase: resolver.resolve(RAWGUseCase.self)!)
+                DetailViewModel(rawgUseCase: resolver.resolve(GameFeedUseCase.self)!)
             }
 
             container.register(SearchGameViewModel.self) { resolver in
-                SearchGameViewModel(rawgUseCase: resolver.resolve(RAWGUseCase.self)!)
+                SearchGameViewModel(rawgUseCase: resolver.resolve(GameFeedUseCase.self)!)
             }
 
             container.register(NewGameViewModel.self) { resolver in
-                NewGameViewModel(rawgUseCase: resolver.resolve(RAWGUseCase.self)!)
+                NewGameViewModel(rawgUseCase: resolver.resolve(GameFeedUseCase.self)!)
             }
 
             container.register(FavoritesViewModel.self) { resolver in
-                FavoritesViewModel(rawgUseCase: resolver.resolve(RAWGUseCase.self)!)
+                FavoritesViewModel(rawgUseCase: resolver.resolve(GameFeedUseCase.self)!)
             }
 
             container.register(MyProfileViewModel.self) { resolver in
-                MyProfileViewModel(rawgUseCase: resolver.resolve(RAWGUseCase.self)!)
+                MyProfileViewModel(rawgUseCase: resolver.resolve(GameFeedUseCase.self)!)
             }.inObjectScope(.container)
 
             container.storyboardInitCompleted(ViewController.self) { resolver, viewController in
