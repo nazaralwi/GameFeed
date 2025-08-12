@@ -20,10 +20,14 @@ class SwinjectContainer {
 
             container.register(FavoriteProvider.self) { _ in FavoriteProvider() }
 
+            container.register(UserDefaultProfileRepository.self) { _ in UserDefaultProfileRepository() }
+
             container.register(GameFeedUseCase.self) { resolver in
                 GameFeedUseCase(
                     rawgService: resolver.resolve(RAWGService.self)!,
-                    favoriteProvider: resolver.resolve(FavoriteProvider.self)!)
+                    favoriteProvider: resolver.resolve(FavoriteProvider.self)!,
+                    profileProvider: resolver.resolve(UserDefaultProfileRepository.self)!
+                )
             }
 
             container.register(HomeViewModel.self) { resolver in

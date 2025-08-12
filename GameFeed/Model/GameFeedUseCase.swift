@@ -13,10 +13,12 @@ public final class GameFeedUseCase {
 
     private let rawgService: RAWGServiceProtocol
     private let favoriteProvider: FavoriteProviderProtocol
+    private let profileProvider: ProfileProviderProtocol
 
-    public init(rawgService: RAWGServiceProtocol, favoriteProvider: FavoriteProviderProtocol) {
+    public init(rawgService: RAWGServiceProtocol, favoriteProvider: FavoriteProviderProtocol, profileProvider: ProfileProviderProtocol) {
         self.rawgService = rawgService
         self.favoriteProvider = favoriteProvider
+        self.profileProvider = profileProvider
     }
 
     public func getGameList() -> AnyPublisher<[GameUIModel], Error> {
@@ -63,21 +65,29 @@ public final class GameFeedUseCase {
         return favoriteProvider.deleteFavorite(id)
     }
 
-    public func getProfileModelData() -> DeveloperProfile {
-        return DeveloperProfile(name: ProfileModel.name, company: ProfileModel.company, email: ProfileModel.email)
+    public func getProfile() -> Profile {
+        return profileProvider.getProfile()
     }
 
-    public func setProfileModellData(name: String, company: String, email: String) {
-        ProfileModel.name = name
-        ProfileModel.company = company
-        ProfileModel.email = email
+    public func saveProfile(_ profile: Profile) {
+        profileProvider.saveProfile(profile)
     }
 
-    public func deleteAllProfileModel() {
-        ProfileModel.synchronize()
-    }
-
-    public func synchronizeProfileModel() {
-        ProfileModel.synchronize()
-    }
+//    public func getProfileModelData() -> DeveloperProfile {
+//        return DeveloperProfile(name: ProfileModel.name, company: ProfileModel.company, email: ProfileModel.email)
+//    }
+//
+//    public func setProfileModellData(name: String, company: String, email: String) {
+//        ProfileModel.name = name
+//        ProfileModel.company = company
+//        ProfileModel.email = email
+//    }
+//
+//    public func deleteAllProfileModel() {
+//        ProfileModel.synchronize()
+//    }
+//
+//    public func synchronizeProfileModel() {
+//        ProfileModel.synchronize()
+//    }
 }

@@ -18,20 +18,20 @@ final class UpdateViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 
-        updateUI()
-    }
+        viewModel?.onChange = { [weak self] data in
+            DispatchQueue.main.async {
+                self?.nameTextField.text = data.name
+                self?.companyTextField.text = data.company
+                self?.emailTextField.text = data.email
+            }
+        }
 
-    private func updateUI() {
-        let devProfile = viewModel!.getProfile()
-
-        nameTextField.text = devProfile.name
-        companyTextField.text = devProfile.company
-        emailTextField.text = devProfile.email
+        viewModel?.load()
     }
 
     @IBAction func saveProfile(_ sender: Any) {
         if let name = nameTextField.text, let company = companyTextField.text, let email = emailTextField.text {
-            if viewModel!.saveProfile(name: name, company: company, email: email) {
+            if viewModel!.save(name: name, company: company, email: email) {
                 navigationController?.popViewController(animated: true)
                 dismiss(animated: true, completion: nil)
             } else {

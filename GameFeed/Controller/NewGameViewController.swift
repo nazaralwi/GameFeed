@@ -22,6 +22,21 @@ final class NewGameViewController: UIViewController {
 
     override func viewDidAppear(_ animated: Bool) {
         navigationController?.navigationBar.barStyle = .black
+
+        let appearance = UINavigationBarAppearance()
+        appearance.configureWithOpaqueBackground()
+        appearance.backgroundColor = .black
+        appearance.titleTextAttributes = [.foregroundColor: UIColor.white]
+
+        navigationController?.navigationBar.standardAppearance = appearance
+        navigationController?.navigationBar.scrollEdgeAppearance = appearance
+
+        let tabBarAppearance = UITabBarAppearance()
+        tabBarAppearance.configureWithOpaqueBackground()
+        tabBarAppearance.backgroundColor = .black
+
+        UITabBar.appearance().standardAppearance = tabBarAppearance
+//        UITabBar.appearance().scrollEdgeAppearance = tabBarAppearance
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

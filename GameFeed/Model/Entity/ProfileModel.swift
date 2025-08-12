@@ -47,3 +47,38 @@ public final class ProfileModel {
         UserDefaults.standard.synchronize()
     }
 }
+
+public struct Profile {
+    public var name: String
+    public var company: String
+    public var email: String
+}
+
+public protocol ProfileProviderProtocol {
+    func getProfile() -> Profile
+    func saveProfile(_ profile: Profile)
+}
+
+public final class UserDefaultProfileRepository: ProfileProviderProtocol {
+    private let nameKey = "profile_name"
+    private let companyKey = "profile_company"
+    private let emailKey = "profile_email"
+
+    public init() {}
+
+    public func getProfile() -> Profile {
+        let data = UserDefaults.standard
+        return Profile(
+            name: data.string(forKey: nameKey) ?? "Muhammad Nazar Alwi",
+            company: data.string(forKey: companyKey) ?? "IT Telkom Purwokerto",
+            email: data.string(forKey: emailKey) ?? "alwinazar75@gmail.com"
+        )
+    }
+
+    public func saveProfile(_ profile: Profile) {
+        let data = UserDefaults.standard
+        data.set(profile.name, forKey: nameKey)
+        data.set(profile.company, forKey: companyKey)
+        data.set(profile.email, forKey: emailKey)
+    }
+}

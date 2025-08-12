@@ -9,15 +9,15 @@ final class MyProfileViewController: UIViewController {
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        viewModel!.synchronize()
-        updateUI()
-    }
 
-    private func updateUI() {
-        let devProfile = viewModel!.getProfile()
+        viewModel?.onChange = { [weak self] data in
+            DispatchQueue.main.async {
+                self?.nameLabel.text = data.name
+                self?.companyLabel.text = data.company
+                self?.emailLabel.text = data.email
+            }
+        }
 
-        nameLabel.text = devProfile.name
-        companyLabel.text = devProfile.company
-        emailLabel.text = devProfile.email
+        viewModel?.load()
     }
 }
