@@ -21,22 +21,24 @@ public final class DetailViewModel {
     @Published public var gameDetail: GameUIModel?
 
     private var cancellables = Set<AnyCancellable>()
-    private var rawgUseCase: GameFeedUseCase
+    private var gameFeedUseCase: GameFeedUseCase
+    private var favoriteUseCase: FavoriteUseCase
 
     public weak var delegate: DetailViewModelDelegate?
 
-    public init(rawgUseCase: GameFeedUseCase) {
-        self.rawgUseCase = rawgUseCase
+    public init(gameFeedUseCase: GameFeedUseCase, favoriteUseCase: FavoriteUseCase) {
+        self.gameFeedUseCase = gameFeedUseCase
+        self.favoriteUseCase = favoriteUseCase
     }
 
     public func fetchGameDetail(idGame: Int) {
         self.delegate?.didUpdateLoadingIndicator(isLoading: true)
 
-        rawgUseCase.getGameDetail(idGame: idGame)
+        gameFeedUseCase.getGameDetail(idGame: idGame)
             .flatMap { [self] gameDetail -> AnyPublisher<(GameUIModel, Data?), Error> in
                 let backgroundPublisher: AnyPublisher<Data?, Error>
                 if let backgroundPath = gameDetail.backgroundImage {
-                    backgroundPublisher = rawgUseCase.downloadBackground(backgroundPath: backgroundPath)
+                    backgroundPublisher = gameFeedUseCase.downloadBackground(backgroundPath: backgroundPath)
                         .map { Optional($0) }
                         .catch { _ in Just(nil).setFailureType(to: Error.self) }
                         .eraseToAnyPublisher()
@@ -64,20 +66,20 @@ public final class DetailViewModel {
             })
             .store(in: &cancellables)
 
-        let isFavorite = rawgUseCase.checkData(id: idGame)
+        let isFavorite = favoriteUseCase.checkData(id: idGame)
         self.delegate?.didFetchFavoriteState(isFavorite: isFavorite)
     }
 
     public func addGameToFavorite(_ game: GameUIModel) {
-        _ = rawgUseCase.addToFavorite(game: game, true)
+        _ = favoriteUseCase.addToFavorite(game: game, true)
     }
 
     public func deleteGameFavorite(_ gameId: Int) {
-        _ = rawgUseCase.deleteFavorite(gameId)
+        _ = favoriteUseCase.deleteFavorite(gameId)
     }
 
     public func updateFavoriteState(for gameId: Int) {
-        if !rawgUseCase.checkData(id: gameId) {
+        if !favoriteUseCase.checkData(id: gameId) {
             self.delegate?.didUpdateFavoriteState(isFavorite: true)
         } else {
             self.delegate?.didUpdateFavoriteState(isFavorite: false)

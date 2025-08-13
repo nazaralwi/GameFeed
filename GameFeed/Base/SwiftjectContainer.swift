@@ -14,45 +14,55 @@ class SwinjectContainer {
     private static var container: Container = {
         let container = Container { container in
             container.register(Networking.self) { _ in AlamofireNetworking() }
-            container.register(RAWGService.self) { resolver in
-                RAWGService(networking: resolver.resolve(Networking.self)!)
+            container.register(GameRemoteDataSource.self) { resolver in
+                GameRemoteDataSource(networking: resolver.resolve(Networking.self)!)
             }
 
-            container.register(FavoriteProvider.self) { _ in FavoriteProvider() }
+            container.register(CoreDataFavoriteDataSource.self) { _ in CoreDataFavoriteDataSource() }
 
-            container.register(UserDefaultProfileRepository.self) { _ in UserDefaultProfileRepository() }
+            container.register(UserDefaultProfileDataSource.self) { _ in UserDefaultProfileDataSource() }
 
             container.register(GameFeedUseCase.self) { resolver in
-                GameFeedUseCase(
-                    rawgService: resolver.resolve(RAWGService.self)!,
-                    favoriteProvider: resolver.resolve(FavoriteProvider.self)!,
-                    profileProvider: resolver.resolve(UserDefaultProfileRepository.self)!
-                )
+                GameFeedUseCase(rawgService: resolver.resolve(GameRemoteDataSource.self)!)
+            }
+
+            container.register(FavoriteUseCase.self) { resolver in
+                FavoriteUseCase(favoriteProvider: resolver.resolve(CoreDataFavoriteDataSource.self)!)
+            }
+
+            container.register(ProfileUseCase.self) { resolver in
+                ProfileUseCase(profileProvider: resolver.resolve(UserDefaultProfileDataSource.self)!)
             }
 
             container.register(HomeViewModel.self) { resolver in
-                HomeViewModel(rawgUseCase: resolver.resolve(GameFeedUseCase.self)!)
-            }
-
-            container.register(DetailViewModel.self) { resolver in
-                DetailViewModel(rawgUseCase: resolver.resolve(GameFeedUseCase.self)!)
+                HomeViewModel(gameFeedUseCase: resolver.resolve(GameFeedUseCase.self)!)
             }
 
             container.register(SearchGameViewModel.self) { resolver in
-                SearchGameViewModel(rawgUseCase: resolver.resolve(GameFeedUseCase.self)!)
+                SearchGameViewModel(gameFeedUseCase: resolver.resolve(GameFeedUseCase.self)!)
             }
 
             container.register(NewGameViewModel.self) { resolver in
-                NewGameViewModel(rawgUseCase: resolver.resolve(GameFeedUseCase.self)!)
-            }
-
-            container.register(FavoritesViewModel.self) { resolver in
-                FavoritesViewModel(rawgUseCase: resolver.resolve(GameFeedUseCase.self)!)
+                NewGameViewModel(gameFeedUseCase: resolver.resolve(GameFeedUseCase.self)!)
             }
 
             container.register(MyProfileViewModel.self) { resolver in
-                MyProfileViewModel(rawgUseCase: resolver.resolve(GameFeedUseCase.self)!)
-            }.inObjectScope(.container)
+                MyProfileViewModel(profileUseCase: resolver.resolve(ProfileUseCase.self)!)
+            }
+
+            container.register(DetailViewModel.self) { resolver in
+                DetailViewModel(
+                    gameFeedUseCase: resolver.resolve(GameFeedUseCase.self)!,
+                    favoriteUseCase: resolver.resolve(FavoriteUseCase.self)!
+                )
+            }
+
+            container.register(FavoritesViewModel.self) { resolver in
+                FavoritesViewModel(
+                    gameFeedUseCase: resolver.resolve(GameFeedUseCase.self)!,
+                    favoriteUseCase: resolver.resolve(FavoriteUseCase.self)!
+                )
+            }
 
             container.storyboardInitCompleted(ViewController.self) { resolver, viewController in
                 viewController.viewModel = resolver.resolve(HomeViewModel.self)

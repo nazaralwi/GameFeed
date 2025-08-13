@@ -1,63 +1,54 @@
 //
-//  SearchGameViewModel.swift
+//  HomeViewModel.swift
 //  GameFeed
 //
-//  Created by Macintosh on 05/08/24.
+//  Created by Macintosh on 04/08/24.
 //  Copyright © 2024 Dicoding Indonesia. All rights reserved.
 //
 
 import UIKit
 import Combine
 
-public protocol SearchGameViewModelDelegate: AnyObject {
+public protocol HomeViewModelDelegate: AnyObject {
     func didUpdateGames()
     func didUpdateLoadingIndicator(isLoading: Bool)
     func didReceivedError(message: String)
 }
 
-public final class SearchGameViewModel {
+public final class HomeViewModel {
     @Published public var games: [GameUIModel] = []
 
     private var cancellables = Set<AnyCancellable>()
-    private var currentSearchTask: AnyCancellable?
-    private var rawgUseCase: GameFeedUseCase
+    private var gameFeedUseCase: GameFeedUseCase
 
-    public weak var delegate: SearchGameViewModelDelegate?
+    public weak var delegate: HomeViewModelDelegate?
 
-    public init(rawgUseCase: GameFeedUseCase) {
-        self.rawgUseCase = rawgUseCase
+    public init(gameFeedUseCase: GameFeedUseCase) {
+        self.gameFeedUseCase = gameFeedUseCase
     }
 
-    public func searchGames(query: String) {
+    public func fetchGames() {
         self.delegate?.didUpdateLoadingIndicator(isLoading: true)
-
-        currentSearchTask?.cancel()
-
-        currentSearchTask = rawgUseCase.search(query: query)
-            .sink(receiveCompletion: { completion in
+        gameFeedUseCase.getGameList().sink(receiveCompletion: { completion in
+            switch completion {
+            case .finished:
                 self.delegate?.didUpdateLoadingIndicator(isLoading: false)
-
-                if case .failure(let error) = completion {
-                    self.delegate?.didReceivedError(message: error.localizedDescription)
-                }
-            }, receiveValue: { games in
-                if !games.isEmpty {
-                    self.games = games
-                    self.delegate?.didUpdateGames()
-                }
-
+            case .failure(let error):
                 self.delegate?.didUpdateLoadingIndicator(isLoading: false)
-            })
-
-        if currentSearchTask != nil {
-            currentSearchTask?.store(in: &cancellables)
-        }
+                self.delegate?.didReceivedError(message: error.localizedDescription)
+            }
+        }, receiveValue: { games in
+            self.games = games
+            self.delegate?.didUpdateLoadingIndicator(isLoading: false)
+            self.delegate?.didUpdateGames()
+        })
+        .store(in: &cancellables)
     }
 
     public func fetchBackground(for game: GameUIModel) {
         guard let backgroundPath = game.backgroundImage else { return }
 
-        rawgUseCase.downloadBackground(backgroundPath: backgroundPath)
+        gameFeedUseCase.downloadBackground(backgroundPath: backgroundPath)
             .sink(receiveCompletion: { completion in
                 switch completion {
                 case .finished:

@@ -8,24 +8,18 @@
 
 import Foundation
 
-public struct ProfileViewData {
-    public let name: String
-    public let company: String
-    public let email: String
-}
-
 public final class MyProfileViewModel {
-    private var rawgUseCase: GameFeedUseCase
+    private var profileUseCase: ProfileUseCase
 
-    public var onChange: ((ProfileViewData) -> Void)?
+    public var onChange: ((ProfileUIModel) -> Void)?
 
-    public init(rawgUseCase: GameFeedUseCase) {
-        self.rawgUseCase = rawgUseCase
+    public init(profileUseCase: ProfileUseCase) {
+        self.profileUseCase = profileUseCase
     }
 
     public func load() {
-        let profile = rawgUseCase.getProfile()
-        let viewData = ProfileViewData(name: profile.name, company: profile.company, email: profile.email)
+        let profile = profileUseCase.getProfile()
+        let viewData = ProfileUIModel(name: profile.name, company: profile.company, email: profile.email)
 
         onChange?(viewData)
     }
@@ -34,7 +28,7 @@ public final class MyProfileViewModel {
         guard !name.isEmpty, !company.isEmpty, !email.isEmpty else { return false }
 
         let profile = Profile(name: name, company: company, email: email)
-        rawgUseCase.saveProfile(profile)
+        profileUseCase.saveProfile(profile)
         load()
 
         return true

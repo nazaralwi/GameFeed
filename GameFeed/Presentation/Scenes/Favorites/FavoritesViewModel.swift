@@ -19,16 +19,18 @@ public final class FavoritesViewModel {
     @Published public var games: [GameUIModel] = []
 
     private var cancellables = Set<AnyCancellable>()
-    private var rawgUseCase: GameFeedUseCase
+    private var gameFeedUseCase: GameFeedUseCase
+    private var favoriteUseCase: FavoriteUseCase
 
     public weak var delegate: FavoritesViewModelDelegate?
 
-    public init(rawgUseCase: GameFeedUseCase) {
-        self.rawgUseCase = rawgUseCase
+    public init(gameFeedUseCase: GameFeedUseCase, favoriteUseCase: FavoriteUseCase) {
+        self.gameFeedUseCase = gameFeedUseCase
+        self.favoriteUseCase = favoriteUseCase
     }
 
     public func fetchUsers() {
-        self.rawgUseCase.getAllFavorites()
+        self.favoriteUseCase.getAllFavorites()
             .receive(on: DispatchQueue.main)
             .sink(receiveCompletion: { completion in
                 switch completion {
@@ -52,7 +54,7 @@ public final class FavoritesViewModel {
     public func fetchBackground(for game: GameUIModel) {
         guard let backgroundPath = game.backgroundImage else { return }
 
-        rawgUseCase.downloadBackground(backgroundPath: backgroundPath)
+        gameFeedUseCase.downloadBackground(backgroundPath: backgroundPath)
             .sink(receiveCompletion: { completion in
                 switch completion {
                 case .finished:

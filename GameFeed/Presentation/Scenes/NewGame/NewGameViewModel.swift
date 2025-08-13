@@ -19,17 +19,17 @@ public final class NewGameViewModel {
     @Published public var games: [GameUIModel] = []
 
     private var cancellables = Set<AnyCancellable>()
-    private var rawgUseCase: GameFeedUseCase
+    private var gameFeedUseCase: GameFeedUseCase
 
     public weak var delegate: NewGameViewModelDelegate?
 
-    public init(rawgUseCase: GameFeedUseCase) {
-        self.rawgUseCase = rawgUseCase
+    public init(gameFeedUseCase: GameFeedUseCase) {
+        self.gameFeedUseCase = gameFeedUseCase
     }
 
     public func fetchNewGame(lastMonth: String, now: String) {
         self.delegate?.didUpdateLoadingIndicator(isLoading: true)
-        rawgUseCase.getNewGameLastMonths(lastMonth: lastMonth, now: now).sink(receiveCompletion: { completion in
+        gameFeedUseCase.getNewGameLastMonths(lastMonth: lastMonth, now: now).sink(receiveCompletion: { completion in
             switch completion {
             case .finished:
                 self.delegate?.didUpdateLoadingIndicator(isLoading: false)
@@ -48,7 +48,7 @@ public final class NewGameViewModel {
     public func fetchBackground(for game: GameUIModel) {
         guard let backgroundPath = game.backgroundImage else { return }
 
-        rawgUseCase.downloadBackground(backgroundPath: backgroundPath)
+        gameFeedUseCase.downloadBackground(backgroundPath: backgroundPath)
             .sink(receiveCompletion: { completion in
                 switch completion {
                 case .finished:

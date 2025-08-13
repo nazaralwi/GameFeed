@@ -1,7 +1,7 @@
 import Foundation
 import Combine
 
-public protocol RAWGServiceProtocol {
+public protocol GameRemoteDataSourceProtocol {
     func getGameList() -> AnyPublisher<[GameUIModel], Error>
     func search(query: String) -> AnyPublisher<[GameUIModel], Error>
     func getGameDetail(idGame: Int) -> AnyPublisher<GameUIModel, Error>
@@ -9,7 +9,7 @@ public protocol RAWGServiceProtocol {
     func downloadBackground(backgroundPath: String) -> AnyPublisher<Data, Error>
 }
 
-public class RAWGService: RAWGServiceProtocol {
+public class GameRemoteDataSource: GameRemoteDataSourceProtocol {
     private let networking: Networking
 
     public init(networking: Networking) {
