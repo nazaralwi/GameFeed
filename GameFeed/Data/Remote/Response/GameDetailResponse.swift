@@ -6,7 +6,7 @@ public struct GameDetailResponse: Codable {
     public let released: String?
     public let description: String?
     public let rating: Double?
-    public let backgroundImage: String?
+    public let backgroundImagePath: String?
     public let genres: [GenreResponse]?
     public let platforms: [PlatformsResponse]?
     public let publishers: [PublisherResponse]?
@@ -18,7 +18,7 @@ public struct GameDetailResponse: Codable {
         case released
         case description = "description_raw"
         case rating
-        case backgroundImage = "background_image"
+        case backgroundImagePath = "background_image"
         case genres
         case platforms
         case publishers

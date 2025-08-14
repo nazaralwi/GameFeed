@@ -50,7 +50,7 @@ public final class CoreDataFavoriteDataSource: CoreDataFavoriteDataSourceProtoco
                             name: result.value(forKeyPath: "name") as? String,
                             released: result.value(forKeyPath: "released") as? String,
                             rating: result.value(forKeyPath: "rating") as? String,
-                            backgroundImage: result.value(forKeyPath: "backgroundImage") as? String,
+                            backgroundImagePath: result.value(forKeyPath: "backgroundImage") as? String,
                             genres: result.value(forKeyPath: "genres") as? String)
 
                         favorites.append(favorite)
@@ -77,7 +77,7 @@ public final class CoreDataFavoriteDataSource: CoreDataFavoriteDataSourceProtoco
                             name: result.value(forKeyPath: "name") as? String,
                             released: result.value(forKeyPath: "released") as? String,
                             rating: result.value(forKeyPath: "rating") as? String,
-                            backgroundImage: result.value(forKeyPath: "backgroundImage") as? String,
+                            backgroundImagePath: result.value(forKeyPath: "backgroundImage") as? String,
                             genres: result.value(forKeyPath: "genres") as? String)
                         promise(.success(GameMapper.mapGameFavoriteModelToGameModel(game: favorite)))
                     }
@@ -100,7 +100,7 @@ public final class CoreDataFavoriteDataSource: CoreDataFavoriteDataSourceProtoco
                         favorite.setValue(game.name, forKey: "name")
                         favorite.setValue(game.rating, forKey: "rating")
                         favorite.setValue(game.released, forKey: "released")
-                        favorite.setValue(game.backgroundImage, forKey: "backgroundImage")
+                        favorite.setValue(game.backgroundImagePath, forKey: "backgroundImage")
                         favorite.setValue(game.genres, forKey: "genres")
                         favorite.setValue(isFavorite, forKey: "isFavorite")
                         do {

@@ -40,14 +40,12 @@ public final class DetailViewModel {
 
                 let mappedGameDetail = GameMapper.mapGameModelToGameUIModel(game: gameDetail)
 
-                if let backgroundPath = mappedGameDetail.backgroundImage {
-                    backgroundPublisher = gameFeedUseCase.downloadBackground(backgroundPath: backgroundPath)
-                        .map { Optional($0) }
-                        .catch { _ in Just(nil).setFailureType(to: Error.self) }
-                        .eraseToAnyPublisher()
-                } else {
-                    backgroundPublisher = Just(nil).setFailureType(to: Error.self).eraseToAnyPublisher()
-                }
+                backgroundPublisher = gameFeedUseCase
+                    .downloadBackground(backgroundPath: mappedGameDetail.backgroundImagePath)
+                    .map { Optional($0) }
+                    .catch { _ in Just(nil).setFailureType(to: Error.self) }
+                    .eraseToAnyPublisher()
+
                 return backgroundPublisher.map { (mappedGameDetail, $0) }.eraseToAnyPublisher()
             }
             .sink(receiveCompletion: { completion in

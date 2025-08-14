@@ -12,7 +12,7 @@ public struct GameModel {
     public let released: String
     public let description: String
     public let rating: String
-    public let backgroundImage: String
+    public let backgroundImagePath: String
     public let genres: String
     public let platforms: String
     public let publishers: String

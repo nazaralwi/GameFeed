@@ -17,6 +17,17 @@ class Formatter {
         }
     }
 
+    class func formatImagePath(from imagePath: String?) -> String {
+        guard let path = imagePath?.trimmingCharacters(in: .whitespacesAndNewlines),
+           !path.isEmpty,
+           let url = URL(string: path),
+           let scheme = url.scheme?.lowercased(),
+           scheme == "http" || scheme == "https",
+           url.host != nil else { return "broken_image" }
+
+        return path
+    }
+
     class func formatDate(from dateString: String?) -> String {
         guard let dateFromAPI = dateString else { return "-" }
 

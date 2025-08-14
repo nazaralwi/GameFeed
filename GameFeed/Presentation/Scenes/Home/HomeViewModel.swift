@@ -48,9 +48,7 @@ public final class HomeViewModel {
     }
 
     public func fetchBackground(for game: GameUIModel) {
-        guard let backgroundPath = game.backgroundImage else { return }
-
-        gameFeedUseCase.downloadBackground(backgroundPath: backgroundPath)
+        gameFeedUseCase.downloadBackground(backgroundPath: game.backgroundImagePath)
             .sink(receiveCompletion: { completion in
                 switch completion {
                 case .finished:

@@ -76,12 +76,16 @@ final class DetailGameViewController: UIViewController {
         self.releaseGameDetail.text = game.released
         self.platformGameDetail.text = game.platforms
         self.publisherGameDetail.text = game.publishers
-        self.metacriticGameDetail.text = String(game.metacritic ?? 0)
+        self.metacriticGameDetail.text = String(game.metacritic)
 
         if let downloadedImage = game.downloadedBackgroundImage {
             self.photoGameDetail.image = downloadedImage
-        } else if game.backgroundImage != nil {
-            print("Background NIL")
+        } else {
+            if game.backgroundImagePath != "broken_image" {
+//                viewModel!.fetchBackground(for: game)
+            } else {
+                self.photoGameDetail.image = UIImage(systemName: "photo.badge.exclamationmark")
+            }
         }
     }
 

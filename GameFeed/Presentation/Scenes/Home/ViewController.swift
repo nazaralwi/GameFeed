@@ -102,8 +102,13 @@ extension ViewController: UITableViewDataSource {
 
             if let downloadedImage = game.downloadedBackgroundImage {
                 cell.photoGame.image = downloadedImage
-            } else if game.backgroundImage != nil {
-                viewModel!.fetchBackground(for: game)
+            } else {
+                print("game.backgroundImagePath \(game.backgroundImagePath)")
+                if game.backgroundImagePath != "broken_image" {
+                    viewModel!.fetchBackground(for: game)
+                } else {
+                    cell.photoGame.image = UIImage(systemName: "photo.badge.exclamationmark")
+                }
             }
 
             return cell

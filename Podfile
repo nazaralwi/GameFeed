@@ -1,6 +1,15 @@
 # Uncomment the next line to define a global platform for your project
-platform :ios, '12.0' # or platform :osx, '10.10' if your target is OS X.
+# or platform :osx, '10.10' if your target is OS X.
+platform :ios, '15.0' 
 use_frameworks!
+
+post_install do |installer|
+  installer.pods_project.targets.each do |target|
+    target.build_configurations.each do |config|
+      config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '15.0'
+    end
+  end
+end
 
 pod 'Alamofire'
 pod 'Swinject'

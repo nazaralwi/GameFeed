@@ -10,15 +10,15 @@ import UIKit
 
 public struct GameUIModel {
     public let idGame: Int
-    public let name: String?
-    public let released: String?
-    public let description: String?
-    public let rating: String?
-    public let backgroundImage: String?
-    public let genres: String?
-    public let platforms: String?
-    public let publishers: String?
-    public let metacritic: Int?
+    public let name: String
+    public let released: String
+    public let description: String
+    public let rating: String
+    public let backgroundImagePath: String
+    public let genres: String
+    public let platforms: String
+    public let publishers: String
+    public let metacritic: Int
 
     public var downloadedBackgroundImage: UIImage?
 }

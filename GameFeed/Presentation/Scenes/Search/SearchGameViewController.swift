@@ -91,8 +91,12 @@ extension SearchGameViewController: UITableViewDataSource {
 
             if let downloadedImage = game.downloadedBackgroundImage {
                 cell.photoGame.image = downloadedImage
-            } else if game.backgroundImage != nil {
-                viewModel!.fetchBackground(for: game)
+            } else {
+                if game.backgroundImagePath != "broken_image" {
+                    viewModel!.fetchBackground(for: game)
+                } else {
+                    cell.photoGame.image = UIImage(systemName: "photo.badge.exclamationmark")
+                }
             }
 
             cell.setNeedsLayout()

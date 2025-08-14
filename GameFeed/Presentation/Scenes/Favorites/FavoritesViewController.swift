@@ -95,8 +95,12 @@ extension FavoritesViewController: UITableViewDataSource {
 
             if let downloadedImage = favorite.downloadedBackgroundImage {
                 cell.photoGame.image = downloadedImage
-            } else if favorite.backgroundImage != nil {
-                viewModel!.fetchBackground(for: favorite)
+            } else {
+                if favorite.backgroundImagePath != "broken_image" {
+                    viewModel!.fetchBackground(for: favorite)
+                } else {
+                    cell.photoGame.image = UIImage(systemName: "photo.badge.exclamationmark")
+                }
             }
 
             return cell

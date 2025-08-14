@@ -9,7 +9,7 @@ public struct GameResponse: Codable {
     public let name: String
     public let released: String?
     public let rating: Double
-    public let backgroundImage: String?
+    public let backgroundImagePath: String?
     public let genres: [GenreResponse]?
 
     private enum CodingKeys: String, CodingKey {
@@ -17,7 +17,7 @@ public struct GameResponse: Codable {
         case name
         case released
         case rating
-        case backgroundImage = "background_image"
+        case backgroundImagePath = "background_image"
         case genres
     }
 }

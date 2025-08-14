@@ -39,7 +39,7 @@ class MockRAWGService: GameRemoteDataSourceProtocol {
             released: "A release date",
             description: "A description",
             rating: "A rating",
-            backgroundImage: "A background image",
+            backgroundImagePath: "A background image",
             genres: "Some genres",
             platforms: "Some platforms",
             publishers: "Some publishers",
