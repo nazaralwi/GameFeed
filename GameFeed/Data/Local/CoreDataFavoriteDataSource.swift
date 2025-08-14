@@ -3,9 +3,9 @@ import CoreData
 import Combine
 
 public protocol CoreDataFavoriteDataSourceProtocol {
-    func getAllFavorites() -> Future<[FavoriteModel], Error>
-    func getFavorite(_ id: Int) -> Future<FavoriteModel, Error>
-    func addToFavorite(game: GameUIModel, _ isFavorite: Bool) -> Future<Void, Error>
+    func getAllFavorites() -> Future<[GameModel], Error>
+    func getFavorite(_ id: Int) -> Future<GameModel, Error>
+    func addToFavorite(game: GameModel, _ isFavorite: Bool) -> Future<Void, Error>
     func deleteAllFavorite() -> Future<Void, Error>
     func checkData(id: Int) -> Bool
     func deleteFavorite(_ id: Int) -> Future<Void, Error>
@@ -36,7 +36,7 @@ public final class CoreDataFavoriteDataSource: CoreDataFavoriteDataSourceProtoco
         return taskContext
     }
 
-    public func getAllFavorites() -> Future<[FavoriteModel], Error> {
+    public func getAllFavorites() -> Future<[GameModel], Error> {
         return Future { promise in
             let taskContext = self.newTaskContext()
             taskContext.perform {
@@ -55,7 +55,7 @@ public final class CoreDataFavoriteDataSource: CoreDataFavoriteDataSourceProtoco
 
                         favorites.append(favorite)
                     }
-                    promise(.success(favorites))
+                    promise(.success(favorites.map { GameMapper.mapGameFavoriteModelToGameModel(game: $0) }))
                 } catch {
                     promise(.failure(error))
                 }
@@ -63,7 +63,7 @@ public final class CoreDataFavoriteDataSource: CoreDataFavoriteDataSourceProtoco
         }
     }
 
-    public func getFavorite(_ id: Int) -> Future<FavoriteModel, Error> {
+    public func getFavorite(_ id: Int) -> Future<GameModel, Error> {
         return Future { promise in
             let taskContext = self.newTaskContext()
             taskContext.perform {
@@ -79,7 +79,7 @@ public final class CoreDataFavoriteDataSource: CoreDataFavoriteDataSourceProtoco
                             rating: result.value(forKeyPath: "rating") as? String,
                             backgroundImage: result.value(forKeyPath: "backgroundImage") as? String,
                             genres: result.value(forKeyPath: "genres") as? String)
-                        promise(.success(favorite))
+                        promise(.success(GameMapper.mapGameFavoriteModelToGameModel(game: favorite)))
                     }
                 } catch {
                     promise(.failure(error))
@@ -88,7 +88,7 @@ public final class CoreDataFavoriteDataSource: CoreDataFavoriteDataSourceProtoco
         }
     }
 
-    public func addToFavorite(game: GameUIModel, _ isFavorite: Bool) -> Future<Void, Error> {
+    public func addToFavorite(game: GameModel, _ isFavorite: Bool) -> Future<Void, Error> {
         return Future { promise in
             let taskContext = self.newTaskContext()
             if !self.checkData(id: game.idGame) {

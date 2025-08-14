@@ -37,7 +37,10 @@ public final class DetailViewModel {
         gameFeedUseCase.getGameDetail(idGame: idGame)
             .flatMap { [self] gameDetail -> AnyPublisher<(GameUIModel, Data?), Error> in
                 let backgroundPublisher: AnyPublisher<Data?, Error>
-                if let backgroundPath = gameDetail.backgroundImage {
+
+                let mappedGameDetail = GameMapper.mapGameModelToGameUIModel(game: gameDetail)
+
+                if let backgroundPath = mappedGameDetail.backgroundImage {
                     backgroundPublisher = gameFeedUseCase.downloadBackground(backgroundPath: backgroundPath)
                         .map { Optional($0) }
                         .catch { _ in Just(nil).setFailureType(to: Error.self) }
@@ -45,7 +48,7 @@ public final class DetailViewModel {
                 } else {
                     backgroundPublisher = Just(nil).setFailureType(to: Error.self).eraseToAnyPublisher()
                 }
-                return backgroundPublisher.map { (gameDetail, $0) }.eraseToAnyPublisher()
+                return backgroundPublisher.map { (mappedGameDetail, $0) }.eraseToAnyPublisher()
             }
             .sink(receiveCompletion: { completion in
                 self.delegate?.didUpdateLoadingIndicator(isLoading: false)
@@ -71,7 +74,7 @@ public final class DetailViewModel {
     }
 
     public func addGameToFavorite(_ game: GameUIModel) {
-        _ = favoriteUseCase.addToFavorite(game: game, true)
+        _ = favoriteUseCase.addToFavorite(game: GameMapper.mapGameUIModelToGameModel(game: game), true)
     }
 
     public func deleteGameFavorite(_ gameId: Int) {

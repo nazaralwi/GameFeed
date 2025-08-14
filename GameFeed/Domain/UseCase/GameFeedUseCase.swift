@@ -11,29 +11,29 @@ import Combine
 
 public final class GameFeedUseCase {
 
-    private let rawgService: GameRemoteDataSourceProtocol
+    private let gameRemoteDataSource: GameRemoteDataSourceProtocol
 
     public init(rawgService: GameRemoteDataSourceProtocol) {
-        self.rawgService = rawgService
+        self.gameRemoteDataSource = rawgService
     }
 
-    public func getGameList() -> AnyPublisher<[GameUIModel], Error> {
-        return rawgService.getGameList()
+    public func getGameList() -> AnyPublisher<[GameModel], Error> {
+        return gameRemoteDataSource.getGameList()
     }
 
-    public func search(query: String) -> AnyPublisher<[GameUIModel], Error> {
-        return rawgService.search(query: query)
+    public func search(query: String) -> AnyPublisher<[GameModel], Error> {
+        return gameRemoteDataSource.search(query: query)
     }
 
-    public func getGameDetail(idGame: Int) -> AnyPublisher<GameUIModel, Error> {
-        return rawgService.getGameDetail(idGame: idGame)
+    public func getGameDetail(idGame: Int) -> AnyPublisher<GameModel, Error> {
+        return gameRemoteDataSource.getGameDetail(idGame: idGame)
     }
 
-    public func getNewGameLastMonths(lastMonth: String, now: String) -> AnyPublisher<[GameUIModel], Error> {
-        return rawgService.getNewGameLastMonths(lastMonth: lastMonth, now: now)
+    public func getNewGameLastMonths(lastMonth: String, now: String) -> AnyPublisher<[GameModel], Error> {
+        return gameRemoteDataSource.getNewGameLastMonths(lastMonth: lastMonth, now: now)
     }
 
     public func downloadBackground(backgroundPath: String) -> AnyPublisher<Data, Error> {
-        return rawgService.downloadBackground(backgroundPath: backgroundPath)
+        return gameRemoteDataSource.downloadBackground(backgroundPath: backgroundPath)
     }
 }

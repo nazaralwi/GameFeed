@@ -17,8 +17,8 @@ class Formatter {
         }
     }
 
-    class func formatDate(from dateFromAPI: String?) -> String {
-        guard let dateFromAPI = dateFromAPI else { return "-" }
+    class func formatDate(from dateString: String?) -> String {
+        guard let dateFromAPI = dateString else { return "-" }
 
         let dateFormatterGet = DateFormatter()
         dateFormatterGet.dateFormat = "yyyy-MM-dd"
@@ -33,11 +33,11 @@ class Formatter {
         }
     }
 
-    class func formatDateToString(from date: Date) -> String {
+    class func formatDate(from dateObject: Date) -> String {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd"
 
-        let dateString = dateFormatter.string(from: date)
+        let dateString = dateFormatter.string(from: dateObject)
 
         return dateString
     }

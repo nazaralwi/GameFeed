@@ -42,7 +42,8 @@ public final class SearchGameViewModel {
                 }
             }, receiveValue: { games in
                 if !games.isEmpty {
-                    self.games = games
+                    let mappedGames = games.map { GameMapper.mapGameModelToGameUIModel(game: $0) }
+                    self.games = mappedGames
                     self.delegate?.didUpdateGames()
                 }
 

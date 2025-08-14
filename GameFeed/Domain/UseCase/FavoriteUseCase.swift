@@ -17,15 +17,15 @@ public final class FavoriteUseCase {
         self.favoriteProvider = favoriteProvider
     }
 
-    public func getAllFavorites() -> Future<[FavoriteModel], Error> {
+    public func getAllFavorites() -> Future<[GameModel], Error> {
         return favoriteProvider.getAllFavorites()
     }
 
-    public func getFavorite(_ id: Int) -> Future<FavoriteModel, Error> {
+    public func getFavorite(_ id: Int) -> Future<GameModel, Error> {
         return favoriteProvider.getFavorite(id)
     }
 
-    public func addToFavorite(game: GameUIModel, _ isFavorite: Bool) -> Future<Void, Error> {
+    public func addToFavorite(game: GameModel, _ isFavorite: Bool) -> Future<Void, Error> {
         return favoriteProvider.addToFavorite(game: game, isFavorite)
     }
 

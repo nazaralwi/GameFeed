@@ -41,8 +41,7 @@ public final class FavoritesViewModel {
                     self.delegate?.didReceivedError(message: error.localizedDescription)
                 }
             }, receiveValue: { favorites in
-                let mappedFavorites = favorites.map {  GameMapper.mapGameFavoriteModelToGameUIModel(game: $0)
-                }
+                let mappedFavorites = favorites.map { GameMapper.mapGameModelToGameUIModel(game: $0) }
                 self.games = mappedFavorites
                 self.delegate?.didUpdateLoadingIndicator(isLoading: false)
                 self.delegate?.didUpdateGames()

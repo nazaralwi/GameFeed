@@ -38,7 +38,9 @@ public final class NewGameViewModel {
                 self.delegate?.didReceivedError(message: error.localizedDescription)
             }
         }, receiveValue: { games in
-            self.games = games
+            let mappedGames = games.map { GameMapper.mapGameModelToGameUIModel(game: $0) }
+            self.games = mappedGames
+
             self.delegate?.didUpdateLoadingIndicator(isLoading: false)
             self.delegate?.didUpdateGames()
         })

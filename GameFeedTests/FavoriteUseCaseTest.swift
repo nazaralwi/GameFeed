@@ -18,21 +18,32 @@ class MockFavoriteProvider: CoreDataFavoriteDataSourceProtocol {
     var checkDataCalled = false
     var deleteFavoriteCalled = false
 
-    func getAllFavorites() -> Future<[FavoriteModel], Error> {
+    func getAllFavorites() -> Future<[GameModel], Error> {
         getAllFavoritesCalled = true
         return Future { promise in
-            promise(.success([FavoriteModel]()))
+            promise(.success([GameModel]()))
         }
     }
 
-    func getFavorite(_ id: Int) -> Future<FavoriteModel, Error> {
+    func getFavorite(_ id: Int) -> Future<GameModel, Error> {
         getFavoriteCalled = true
+        let game = GameModel(
+            idGame: 123,
+            name: "A game",
+            released: "A release date",
+            description: "A description",
+            rating: "A rating",
+            backgroundImage: "A background image",
+            genres: "Some genres",
+            platforms: "Some platforms",
+            publishers: "Some publishers",
+            metacritic: 0)
         return Future { promise in
-            promise(.success(FavoriteModel()))
+            promise(.success(game))
         }
     }
 
-    func addToFavorite(game: GameUIModel, _ isFavorite: Bool) -> Future<Void, Error> {
+    func addToFavorite(game: GameModel, _ isFavorite: Bool) -> Future<Void, Error> {
         addToFavoriteCalled = true
         return Future { promise in
             promise(.success(()))
@@ -81,7 +92,7 @@ final class FavoriteUseCaseTest: XCTestCase {
     }
 
     func testAddToFavorite() {
-        let game = GameUIModel(
+        let game = GameModel(
             idGame: 123,
             name: "A game",
             released: "A release date",

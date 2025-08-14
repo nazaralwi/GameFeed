@@ -17,23 +17,23 @@ class MockRAWGService: GameRemoteDataSourceProtocol {
     var getNewGameLastMonthsCalled = false
     var downloadBackgroundCalled = false
 
-    func getGameList() -> AnyPublisher<[GameUIModel], Error> {
+    func getGameList() -> AnyPublisher<[GameModel], Error> {
         getGameListCalled = true
-        return Just([GameUIModel]())
+        return Just([GameModel]())
             .setFailureType(to: Error.self)
             .eraseToAnyPublisher()
     }
 
-    func search(query: String) -> AnyPublisher<[GameUIModel], Error> {
+    func search(query: String) -> AnyPublisher<[GameModel], Error> {
         searchCalled = true
-        return Just([GameUIModel]())
+        return Just([GameModel]())
             .setFailureType(to: Error.self)
             .eraseToAnyPublisher()
     }
 
-    func getGameDetail(idGame: Int) -> AnyPublisher<GameUIModel, Error> {
+    func getGameDetail(idGame: Int) -> AnyPublisher<GameModel, Error> {
         getGameDetailCalled = true
-        let game = GameUIModel(
+        let game = GameModel(
             idGame: 123,
             name: "A game",
             released: "A release date",
@@ -50,9 +50,9 @@ class MockRAWGService: GameRemoteDataSourceProtocol {
             .eraseToAnyPublisher()
     }
 
-    func getNewGameLastMonths(lastMonth: String, now: String) -> AnyPublisher<[GameUIModel], Error> {
+    func getNewGameLastMonths(lastMonth: String, now: String) -> AnyPublisher<[GameModel], Error> {
         getNewGameLastMonthsCalled = true
-        return Just([GameUIModel]())
+        return Just([GameModel]())
             .setFailureType(to: Error.self)
             .eraseToAnyPublisher()
     }

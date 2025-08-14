@@ -57,6 +57,7 @@
 		E2F443892E4C6DAA00A7C169 /* ProfileUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2F443882E4C6DA500A7C169 /* ProfileUseCase.swift */; };
 		E2F4438B2E4C768600A7C169 /* FavoriteUseCaseTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2F4438A2E4C767C00A7C169 /* FavoriteUseCaseTest.swift */; };
 		E2F4438D2E4C768F00A7C169 /* ProfileUseCaseTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2F4438C2E4C768A00A7C169 /* ProfileUseCaseTest.swift */; };
+		E2F4438F2E4DA0B600A7C169 /* GameModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2F4438E2E4DA0B300A7C169 /* GameModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -127,6 +128,7 @@
 		E2F443882E4C6DA500A7C169 /* ProfileUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileUseCase.swift; sourceTree = "<group>"; };
 		E2F4438A2E4C767C00A7C169 /* FavoriteUseCaseTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteUseCaseTest.swift; sourceTree = "<group>"; };
 		E2F4438C2E4C768A00A7C169 /* ProfileUseCaseTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileUseCaseTest.swift; sourceTree = "<group>"; };
+		E2F4438E2E4DA0B300A7C169 /* GameModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameModel.swift; sourceTree = "<group>"; };
 		FC2266C7B3EF82459B567159 /* Pods_GameFeed.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GameFeed.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -219,6 +221,7 @@
 		3DF8FD8524D568EA00E64116 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				E2F4438E2E4DA0B300A7C169 /* GameModel.swift */,
 				3D8B773125382E390076805E /* ProfileModel.swift */,
 			);
 			path = Model;
@@ -673,6 +676,7 @@
 				E28B09302C609AEA000502B9 /* NewGameViewModel.swift in Sources */,
 				3DDCDC1224D57B790020AB8E /* GameTableViewCell.swift in Sources */,
 				E24E94672C4CFDC000CF5085 /* GameMapper.swift in Sources */,
+				E2F4438F2E4DA0B600A7C169 /* GameModel.swift in Sources */,
 				E25FF2262C3ED36700507993 /* UIView+RoundCorners.swift in Sources */,
 				E28B092A2C5FB7D6000502B9 /* HomeViewModel.swift in Sources */,
 				3DD8EC1C253AD88B00BBE509 /* UserFavorites.xcdatamodeld in Sources */,

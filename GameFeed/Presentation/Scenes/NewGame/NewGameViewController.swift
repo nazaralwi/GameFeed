@@ -54,8 +54,8 @@ final class NewGameViewController: UIViewController {
         loadingIndicator.startAnimating()
 
         viewModel?.fetchNewGame(
-            lastMonth: Formatter.formatDateToString(from: oneMonthBefore ?? Date()),
-            now: Formatter.formatDateToString(from: now))
+            lastMonth: Formatter.formatDate(from: oneMonthBefore ?? Date()),
+            now: Formatter.formatDate(from: now))
 
         tableView.dataSource = self
         tableView.delegate = self
