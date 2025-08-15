@@ -27,7 +27,7 @@ public final class MyProfileViewModel {
     public func save(name: String, company: String, email: String) -> Bool {
         guard !name.isEmpty, !company.isEmpty, !email.isEmpty else { return false }
 
-        let profile = Profile(name: name, company: company, email: email)
+        let profile = ProfileModel(name: name, company: company, email: email)
         profileUseCase.saveProfile(profile)
         load()
 

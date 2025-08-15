@@ -70,6 +70,19 @@
 		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		E284C3752E4E4CD20038CF3C /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		2A327DD2756E3427E3FEC8E2 /* Pods-GameFeed.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GameFeed.release.xcconfig"; path = "Target Support Files/Pods-GameFeed/Pods-GameFeed.release.xcconfig"; sourceTree = "<group>"; };
 		3D19822824D792CE00E3AD85 /* GameResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameResponse.swift; sourceTree = "<group>"; };
@@ -474,6 +487,7 @@
 				3DF8FD4F24D5661C00E64116 /* Resources */,
 				3D98573225433D31000646E7 /* ShellScript */,
 				6F57290AF32DD56D6FC99A8F /* [CP] Embed Pods Frameworks */,
+				E284C3752E4E4CD20038CF3C /* Embed Frameworks */,
 			);
 			buildRules = (
 			);

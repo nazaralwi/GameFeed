@@ -30,24 +30,29 @@ public final class FavoritesViewModel {
     }
 
     public func fetchUsers() {
-        self.favoriteUseCase.getAllFavorites()
-            .receive(on: DispatchQueue.main)
-            .sink(receiveCompletion: { completion in
-                switch completion {
-                case .finished:
-                    self.delegate?.didUpdateLoadingIndicator(isLoading: false)
-                case .failure(let error):
-                    self.delegate?.didUpdateLoadingIndicator(isLoading: false)
-                    self.delegate?.didReceivedError(message: error.localizedDescription)
-                }
-            }, receiveValue: { favorites in
-                let mappedFavorites = favorites.map { GameMapper.mapGameModelToGameUIModel(game: $0) }
-                self.games = mappedFavorites
-                self.delegate?.didUpdateLoadingIndicator(isLoading: false)
-                self.delegate?.didUpdateGames()
-            })
-            .store(in: &cancellables)
+        self.delegate?.didUpdateLoadingIndicator(isLoading: true)
 
+        Future<[GameModel], Error> { promise in
+            do {
+                let favorites = try self.favoriteUseCase.getAllFavorites()
+                promise(.success(favorites))
+            } catch {
+                promise(.failure(error))
+            }
+        }
+        .receive(on: DispatchQueue.main)
+        .sink(receiveCompletion: { completion in
+            self.delegate?.didUpdateLoadingIndicator(isLoading: false)
+
+            if case .failure(let error) = completion {
+                self.delegate?.didReceivedError(message: error.localizedDescription)
+            }
+        }, receiveValue: { favorites in
+            let mappedFavorites = favorites.map { GameMapper.mapGameModelToGameUIModel(game: $0) }
+            self.games = mappedFavorites
+            self.delegate?.didUpdateGames()
+        })
+        .store(in: &cancellables)
     }
 
     public func fetchBackground(for game: GameUIModel) {

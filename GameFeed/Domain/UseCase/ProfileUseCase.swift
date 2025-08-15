@@ -8,6 +8,11 @@
 
 import Foundation
 
+public protocol UserDefaultProfileDataSourceProtocol {
+    func getProfile() -> ProfileModel
+    func saveProfile(_ profile: ProfileModel)
+}
+
 public final class ProfileUseCase {
 
     private let profileProvider: UserDefaultProfileDataSourceProtocol
@@ -16,11 +21,11 @@ public final class ProfileUseCase {
         self.profileProvider = profileProvider
     }
 
-    public func getProfile() -> Profile {
+    public func getProfile() -> ProfileModel {
         return profileProvider.getProfile()
     }
 
-    public func saveProfile(_ profile: Profile) {
+    public func saveProfile(_ profile: ProfileModel) {
         profileProvider.saveProfile(profile)
     }
 }

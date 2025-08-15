@@ -7,7 +7,6 @@
 //
 
 import XCTest
-import Combine
 @testable import GameFeed
 
 class MockFavoriteProvider: CoreDataFavoriteDataSourceProtocol {
@@ -18,14 +17,12 @@ class MockFavoriteProvider: CoreDataFavoriteDataSourceProtocol {
     var checkDataCalled = false
     var deleteFavoriteCalled = false
 
-    func getAllFavorites() -> Future<[GameModel], Error> {
+    func getAllFavorites() throws -> [GameModel] {
         getAllFavoritesCalled = true
-        return Future { promise in
-            promise(.success([GameModel]()))
-        }
+        return [GameModel]()
     }
 
-    func getFavorite(_ id: Int) -> Future<GameModel, Error> {
+    func getFavorite(_ id: Int) throws -> GameModel {
         getFavoriteCalled = true
         let game = GameModel(
             idGame: 123,
@@ -38,23 +35,15 @@ class MockFavoriteProvider: CoreDataFavoriteDataSourceProtocol {
             platforms: "Some platforms",
             publishers: "Some publishers",
             metacritic: 0)
-        return Future { promise in
-            promise(.success(game))
-        }
+        return game
     }
 
-    func addToFavorite(game: GameModel, _ isFavorite: Bool) -> Future<Void, Error> {
+    func addToFavorite(game: GameModel, _ isFavorite: Bool) throws {
         addToFavoriteCalled = true
-        return Future { promise in
-            promise(.success(()))
-        }
     }
 
-    func deleteAllFavorite() -> Future<Void, Error> {
+    func deleteAllFavorite() throws {
         deleteAllFavoriteCalled = true
-        return Future { promise in
-            promise(.success(()))
-        }
     }
 
     func checkData(id: Int) -> Bool {
@@ -62,11 +51,8 @@ class MockFavoriteProvider: CoreDataFavoriteDataSourceProtocol {
         return true
     }
 
-    func deleteFavorite(_ id: Int) -> Future<Void, Error> {
+    func deleteFavorite(_ id: Int) throws {
         deleteFavoriteCalled = true
-        return Future { promise in
-            promise(.success(()))
-        }
     }
 }
 
@@ -82,13 +68,22 @@ final class FavoriteUseCaseTest: XCTestCase {
     }
 
     func testGetAllFavorites() {
-        _ = favoriteUseCase.getAllFavorites()
-        XCTAssertTrue(mockFavoriteProvider.getAllFavoritesCalled)
+        do {
+            let result = try favoriteUseCase.getAllFavorites()
+            XCTAssertTrue(mockFavoriteProvider.getAllFavoritesCalled)
+            XCTAssertEqual(result.count, 0)
+        } catch {
+            XCTFail("getAllFavorites threw an error: \(error)")
+        }
     }
 
     func testGetFavorite() {
-        _ = favoriteUseCase.getFavorite(1)
-        XCTAssertTrue(mockFavoriteProvider.getFavoriteCalled)
+        do {
+            _ = try favoriteUseCase.getFavorite(1)
+            XCTAssertTrue(mockFavoriteProvider.getFavoriteCalled)
+        } catch {
+            XCTFail("getFavorite threw an error: \(error)")
+        }
     }
 
     func testAddToFavorite() {
@@ -103,13 +98,22 @@ final class FavoriteUseCaseTest: XCTestCase {
             platforms: "Some platforms",
             publishers: "Some publishers",
             metacritic: 0)
-        _ = favoriteUseCase.addToFavorite(game: game, true)
-        XCTAssertTrue(mockFavoriteProvider.addToFavoriteCalled)
+
+        do {
+            try favoriteUseCase.addToFavorite(game: game, true)
+            XCTAssertTrue(mockFavoriteProvider.addToFavoriteCalled)
+        } catch {
+            XCTFail("addToFavorite threw an error: \(error)")
+        }
     }
 
     func testDeleteAllFavorite() {
-        _ = favoriteUseCase.deleteAllFavorite()
-        XCTAssertTrue(mockFavoriteProvider.deleteAllFavoriteCalled)
+        do {
+            _ = try favoriteUseCase.deleteAllFavorite()
+            XCTAssertTrue(mockFavoriteProvider.deleteAllFavoriteCalled)
+        } catch {
+            XCTFail("deleteAllFavorite threw an error: \(error)")
+        }
     }
 
     func testCheckData() {
@@ -118,7 +122,11 @@ final class FavoriteUseCaseTest: XCTestCase {
     }
 
     func testDeleteFavorite() {
-        _ = favoriteUseCase.deleteFavorite(1)
-        XCTAssertTrue(mockFavoriteProvider.deleteFavoriteCalled)
+        do {
+            _ = try favoriteUseCase.deleteFavorite(1)
+            XCTAssertTrue(mockFavoriteProvider.deleteFavoriteCalled)
+        } catch {
+            XCTFail("deleteFavorite threw an error: \(error)")
+        }
     }
 }

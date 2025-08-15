@@ -13,19 +13,19 @@ import Combine
 class MockProfileProvider: UserDefaultProfileDataSourceProtocol {
     var getProfileCalled = false
     var saveProfileCalled = false
-    var savedProfile: Profile?
+    var savedProfile: ProfileModel?
 
-    var stubProfile = Profile(
+    var stubProfile = ProfileModel(
         name: "Stub name",
         company: "Stub company",
         email: "stub@email.com")
 
-    func getProfile() -> GameFeed.Profile {
+    func getProfile() -> GameFeed.ProfileModel {
         getProfileCalled = true
         return stubProfile
     }
 
-    func saveProfile(_ profile: GameFeed.Profile) {
+    func saveProfile(_ profile: GameFeed.ProfileModel) {
         saveProfileCalled = true
         savedProfile = profile
     }

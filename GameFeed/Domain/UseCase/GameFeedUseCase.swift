@@ -9,6 +9,14 @@
 import Foundation
 import Combine
 
+public protocol GameRemoteDataSourceProtocol {
+    func getGameList() -> AnyPublisher<[GameModel], Error>
+    func search(query: String) -> AnyPublisher<[GameModel], Error>
+    func getGameDetail(idGame: Int) -> AnyPublisher<GameModel, Error>
+    func getNewGameLastMonths(lastMonth: String, now: String) -> AnyPublisher<[GameModel], Error>
+    func downloadBackground(backgroundPath: String) -> AnyPublisher<Data, Error>
+}
+
 public final class GameFeedUseCase {
 
     private let gameRemoteDataSource: GameRemoteDataSourceProtocol

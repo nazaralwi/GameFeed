@@ -7,7 +7,15 @@
 //
 
 import Foundation
-import Combine
+
+public protocol CoreDataFavoriteDataSourceProtocol {
+    func getAllFavorites() throws -> [GameModel]
+    func getFavorite(_ id: Int) throws -> GameModel
+    func addToFavorite(game: GameModel, _ isFavorite: Bool) throws
+    func deleteAllFavorite() throws
+    func checkData(id: Int) -> Bool
+    func deleteFavorite(_ id: Int) throws
+}
 
 public final class FavoriteUseCase {
 
@@ -17,27 +25,27 @@ public final class FavoriteUseCase {
         self.favoriteProvider = favoriteProvider
     }
 
-    public func getAllFavorites() -> Future<[GameModel], Error> {
-        return favoriteProvider.getAllFavorites()
+    public func getAllFavorites() throws -> [GameModel] {
+        return try favoriteProvider.getAllFavorites()
     }
 
-    public func getFavorite(_ id: Int) -> Future<GameModel, Error> {
-        return favoriteProvider.getFavorite(id)
+    public func getFavorite(_ id: Int) throws -> GameModel {
+        return try favoriteProvider.getFavorite(id)
     }
 
-    public func addToFavorite(game: GameModel, _ isFavorite: Bool) -> Future<Void, Error> {
-        return favoriteProvider.addToFavorite(game: game, isFavorite)
+    public func addToFavorite(game: GameModel, _ isFavorite: Bool) throws {
+        return try favoriteProvider.addToFavorite(game: game, isFavorite)
     }
 
-    public func deleteAllFavorite() -> Future<Void, Error> {
-        return favoriteProvider.deleteAllFavorite()
+    public func deleteAllFavorite() throws {
+        return try favoriteProvider.deleteAllFavorite()
     }
 
     public func checkData(id: Int) -> Bool {
         return favoriteProvider.checkData(id: id)
     }
 
-    public func deleteFavorite(_ id: Int) -> Future<Void, Error> {
-        return favoriteProvider.deleteFavorite(id)
+    public func deleteFavorite(_ id: Int) throws {
+        return try favoriteProvider.deleteFavorite(id)
     }
 }

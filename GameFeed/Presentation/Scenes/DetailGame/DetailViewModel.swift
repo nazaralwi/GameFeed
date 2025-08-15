@@ -72,11 +72,25 @@ public final class DetailViewModel {
     }
 
     public func addGameToFavorite(_ game: GameUIModel) {
-        _ = favoriteUseCase.addToFavorite(game: GameMapper.mapGameUIModelToGameModel(game: game), true)
+        _ = Future<Void, Error> { promise in
+            do {
+                try self.favoriteUseCase.addToFavorite(game: GameMapper.mapGameUIModelToGameModel(game: game), true)
+                promise(.success(()))
+            } catch {
+                promise(.failure(error))
+            }
+        }
     }
 
     public func deleteGameFavorite(_ gameId: Int) {
-        _ = favoriteUseCase.deleteFavorite(gameId)
+        _ = Future<Void, Error> { promise in
+            do {
+                try self.favoriteUseCase.deleteFavorite(gameId)
+                promise(.success(()))
+            } catch {
+                promise(.failure(error))
+            }
+        }
     }
 
     public func updateFavoriteState(for gameId: Int) {

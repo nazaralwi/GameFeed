@@ -27,3 +27,7 @@ target 'GameFeed' do
   end
 
 end
+
+#target 'GameFeedDomain' do
+#  project '../GameFeedDomain/GameFeedDomain'
+#end
