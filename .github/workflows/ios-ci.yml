@@ -17,7 +17,7 @@ jobs:
 
       # 2. Setup Xcode
       - name: Select Xcode version
-        run: sudo xcode-select -s /Applications/Xcode_16.0.app
+        run: sudo xcode-select -s /Applications/Xcode_16.2.app
 
       # 3. Fix Package.resolved file is corrupted or malformed problem
       - name: Patch Xcode 15.3
