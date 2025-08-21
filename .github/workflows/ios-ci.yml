@@ -15,11 +15,15 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      # 2. Setup Xcode versi tertentu
+      # 2. Setup Xcode
       - name: Select Xcode version
         run: sudo xcode-select -s /Applications/Xcode_15.2.app
 
-      # 3. Build & Test dengan SPM
+      # 3. Fix Package.resolved file is corrupted or malformed problem
+      - name: Patch Xcode 15.3
+        uses: 2sem/patch-package-resolved@v2
+
+      # 4. Build & Test with SPM
       - name: Build & Test
         run: |
           xcodebuild \
