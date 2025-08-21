@@ -9,6 +9,7 @@
 import Foundation
 import Swinject
 import SwinjectStoryboard
+import GameFeedDomain
 
 class SwinjectContainer {
     private static var container: Container = {

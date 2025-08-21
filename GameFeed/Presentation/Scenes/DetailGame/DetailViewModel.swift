@@ -8,6 +8,7 @@
 
 import UIKit
 import Combine
+import GameFeedDomain
 
 public protocol DetailViewModelDelegate: AnyObject {
     func didLoadDetailGame(game: GameUIModel)

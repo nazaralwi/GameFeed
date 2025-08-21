@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import GameFeedDomain
 
 public final class MyProfileViewModel {
     private var profileUseCase: ProfileUseCase

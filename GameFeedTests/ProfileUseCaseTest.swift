@@ -9,6 +9,7 @@
 import XCTest
 import Combine
 @testable import GameFeed
+@testable import GameFeedDomain
 
 class MockProfileProvider: UserDefaultProfileDataSourceProtocol {
     var getProfileCalled = false
@@ -20,12 +21,12 @@ class MockProfileProvider: UserDefaultProfileDataSourceProtocol {
         company: "Stub company",
         email: "stub@email.com")
 
-    func getProfile() -> GameFeed.ProfileModel {
+    func getProfile() -> ProfileModel {
         getProfileCalled = true
         return stubProfile
     }
 
-    func saveProfile(_ profile: GameFeed.ProfileModel) {
+    func saveProfile(_ profile: ProfileModel) {
         saveProfileCalled = true
         savedProfile = profile
     }

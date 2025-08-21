@@ -1,5 +1,6 @@
 import Foundation
 import Combine
+import GameFeedDomain
 
 public class GameRemoteDataSource: GameRemoteDataSourceProtocol {
     private let networking: Networking

@@ -1,4 +1,5 @@
 import CoreData
+import GameFeedDomain
 
 public final class CoreDataFavoriteDataSource: CoreDataFavoriteDataSourceProtocol {
     private lazy var persistentContainer: NSPersistentContainer = {

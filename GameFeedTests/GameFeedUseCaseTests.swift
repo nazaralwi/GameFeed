@@ -9,6 +9,7 @@
 import XCTest
 import Combine
 @testable import GameFeed
+@testable import GameFeedDomain
 
 class MockRAWGService: GameRemoteDataSourceProtocol {
     var getGameListCalled = false
