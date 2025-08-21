@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 60;
+	objectVersion = 54;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -55,6 +55,7 @@
 		E2A5BD732E56BA3D00E76486 /* Swinject in Frameworks */ = {isa = PBXBuildFile; productRef = E2A5BD722E56BA3D00E76486 /* Swinject */; };
 		E2A5BD782E56BA4400E76486 /* SwinjectStoryboard in Frameworks */ = {isa = PBXBuildFile; productRef = E2A5BD772E56BA4400E76486 /* SwinjectStoryboard */; };
 		E2A5BD802E56D2A300E76486 /* GameFeedDomain in Frameworks */ = {isa = PBXBuildFile; productRef = E2A5BD7F2E56D2A300E76486 /* GameFeedDomain */; };
+		E2A5BD832E56DE6000E76486 /* GameFeedDomain in Frameworks */ = {isa = PBXBuildFile; productRef = E2A5BD822E56DE6000E76486 /* GameFeedDomain */; };
 		E2E64F7F2C7ED80F005363F8 /* GameFeedUseCaseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2E64F7E2C7ED80F005363F8 /* GameFeedUseCaseTests.swift */; };
 		E2E64F802C80096B005363F8 /* MyProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E28B09332C637A1E000502B9 /* MyProfileViewModel.swift */; };
 		E2F443702E4B00CA00A7C169 /* ProfileUIModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2F4436F2E4B00C400A7C169 /* ProfileUIModel.swift */; };
@@ -155,6 +156,7 @@
 				E2A5BD602E56B25600E76486 /* Alamofire in Frameworks */,
 				E2A5BD802E56D2A300E76486 /* GameFeedDomain in Frameworks */,
 				E2A5BD732E56BA3D00E76486 /* Swinject in Frameworks */,
+				E2A5BD832E56DE6000E76486 /* GameFeedDomain in Frameworks */,
 				E2A5BD5D2E56B24A00E76486 /* SwinjectStoryboard in Frameworks */,
 				E2A5BD782E56BA4400E76486 /* SwinjectStoryboard in Frameworks */,
 				E2A5BD682E56B82A00E76486 /* SwinjectStoryboard in Frameworks */,
@@ -478,7 +480,7 @@
 				E2A5BD6C2E56BA3300E76486 /* XCRemoteSwiftPackageReference "Alamofire" */,
 				E2A5BD712E56BA3D00E76486 /* XCRemoteSwiftPackageReference "Swinject" */,
 				E2A5BD762E56BA4400E76486 /* XCRemoteSwiftPackageReference "SwinjectStoryboard" */,
-				E2A5BD7E2E56D2A300E76486 /* XCLocalSwiftPackageReference "../GameFeedDomain" */,
+				E2A5BD812E56DE6000E76486 /* XCRemoteSwiftPackageReference "GameFeedDomain" */,
 			);
 			productRefGroup = 3DF8FD5224D5661C00E64116 /* Products */;
 			projectDirPath = "";
@@ -857,13 +859,6 @@
 		};
 /* End XCConfigurationList section */
 
-/* Begin XCLocalSwiftPackageReference section */
-		E2A5BD7E2E56D2A300E76486 /* XCLocalSwiftPackageReference "../GameFeedDomain" */ = {
-			isa = XCLocalSwiftPackageReference;
-			relativePath = ../GameFeedDomain;
-		};
-/* End XCLocalSwiftPackageReference section */
-
 /* Begin XCRemoteSwiftPackageReference section */
 		E2A5BD562E56B24100E76486 /* XCRemoteSwiftPackageReference "Swinject" */ = {
 			isa = XCRemoteSwiftPackageReference;
@@ -937,6 +932,14 @@
 				minimumVersion = 2.2.3;
 			};
 		};
+		E2A5BD812E56DE6000E76486 /* XCRemoteSwiftPackageReference "GameFeedDomain" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/nazaralwi/GameFeedDomain";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -987,6 +990,11 @@
 		};
 		E2A5BD7F2E56D2A300E76486 /* GameFeedDomain */ = {
 			isa = XCSwiftPackageProductDependency;
+			productName = GameFeedDomain;
+		};
+		E2A5BD822E56DE6000E76486 /* GameFeedDomain */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = E2A5BD812E56DE6000E76486 /* XCRemoteSwiftPackageReference "GameFeedDomain" */;
 			productName = GameFeedDomain;
 		};
 /* End XCSwiftPackageProductDependency section */
