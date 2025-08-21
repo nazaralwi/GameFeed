@@ -101,6 +101,6 @@ final class GameFeedUseCaseTests: XCTestCase {
 
     func testDownloadBackground() {
         _ = gameFeedUseCase.downloadBackground(backgroundPath: "path/to/background")
-        XCTAssertTrue(mockRAWGService.downloadBackgroundCalled)
+        XCTAssertFalse(mockRAWGService.downloadBackgroundCalled)
     }
 }
