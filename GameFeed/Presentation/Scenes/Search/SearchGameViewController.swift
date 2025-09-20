@@ -1,9 +1,14 @@
 import UIKit
 
 final class SearchGameViewController: UIViewController {
-    @IBOutlet private weak var tableView: UITableView!
-    @IBOutlet private weak var searchBar: UISearchBar!
-    @IBOutlet private weak var loadingIndicator: UIActivityIndicatorView!
+    private let tableView = UITableView()
+    private let loadingIndicator = UIActivityIndicatorView()
+    private let errorLabel: UILabel = {
+        let label = UILabel()
+        label.font = .systemFont(ofSize: 18)
+        return label
+    }()
+    private let searchBar = UISearchBar()
 
     public var viewModel: SearchGameViewModel?
 
@@ -21,39 +26,49 @@ final class SearchGameViewController: UIViewController {
     }
 
     override func viewDidAppear(_ animated: Bool) {
-        navigationController?.navigationBar.barStyle = .black
-
-        let appearance = UINavigationBarAppearance()
-        appearance.configureWithOpaqueBackground()
-        appearance.backgroundColor = .black
-        appearance.titleTextAttributes = [.foregroundColor: UIColor.white]
-
-        navigationController?.navigationBar.standardAppearance = appearance
-        navigationController?.navigationBar.scrollEdgeAppearance = appearance
-
         let tabBarAppearance = UITabBarAppearance()
         tabBarAppearance.configureWithOpaqueBackground()
         tabBarAppearance.backgroundColor = .black
 
         UITabBar.appearance().standardAppearance = tabBarAppearance
-//        UITabBar.appearance().scrollEdgeAppearance = tabBarAppearance
-    }
-
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "showDetail" {
-            let detail = segue.destination as? DetailGameViewController
-            detail?.game = games[selectedIndex]
-        }
     }
 
     private func setupView() {
+        [tableView, searchBar, loadingIndicator, errorLabel].forEach {
+            $0.translatesAutoresizingMaskIntoConstraints = false
+            view.addSubview($0)
+        }
+
+        NSLayoutConstraint.activate([
+            searchBar.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            searchBar.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
+            searchBar.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
+            searchBar.heightAnchor.constraint(equalToConstant: 44),
+
+            tableView.topAnchor.constraint(equalTo: searchBar.bottomAnchor),
+            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+
+            loadingIndicator.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            loadingIndicator.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+
+            errorLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            errorLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor)
+        ])
+
         searchBar.delegate = self
         tableView.delegate = self
         tableView.dataSource = self
 
         viewModel?.delegate = self
 
-        tableView.register(UINib(nibName: "GameTableViewCell", bundle: nil), forCellReuseIdentifier: "GameCell")
+        tableView.register(GameTableViewCell.self, forCellReuseIdentifier: "GameCell")
+
+        tableView.separatorStyle = .none
+        tableView.rowHeight = UITableView.automaticDimension
+        tableView.estimatedRowHeight = 360
+        tableView.backgroundColor = .systemGroupedBackground
     }
 }
 
@@ -87,7 +102,7 @@ extension SearchGameViewController: UITableViewDataSource {
             cell.releaseGame.text = game.released
             cell.genreGame.text = game.genres
             cell.titleGame.text = game.name
-            cell.ratingGame.text = game.rating
+            cell.ratingGame.text = "⭐️ " + game.rating
 
             if let downloadedImage = game.downloadedBackgroundImage {
                 cell.photoGame.image = downloadedImage
@@ -112,7 +127,15 @@ extension SearchGameViewController: UITableViewDataSource {
 extension SearchGameViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         selectedIndex = indexPath.row
-        performSegue(withIdentifier: "showDetail", sender: nil)
+
+        let container = SwinjectContainer.getContainer()
+
+        let detailVC = DetailGameViewController()
+        detailVC.viewModel = container.resolve(DetailViewModel.self)
+        detailVC.game = games[selectedIndex]
+
+        navigationController?.pushViewController(detailVC, animated: true)
+
         tableView.deselectRow(at: indexPath, animated: true)
     }
 }

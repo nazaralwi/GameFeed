@@ -64,6 +64,18 @@ final class MyProfileViewController: UIViewController {
             emailLabel.leadingAnchor.constraint(equalTo: nameLabel.leadingAnchor),
             emailLabel.trailingAnchor.constraint(equalTo: nameLabel.trailingAnchor)
         ])
+
+        navigationItem.rightBarButtonItem = UIBarButtonItem(
+            barButtonSystemItem: .edit,
+            target: self,
+            action: #selector(editProfileTapped)
+        )
+    }
+
+    @objc private func editProfileTapped() {
+        let updateVC = UpdateViewController()
+        updateVC.viewModel = viewModel
+        navigationController?.pushViewController(updateVC, animated: true)
     }
 
     override func viewDidLayoutSubviews() {

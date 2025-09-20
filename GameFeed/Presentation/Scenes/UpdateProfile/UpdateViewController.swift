@@ -107,6 +107,12 @@ final class UpdateViewController: UIViewController {
 
         let tapGesture = UITapGestureRecognizer(target: view, action: #selector(UIView.endEditing))
         view.addGestureRecognizer(tapGesture)
+
+        navigationItem.rightBarButtonItem = UIBarButtonItem(
+            barButtonSystemItem: .save,
+            target: self,
+            action: #selector(saveProfile)
+        )
     }
 
     override func viewDidLayoutSubviews() {
@@ -129,7 +135,7 @@ final class UpdateViewController: UIViewController {
         viewModel?.load()
     }
 
-    @IBAction func saveProfile(_ sender: Any) {
+    @objc private func saveProfile(_ sender: Any) {
         if let name = nameTextField.text, let company = companyTextField.text, let email = emailTextField.text {
             if viewModel!.save(name: name, company: company, email: email) {
                 navigationController?.popViewController(animated: true)

@@ -1,9 +1,13 @@
 import UIKit
 
 final class ViewController: UIViewController {
-    @IBOutlet private weak var tableView: UITableView!
-    @IBOutlet private weak var loadingIndicator: UIActivityIndicatorView!
-    @IBOutlet private weak var errorLabel: UILabel!
+    private let tableView = UITableView()
+    private let loadingIndicator = UIActivityIndicatorView()
+    private let errorLabel: UILabel = {
+        let label = UILabel()
+        label.font = .systemFont(ofSize: 18)
+        return label
+    }()
 
     public var viewModel: HomeViewModel?
 
@@ -20,22 +24,11 @@ final class ViewController: UIViewController {
     }
 
     override func viewDidAppear(_ animated: Bool) {
-        navigationController?.navigationBar.barStyle = .black
-
-        let appearance = UINavigationBarAppearance()
-        appearance.configureWithOpaqueBackground()
-        appearance.backgroundColor = .black
-        appearance.titleTextAttributes = [.foregroundColor: UIColor.white]
-
-        navigationController?.navigationBar.standardAppearance = appearance
-        navigationController?.navigationBar.scrollEdgeAppearance = appearance
-
         let tabBarAppearance = UITabBarAppearance()
         tabBarAppearance.configureWithOpaqueBackground()
         tabBarAppearance.backgroundColor = .black
 
         UITabBar.appearance().standardAppearance = tabBarAppearance
-//        UITabBar.appearance().scrollEdgeAppearance = tabBarAppearance
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -43,14 +36,25 @@ final class ViewController: UIViewController {
         tableView.reloadData()
     }
 
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "showDetail" {
-            let detail = segue.destination as? DetailGameViewController
-            detail?.game = games[selectedIndex]
-        }
-    }
-
     private func setupView() {
+        [tableView, loadingIndicator, errorLabel].forEach {
+            $0.translatesAutoresizingMaskIntoConstraints = false
+            view.addSubview($0)
+        }
+
+        NSLayoutConstraint.activate([
+            tableView.topAnchor.constraint(equalTo: view.topAnchor),
+            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+
+            loadingIndicator.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            loadingIndicator.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+
+            errorLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            errorLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor)
+        ])
+
         self.tableView.contentInset.bottom = 10
 
         tableView.dataSource = self
@@ -69,7 +73,12 @@ final class ViewController: UIViewController {
 
         loadGameList()
 
-        tableView.register(UINib(nibName: "GameTableViewCell", bundle: nil), forCellReuseIdentifier: "GameCell")
+        tableView.register(GameTableViewCell.self, forCellReuseIdentifier: "GameCell")
+
+        tableView.separatorStyle = .none
+        tableView.rowHeight = UITableView.automaticDimension
+        tableView.estimatedRowHeight = 360
+        tableView.backgroundColor = .systemGroupedBackground
     }
 
     private func loadGameList() {
@@ -98,7 +107,7 @@ extension ViewController: UITableViewDataSource {
             cell.releaseGame.text = game.released
             cell.genreGame.text = game.genres
             cell.titleGame.text = game.name
-            cell.ratingGame.text = game.rating
+            cell.ratingGame.text = "⭐️ " + game.rating
 
             if let downloadedImage = game.downloadedBackgroundImage {
                 cell.photoGame.image = downloadedImage
@@ -121,7 +130,15 @@ extension ViewController: UITableViewDataSource {
 extension ViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         selectedIndex = indexPath.row
-        performSegue(withIdentifier: "showDetail", sender: nil)
+        
+        let container = SwinjectContainer.getContainer()
+
+        let detailVC = DetailGameViewController()
+        detailVC.viewModel = container.resolve(DetailViewModel.self)
+        detailVC.game = games[selectedIndex]
+
+        navigationController?.pushViewController(detailVC, animated: true)
+
         tableView.deselectRow(at: indexPath, animated: true)
     }
 }

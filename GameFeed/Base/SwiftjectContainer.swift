@@ -8,7 +8,6 @@
 
 import Foundation
 import Swinject
-import SwinjectStoryboard
 import GameFeedDomain
 
 class SwinjectContainer {
@@ -63,34 +62,6 @@ class SwinjectContainer {
                     gameFeedUseCase: resolver.resolve(GameFeedUseCase.self)!,
                     favoriteUseCase: resolver.resolve(FavoriteUseCase.self)!
                 )
-            }
-
-            container.storyboardInitCompleted(ViewController.self) { resolver, viewController in
-                viewController.viewModel = resolver.resolve(HomeViewModel.self)
-            }
-
-            container.storyboardInitCompleted(DetailGameViewController.self) { resolver, detailViewController in
-                detailViewController.viewModel = resolver.resolve(DetailViewModel.self)
-            }
-
-            container.storyboardInitCompleted(SearchGameViewController.self) { resolver, searchGameViewController in
-                searchGameViewController.viewModel = resolver.resolve(SearchGameViewModel.self)
-            }
-
-            container.storyboardInitCompleted(NewGameViewController.self) { resolver, newGameViewController in
-                newGameViewController.viewModel = resolver.resolve(NewGameViewModel.self)
-            }
-
-            container.storyboardInitCompleted(FavoritesViewController.self) { resolver, favoritesViewController in
-                favoritesViewController.viewModel = resolver.resolve(FavoritesViewModel.self)
-            }
-
-            container.storyboardInitCompleted(MyProfileViewController.self) { resolver, myProfileViewController in
-                myProfileViewController.viewModel = resolver.resolve(MyProfileViewModel.self)
-            }
-
-            container.storyboardInitCompleted(UpdateViewController.self) { resolver, updateProfileViewController in
-                updateProfileViewController.viewModel = resolver.resolve(MyProfileViewModel.self)
             }
         }
 
