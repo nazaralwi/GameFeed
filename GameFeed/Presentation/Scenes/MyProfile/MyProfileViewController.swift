@@ -8,7 +8,6 @@ final class MyProfileViewController: UIViewController {
         imageView.clipsToBounds = true
         return imageView
     }()
-
     private let nameLabel: UILabel = {
         let label = UILabel()
         label.font = .systemFont(ofSize: 22, weight: .bold)
@@ -16,7 +15,6 @@ final class MyProfileViewController: UIViewController {
         label.textAlignment = .center
         return label
     }()
-
     private let companyLabel: UILabel = {
         let label = UILabel()
         label.font = .systemFont(ofSize: 16)
@@ -24,7 +22,6 @@ final class MyProfileViewController: UIViewController {
         label.textAlignment = .center
         return label
     }()
-
     private let emailLabel: UILabel = {
         let label = UILabel()
         label.font = .systemFont(ofSize: 16)
@@ -33,13 +30,46 @@ final class MyProfileViewController: UIViewController {
         return label
     }()
 
+    private lazy var editProfileButton: UIBarButtonItem = {
+        let button = UIBarButtonItem(
+            barButtonSystemItem: .edit,
+            target: self,
+            action: #selector(editProfileTapped)
+        )
+        return button
+    }()
+
     var viewModel: MyProfileViewModel?
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        view.backgroundColor = .systemBackground
+        setupView()
 
+        navigationItem.rightBarButtonItem = editProfileButton
+    }
+
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+
+        profileImageView.layer.cornerRadius = profileImageView.frame.height / 2
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+
+        viewModel?.onChange = { [weak self] data in
+            DispatchQueue.main.async {
+                self?.nameLabel.text = data.name
+                self?.companyLabel.text = data.company
+                self?.emailLabel.text = data.email
+            }
+        }
+
+        viewModel?.load()
+    }
+
+    private func setupView() {
         [profileImageView, nameLabel, companyLabel, emailLabel].forEach {
             view.addSubview($0)
             $0.translatesAutoresizingMaskIntoConstraints = false
@@ -64,37 +94,11 @@ final class MyProfileViewController: UIViewController {
             emailLabel.leadingAnchor.constraint(equalTo: nameLabel.leadingAnchor),
             emailLabel.trailingAnchor.constraint(equalTo: nameLabel.trailingAnchor)
         ])
-
-        navigationItem.rightBarButtonItem = UIBarButtonItem(
-            barButtonSystemItem: .edit,
-            target: self,
-            action: #selector(editProfileTapped)
-        )
     }
 
     @objc private func editProfileTapped() {
         let updateVC = UpdateViewController()
         updateVC.viewModel = viewModel
         navigationController?.pushViewController(updateVC, animated: true)
-    }
-
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-
-        profileImageView.layer.cornerRadius = profileImageView.frame.height / 2
-    }
-
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-
-        viewModel?.onChange = { [weak self] data in
-            DispatchQueue.main.async {
-                self?.nameLabel.text = data.name
-                self?.companyLabel.text = data.company
-                self?.emailLabel.text = data.email
-            }
-        }
-
-        viewModel?.load()
     }
 }

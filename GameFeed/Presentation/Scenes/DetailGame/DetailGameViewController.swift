@@ -3,11 +3,10 @@ import UIKit
 final class DetailGameViewController: UIViewController {
     private let scrollView = UIScrollView()
     private let contentView = UIStackView()
-    // Container for non image information
-    private let textInformationStack = UIStackView()
 
     private let photoGameDetail: UIImageView = {
         let imageView = UIImageView()
+        imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.contentMode = .scaleAspectFill
         imageView.clipsToBounds = true
         imageView.heightAnchor.constraint(equalToConstant: 200).isActive = true
@@ -21,34 +20,43 @@ final class DetailGameViewController: UIViewController {
         return label
     }()
     private let ratingGameDetail = UILabel()
-    private let overviewGameDetail: UILabel = {
-        let label = UILabel()
-        label.font = .systemFont(ofSize: 18)
-        label.numberOfLines = 0
-        return label
+
+    private lazy var titleRatingStack: UIStackView = {
+        let stack = UIStackView(arrangedSubviews: [
+            self.titleGameDetail,
+            UIView(),
+            self.ratingGameDetail
+        ])
+        stack.axis = .horizontal
+        stack.alignment = .center
+        stack.distribution = .fill
+        return stack
     }()
-    private let platformGameDetail: UILabel = {
-        let label = UILabel()
-        label.font = .systemFont(ofSize: 18)
-        label.numberOfLines = 0
-        return label
+
+    private let informationStack: UIStackView = {
+        let stack = UIStackView()
+        stack.translatesAutoresizingMaskIntoConstraints = false
+        stack.axis = .vertical
+        stack.alignment = .fill
+        stack.spacing = 12
+        return stack
     }()
-    private let releaseGameDetail = UILabel()
-    private let genreGameDetail = UILabel()
-    private let publisherGameDetail = UILabel()
-    private let metacriticGameDetail = UILabel()
 
     private let activityIndicator: UIActivityIndicatorView = {
         let indicator = UIActivityIndicatorView(style: .large)
+        indicator.translatesAutoresizingMaskIntoConstraints = false
         indicator.hidesWhenStopped = true
+        indicator.style = .large
         return indicator
     }()
 
     private lazy var addToFavoriteButton: UIBarButtonItem = {
-        let button = UIBarButtonItem(image: UIImage(systemName: "heart"),
-                                     style: .plain,
-                                     target: self,
-                                     action: #selector(addToFavoriteSelector))
+        let button = UIBarButtonItem(
+            image: UIImage(systemName: "heart"),
+            style: .plain,
+            target: self,
+            action: #selector(addToFavoriteSelector)
+        )
         return button
     }()
 
@@ -78,7 +86,6 @@ final class DetailGameViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .systemBackground
         navigationItem.rightBarButtonItem = addToFavoriteButton
 
         setupScrollView()
@@ -97,7 +104,9 @@ final class DetailGameViewController: UIViewController {
 
     private func setupScrollView() {
         view.addSubview(scrollView)
+
         scrollView.translatesAutoresizingMaskIntoConstraints = false
+
         NSLayoutConstraint.activate([
             scrollView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
@@ -120,36 +129,14 @@ final class DetailGameViewController: UIViewController {
         ])
     }
 
-    private func setupLayout(game: GameUIModel) {
+    private func setupView(with game: GameUIModel) {
         // Photo
         let photoContainer = UIView()
         photoContainer.addSubview(photoGameDetail)
-        photoGameDetail.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            photoGameDetail.topAnchor.constraint(equalTo: photoContainer.topAnchor),
-            photoGameDetail.leadingAnchor.constraint(equalTo: photoContainer.leadingAnchor),
-            photoGameDetail.trailingAnchor.constraint(equalTo: photoContainer.trailingAnchor),
-            photoGameDetail.heightAnchor.constraint(equalTo: photoGameDetail.widthAnchor, multiplier: 9.0/16.0),
-            photoGameDetail.bottomAnchor.constraint(equalTo: photoContainer.bottomAnchor)
-        ])
 
         contentView.addArrangedSubview(photoContainer)
 
-        // Group Title + Rating
-        let titleRatingStack = UIStackView(arrangedSubviews: [titleGameDetail, UIView(), ratingGameDetail])
-        titleRatingStack.axis = .horizontal
-        titleRatingStack.alignment = .center
-        titleRatingStack.distribution = .fill
-
-        textInformationStack.addArrangedSubview(titleRatingStack)
-
-        // Activity indicator
-        view.addSubview(activityIndicator)
-        activityIndicator.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            activityIndicator.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            activityIndicator.centerYAnchor.constraint(equalTo: view.centerYAnchor)
-        ])
+        informationStack.addArrangedSubview(titleRatingStack)
 
         titleGameDetail.text = game.name
         ratingGameDetail.text = "⭐️ " + game.rating
@@ -167,32 +154,42 @@ final class DetailGameViewController: UIViewController {
         let releaseRow = InfoRowSection(title: "Released", value: game.released)
         let metacriticRow = InfoRowSection(title: "Metacritic", value: String(game.metacritic))
 
-        textInformationStack.axis = .vertical
-        textInformationStack.alignment = .fill
-        textInformationStack.spacing = 12
-
         [overviewRow, publisherRow, platformRow, genreRow, releaseRow, metacriticRow].forEach {
-            textInformationStack.addArrangedSubview($0)
+            informationStack.addArrangedSubview($0)
         }
 
         let textContainer = UIView()
-        textContainer.addSubview(textInformationStack)
-        textInformationStack.translatesAutoresizingMaskIntoConstraints = false
+        textContainer.addSubview(informationStack)
+
         NSLayoutConstraint.activate([
-            textInformationStack.topAnchor.constraint(equalTo: textContainer.topAnchor),
-            textInformationStack.leadingAnchor.constraint(equalTo: textContainer.leadingAnchor, constant: 16),
-            textInformationStack.trailingAnchor.constraint(equalTo: textContainer.trailingAnchor, constant: -16),
-            textInformationStack.bottomAnchor.constraint(equalTo: textContainer.bottomAnchor)
+            photoGameDetail.topAnchor.constraint(equalTo: photoContainer.topAnchor),
+            photoGameDetail.leadingAnchor.constraint(equalTo: photoContainer.leadingAnchor),
+            photoGameDetail.trailingAnchor.constraint(equalTo: photoContainer.trailingAnchor),
+            photoGameDetail.heightAnchor.constraint(equalTo: photoGameDetail.widthAnchor, multiplier: 9.0/16.0),
+            photoGameDetail.bottomAnchor.constraint(equalTo: photoContainer.bottomAnchor)
+        ])
+
+        NSLayoutConstraint.activate([
+            informationStack.topAnchor.constraint(equalTo: textContainer.topAnchor),
+            informationStack.leadingAnchor.constraint(equalTo: textContainer.leadingAnchor, constant: 16),
+            informationStack.trailingAnchor.constraint(equalTo: textContainer.trailingAnchor, constant: -16),
+            informationStack.bottomAnchor.constraint(equalTo: textContainer.bottomAnchor)
         ])
 
         contentView.addArrangedSubview(textContainer)
 
         // Margin textInformationStack
         NSLayoutConstraint.activate([
-            textInformationStack.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
-            textInformationStack.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16)
+            informationStack.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
+            informationStack.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16)
         ])
 
+        // Activity indicator
+        view.addSubview(activityIndicator)
+        NSLayoutConstraint.activate([
+            activityIndicator.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            activityIndicator.centerYAnchor.constraint(equalTo: view.centerYAnchor)
+        ])
     }
 
     @objc private func addToFavoriteSelector(_ sender: Any) {
@@ -234,16 +231,14 @@ extension DetailGameViewController: UIScrollViewDelegate {
 
 extension DetailGameViewController: DetailViewModelDelegate {
     func didLoadDetailGame(game: GameUIModel) {
-        setupLayout(game: game)
+        setupView(with: game)
         self.game = game
     }
 
     func didFetchFavoriteState(isFavorite: Bool) {
-        if isFavorite {
-            addToFavoriteButton.image = UIImage(systemName: "heart.fill")
-        } else {
-            addToFavoriteButton.image = UIImage(systemName: "heart")
-        }
+        addToFavoriteButton.image = isFavorite
+            ? UIImage(systemName: "heart.fill")
+            : UIImage(systemName: "heart")
     }
 
     func didUpdateFavoriteState(isFavorite: Bool) {
@@ -270,73 +265,5 @@ extension DetailGameViewController: DetailViewModelDelegate {
         let alert = UIAlertController(title: "Error", message: message, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "OK", style: .default))
         self.present(alert, animated: true)
-    }
-}
-
-class InfoRowSection: UIStackView {
-    private let titleLabel = UILabel()
-    private let valueLabel = UILabel()
-    private let showMoreButton = UIButton(type: .system)
-
-    private var isExpanded = false
-
-    init(title: String, value: String) {
-        super.init(frame: .zero)
-        axis = .vertical
-        alignment = .leading
-        spacing = 8
-
-        titleLabel.text = "\(title)"
-        titleLabel.font = .systemFont(ofSize: 16, weight: .semibold)
-
-        valueLabel.text = value
-        valueLabel.font = .systemFont(ofSize: 16)
-        valueLabel.numberOfLines = 3
-
-        showMoreButton.setTitle("Show more", for: .normal)
-        showMoreButton.titleLabel?.font = .systemFont(ofSize: 14, weight: .bold)
-        showMoreButton.setTitleColor(.secondaryLabel, for: .normal)
-        showMoreButton.addTarget(self, action: #selector(toggleShowMore), for: .touchUpInside)
-
-        addArrangedSubview(titleLabel)
-        addArrangedSubview(valueLabel)
-        addArrangedSubview(showMoreButton)
-
-        checkIfTruncated()
-    }
-
-    @objc private func toggleShowMore() {
-        isExpanded.toggle()
-        if isExpanded {
-            valueLabel.numberOfLines = 0
-            showMoreButton.setTitle("Show less", for: .normal)
-        } else {
-            valueLabel.numberOfLines = 3
-            showMoreButton.setTitle("Show more", for: .normal)
-        }
-    }
-
-    private func checkIfTruncated() {
-        guard let text = valueLabel.text else { return }
-
-        // Max size for label with 3 lines
-        let maxSize = CGSize(width: UIScreen.main.bounds.width - 32, height: .greatestFiniteMagnitude)
-        let attributes: [NSAttributedString.Key: Any] = [.font: valueLabel.font ?? .systemFont(ofSize: 16)]
-        let textHeight = (text as NSString).boundingRect(
-            with: maxSize,
-            options: .usesLineFragmentOrigin,
-            attributes: attributes,
-            context: nil
-        ).height
-
-        let lineHeight = valueLabel.font.lineHeight
-        let threeLineHeight = lineHeight * 3
-
-        // Show button only if text exceeds 3 lines
-        showMoreButton.isHidden = textHeight <= threeLineHeight
-    }
-
-    required init(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
     }
 }

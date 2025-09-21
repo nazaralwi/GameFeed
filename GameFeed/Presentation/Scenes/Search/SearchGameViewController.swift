@@ -1,15 +1,34 @@
 import UIKit
 
 final class SearchGameViewController: UIViewController {
-    private let tableView = UITableView()
-    private let loadingIndicator = UIActivityIndicatorView()
+    private lazy var tableView: UITableView = {
+        let tableView = UITableView()
+        tableView.separatorStyle = .none
+        tableView.rowHeight = UITableView.automaticDimension
+        tableView.estimatedRowHeight = 360
+        tableView.backgroundColor = .systemGroupedBackground
+        tableView.dataSource = self
+        tableView.delegate = self
+        tableView.register(GameTableViewCell.self, forCellReuseIdentifier: "GameCell")
+        return tableView
+    }()
+    private lazy var searchBar: UISearchBar = {
+        let searchBar = UISearchBar()
+        searchBar.delegate = self
+        searchBar.placeholder = "Search Game"
+        return searchBar
+    }()
+    private let loadingIndicator: UIActivityIndicatorView = {
+        let indicator = UIActivityIndicatorView()
+        indicator.hidesWhenStopped = true
+        indicator.style = .large
+        return indicator
+    }()
     private let errorLabel: UILabel = {
         let label = UILabel()
         label.font = .systemFont(ofSize: 18)
         return label
     }()
-
-    private let searchBar = UISearchBar()
 
     public var viewModel: SearchGameViewModel?
 
@@ -19,25 +38,9 @@ final class SearchGameViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        searchBar.placeholder = "Search Game"
-
         setupView()
-    }
 
-    override var preferredStatusBarStyle: UIStatusBarStyle {
-        return .lightContent
-    }
-
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-
-        let tabBarAppearance = UITabBarAppearance()
-        tabBarAppearance.configureWithOpaqueBackground()
-        tabBarAppearance.backgroundColor = .black
-
-        UITabBar.appearance().standardAppearance = tabBarAppearance
-
-        searchBar.becomeFirstResponder()
+        viewModel?.delegate = self
     }
 
     private func setupView() {
@@ -63,19 +66,6 @@ final class SearchGameViewController: UIViewController {
             errorLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             errorLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor)
         ])
-
-        searchBar.delegate = self
-        tableView.delegate = self
-        tableView.dataSource = self
-
-        viewModel?.delegate = self
-
-        tableView.register(GameTableViewCell.self, forCellReuseIdentifier: "GameCell")
-
-        tableView.separatorStyle = .none
-        tableView.rowHeight = UITableView.automaticDimension
-        tableView.estimatedRowHeight = 360
-        tableView.backgroundColor = .systemGroupedBackground
     }
 }
 

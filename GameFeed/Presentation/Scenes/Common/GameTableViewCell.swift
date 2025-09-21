@@ -3,16 +3,15 @@ import UIKit
 public final class GameTableViewCell: UITableViewCell {
     let containerView: UIView = {
         let view = UIView()
-        view.translatesAutoresizingMaskIntoConstraints = false
         view.backgroundColor = .secondarySystemBackground
         view.layer.cornerRadius = 10
         view.layer.masksToBounds = true
+        view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
 
     let photoGame: UIImageView = {
         let imageView = UIImageView()
-        imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.contentMode = .scaleAspectFill
         imageView.clipsToBounds = true
         imageView.layer.cornerRadius = 8
@@ -20,7 +19,6 @@ public final class GameTableViewCell: UITableViewCell {
     }()
     let ratingGame: UILabel = {
         let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
         label.font = .systemFont(ofSize: 14, weight: .semibold)
         label.textColor = .white
         label.backgroundColor = .systemBlue
@@ -36,7 +34,6 @@ public final class GameTableViewCell: UITableViewCell {
         label.font = .systemFont(ofSize: 18, weight: .semibold)
         label.textColor = .label
         label.numberOfLines = 2
-        label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
 
@@ -45,7 +42,6 @@ public final class GameTableViewCell: UITableViewCell {
         stackView.axis = .horizontal
         stackView.spacing = 8
         stackView.alignment = .center
-        stackView.translatesAutoresizingMaskIntoConstraints = false
         return stackView
     }()
     let releaseGameLabel: UILabel = {
@@ -68,7 +64,6 @@ public final class GameTableViewCell: UITableViewCell {
         stackView.axis = .horizontal
         stackView.spacing = 8
         stackView.alignment = .center
-        stackView.translatesAutoresizingMaskIntoConstraints = false
         return stackView
     }()
     let genresGameLabel: UILabel = {
@@ -102,6 +97,7 @@ public final class GameTableViewCell: UITableViewCell {
 
         [photoGame, ratingGame, titleGame,
          releaseGameStack, genresGameStack].forEach {
+            $0.translatesAutoresizingMaskIntoConstraints = false
             containerView.addSubview($0)
         }
 

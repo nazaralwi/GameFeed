@@ -16,7 +16,7 @@ class TabBarViewController: UITabBarController {
 
         let container = SwinjectContainer.getContainer()
 
-        let homeVC = ViewController()
+        let homeVC = HomeViewController()
         homeVC.title = "Home"
         homeVC.viewModel = container.resolve(HomeViewModel.self)
         homeVC.navigationItem.rightBarButtonItems = [profileButton(), searchButton()]

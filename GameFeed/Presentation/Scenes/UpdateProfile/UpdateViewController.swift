@@ -9,7 +9,7 @@ final class UpdateViewController: UIViewController {
         return imageView
     }()
 
-    let nameLabel: UILabel = {
+    private let nameLabel: UILabel = {
         let label = UILabel()
         label.text = "Name"
         label.font = UIFont.systemFont(ofSize: 14, weight: .medium)
@@ -17,14 +17,14 @@ final class UpdateViewController: UIViewController {
         return label
     }()
 
-    let nameTextField: UITextField = {
+    private let nameTextField: UITextField = {
         let textField = UITextField()
         textField.borderStyle = .roundedRect
         textField.font = UIFont.systemFont(ofSize: 16)
         return textField
     }()
 
-    let companyLabel: UILabel = {
+    private let companyLabel: UILabel = {
         let label = UILabel()
         label.text = "Company"
         label.font = UIFont.systemFont(ofSize: 14, weight: .medium)
@@ -32,14 +32,14 @@ final class UpdateViewController: UIViewController {
         return label
     }()
 
-    let companyTextField: UITextField = {
+    private let companyTextField: UITextField = {
         let textField = UITextField()
         textField.borderStyle = .roundedRect
         textField.font = UIFont.systemFont(ofSize: 16)
         return textField
     }()
 
-    let emailLabel: UILabel = {
+    private let emailLabel: UILabel = {
         let label = UILabel()
         label.text = "Email"
         label.font = UIFont.systemFont(ofSize: 14, weight: .medium)
@@ -47,7 +47,7 @@ final class UpdateViewController: UIViewController {
         return label
     }()
 
-    let emailTextField: UITextField = {
+    private let emailTextField: UITextField = {
         let textField = UITextField()
         textField.borderStyle = .roundedRect
         textField.font = UIFont.systemFont(ofSize: 16)
@@ -59,15 +59,46 @@ final class UpdateViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        view.backgroundColor = .systemBackground
         
+        setupView()
+
+        let tapGesture = UITapGestureRecognizer(target: view, action: #selector(UIView.endEditing))
+        view.addGestureRecognizer(tapGesture)
+
+        navigationItem.rightBarButtonItem = UIBarButtonItem(
+            barButtonSystemItem: .save,
+            target: self,
+            action: #selector(saveProfile)
+        )
+    }
+
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+
+        photoImageView.layer.cornerRadius = photoImageView.frame.width / 2
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+
+        viewModel?.onChange = { [weak self] data in
+            DispatchQueue.main.async {
+                self?.nameTextField.text = data.name
+                self?.companyTextField.text = data.company
+                self?.emailTextField.text = data.email
+            }
+        }
+
+        viewModel?.load()
+    }
+
+    private func setupView() {
         [photoImageView,
          nameLabel, nameTextField,
          companyLabel, companyTextField,
          emailLabel, emailTextField].forEach {
-            view.addSubview($0)
             $0.translatesAutoresizingMaskIntoConstraints = false
+            view.addSubview($0)
         }
 
         NSLayoutConstraint.activate([
@@ -104,35 +135,6 @@ final class UpdateViewController: UIViewController {
             emailTextField.trailingAnchor.constraint(equalTo: nameTextField.trailingAnchor),
             emailTextField.heightAnchor.constraint(equalToConstant: 44)
         ])
-
-        let tapGesture = UITapGestureRecognizer(target: view, action: #selector(UIView.endEditing))
-        view.addGestureRecognizer(tapGesture)
-
-        navigationItem.rightBarButtonItem = UIBarButtonItem(
-            barButtonSystemItem: .save,
-            target: self,
-            action: #selector(saveProfile)
-        )
-    }
-
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-
-        photoImageView.layer.cornerRadius = photoImageView.frame.width / 2
-    }
-
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-
-        viewModel?.onChange = { [weak self] data in
-            DispatchQueue.main.async {
-                self?.nameTextField.text = data.name
-                self?.companyTextField.text = data.company
-                self?.emailTextField.text = data.email
-            }
-        }
-
-        viewModel?.load()
     }
 
     @objc private func saveProfile(_ sender: Any) {

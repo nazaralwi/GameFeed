@@ -1,11 +1,29 @@
 import UIKit
 
 final class NewGameViewController: UIViewController {
-    private let tableView = UITableView()
-    private let loadingIndicator = UIActivityIndicatorView()
+    private lazy var tableView: UITableView = {
+        let tableView = UITableView()
+        tableView.separatorStyle = .none
+        tableView.rowHeight = UITableView.automaticDimension
+        tableView.estimatedRowHeight = 360
+        tableView.backgroundColor = .systemGroupedBackground
+        tableView.dataSource = self
+        tableView.delegate = self
+        tableView.register(GameTableViewCell.self, forCellReuseIdentifier: "GameCell")
+        return tableView
+    }()
+    private let loadingIndicator: UIActivityIndicatorView = {
+        let indicator = UIActivityIndicatorView()
+        indicator.hidesWhenStopped = true
+        indicator.style = .large
+        return indicator
+    }()
     private let errorLabel: UILabel = {
         let label = UILabel()
         label.font = .systemFont(ofSize: 18)
+        label.textColor = .secondaryLabel
+        label.textAlignment = .center
+        label.isHidden = true
         return label
     }()
 
@@ -18,18 +36,19 @@ final class NewGameViewController: UIViewController {
         super.viewDidLoad()
 
         setupView()
+
+        viewModel?.delegate = self
+
+        let now = Date()
+        let previousMonth = Calendar.current.date(byAdding: .month, value: -1, to: now)
+        loadGameList(lastMonth: previousMonth, now: now)
     }
 
-    override var preferredStatusBarStyle: UIStatusBarStyle {
-        return .lightContent
-    }
-
-    override func viewDidAppear(_ animated: Bool) {
-        let tabBarAppearance = UITabBarAppearance()
-        tabBarAppearance.configureWithOpaqueBackground()
-        tabBarAppearance.backgroundColor = .black
-
-        UITabBar.appearance().standardAppearance = tabBarAppearance
+    private func loadGameList(lastMonth: Date?, now: Date) {
+        viewModel?.fetchNewGame(
+            lastMonth: Formatter.formatDate(from: lastMonth ?? Date()),
+            now: Formatter.formatDate(from: now)
+        )
     }
 
     private func setupView() {
@@ -50,28 +69,6 @@ final class NewGameViewController: UIViewController {
             errorLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             errorLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor)
         ])
-
-        let now = Date()
-        let oneMonthBefore = Calendar.current.date(byAdding: .month, value: -1, to: now)
-
-        errorLabel.isHidden = true
-        loadingIndicator.startAnimating()
-
-        viewModel?.fetchNewGame(
-            lastMonth: Formatter.formatDate(from: oneMonthBefore ?? Date()),
-            now: Formatter.formatDate(from: now))
-
-        tableView.dataSource = self
-        tableView.delegate = self
-
-        viewModel?.delegate = self
-
-        tableView.register(GameTableViewCell.self, forCellReuseIdentifier: "GameCell")
-
-        tableView.separatorStyle = .none
-        tableView.rowHeight = UITableView.automaticDimension
-        tableView.estimatedRowHeight = 360
-        tableView.backgroundColor = .systemGroupedBackground
     }
 }
 

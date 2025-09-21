@@ -1,11 +1,29 @@
 import UIKit
 
 final class FavoritesViewController: UIViewController {
-    private let tableView = UITableView()
-    private let loadingIndicator = UIActivityIndicatorView()
+    private lazy var tableView: UITableView = {
+        let tableView = UITableView()
+        tableView.separatorStyle = .none
+        tableView.rowHeight = UITableView.automaticDimension
+        tableView.estimatedRowHeight = 360
+        tableView.backgroundColor = .systemGroupedBackground
+        tableView.dataSource = self
+        tableView.delegate = self
+        tableView.register(GameTableViewCell.self, forCellReuseIdentifier: "GameCell")
+        return tableView
+    }()
+    private let loadingIndicator: UIActivityIndicatorView = {
+        let indicator = UIActivityIndicatorView()
+        indicator.hidesWhenStopped = true
+        indicator.style = .large
+        return indicator
+    }()
     private let errorLabel: UILabel = {
         let label = UILabel()
         label.font = .systemFont(ofSize: 18)
+        label.textColor = .secondaryLabel
+        label.textAlignment = .center
+        label.isHidden = true
         return label
     }()
     private let emptyImage: UIImageView = {
@@ -19,8 +37,10 @@ final class FavoritesViewController: UIViewController {
     private let emptyLabel: UILabel = {
         let label = UILabel()
         label.font = .systemFont(ofSize: 18)
+        label.textColor = .secondaryLabel
         label.text = "Favorite is empty"
         label.textAlignment = .center
+        label.isHidden = true
         return label
     }()
 
@@ -33,20 +53,9 @@ final class FavoritesViewController: UIViewController {
         super.viewDidLoad()
 
         setupView()
+
+        viewModel?.delegate = self
     }
-
-    override var preferredStatusBarStyle: UIStatusBarStyle {
-        return .lightContent
-    }
-
-    override func viewDidAppear(_ animated: Bool) {
-        let tabBarAppearance = UITabBarAppearance()
-        tabBarAppearance.configureWithOpaqueBackground()
-        tabBarAppearance.backgroundColor = .black
-
-        UITabBar.appearance().standardAppearance = tabBarAppearance
-    }
-
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         loadFavorites()
@@ -83,30 +92,11 @@ final class FavoritesViewController: UIViewController {
             emptyLabel.leadingAnchor.constraint(equalTo: emptyImage.leadingAnchor),
             emptyLabel.trailingAnchor.constraint(equalTo: emptyImage.trailingAnchor)
         ])
-
-        self.tableView.contentInset.bottom = 10
-
-        tableView.dataSource = self
-        tableView.delegate = self
-
-        viewModel?.delegate = self
-
-        tableView.register(GameTableViewCell.self, forCellReuseIdentifier: "GameCell")
-
-        tableView.separatorStyle = .none
-        tableView.rowHeight = UITableView.automaticDimension
-        tableView.estimatedRowHeight = 360
-        tableView.backgroundColor = .systemGroupedBackground
     }
 
     private func favoriteIsEmpty(state: Bool) {
-        if state {
-            emptyLabel.isHidden = true
-            emptyImage.isHidden = true
-        } else {
-            emptyLabel.isHidden = false
-            emptyImage.isHidden = false
-        }
+        emptyLabel.isHidden = state
+        emptyImage.isHidden = state
     }
 }
 
