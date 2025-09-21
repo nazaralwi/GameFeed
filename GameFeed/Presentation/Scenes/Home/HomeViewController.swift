@@ -5,6 +5,7 @@ final class HomeViewController: BaseGameListViewController<HomeViewModel>, HomeV
         super.viewDidLoad()
 
         viewModel?.delegate = self
+        
         fetchGames()
     }
 
@@ -16,10 +17,11 @@ final class HomeViewController: BaseGameListViewController<HomeViewModel>, HomeV
         viewModel?.fetchBackground(for: game)
     }
 
-    // MARK: - Delegate
+    // MARK: - HomeViewModelDelegate
     func didUpdateGames() {
         self.games = viewModel!.games
         tableView.reloadData()
+        gameIsEmpty(state: !self.games.isEmpty)
     }
 
     func didUpdateLoadingIndicator(isLoading: Bool) {

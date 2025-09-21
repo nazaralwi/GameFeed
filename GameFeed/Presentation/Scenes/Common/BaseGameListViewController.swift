@@ -39,6 +39,23 @@ class BaseGameListViewController<VM>: UIViewController, UITableViewDelegate, UIT
         label.isHidden = true
         return label
     }()
+    private let emptyImage: UIImageView = {
+        let imageView = UIImageView()
+        imageView.contentMode = .scaleAspectFit
+        imageView.image = UIImage(systemName: "tray.fill")
+        imageView.tintColor = .lightGray
+        imageView.isHidden = true
+        return imageView
+    }()
+    private let emptyLabel: UILabel = {
+        let label = UILabel()
+        label.font = .systemFont(ofSize: 18)
+        label.textColor = .secondaryLabel
+        label.text = "Games is empty"
+        label.textAlignment = .center
+        label.isHidden = true
+        return label
+    }()
 
     var games: [GameUIModel] = []
     var selectedIndex = 0
@@ -47,36 +64,56 @@ class BaseGameListViewController<VM>: UIViewController, UITableViewDelegate, UIT
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        setupView()
+        setupSubviews()
+        setupCommonConstraint()
+        setupCustomConstraint()
 
         tableView.delegate = self
         tableView.dataSource = self
+
+        fetchGames()
     }
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        fetchGames()
         tableView.reloadData()
     }
 
-    private func setupView() {
-        [tableView, loadingIndicator, errorLabel].forEach {
+    private func setupSubviews() {
+        [tableView, loadingIndicator, errorLabel, emptyImage, emptyLabel].forEach {
             $0.translatesAutoresizingMaskIntoConstraints = false
             view.addSubview($0)
         }
+    }
 
+    func setupCommonConstraint() {
         NSLayoutConstraint.activate([
-            tableView.topAnchor.constraint(equalTo: view.topAnchor),
-            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-
             loadingIndicator.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             loadingIndicator.centerYAnchor.constraint(equalTo: view.centerYAnchor),
 
             errorLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             errorLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor),
             errorLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
-            errorLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16)
+            errorLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
+
+            emptyImage.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            emptyImage.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            emptyImage.heightAnchor.constraint(equalToConstant: 150),
+            emptyImage.widthAnchor.constraint(equalToConstant: 150),
+
+            emptyLabel.topAnchor.constraint(equalTo: emptyImage.bottomAnchor),
+            emptyLabel.leadingAnchor.constraint(equalTo: emptyImage.leadingAnchor),
+            emptyLabel.trailingAnchor.constraint(equalTo: emptyImage.trailingAnchor)
+        ])
+    }
+
+    func setupCustomConstraint() {
+        NSLayoutConstraint.activate([
+            tableView.topAnchor.constraint(equalTo: view.topAnchor),
+            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
     }
 
@@ -86,6 +123,11 @@ class BaseGameListViewController<VM>: UIViewController, UITableViewDelegate, UIT
         DispatchQueue.main.async {
             self.tableView.refreshControl?.endRefreshing()
         }
+    }
+
+    func gameIsEmpty(state: Bool) {
+        emptyLabel.isHidden = state
+        emptyImage.isHidden = state
     }
 
     // MARK: - UITableViewDelegate
