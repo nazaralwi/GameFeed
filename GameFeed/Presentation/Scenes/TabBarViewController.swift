@@ -19,7 +19,7 @@ class TabBarViewController: UITabBarController {
         let homeVC = ViewController()
         homeVC.title = "Home"
         homeVC.viewModel = container.resolve(HomeViewModel.self)
-        addProfileButton(to: homeVC)
+        homeVC.navigationItem.rightBarButtonItems = [profileButton(), searchButton()]
 
         let homeNC = UINavigationController(rootViewController: homeVC)
         homeNC.tabBarItem = UITabBarItem(title: "Home",
@@ -29,27 +29,17 @@ class TabBarViewController: UITabBarController {
         let newReleaseVC = NewGameViewController()
         newReleaseVC.title = "New Release"
         newReleaseVC.viewModel = container.resolve(NewGameViewModel.self)
-        addProfileButton(to: newReleaseVC)
+        newReleaseVC.navigationItem.rightBarButtonItems = [profileButton(), searchButton()]
 
         let newReleaseNC = UINavigationController(rootViewController: newReleaseVC)
         newReleaseNC.tabBarItem = UITabBarItem(title: "New Release",
                                          image: UIImage(systemName: "flame"),
                                          tag: 1)
 
-        let searchVC = SearchGameViewController()
-        searchVC.title = "Search"
-        searchVC.viewModel = container.resolve(SearchGameViewModel.self)
-        addProfileButton(to: searchVC)
-
-        let searchNC = UINavigationController(rootViewController: searchVC)
-        searchNC.tabBarItem = UITabBarItem(title: "Search",
-                                         image: UIImage(systemName: "magnifyingglass"),
-                                         tag: 2)
-
         let favoriteVC = FavoritesViewController()
         favoriteVC.title = "Favorite"
         favoriteVC.viewModel = container.resolve(FavoritesViewModel.self)
-        addProfileButton(to: favoriteVC)
+        favoriteVC.navigationItem.rightBarButtonItem = profileButton()
 
         let favoriteNC = UINavigationController(rootViewController: favoriteVC)
         favoriteNC.tabBarItem = UITabBarItem(title: "Favorite",
@@ -57,16 +47,36 @@ class TabBarViewController: UITabBarController {
                                          tag: 3)
 
         viewControllers = [
-            homeNC, newReleaseNC, searchNC, favoriteNC
+            homeNC, newReleaseNC, favoriteNC
         ]
     }
 
-    private func addProfileButton(to vc: UIViewController) {
-        vc.navigationItem.rightBarButtonItem = UIBarButtonItem(
+    private func searchButton() -> UIBarButtonItem {
+        return UIBarButtonItem(
+            image: UIImage(systemName: "magnifyingglass"),
+            style: .plain,
+            target: self,
+            action: #selector(search))
+    }
+
+    private func profileButton() -> UIBarButtonItem {
+        return UIBarButtonItem(
             image: UIImage(systemName: "person.circle"),
             style: .plain,
             target: self,
             action: #selector(openProfile))
+    }
+
+    @objc private func search() {
+        let container = SwinjectContainer.getContainer()
+
+        let searchVC = SearchGameViewController()
+        searchVC.viewModel = container.resolve(SearchGameViewModel.self)
+        searchVC.title = "Search"
+
+        if let nav = selectedViewController as? UINavigationController {
+            nav.pushViewController(searchVC, animated: true)
+        }
     }
 
     @objc private func openProfile() {
@@ -80,4 +90,5 @@ class TabBarViewController: UITabBarController {
             nav.pushViewController(profileVC, animated: true)
         }
     }
+
 }

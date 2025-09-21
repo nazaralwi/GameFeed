@@ -8,6 +8,7 @@ final class SearchGameViewController: UIViewController {
         label.font = .systemFont(ofSize: 18)
         return label
     }()
+
     private let searchBar = UISearchBar()
 
     public var viewModel: SearchGameViewModel?
@@ -18,6 +19,8 @@ final class SearchGameViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        searchBar.placeholder = "Search Game"
+
         setupView()
     }
 
@@ -26,11 +29,15 @@ final class SearchGameViewController: UIViewController {
     }
 
     override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+
         let tabBarAppearance = UITabBarAppearance()
         tabBarAppearance.configureWithOpaqueBackground()
         tabBarAppearance.backgroundColor = .black
 
         UITabBar.appearance().standardAppearance = tabBarAppearance
+
+        searchBar.becomeFirstResponder()
     }
 
     private func setupView() {
