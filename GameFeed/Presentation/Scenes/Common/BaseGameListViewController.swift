@@ -60,6 +60,7 @@ class BaseGameListViewController<VM>: UIViewController, UITableViewDelegate, UIT
     var games: [GameUIModel] = []
     var selectedIndex = 0
     var viewModel: VM?
+    var selection: (_ game: GameUIModel) -> Void = { _ in }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -72,12 +73,6 @@ class BaseGameListViewController<VM>: UIViewController, UITableViewDelegate, UIT
         tableView.dataSource = self
 
         fetchGames()
-    }
-
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        fetchGames()
-        tableView.reloadData()
     }
 
     private func setupSubviews() {
@@ -133,15 +128,7 @@ class BaseGameListViewController<VM>: UIViewController, UITableViewDelegate, UIT
     // MARK: - UITableViewDelegate
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         selectedIndex = indexPath.row
-
-        let container = SwinjectContainer.getContainer()
-
-        let detailVC = DetailGameViewController()
-        detailVC.viewModel = container.resolve(DetailViewModel.self)
-        detailVC.game = games[selectedIndex]
-
-        navigationController?.pushViewController(detailVC, animated: true)
-
+        selection(games[selectedIndex])
         tableView.deselectRow(at: indexPath, animated: true)
     }
 

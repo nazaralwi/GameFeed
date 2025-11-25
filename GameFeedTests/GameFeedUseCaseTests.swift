@@ -11,7 +11,7 @@ import Combine
 @testable import GameFeed
 @testable import GameFeedDomain
 
-class MockRAWGService: GameRemoteDataSourceProtocol {
+class MockGameRemoteDateSource: GameRemoteDataSourceProtocol {
     var getGameListCalled = false
     var searchCalled = false
     var getGameDetailCalled = false
@@ -69,38 +69,38 @@ class MockRAWGService: GameRemoteDataSourceProtocol {
 final class GameFeedUseCaseTests: XCTestCase {
 
     var gameFeedUseCase: GameFeedUseCase!
-    var mockRAWGService: MockRAWGService!
+    var mockGameRemoteDataSource: MockGameRemoteDateSource!
     var mockFavoriteProvider: MockFavoriteProvider!
     var mockProfileProvider: MockProfileProvider!
 
     override func setUp() {
         super.setUp()
-        mockRAWGService = MockRAWGService()
-        gameFeedUseCase = GameFeedUseCase(rawgService: mockRAWGService)
+        mockGameRemoteDataSource = MockGameRemoteDateSource()
+        gameFeedUseCase = GameFeedUseCase(gameRemoteDataSource: mockGameRemoteDataSource)
     }
 
     func testGetGameList() {
         _ = gameFeedUseCase.getGameList()
-        XCTAssertTrue(mockRAWGService.getGameListCalled)
+        XCTAssertTrue(mockGameRemoteDataSource.getGameListCalled)
     }
 
     func testSearch() {
         _ = gameFeedUseCase.search(query: "test")
-        XCTAssertTrue(mockRAWGService.searchCalled)
+        XCTAssertTrue(mockGameRemoteDataSource.searchCalled)
     }
 
     func testGetGameDetail() {
         _ = gameFeedUseCase.getGameDetail(idGame: 1)
-        XCTAssertTrue(mockRAWGService.getGameDetailCalled)
+        XCTAssertTrue(mockGameRemoteDataSource.getGameDetailCalled)
     }
 
     func testGetNewGameLastMonths() {
         _ = gameFeedUseCase.getNewGameLastMonths(lastMonth: "2023-01", now: "2023-02")
-        XCTAssertTrue(mockRAWGService.getNewGameLastMonthsCalled)
+        XCTAssertTrue(mockGameRemoteDataSource.getNewGameLastMonthsCalled)
     }
 
     func testDownloadBackground() {
         _ = gameFeedUseCase.downloadBackground(backgroundPath: "path/to/background")
-        XCTAssertTrue(mockRAWGService.downloadBackgroundCalled)
+        XCTAssertTrue(mockGameRemoteDataSource.downloadBackgroundCalled)
     }
 }

@@ -7,18 +7,56 @@
 //
 
 import UIKit
-import Swinject
+import GameFeedDomain
 
 class TabBarViewController: UITabBarController {
+    let networking: Networking
+    let remoteDataSource: GameRemoteDataSource
+    let gameFeedUseCase: GameFeedUseCase
 
+    let favoriteProvider: CoreDataFavoriteDataSource
+    let favoriteUseCase: FavoriteUseCase
+
+    let profileDataSource: UserDefaultProfileDataSource
+    let profileUseCase: ProfileUseCase
+
+    init(networking: Networking,
+         remoteDataSource: GameRemoteDataSource,
+         gameFeedUseCase: GameFeedUseCase,
+         favoriteProvider: CoreDataFavoriteDataSource,
+         favoriteUseCase: FavoriteUseCase,
+         profileDataSource: UserDefaultProfileDataSource,
+         profileUseCase: ProfileUseCase) {
+        self.networking = networking
+        self.remoteDataSource = remoteDataSource
+        self.gameFeedUseCase = gameFeedUseCase
+        self.favoriteProvider = favoriteProvider
+        self.favoriteUseCase = favoriteUseCase
+        self.profileDataSource = profileDataSource
+        self.profileUseCase = profileUseCase
+
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        let container = SwinjectContainer.getContainer()
-
         let homeVC = HomeViewController()
+        let homeViewModel = HomeViewModel(gameFeedUseCase: gameFeedUseCase)
         homeVC.title = "Home"
-        homeVC.viewModel = container.resolve(HomeViewModel.self)
+        homeVC.viewModel = homeViewModel
+        homeVC.selection = { game in
+            let detailVC = DetailGameViewController()
+            detailVC.viewModel = DetailViewModel(gameFeedUseCase: self.gameFeedUseCase,
+                                                 favoriteUseCase: self.favoriteUseCase)
+            detailVC.game = game
+
+            homeVC.navigationController?.pushViewController(detailVC, animated: true)
+        }
         homeVC.navigationItem.rightBarButtonItems = [profileButton(), searchButton()]
 
         let homeNC = UINavigationController(rootViewController: homeVC)
@@ -27,8 +65,17 @@ class TabBarViewController: UITabBarController {
                                          tag: 0)
 
         let newReleaseVC = NewGameViewController()
+        let newGameViewModel = NewGameViewModel(gameFeedUseCase: gameFeedUseCase)
         newReleaseVC.title = "New Release"
-        newReleaseVC.viewModel = container.resolve(NewGameViewModel.self)
+        newReleaseVC.viewModel = newGameViewModel
+        newReleaseVC.selection = { game in
+            let detailVC = DetailGameViewController()
+            detailVC.viewModel = DetailViewModel(gameFeedUseCase: self.gameFeedUseCase,
+                                                 favoriteUseCase: self.favoriteUseCase)
+            detailVC.game = game
+
+            newReleaseVC.navigationController?.pushViewController(detailVC, animated: true)
+        }
         newReleaseVC.navigationItem.rightBarButtonItems = [profileButton(), searchButton()]
 
         let newReleaseNC = UINavigationController(rootViewController: newReleaseVC)
@@ -38,7 +85,15 @@ class TabBarViewController: UITabBarController {
 
         let favoriteVC = FavoritesViewController()
         favoriteVC.title = "Favorite"
-        favoriteVC.viewModel = container.resolve(FavoritesViewModel.self)
+        favoriteVC.viewModel = FavoritesViewModel(gameFeedUseCase: gameFeedUseCase, favoriteUseCase: favoriteUseCase)
+        favoriteVC.selection = { game in
+            let detailVC = DetailGameViewController()
+            detailVC.viewModel = DetailViewModel(gameFeedUseCase: self.gameFeedUseCase,
+                                                 favoriteUseCase: self.favoriteUseCase)
+            detailVC.game = game
+
+            favoriteVC.navigationController?.pushViewController(detailVC, animated: true)
+        }
         favoriteVC.navigationItem.rightBarButtonItem = profileButton()
 
         let favoriteNC = UINavigationController(rootViewController: favoriteVC)
@@ -68,10 +123,9 @@ class TabBarViewController: UITabBarController {
     }
 
     @objc private func search() {
-        let container = SwinjectContainer.getContainer()
-
         let searchVC = SearchGameViewController()
-        searchVC.viewModel = container.resolve(SearchGameViewModel.self)
+        let searchViewModel = SearchGameViewModel(gameFeedUseCase: gameFeedUseCase)
+        searchVC.viewModel = searchViewModel
         searchVC.title = "Search"
 
         if let nav = selectedViewController as? UINavigationController {
@@ -80,10 +134,9 @@ class TabBarViewController: UITabBarController {
     }
 
     @objc private func openProfile() {
-        let container = SwinjectContainer.getContainer()
-
         let profileVC = MyProfileViewController()
-        profileVC.viewModel = container.resolve(MyProfileViewModel.self)
+        let profileViewModel = MyProfileViewModel(profileUseCase: profileUseCase)
+        profileVC.viewModel = profileViewModel
         profileVC.title = "Profile"
 
         if let nav = selectedViewController as? UINavigationController {

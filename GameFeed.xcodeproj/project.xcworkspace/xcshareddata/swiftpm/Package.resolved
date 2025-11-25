@@ -1,5 +1,5 @@
 {
-  "originHash" : "28ca218ec46996dbf9e682f3b28ddef3bfdc5bb00ed57b5ed6d5582e58a87523",
+  "originHash" : "4d628254d569b1dcc709370f6bae946588e738353fdc2bdee4bfba14d87b684e",
   "pins" : [
     {
       "identity" : "alamofire",
@@ -16,25 +16,7 @@
       "location" : "https://github.com/nazaralwi/GameFeedDomain",
       "state" : {
         "branch" : "main",
-        "revision" : "e681053bbb1c732ce744e133e06dab3b8e23e19c"
-      }
-    },
-    {
-      "identity" : "swinject",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/Swinject/Swinject",
-      "state" : {
-        "revision" : "be9dbcc7b86811bc131539a20c6f9c2d3e56919f",
-        "version" : "2.9.1"
-      }
-    },
-    {
-      "identity" : "swinjectstoryboard",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/Swinject/SwinjectStoryboard.git",
-      "state" : {
-        "revision" : "e4498ce2dfe37e1ca9d2d20af06fcc087507561c",
-        "version" : "2.2.3"
+        "revision" : "a8c7c7a7a86a131dee49552507a2388510d078ba"
       }
     }
   ],
