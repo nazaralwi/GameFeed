@@ -9,7 +9,6 @@
 import XCTest
 import Combine
 @testable import GameFeed
-@testable import GameFeedDomain
 
 class MockProfileProvider: UserDefaultProfileDataSourceProtocol {
     var getProfileCalled = false

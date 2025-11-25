@@ -43,9 +43,12 @@
 		E28B092E2C6090BD000502B9 /* SearchGameViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E28B092D2C6090BD000502B9 /* SearchGameViewModel.swift */; };
 		E28B09302C609AEA000502B9 /* NewGameViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E28B092F2C609AEA000502B9 /* NewGameViewModel.swift */; };
 		E28B09322C634D91000502B9 /* FavoritesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E28B09312C634D91000502B9 /* FavoritesViewModel.swift */; };
-		E2A5BD802E56D2A300E76486 /* GameFeedDomain in Frameworks */ = {isa = PBXBuildFile; productRef = E2A5BD7F2E56D2A300E76486 /* GameFeedDomain */; };
-		E2A5BD832E56DE6000E76486 /* GameFeedDomain in Frameworks */ = {isa = PBXBuildFile; productRef = E2A5BD822E56DE6000E76486 /* GameFeedDomain */; };
-		E2A5BD862E56ED3C00E76486 /* GameFeedDomain in Frameworks */ = {isa = PBXBuildFile; productRef = E2A5BD852E56ED3C00E76486 /* GameFeedDomain */; };
+		E2C93AD62ED6208800165D97 /* ProfileModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2C93AD02ED6208800165D97 /* ProfileModel.swift */; };
+		E2C93AD72ED6208800165D97 /* ProfileUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2C93AD42ED6208800165D97 /* ProfileUseCase.swift */; };
+		E2C93AD82ED6208800165D97 /* FavoriteUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2C93AD22ED6208800165D97 /* FavoriteUseCase.swift */; };
+		E2C93AD92ED6208800165D97 /* Favorites.xcdatamodel in Sources */ = {isa = PBXBuildFile; fileRef = E2C93ACC2ED6208800165D97 /* Favorites.xcdatamodel */; };
+		E2C93ADA2ED6208800165D97 /* GameFeedUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2C93AD32ED6208800165D97 /* GameFeedUseCase.swift */; };
+		E2C93ADB2ED6208800165D97 /* GameModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2C93ACF2ED6208800165D97 /* GameModel.swift */; };
 		E2E2323D2E7FB87800DCC023 /* InfoRowSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2E2323C2E7FB87200DCC023 /* InfoRowSection.swift */; };
 		E2E2323F2E7FE79A00DCC023 /* BaseGameListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2E2323E2E7FE79100DCC023 /* BaseGameListViewController.swift */; };
 		E2E64F7F2C7ED80F005363F8 /* GameFeedUseCaseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2E64F7E2C7ED80F005363F8 /* GameFeedUseCaseTests.swift */; };
@@ -121,6 +124,12 @@
 		E28B092F2C609AEA000502B9 /* NewGameViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewGameViewModel.swift; sourceTree = "<group>"; };
 		E28B09312C634D91000502B9 /* FavoritesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesViewModel.swift; sourceTree = "<group>"; };
 		E28B09332C637A1E000502B9 /* MyProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyProfileViewModel.swift; sourceTree = "<group>"; };
+		E2C93ACC2ED6208800165D97 /* Favorites.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Favorites.xcdatamodel; sourceTree = "<group>"; };
+		E2C93ACF2ED6208800165D97 /* GameModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameModel.swift; sourceTree = "<group>"; };
+		E2C93AD02ED6208800165D97 /* ProfileModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileModel.swift; sourceTree = "<group>"; };
+		E2C93AD22ED6208800165D97 /* FavoriteUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteUseCase.swift; sourceTree = "<group>"; };
+		E2C93AD32ED6208800165D97 /* GameFeedUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameFeedUseCase.swift; sourceTree = "<group>"; };
+		E2C93AD42ED6208800165D97 /* ProfileUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileUseCase.swift; sourceTree = "<group>"; };
 		E2E2323C2E7FB87200DCC023 /* InfoRowSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoRowSection.swift; sourceTree = "<group>"; };
 		E2E2323E2E7FE79100DCC023 /* BaseGameListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseGameListViewController.swift; sourceTree = "<group>"; };
 		E2E64F7E2C7ED80F005363F8 /* GameFeedUseCaseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameFeedUseCaseTests.swift; sourceTree = "<group>"; };
@@ -142,9 +151,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E2A5BD862E56ED3C00E76486 /* GameFeedDomain in Frameworks */,
-				E2A5BD802E56D2A300E76486 /* GameFeedDomain in Frameworks */,
-				E2A5BD832E56DE6000E76486 /* GameFeedDomain in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -195,6 +201,7 @@
 		3DF8FD5324D5661C00E64116 /* GameFeed */ = {
 			isa = PBXGroup;
 			children = (
+				E2C93ACB2ED6207A00165D97 /* Domain */,
 				3DF8FD8724D5690600E64116 /* Base */,
 				E2F443732E4B10D800A7C169 /* Presentation */,
 				E2F4437F2E4C37DD00A7C169 /* Data */,
@@ -270,6 +277,51 @@
 				3DD8EC1D253AEFA200BBE509 /* FavoriteModel.swift */,
 			);
 			path = CoreData;
+			sourceTree = "<group>";
+		};
+		E2C93ACB2ED6207A00165D97 /* Domain */ = {
+			isa = PBXGroup;
+			children = (
+				E2C93AD12ED6208800165D97 /* Model */,
+				E2C93AD52ED6208800165D97 /* UseCase */,
+			);
+			path = Domain;
+			sourceTree = "<group>";
+		};
+		E2C93ACD2ED6208800165D97 /* Favorites.xcdatamodeld */ = {
+			isa = PBXGroup;
+			children = (
+				E2C93ACC2ED6208800165D97 /* Favorites.xcdatamodel */,
+			);
+			path = Favorites.xcdatamodeld;
+			sourceTree = "<group>";
+		};
+		E2C93ACE2ED6208800165D97 /* RAWG Client */ = {
+			isa = PBXGroup;
+			children = (
+				E2C93ACD2ED6208800165D97 /* Favorites.xcdatamodeld */,
+			);
+			path = "RAWG Client";
+			sourceTree = "<group>";
+		};
+		E2C93AD12ED6208800165D97 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				E2C93ACE2ED6208800165D97 /* RAWG Client */,
+				E2C93ACF2ED6208800165D97 /* GameModel.swift */,
+				E2C93AD02ED6208800165D97 /* ProfileModel.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		E2C93AD52ED6208800165D97 /* UseCase */ = {
+			isa = PBXGroup;
+			children = (
+				E2C93AD22ED6208800165D97 /* FavoriteUseCase.swift */,
+				E2C93AD32ED6208800165D97 /* GameFeedUseCase.swift */,
+				E2C93AD42ED6208800165D97 /* ProfileUseCase.swift */,
+			);
+			path = UseCase;
 			sourceTree = "<group>";
 		};
 		E2F443732E4B10D800A7C169 /* Presentation */ = {
@@ -461,7 +513,6 @@
 			);
 			mainGroup = 3DF8FD4824D5661C00E64116;
 			packageReferences = (
-				E2A5BD842E56ED3B00E76486 /* XCRemoteSwiftPackageReference "GameFeedDomain" */,
 			);
 			productRefGroup = 3DF8FD5224D5661C00E64116 /* Products */;
 			projectDirPath = "";
@@ -544,6 +595,12 @@
 				3D19822924D792CE00E3AD85 /* GameResponse.swift in Sources */,
 				E25FF2232C3ED33300507993 /* Formatter.swift in Sources */,
 				E25FF2292C3FBF9E00507993 /* URLSessionNetworking.swift in Sources */,
+				E2C93AD62ED6208800165D97 /* ProfileModel.swift in Sources */,
+				E2C93AD72ED6208800165D97 /* ProfileUseCase.swift in Sources */,
+				E2C93AD82ED6208800165D97 /* FavoriteUseCase.swift in Sources */,
+				E2C93AD92ED6208800165D97 /* Favorites.xcdatamodel in Sources */,
+				E2C93ADA2ED6208800165D97 /* GameFeedUseCase.swift in Sources */,
+				E2C93ADB2ED6208800165D97 /* GameModel.swift in Sources */,
 				3DD8EC20253AF04500BBE509 /* CoreDataFavoriteDataSource.swift in Sources */,
 				E2F443722E4B010500A7C169 /* UserDefaultProfileDataSource.swift in Sources */,
 				3DF8FD5524D5661C00E64116 /* AppDelegate.swift in Sources */,
@@ -831,42 +888,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCRemoteSwiftPackageReference section */
-		E2A5BD812E56DE6000E76486 /* XCRemoteSwiftPackageReference "GameFeedDomain" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/nazaralwi/GameFeedDomain";
-			requirement = {
-				branch = main;
-				kind = branch;
-			};
-		};
-		E2A5BD842E56ED3B00E76486 /* XCRemoteSwiftPackageReference "GameFeedDomain" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/nazaralwi/GameFeedDomain";
-			requirement = {
-				branch = main;
-				kind = branch;
-			};
-		};
-/* End XCRemoteSwiftPackageReference section */
-
-/* Begin XCSwiftPackageProductDependency section */
-		E2A5BD7F2E56D2A300E76486 /* GameFeedDomain */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = GameFeedDomain;
-		};
-		E2A5BD822E56DE6000E76486 /* GameFeedDomain */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = E2A5BD812E56DE6000E76486 /* XCRemoteSwiftPackageReference "GameFeedDomain" */;
-			productName = GameFeedDomain;
-		};
-		E2A5BD852E56ED3C00E76486 /* GameFeedDomain */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = E2A5BD842E56ED3B00E76486 /* XCRemoteSwiftPackageReference "GameFeedDomain" */;
-			productName = GameFeedDomain;
-		};
-/* End XCSwiftPackageProductDependency section */
 
 /* Begin XCVersionGroup section */
 		3DD8EC1A253AD88B00BBE509 /* UserFavorites.xcdatamodeld */ = {

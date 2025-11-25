@@ -8,7 +8,6 @@
 
 import UIKit
 import Combine
-import GameFeedDomain
 
 public protocol NewGameViewModelDelegate: AnyObject {
     func didUpdateGames()

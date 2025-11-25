@@ -1,5 +1,4 @@
 import UIKit
-import GameFeedDomain
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     var window: UIWindow?

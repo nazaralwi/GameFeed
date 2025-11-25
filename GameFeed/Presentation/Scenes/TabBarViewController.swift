@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import GameFeedDomain
 
 class TabBarViewController: UITabBarController {
     let networking: Networking

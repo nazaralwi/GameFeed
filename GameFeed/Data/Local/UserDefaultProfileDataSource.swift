@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import GameFeedDomain
 
 public final class UserDefaultProfileDataSource: UserDefaultProfileDataSourceProtocol {
     private let nameKey = "profile_name"

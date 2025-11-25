@@ -8,7 +8,6 @@
 
 import XCTest
 @testable import GameFeed
-@testable import GameFeedDomain
 
 class MockFavoriteProvider: CoreDataFavoriteDataSourceProtocol {
     var getAllFavoritesCalled = false

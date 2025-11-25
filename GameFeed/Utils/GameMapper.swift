@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import GameFeedDomain
 
 class GameMapper {
     static func mapGameResponseToGameModel(game: GameResponse) -> GameModel {
