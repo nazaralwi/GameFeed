@@ -17,21 +17,17 @@ class MockGameRemoteDateSource: GameRemoteDataSourceProtocol {
     var getNewGameLastMonthsCalled = false
     var downloadBackgroundCalled = false
 
-    func getGameList() -> AnyPublisher<[GameModel], Error> {
+    func getGameList() async throws -> [GameModel] {
         getGameListCalled = true
-        return Just([GameModel]())
-            .setFailureType(to: Error.self)
-            .eraseToAnyPublisher()
+        return []
     }
 
-    func search(query: String) -> AnyPublisher<[GameModel], Error> {
+    func search(query: String) async throws -> [GameModel] {
         searchCalled = true
-        return Just([GameModel]())
-            .setFailureType(to: Error.self)
-            .eraseToAnyPublisher()
+        return []
     }
 
-    func getGameDetail(idGame: Int) -> AnyPublisher<GameModel, Error> {
+    func getGameDetail(idGame: Int) async throws -> GameModel {
         getGameDetailCalled = true
         let game = GameModel(
             idGame: 123,
@@ -45,23 +41,17 @@ class MockGameRemoteDateSource: GameRemoteDataSourceProtocol {
             publishers: "Some publishers",
             metacritic: 0)
 
-        return Just(game)
-            .setFailureType(to: Error.self)
-            .eraseToAnyPublisher()
+        return game
     }
 
-    func getNewGameLastMonths(lastMonth: String, now: String) -> AnyPublisher<[GameModel], Error> {
+    func getNewGameLastMonths(lastMonth: String, now: String) async throws -> [GameModel] {
         getNewGameLastMonthsCalled = true
-        return Just([GameModel]())
-            .setFailureType(to: Error.self)
-            .eraseToAnyPublisher()
+        return []
     }
 
-    func downloadBackground(backgroundPath: String) -> AnyPublisher<Data, Error> {
+    func downloadBackground(backgroundPath: String) async throws -> Data {
         downloadBackgroundCalled = true
-        return Just(Data())
-            .setFailureType(to: Error.self)
-            .eraseToAnyPublisher()
+        return Data()
     }
 }
 
@@ -78,28 +68,48 @@ final class GameFeedUseCaseTests: XCTestCase {
         gameFeedUseCase = GameFeedUseCase(gameRemoteDataSource: mockGameRemoteDataSource)
     }
 
-    func testGetGameList() {
-        _ = gameFeedUseCase.getGameList()
-        XCTAssertTrue(mockGameRemoteDataSource.getGameListCalled)
+    func testGetGameList() async {
+        do {
+            _ = try await gameFeedUseCase.getGameList()
+            XCTAssertTrue(mockGameRemoteDataSource.getGameListCalled)
+        } catch {
+            print(error)
+        }
     }
 
-    func testSearch() {
-        _ = gameFeedUseCase.search(query: "test")
-        XCTAssertTrue(mockGameRemoteDataSource.searchCalled)
+    func testSearch() async {
+        do {
+            _ = try await gameFeedUseCase.search(query: "test")
+            XCTAssertTrue(mockGameRemoteDataSource.searchCalled)
+        } catch {
+            print(error)
+        }
     }
 
-    func testGetGameDetail() {
-        _ = gameFeedUseCase.getGameDetail(idGame: 1)
-        XCTAssertTrue(mockGameRemoteDataSource.getGameDetailCalled)
+    func testGetGameDetail() async {
+        do {
+            _ = try await gameFeedUseCase.getGameDetail(idGame: 1)
+            XCTAssertTrue(mockGameRemoteDataSource.getGameDetailCalled)
+        } catch {
+            print(error)
+        }
     }
 
-    func testGetNewGameLastMonths() {
-        _ = gameFeedUseCase.getNewGameLastMonths(lastMonth: "2023-01", now: "2023-02")
-        XCTAssertTrue(mockGameRemoteDataSource.getNewGameLastMonthsCalled)
+    func testGetNewGameLastMonths() async {
+        do {
+            _ = try await gameFeedUseCase.getNewGameLastMonths(lastMonth: "2023-01", now: "2023-02")
+            XCTAssertTrue(mockGameRemoteDataSource.getNewGameLastMonthsCalled)
+        } catch {
+            print(error)
+        }
     }
 
-    func testDownloadBackground() {
-        _ = gameFeedUseCase.downloadBackground(backgroundPath: "path/to/background")
-        XCTAssertTrue(mockGameRemoteDataSource.downloadBackgroundCalled)
+    func testDownloadBackground() async {
+        do {
+            _ = try await gameFeedUseCase.downloadBackground(backgroundPath: "path/to/background")
+            XCTAssertTrue(mockGameRemoteDataSource.downloadBackgroundCalled)
+        } catch {
+            print(error)
+        }
     }
 }
