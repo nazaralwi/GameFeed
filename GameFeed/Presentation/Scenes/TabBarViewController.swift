@@ -49,13 +49,8 @@ class TabBarViewController: UITabBarController {
         let homeViewModel = HomeViewModel(gameFeedUseCase: gameFeedUseCase)
         homeVC.title = "Home"
         homeVC.viewModel = homeViewModel
-        homeVC.selection = { game in
-            let detailVC = DetailGameViewController()
-            detailVC.viewModel = DetailViewModel(gameFeedUseCase: self.gameFeedUseCase,
-                                                 favoriteUseCase: self.favoriteUseCase)
-            detailVC.game = game
-
-            homeVC.navigationController?.pushViewController(detailVC, animated: true)
+        homeVC.selection = { [weak self] game in
+            self?.showDetail(game: game)
         }
         homeVC.navigationItem.rightBarButtonItems = [profileButton(), searchButton()]
 
@@ -68,13 +63,8 @@ class TabBarViewController: UITabBarController {
         let newGameViewModel = NewGameViewModel(gameFeedUseCase: gameFeedUseCase)
         newReleaseVC.title = "New Release"
         newReleaseVC.viewModel = newGameViewModel
-        newReleaseVC.selection = { game in
-            let detailVC = DetailGameViewController()
-            detailVC.viewModel = DetailViewModel(gameFeedUseCase: self.gameFeedUseCase,
-                                                 favoriteUseCase: self.favoriteUseCase)
-            detailVC.game = game
-
-            newReleaseVC.navigationController?.pushViewController(detailVC, animated: true)
+        newReleaseVC.selection = { [weak self] game in
+            self?.showDetail(game: game)
         }
         newReleaseVC.navigationItem.rightBarButtonItems = [profileButton(), searchButton()]
 
@@ -86,13 +76,8 @@ class TabBarViewController: UITabBarController {
         let favoriteVC = FavoritesViewController()
         favoriteVC.title = "Favorite"
         favoriteVC.viewModel = FavoritesViewModel(gameFeedUseCase: gameFeedUseCase, favoriteUseCase: favoriteUseCase)
-        favoriteVC.selection = { game in
-            let detailVC = DetailGameViewController()
-            detailVC.viewModel = DetailViewModel(gameFeedUseCase: self.gameFeedUseCase,
-                                                 favoriteUseCase: self.favoriteUseCase)
-            detailVC.game = game
-
-            favoriteVC.navigationController?.pushViewController(detailVC, animated: true)
+        favoriteVC.selection = { [weak self] game in
+            self?.showDetail(game: game)
         }
         favoriteVC.navigationItem.rightBarButtonItem = profileButton()
 
@@ -120,6 +105,17 @@ class TabBarViewController: UITabBarController {
             style: .plain,
             target: self,
             action: #selector(openProfile))
+    }
+
+    private func showDetail(game: GameUIModel) {
+        let detailVC = DetailGameViewController()
+        detailVC.viewModel = DetailViewModel(gameFeedUseCase: self.gameFeedUseCase,
+                                             favoriteUseCase: self.favoriteUseCase)
+        detailVC.game = game
+
+        if let nav = selectedViewController as? UINavigationController {
+            nav.pushViewController(detailVC, animated: true)
+        }
     }
 
     @objc private func search() {
