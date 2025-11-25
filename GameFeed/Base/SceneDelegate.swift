@@ -11,7 +11,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
         let window = UIWindow(windowScene: windowScene)
 
-        let networking = AlamofireNetworking()
+        let networking = URLSessionNetworking()
         let remoteDataSource = GameRemoteDataSource(networking: networking)
         let gameFeedUseCase = GameFeedUseCase(gameRemoteDataSource: remoteDataSource)
 
