@@ -7,14 +7,13 @@
 //
 
 import Foundation
-import Combine
 
 public protocol GameRemoteDataSourceProtocol {
-    func getGameList() -> AnyPublisher<[GameModel], Error>
-    func search(query: String) -> AnyPublisher<[GameModel], Error>
-    func getGameDetail(idGame: Int) -> AnyPublisher<GameModel, Error>
-    func getNewGameLastMonths(lastMonth: String, now: String) -> AnyPublisher<[GameModel], Error>
-    func downloadBackground(backgroundPath: String) -> AnyPublisher<Data, Error>
+    func getGameList() async throws -> [GameModel]
+    func search(query: String) async throws -> [GameModel]
+    func getGameDetail(idGame: Int) async throws -> GameModel
+    func getNewGameLastMonths(lastMonth: String, now: String) async throws -> [GameModel]
+    func downloadBackground(backgroundPath: String) async throws -> Data
 }
 
 public final class GameFeedUseCase {
@@ -25,23 +24,23 @@ public final class GameFeedUseCase {
         self.gameRemoteDataSource = gameRemoteDataSource
     }
 
-    public func getGameList() -> AnyPublisher<[GameModel], Error> {
-        return gameRemoteDataSource.getGameList()
+    public func getGameList() async throws -> [GameModel] {
+        return try await gameRemoteDataSource.getGameList()
     }
 
-    public func search(query: String) -> AnyPublisher<[GameModel], Error> {
-        return gameRemoteDataSource.search(query: query)
+    public func search(query: String) async throws -> [GameModel] {
+        return try await gameRemoteDataSource.search(query: query)
     }
 
-    public func getGameDetail(idGame: Int) -> AnyPublisher<GameModel, Error> {
-        return gameRemoteDataSource.getGameDetail(idGame: idGame)
+    public func getGameDetail(idGame: Int) async throws -> GameModel {
+        return try await gameRemoteDataSource.getGameDetail(idGame: idGame)
     }
 
-    public func getNewGameLastMonths(lastMonth: String, now: String) -> AnyPublisher<[GameModel], Error> {
-        return gameRemoteDataSource.getNewGameLastMonths(lastMonth: lastMonth, now: now)
+    public func getNewGameLastMonths(lastMonth: String, now: String) async throws -> [GameModel] {
+        return try await gameRemoteDataSource.getNewGameLastMonths(lastMonth: lastMonth, now: now)
     }
 
-    public func downloadBackground(backgroundPath: String) -> AnyPublisher<Data, Error> {
-        return gameRemoteDataSource.downloadBackground(backgroundPath: backgroundPath)
+    public func downloadBackground(backgroundPath: String) async throws -> Data {
+        return try await gameRemoteDataSource.downloadBackground(backgroundPath: backgroundPath)
     }
 }

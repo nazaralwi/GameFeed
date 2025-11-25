@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import Combine
 
 public protocol SearchGameViewModelDelegate: AnyObject {
     func didUpdateGames()
@@ -18,8 +17,7 @@ public protocol SearchGameViewModelDelegate: AnyObject {
 public final class SearchGameViewModel {
     @Published public var games: [GameUIModel] = []
 
-    private var cancellables = Set<AnyCancellable>()
-    private var currentSearchTask: AnyCancellable?
+    private var currentSearchTask: Task<Void, Never>?
     private var gameFeedUseCase: GameFeedUseCase
 
     public weak var delegate: SearchGameViewModelDelegate?
@@ -33,38 +31,34 @@ public final class SearchGameViewModel {
 
         currentSearchTask?.cancel()
 
-        currentSearchTask = gameFeedUseCase.search(query: query)
-            .sink(receiveCompletion: { completion in
-                self.delegate?.didUpdateLoadingIndicator(isLoading: false)
+        currentSearchTask = Task {
+            do {
+                let result = try await gameFeedUseCase.search(query: query)
 
-                if case .failure(let error) = completion {
-                    self.delegate?.didReceivedError(message: error.localizedDescription)
-                }
-            }, receiveValue: { games in
-                if !games.isEmpty {
-                    let mappedGames = games.map { GameMapper.mapGameModelToGameUIModel(game: $0) }
+                try Task.checkCancellation()
+
+                let mappedGames = result.map { GameMapper.mapGameModelToGameUIModel(game: $0) }
+
+                await MainActor.run {
                     self.games = mappedGames
                     self.delegate?.didUpdateGames()
+                    self.delegate?.didUpdateLoadingIndicator(isLoading: false)
                 }
-
-                self.delegate?.didUpdateLoadingIndicator(isLoading: false)
-            })
-
-        if currentSearchTask != nil {
-            currentSearchTask?.store(in: &cancellables)
+            } catch is CancellationError {
+                print("Cancelling task")
+            } catch {
+                await MainActor.run {
+                    self.delegate?.didUpdateLoadingIndicator(isLoading: false)
+                    self.delegate?.didReceivedError(message: error.localizedDescription)
+                }
+            }
         }
     }
 
     public func fetchBackground(for game: GameUIModel) {
-        gameFeedUseCase.downloadBackground(backgroundPath: game.backgroundImagePath)
-            .sink(receiveCompletion: { completion in
-                switch completion {
-                case .finished:
-                    print("Image download finished successfully.")
-                case .failure(let error):
-                    print("Image download failed with error: \(error)")
-                }
-            }, receiveValue: { data in
+        Task {
+            do {
+                let data = try await gameFeedUseCase.downloadBackground(backgroundPath: game.backgroundImagePath)
                 guard let image = UIImage(data: data) else {
                     return
                 }
@@ -72,8 +66,13 @@ public final class SearchGameViewModel {
                 if let index = self.games.firstIndex(where: { $0.idGame == game.idGame }) {
                     self.games[index].downloadedBackgroundImage = image
                 }
-                self.delegate?.didUpdateGames()
-            })
-            .store(in: &cancellables)
+
+                await MainActor.run {
+                    self.delegate?.didUpdateGames()
+                }
+            } catch {
+                print("Image download failed with error: \(error)")
+            }
+        }
     }
 }

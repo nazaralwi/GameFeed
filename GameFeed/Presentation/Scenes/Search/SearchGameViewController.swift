@@ -40,12 +40,14 @@ final class SearchGameViewController: BaseGameListViewController<SearchGameViewM
     // MARK: - SearchGameViewModel
     func didUpdateGames() {
         self.games = viewModel!.games
+        self.tableView.isHidden = false
         self.tableView.reloadData()
         gameIsEmpty(state: !self.games.isEmpty)
     }
 
     func didUpdateLoadingIndicator(isLoading: Bool) {
         if isLoading {
+            errorLabel.isHidden = true
             loadingIndicator.isHidden = false
             loadingIndicator.startAnimating()
         } else {
@@ -61,6 +63,7 @@ final class SearchGameViewController: BaseGameListViewController<SearchGameViewM
 
         errorLabel.text = message
         errorLabel.isHidden = false
+        tableView.isHidden = true
     }
 }
 

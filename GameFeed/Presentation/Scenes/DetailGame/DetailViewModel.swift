@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import Combine
 
 public protocol DetailViewModelDelegate: AnyObject {
     func didLoadDetailGame(game: GameUIModel)
@@ -20,7 +19,6 @@ public protocol DetailViewModelDelegate: AnyObject {
 public final class DetailViewModel {
     @Published public var gameDetail: GameUIModel?
 
-    private var cancellables = Set<AnyCancellable>()
     private var gameFeedUseCase: GameFeedUseCase
     private var favoriteUseCase: FavoriteUseCase
 
@@ -34,61 +32,51 @@ public final class DetailViewModel {
     public func fetchGameDetail(idGame: Int) {
         self.delegate?.didUpdateLoadingIndicator(isLoading: true)
 
-        gameFeedUseCase.getGameDetail(idGame: idGame)
-            .flatMap { [self] gameDetail -> AnyPublisher<(GameUIModel, Data?), Error> in
-                let backgroundPublisher: AnyPublisher<Data?, Error>
+        Task {
+            do {
+                let game = try await gameFeedUseCase.getGameDetail(idGame: idGame)
+                var uiModel = GameMapper.mapGameModelToGameUIModel(game: game)
 
-                let mappedGameDetail = GameMapper.mapGameModelToGameUIModel(game: gameDetail)
+                if let data = try? await gameFeedUseCase.downloadBackground(
+                    backgroundPath: uiModel.backgroundImagePath),
+                    let image = UIImage(data: data) {
+                    uiModel.downloadedBackgroundImage = image
+                }
 
-                backgroundPublisher = gameFeedUseCase
-                    .downloadBackground(backgroundPath: mappedGameDetail.backgroundImagePath)
-                    .map { Optional($0) }
-                    .catch { _ in Just(nil).setFailureType(to: Error.self) }
-                    .eraseToAnyPublisher()
+                let isFavorite = favoriteUseCase.checkData(id: idGame)
 
-                return backgroundPublisher.map { (mappedGameDetail, $0) }.eraseToAnyPublisher()
-            }
-            .sink(receiveCompletion: { completion in
-                self.delegate?.didUpdateLoadingIndicator(isLoading: false)
+                await MainActor.run {
+                    self.gameDetail = uiModel
 
-                if case .failure(let error) = completion {
+                    self.delegate?.didLoadDetailGame(game: uiModel)
+                    self.delegate?.didFetchFavoriteState(isFavorite: isFavorite)
+                    self.delegate?.didUpdateLoadingIndicator(isLoading: false)
+                }
+            } catch {
+                await MainActor.run {
+                    self.delegate?.didUpdateLoadingIndicator(isLoading: false)
                     self.delegate?.didReceivedError(message: error.localizedDescription)
                 }
-            }, receiveValue: { gameDetail, imageData in
-                self.gameDetail = gameDetail
-                
-                if let imageData = imageData {
-                    self.gameDetail?.downloadedBackgroundImage = UIImage(data: imageData)
-                }
-
-                self.delegate?.didLoadDetailGame(game: self.gameDetail!)
-                self.delegate?.didUpdateLoadingIndicator(isLoading: false)
-
-            })
-            .store(in: &cancellables)
-
-        let isFavorite = favoriteUseCase.checkData(id: idGame)
-        self.delegate?.didFetchFavoriteState(isFavorite: isFavorite)
+            }
+        }
     }
 
     public func addGameToFavorite(_ game: GameUIModel) {
-        _ = Future<Void, Error> { promise in
+        Task {
             do {
                 try self.favoriteUseCase.addToFavorite(game: GameMapper.mapGameUIModelToGameModel(game: game), true)
-                promise(.success(()))
             } catch {
-                promise(.failure(error))
+                print(error)
             }
         }
     }
 
     public func deleteGameFavorite(_ gameId: Int) {
-        _ = Future<Void, Error> { promise in
+        Task {
             do {
                 try self.favoriteUseCase.deleteFavorite(gameId)
-                promise(.success(()))
             } catch {
-                promise(.failure(error))
+                print(error)
             }
         }
     }

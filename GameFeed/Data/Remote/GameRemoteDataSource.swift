@@ -8,72 +8,66 @@ public class GameRemoteDataSource: GameRemoteDataSourceProtocol {
         self.networking = networking
     }
 
-    public func getGameList() -> AnyPublisher<[GameModel], Error> {
+    public func getGameList() async throws -> [GameModel] {
         guard let gameListURL = Endpoints.getGameList.url else {
-            return Fail(error: URLError(.badURL))
-                .eraseToAnyPublisher()
+            throw NetworkError.badUrl
         }
 
-        return taskForGETRequest(url: gameListURL, response: GameResultResponse.self)
-            .map { $0.results.map { GameMapper.mapGameResponseToGameModel(game: $0) } }
-            .eraseToAnyPublisher()
+        let result = try await taskForGETRequest(url: gameListURL, response: GameResultResponse.self)
+
+        return result.results.map {
+            GameMapper.mapGameResponseToGameModel(game: $0)
+        }
     }
 
-    public func search(query: String) -> AnyPublisher<[GameModel], Error> {
-        guard let gameSearchURL = Endpoints.search(query).url else {
-            return Fail(error: URLError(.badURL))
-                .eraseToAnyPublisher()
+    public func search(query: String) async throws -> [GameModel] {
+        guard let gameListURL = Endpoints.getGameList.url else {
+            throw NetworkError.badUrl
         }
 
-        return taskForGETRequest(url: gameSearchURL, response: GameResultResponse.self)
-            .map { $0.results.map { GameMapper.mapGameResponseToGameModel(game: $0) } }
-            .eraseToAnyPublisher()
+        let result = try await taskForGETRequest(url: gameListURL, response: GameResultResponse.self)
+
+        return result.results.map {
+            GameMapper.mapGameResponseToGameModel(game: $0)
+        }
     }
 
-    public func getGameDetail(idGame: Int) -> AnyPublisher<GameModel, Error> {
+    public func getGameDetail(idGame: Int) async throws -> GameModel {
         guard let gameDetailURL = Endpoints.getGameDetail(idGame).url else {
-            return Fail(error: URLError(.badURL))
-                .eraseToAnyPublisher()
+            throw NetworkError.badUrl
         }
 
-        return taskForGETRequest(url: gameDetailURL, response: GameDetailResponse.self)
-            .map { GameMapper.mapGameDetailResponseToGameModel(game: $0) }
-            .eraseToAnyPublisher()
+        let result = try await taskForGETRequest(url: gameDetailURL, response: GameDetailResponse.self)
+
+        return GameMapper.mapGameDetailResponseToGameModel(game: result)
     }
 
-    public func getNewGameLastMonths(lastMonth: String, now: String) -> AnyPublisher<[GameModel], Error> {
+    public func getNewGameLastMonths(lastMonth: String, now: String) async throws -> [GameModel] {
         guard let gameLastMonthsURL = Endpoints.getNewGameLastMonts(lastMonth, now).url else {
-            return Fail(error: URLError(.badURL))
-                .eraseToAnyPublisher()
+            throw NetworkError.badUrl
         }
 
-        print(gameLastMonthsURL)
-        return taskForGETRequest(url: gameLastMonthsURL, response: GameResultResponse.self)
-            .map { $0.results.map { GameMapper.mapGameResponseToGameModel(game: $0) } }
-            .eraseToAnyPublisher()
+        let result = try await taskForGETRequest(url: gameLastMonthsURL, response: GameResultResponse.self)
+
+        return result.results.map {
+            GameMapper.mapGameResponseToGameModel(game: $0)
+        }
     }
 
-    public func downloadBackground(backgroundPath: String) -> AnyPublisher<Data, Error> {
+    public func downloadBackground(backgroundPath: String) async throws -> Data {
         guard let gameBackgroundURL = Endpoints.backgroundImageURL(backgroundPath).url else {
-            return Fail(error: URLError(.badURL))
-                .eraseToAnyPublisher()
+            throw NetworkError.badUrl
         }
 
-        return networking.request(gameBackgroundURL)
-            .receive(on: DispatchQueue.main)
-            .eraseToAnyPublisher()
+        return try await networking.request(gameBackgroundURL)
     }
 
     private func taskForGETRequest
                 <ResponseType: Decodable>(
                     url: URL,
                     response: ResponseType.Type
-                ) -> AnyPublisher<ResponseType, Error> {
-        return networking.request(url)
-            .tryMap { data in
-                return try JSONDecoder().decode(ResponseType.self, from: data)
-            }
-            .receive(on: DispatchQueue.main)
-            .eraseToAnyPublisher()
+                ) async throws -> ResponseType {
+        let data = try await networking.request(url)
+        return try JSONDecoder().decode(ResponseType.self, from: data)
     }
 }
