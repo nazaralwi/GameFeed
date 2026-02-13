@@ -22,3 +22,11 @@ public struct GameUIModel {
 
     public var downloadedBackgroundImage: UIImage?
 }
+
+extension GameUIModel {
+    func withBackgroundImage(_ image: UIImage) -> GameUIModel {
+        var copy = self
+        copy.downloadedBackgroundImage = image
+        return copy
+    }
+}

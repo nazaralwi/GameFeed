@@ -30,7 +30,7 @@ class TabBarViewController: UITabBarController {
         self.remoteDataSource = remoteDataSource
         self.gameFeedUseCase = gameFeedUseCase
         self.favoriteProvider = favoriteProvider
-        self.favoriteUseCase = favoriteUseCase
+         self.favoriteUseCase = favoriteUseCase
         self.profileDataSource = profileDataSource
         self.profileUseCase = profileUseCase
 

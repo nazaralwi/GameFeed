@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 54;
+	objectVersion = 90;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -43,6 +43,8 @@
 		E28B092E2C6090BD000502B9 /* SearchGameViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E28B092D2C6090BD000502B9 /* SearchGameViewModel.swift */; };
 		E28B09302C609AEA000502B9 /* NewGameViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E28B092F2C609AEA000502B9 /* NewGameViewModel.swift */; };
 		E28B09322C634D91000502B9 /* FavoritesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E28B09312C634D91000502B9 /* FavoritesViewModel.swift */; };
+		E2A788452F3EFDCF00FCAEC1 /* stscore.m in Sources */ = {isa = PBXBuildFile; fileRef = E2A788422F3EFC2D00FCAEC1 /* stscore.m */; };
+		E2A788462F3EFDCF00FCAEC1 /* libstscore.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E2A788402F3EFC2D00FCAEC1 /* libstscore.a */; };
 		E2C93AD62ED6208800165D97 /* ProfileModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2C93AD02ED6208800165D97 /* ProfileModel.swift */; };
 		E2C93AD72ED6208800165D97 /* ProfileUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2C93AD42ED6208800165D97 /* ProfileUseCase.swift */; };
 		E2C93AD82ED6208800165D97 /* FavoriteUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2C93AD22ED6208800165D97 /* FavoriteUseCase.swift */; };
@@ -72,13 +74,11 @@
 /* Begin PBXCopyFilesBuildPhase section */
 		E284C3752E4E4CD20038CF3C /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
 			dstPath = "";
-			dstSubfolderSpec = 10;
+			dstSubfolder = Frameworks;
 			files = (
 			);
 			name = "Embed Frameworks";
-			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXCopyFilesBuildPhase section */
 
@@ -124,6 +124,10 @@
 		E28B092F2C609AEA000502B9 /* NewGameViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewGameViewModel.swift; sourceTree = "<group>"; };
 		E28B09312C634D91000502B9 /* FavoritesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesViewModel.swift; sourceTree = "<group>"; };
 		E28B09332C637A1E000502B9 /* MyProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyProfileViewModel.swift; sourceTree = "<group>"; };
+		E2A788402F3EFC2D00FCAEC1 /* libstscore.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libstscore.a; sourceTree = "<group>"; };
+		E2A788412F3EFC2D00FCAEC1 /* stscore.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = stscore.h; sourceTree = "<group>"; };
+		E2A788422F3EFC2D00FCAEC1 /* stscore.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = stscore.m; sourceTree = "<group>"; };
+		E2A788442F3EFC6C00FCAEC1 /* GameFeed-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "GameFeed-Bridging-Header.h"; sourceTree = "<group>"; };
 		E2C93ACC2ED6208800165D97 /* Favorites.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Favorites.xcdatamodel; sourceTree = "<group>"; };
 		E2C93ACF2ED6208800165D97 /* GameModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameModel.swift; sourceTree = "<group>"; };
 		E2C93AD02ED6208800165D97 /* ProfileModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileModel.swift; sourceTree = "<group>"; };
@@ -142,17 +146,14 @@
 /* Begin PBXFrameworksBuildPhase section */
 		3D1ADDB426E1C94F00614DF8 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
 			files = (
 			);
-			runOnlyForDeploymentPostprocessing = 0;
 		};
 		3DF8FD4E24D5661C00E64116 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
 			files = (
+				E2A788462F3EFDCF00FCAEC1 /* libstscore.a in Frameworks */,
 			);
-			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
@@ -183,6 +184,7 @@
 		3DF8FD4824D5661C00E64116 = {
 			isa = PBXGroup;
 			children = (
+				E2A7883F2F3EFC1D00FCAEC1 /* AppSuit */,
 				3DF8FD5324D5661C00E64116 /* GameFeed */,
 				3D1ADDB826E1C94F00614DF8 /* GameFeedTests */,
 				3DF8FD5224D5661C00E64116 /* Products */,
@@ -277,6 +279,17 @@
 				3DD8EC1D253AEFA200BBE509 /* FavoriteModel.swift */,
 			);
 			path = CoreData;
+			sourceTree = "<group>";
+		};
+		E2A7883F2F3EFC1D00FCAEC1 /* AppSuit */ = {
+			isa = PBXGroup;
+			children = (
+				E2A788402F3EFC2D00FCAEC1 /* libstscore.a */,
+				E2A788412F3EFC2D00FCAEC1 /* stscore.h */,
+				E2A788422F3EFC2D00FCAEC1 /* stscore.m */,
+				E2A788442F3EFC6C00FCAEC1 /* GameFeed-Bridging-Header.h */,
+			);
+			path = AppSuit;
 			sourceTree = "<group>";
 		};
 		E2C93ACB2ED6207A00165D97 /* Domain */ = {
@@ -475,8 +488,6 @@
 			);
 			buildRules = (
 			);
-			dependencies = (
-			);
 			name = GameFeed;
 			productName = "Game Feed";
 			productReference = 3DF8FD5124D5661C00E64116 /* GameFeed.app */;
@@ -495,16 +506,16 @@
 				TargetAttributes = {
 					3D1ADDB626E1C94F00614DF8 = {
 						CreatedOnToolsVersion = 12.5.1;
-						LastSwiftMigration = 1530;
+						LastSwiftMigration = 2600;
 						TestTargetID = 3DF8FD5024D5661C00E64116;
 					};
 					3DF8FD5024D5661C00E64116 = {
 						CreatedOnToolsVersion = 11.5;
+						LastSwiftMigration = 2600;
 					};
 				};
 			};
 			buildConfigurationList = 3DF8FD4C24D5661C00E64116 /* Build configuration list for PBXProject "GameFeed" */;
-			compatibilityVersion = "Xcode 9.3";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -514,6 +525,7 @@
 			mainGroup = 3DF8FD4824D5661C00E64116;
 			packageReferences = (
 			);
+			preferredProjectObjectVersion = 90;
 			productRefGroup = 3DF8FD5224D5661C00E64116 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -527,14 +539,11 @@
 /* Begin PBXResourcesBuildPhase section */
 		3D1ADDB526E1C94F00614DF8 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
 			files = (
 			);
-			runOnlyForDeploymentPostprocessing = 0;
 		};
 		3DF8FD4F24D5661C00E64116 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
 			files = (
 				3DF8FD6124D5662200E64116 /* LaunchScreen.storyboard in Resources */,
 				3D7D2AC7252972AC00313795 /* Poppins-Light.ttf in Resources */,
@@ -545,44 +554,36 @@
 				3D7D2AC0252972AC00313795 /* Poppins-Regular.ttf in Resources */,
 				E25FF2312C40341300507993 /* RAWG-Info.plist in Resources */,
 			);
-			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
 		3D98573225433D31000646E7 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-			);
-			outputFileListPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "if command -v swiftlint >/dev/null 2>&1\nthen\n    swiftlint\nelse\n    echo \"warning: `swiftlint` command not found - See https://github.com/realm/SwiftLint#installation for installation instructions.\"\nfi\n";
+			shellScript = (
+				"if command -v swiftlint >/dev/null 2>&1",
+				"then",
+				"    swiftlint",
+				"else",
+				"    echo \"warning: `swiftlint` command not found - See https://github.com/realm/SwiftLint#installation for installation instructions.\"",
+				"fi",
+				"",
+			);
 		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		3D1ADDB326E1C94F00614DF8 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
 			files = (
 				E2E64F7F2C7ED80F005363F8 /* GameFeedUseCaseTests.swift in Sources */,
 				E2F4438D2E4C768F00A7C169 /* ProfileUseCaseTest.swift in Sources */,
 				E2F4438B2E4C768600A7C169 /* FavoriteUseCaseTest.swift in Sources */,
 			);
-			runOnlyForDeploymentPostprocessing = 0;
 		};
 		3DF8FD4D24D5661C00E64116 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
 			files = (
 				E20354C62E7DBA11001D55A8 /* TabBarViewController.swift in Sources */,
 				3D75A49A2510AE3C0075C816 /* GameRemoteDataSource.swift in Sources */,
@@ -615,6 +616,7 @@
 				3D66CE2E24D8F40200E90636 /* MyProfileViewController.swift in Sources */,
 				3D66CE3224D8F43700E90636 /* NewGameViewController.swift in Sources */,
 				E28B09302C609AEA000502B9 /* NewGameViewModel.swift in Sources */,
+				E2A788452F3EFDCF00FCAEC1 /* stscore.m in Sources */,
 				3DDCDC1224D57B790020AB8E /* GameTableViewCell.swift in Sources */,
 				E24E94672C4CFDC000CF5085 /* GameMapper.swift in Sources */,
 				E25FF2262C3ED36700507993 /* UIView+RoundCorners.swift in Sources */,
@@ -624,7 +626,6 @@
 				3DD8EC16253ACE9C00BBE509 /* FavoritesViewController.swift in Sources */,
 				3D66CE3024D8F42300E90636 /* SearchGameViewController.swift in Sources */,
 			);
-			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
@@ -648,7 +649,7 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
-		3D1ADDBF26E1C94F00614DF8 /* Debug */ = {
+		3D1ADDBF26E1C94F00614DF8 /* Debug configuration for PBXNativeTarget "GameFeedTests" */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -662,9 +663,14 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/AppSuit",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.nazaralwi.GameFeedTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_INSTALL_OBJC_HEADER = NO;
+				SWIFT_OBJC_BRIDGING_HEADER = "AppSuit/GameFeedTests-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_PRECOMPILE_BRIDGING_HEADER = NO;
 				SWIFT_VERSION = 5.0;
@@ -673,13 +679,14 @@
 			};
 			name = Debug;
 		};
-		3D1ADDC026E1C94F00614DF8 /* Release */ = {
+		3D1ADDC026E1C94F00614DF8 /* Release configuration for PBXNativeTarget "GameFeedTests" */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_ENABLE_MODULES = YES;
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 7DZF29DD8P;
+				DEVELOPMENT_TEAM = 7B2YYLALHM;
 				INFOPLIST_FILE = GameFeedTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.6;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -687,9 +694,14 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.nazaralwi.GameFeedTests;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/AppSuit",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.stealien.StealPlateSwift;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_INSTALL_OBJC_HEADER = NO;
+				SWIFT_OBJC_BRIDGING_HEADER = "AppSuit/GameFeedTests-Bridging-Header.h";
 				SWIFT_PRECOMPILE_BRIDGING_HEADER = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -697,7 +709,7 @@
 			};
 			name = Release;
 		};
-		3DF8FD7924D5662200E64116 /* Debug */ = {
+		3DF8FD7924D5662200E64116 /* Debug configuration for PBXProject "GameFeed" */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -750,16 +762,19 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.6;
+				LIBRARY_SEARCH_PATHS = "${PROJECT_DIR}/AppSuit";
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
+				OTHER_LDFLAGS = "-lstscore";
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OBJC_BRIDGING_HEADER = "${PROJECT_DIR}/AppSuit/GameFeed-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
 		};
-		3DF8FD7A24D5662200E64116 /* Release */ = {
+		3DF8FD7A24D5662200E64116 /* Release configuration for PBXProject "GameFeed" */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -806,50 +821,68 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.6;
+				LIBRARY_SEARCH_PATHS = "${PROJECT_DIR}/AppSuit";
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
+				OTHER_LDFLAGS = "-lstscore";
 				SDKROOT = iphoneos;
 				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OBJC_BRIDGING_HEADER = "${PROJECT_DIR}/AppSuit/GameFeed-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
 		};
-		3DF8FD7C24D5662200E64116 /* Debug */ = {
+		3DF8FD7C24D5662200E64116 /* Debug configuration for PBXNativeTarget "GameFeed" */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 7DZF29DD8P;
 				INFOPLIST_FILE = GameFeed/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.6;
+				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/AppSuit",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.dicoding.academy.GameFeed;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_INSTALL_OBJC_HEADER = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_PRECOMPILE_BRIDGING_HEADER = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
-		3DF8FD7D24D5662200E64116 /* Release */ = {
+		3DF8FD7D24D5662200E64116 /* Release configuration for PBXNativeTarget "GameFeed" */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 7DZF29DD8P;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = GameFeed/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.6;
+				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.dicoding.academy.GameFeed;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/AppSuit",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.stealien.StealPlateSwift;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_INSTALL_OBJC_HEADER = YES;
 				SWIFT_PRECOMPILE_BRIDGING_HEADER = YES;
 				SWIFT_VERSION = 5.0;
@@ -863,28 +896,25 @@
 		3D1ADDBE26E1C94F00614DF8 /* Build configuration list for PBXNativeTarget "GameFeedTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				3D1ADDBF26E1C94F00614DF8 /* Debug */,
-				3D1ADDC026E1C94F00614DF8 /* Release */,
+				3D1ADDBF26E1C94F00614DF8 /* Debug configuration for PBXNativeTarget "GameFeedTests" */,
+				3D1ADDC026E1C94F00614DF8 /* Release configuration for PBXNativeTarget "GameFeedTests" */,
 			);
-			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
 		3DF8FD4C24D5661C00E64116 /* Build configuration list for PBXProject "GameFeed" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				3DF8FD7924D5662200E64116 /* Debug */,
-				3DF8FD7A24D5662200E64116 /* Release */,
+				3DF8FD7924D5662200E64116 /* Debug configuration for PBXProject "GameFeed" */,
+				3DF8FD7A24D5662200E64116 /* Release configuration for PBXProject "GameFeed" */,
 			);
-			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
 		3DF8FD7B24D5662200E64116 /* Build configuration list for PBXNativeTarget "GameFeed" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				3DF8FD7C24D5662200E64116 /* Debug */,
-				3DF8FD7D24D5662200E64116 /* Release */,
+				3DF8FD7C24D5662200E64116 /* Debug configuration for PBXNativeTarget "GameFeed" */,
+				3DF8FD7D24D5662200E64116 /* Release configuration for PBXNativeTarget "GameFeed" */,
 			);
-			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
