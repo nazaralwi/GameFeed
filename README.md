@@ -90,7 +90,7 @@ The integration helps safeguard the application against common security threats:
 
 Security checks are executed during the application launch phase to ensure the app is running in a trusted environment.
 
-###🛡️ Security Behavior
+### 🛡️ Security Behavior
 
 If a security threat is detected:
 - The app will display a security warning
